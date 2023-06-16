@@ -1,4 +1,4 @@
---도서 목록
+--도서 목록  
 CREATE TABLE book_list (
     bk_num number,
     bk_title varchar2(120) not null,
