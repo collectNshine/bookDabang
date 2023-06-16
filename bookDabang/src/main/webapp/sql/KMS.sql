@@ -60,7 +60,7 @@ CREATE TABLE post_reply(
 
 CREATE SEQUENCE post_reply_seq;
 
---한줄 리뷰
+--한줄리뷰
 CREATE TABLE review(
  review_num number not null,
  review_content varchar2(150) not null,
