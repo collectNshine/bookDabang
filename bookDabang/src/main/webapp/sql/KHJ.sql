@@ -11,10 +11,8 @@ CREATE TABLE book_list (
     bk_stock number(4) default 0 not null,
     bk_reg_date date default SYSDATE not null,
     mem_num number not null,
-    post_num number not null,
     constraint book_list_pk primary key (bk_num),
-    constraint  book_list_fk1 foreign key (mem_num) references member (mem_num),
-    constraint  book_list_fk2 foreign key (post_num) references post (post_num)
+    constraint  book_list_fk1 foreign key (mem_num) references member (mem_num)
 );
 
 CREATE SEQUENCE book_list_seq;
