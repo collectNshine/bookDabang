@@ -1,8 +1,9 @@
+
 create table member(
 mem_num number,
 id varchar2(20) unique not null,
 auth number(1) default 0 not null, --회원 등급 :  0 탈퇴회원, 1 일반회원, 9 관리자회원
-state number(1) default 0 not null,--0 활성계정,1 휴면계정, 2 삭제계정, 3 가입이력은 있으나 DB에 남아있지 않는 계정 
+state number(1) default 0 not null,--0 활성계정,1 휴면계정,2 가입이력은 있으나 DB에 남아있지 않는 계정 
 constraint member_pk primary key(mem_num)
 );
 
@@ -22,7 +23,7 @@ address2 varchar2(90) not null,
 email varchar2(50) not null,
 reg_date date default SYSDATE not null,
 latest_login date default SYSDATE not null,
-try_login number(1),default 0 --로그인 시도횟수 1 ~ 3의 값을 가진다.
+try_login number(1)default 0, --로그인 시도횟수 1 ~ 3의 값을 가진다.
 
 constraint member_detail_pk primary key (mem_num),
 constraint member_detail_fk foreign key (mem_num)
@@ -43,7 +44,6 @@ saddress2 varchar2(90) not null,
 semail varchar2(50) not null,
 sreg_date date default SYSDATE not null,
 ssleep_date date not null,
-sharddel_date date not null,
 constraint member_sleep_pk primary key (mem_num),
 constraint member_sleep_fk foreign key (mem_num)
 							 references member (mem_num)
