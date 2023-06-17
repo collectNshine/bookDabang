@@ -1,18 +1,16 @@
 --도서 목록    
 CREATE TABLE book_list (
     bk_num number,
-    bk_title varchar2(120) not null,
-    bk_author varchar2(60) not null,
-    bk_publisher varchar2(60) not null,
-    bk_price number(8) not null,
-    bk_category varchar2(50) not null,
-    bk_thumbnail varchar2(150) not null,
-    bk_content clob not null,
-    bk_stock number(4) default 0 not null,
-    bk_reg_date date default SYSDATE not null,
-    mem_num number not null,
-    constraint book_list_pk primary key (bk_num),
-    constraint  book_list_fk1 foreign key (mem_num) references member (mem_num)
+    title varchar2(120) not null,
+    author varchar2(60) not null,
+    publisher varchar2(60) not null,
+    price number(8) not null,
+    category varchar2(50) not null,
+    thumbnail varchar2(150) not null,
+    content clob not null,
+    stock number(4) default 0 not null,
+    reg_date date default SYSDATE not null
+    constraint book_list_pk primary key (bk_num)
 );
 
 CREATE SEQUENCE book_list_seq;
