@@ -3,7 +3,7 @@ package kr.book.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+//import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 
@@ -12,11 +12,11 @@ import kr.book.vo.BookVO;
 import kr.controller.Action;
 import kr.util.FileUtil;
 
-public class AdminWriteAction /*implements Action*/ {
-/*	
+public class AdminWriteAction implements Action {
+	
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+		/*
 		HttpSession session = request.getSession();
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		if(user_num == null) { //로그인 X
@@ -27,7 +27,7 @@ public class AdminWriteAction /*implements Action*/ {
 		if(user_auth < 9) { //관리자로 로그인하지 않은 경우
 			return "/WEB-INF/views/common/notice.jsp";
 		}
-		
+		*/
 	
 		//관리자 로그인 O
 		MultipartRequest multi = FileUtil.createFile(request);
@@ -57,5 +57,5 @@ public class AdminWriteAction /*implements Action*/ {
 		//notice.jsp를 보여주다가 2초 뒤에 list.do로 이동
 
 	}
-*/
+
 }

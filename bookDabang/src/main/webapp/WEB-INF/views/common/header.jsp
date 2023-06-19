@@ -6,7 +6,7 @@
 	<h1 id="main_logo"><a href="${pageContext.request.contextPath}/main/main.do">책다방</a></h1>
 	<div id="main_menu">
 		<ul class="menu-category">
-			<li class="menu-detail"><a href=""><b> 차림표 </b></a></li>
+			<li class="menu-detail"><a href="${pageContext.request.contextPath}/book/list.do"><b> 차림표 </b></a></li>
 			<li><b>|</b></li>
 			<li class="menu-detail"><a href=""><b> 모음집 </b></a></li>
 			<li><b>|</b></li>
