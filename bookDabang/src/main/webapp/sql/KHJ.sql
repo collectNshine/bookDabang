@@ -7,7 +7,7 @@ CREATE TABLE book_list (
     price number(8) not null,
     stock number(4) default 0 not null,
     category varchar2(50) not null,
-    thumbnail varchar2(150) not null,
+    thumbnail varchar2(150),
     content clob not null,
     reg_date date default SYSDATE not null,
     constraint book_list_pk primary key (bk_num)

@@ -1971,9 +1971,14 @@
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>thumbnail</columnName>
                 <logicalName>도서표지URL</logicalName>
-                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[2]/columnType"/>
+                <columnType class="net.java.amateras.db.dialect.ColumnType">
+                  <name>VARCHAR2</name>
+                  <logicalName>String</logicalName>
+                  <supportSize>true</supportSize>
+                  <type>12</type>
+                </columnType>
                 <size>150</size>
-                <notNull>true</notNull>
+                <notNull>false</notNull>
                 <primaryKey>false</primaryKey>
                 <description></description>
                 <autoIncrement>false</autoIncrement>
@@ -2308,8 +2313,8 @@
             <constraint>
               <height>-1</height>
               <width>-1</width>
-              <x>944</x>
-              <y>26</y>
+              <x>942</x>
+              <y>28</y>
             </constraint>
             <sourceConnections>
               <net.java.amateras.db.visual.model.ForeignKeyModel reference="../../.."/>
