@@ -14,7 +14,7 @@ public class BookDAO {
 		}
 		private BookDAO() {}
 		
-		/* 
+		
 		//도서 등록 (관리자)
 		public void insertBook(BookVO book) throws Exception{
 			Connection conn = null;
@@ -45,7 +45,7 @@ public class BookDAO {
 				DBUtil.executeClose(null, pstmt, conn);
 			}
 		}
-		*/
+		
 		
 		//전체 도서 개수 & 검색 도서 개수
 		//전체 도서 목록 & 검색 도서 목록
