@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,12 +45,45 @@
 			</ul>
 		</form>
 		<!-- 검색창 끝 -->
+		
 		<div class="list-space align-right">
 			<input type="button" value="도서 등록" onclick="location.href='writeForm.do'">
 			<input type="button" value="목록" onclick="location.href='list.do'">
 			<input type="button" value="홈으로" 
 			 onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 		</div>
+		
+		<c:if test="${count == 0}">
+			<div class="result-display">
+				표시할 상품이 없습니다.
+			</div>		
+		</c:if>
+		
+		<c:if test="${count > 0}">
+		<table>
+			<tr>
+				<th>도서번호</th>
+				<th>도서명</th>
+				<th>저자명</th>
+				<th>출판사</th>
+				<th>재고</th>
+				<th>분류</th>
+				<th>등록일</th>
+			</tr>
+			<c:forEach var="book" items="${list}">
+			<tr>
+				<td>${book.bk_num}</td>
+				<td><a href="updateForm.do?bk_num=${book.bk_num}">${book.title}</a></td>
+				<td>${book.author}</td>
+				<td>${book.publisher}</td>
+				<td><fmt:formatNumber value="${book.stock}"/></td>
+				<td>${book.category}</td>
+				<td>${book.reg_date}</td>
+			</tr>
+			</c:forEach>
+		</table>
+		<div class="align-center">${page}</div>
+		</c:if>
 	</div>
 	<!-- 내용 끝 -->
 </div>

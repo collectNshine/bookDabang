@@ -81,7 +81,7 @@
 					분류
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<select name="category" id="category">
-						<option value="문학"> 문학</option>
+						<option value="문학">문학</option>
 						<option value="경제/경영">경제/경영</option>
 						<option value="인문">인문</option>
 						<option value="예술/대중문화">예술/대중문화</option>	
