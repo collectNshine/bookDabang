@@ -3,7 +3,7 @@ CREATE TABLE post(
  post_num number not null,
  post_title varchar2(120) not null,
  post_content clob not null,
- post_date date not null,
+ post_date date default SYSDATE not null,
  post_modifydate date,
  post_photo varchar2(50),
  post_ip varchar2(15) not null,
@@ -11,7 +11,7 @@ CREATE TABLE post(
  bk_num number not null,
  constraint post_pk primary key (post_num),
  constraint post_fk1 foreign key (mem_num) references member(mem_num),
- constraint post_fk2 foreign key (bk_num) references booklist(bk_num)
+ constraint post_fk2 foreign key (bk_num) references book_list(bk_num)
 );
 
 CREATE SEQUENCE post_seq;
@@ -31,7 +31,7 @@ CREATE SEQUENCE post_fav_seq;
 --서평 신고
 CREATE TABLE post_report(
  repo_num number not null,
- repo_date date not null,
+ repo_date date default SYSDATE not null,
  repo_ip varchar2(15) not null,
  repo_content clob not null,
  repo_category number(1) not null,
@@ -39,7 +39,7 @@ CREATE TABLE post_report(
  mem_num number not null,
  constraint post_report_pk primary key (repo_num),
  constraint post_report_fk1 foreign key (post_num) references post(post_num),
- constraint post_reportv_fk2 foreign key (mem_num) references member(mem_num)
+ constraint post_report_fk2 foreign key (mem_num) references member(mem_num)
 );
 
 CREATE SEQUENCE post_report_seq;
@@ -49,7 +49,7 @@ CREATE TABLE post_reply(
  re_num number not null,
  re_content clob not null,
  re_ip varchar2(15) not null,
- re_date date not null,
+ re_date date default SYSDATE not null,
  re_modifydate date,
  post_num number not null,
  mem_num number not null,
@@ -65,13 +65,13 @@ CREATE TABLE review(
  review_num number not null,
  review_content varchar2(150) not null,
  review_ip varchar2(15) not null,
- review_date date not null,
+ review_date date default SYSDATE not null,
  review_modifydate date,
  mem_num number not null,
  bk_num number not null,
  constraint review_pk primary key (review_num),
  constraint review_fk1 foreign key (mem_num) references member(mem_num),
- constraint review_fk2 foreign key (bk_num) references booklist(bk_num)
+ constraint review_fk2 foreign key (bk_num) references book_list(bk_num)
 );
 
 CREATE SEQUENCE review_seq;
@@ -103,7 +103,7 @@ CREATE SEQUENCE review_dislike_seq;
 --서평 댓글 신고
 CREATE TABLE post_reply_report(
  re_repo_num number not null,
- re_repo_date date not null,
+ re_repo_date date default SYSDATE not null,
  re_repo_ip varchar2(15) not null,
  re_repo_content clob not null,
  re_repo_category number(1) not null,
