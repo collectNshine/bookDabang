@@ -3,7 +3,8 @@ create table chat(
 	chat_num number not null,
 	mem_num number not null,
 	constraint chat_pk primary key (chat_num),
-	constraint chat_fk foreign key (mem_num) references member (mem_num)
+	constraint chat_fk foreign key (mem_num) references member (mem_num),
+	constraint chat_fk2 foreign key (chat_num) references chat_list (chat_num)
 );
 
 create sequence chat_seq;
@@ -13,8 +14,7 @@ create table chat_list(
 	chat_num number not null,
 	chat_title varchar2(50) not null,
 	reg_date date default sysdate not null,
-	constraint chatlist_pk primary key (chat_num),
-	constraint chatlist_fk foreign key (chat_num) references chat (chat_num)
+	constraint chatlist_pk primary key (chat_num)
 );
 
 -- 채팅 내용
