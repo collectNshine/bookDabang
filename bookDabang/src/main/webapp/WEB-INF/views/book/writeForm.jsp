@@ -96,6 +96,33 @@
 				<li>
 					<label for="thumbnail">썸네일</label>
 					<input type="file" name="thumbnail" id="thumbnail" accept="image/gif,image/png,image/jpeg">
+					<img src="${pageContext.request.contextPath}/images/bk_no_image.png" width="200" id="show_thumbnail">
+					<script type="text/javascript">
+						$(function(){
+							let new_thumbnail;
+							$('#thumbnail').change(function(){
+								new_thumbnail = this.files[0];
+								//새 이미지를 선택 안 했을 경우 (선택하려다 취소)
+								if(!new_thumbnail){ 
+									$('#show_thumbnail').attr('src','${pageContext.request.contextPath}/images/bk_no_image.png');
+									return;
+								}
+								//파일 용량이 지정한 범위를 넘을 경우
+								if(new_thumbnail.size > 1024*1024){
+									alert(Math.round(new_thumbnail.size/1024) + 'kbytes(1024kbytes까지만 업로드 가능)');
+									$('#show_thumbnail').attr('src','${pageContext.request.contextPath}/images/bk_no_image.png');
+									$(this).val(''); //선택한 파일 정보 지우기
+									return;
+								}
+								//이미지 읽기
+								let reader = new FileReader();
+								reader.readAsDataURL(new_thumbnail);
+								reader.onload=function(){
+									$('#show_thumbnail').attr('src',reader.result);
+								};
+							});//end of change
+						});
+					</script>
 				</li>
 				<li>
 					<label for="content">내용</label>

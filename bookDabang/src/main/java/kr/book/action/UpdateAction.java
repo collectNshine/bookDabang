@@ -35,6 +35,7 @@ public class UpdateAction implements Action{
 		BookDAO dao = BookDAO.getInstance();
 		//수정 전 데이터 반환
 		BookVO db_book = dao.getBook(bk_num);
+		//업데이트 될 내용 자바빈에 저장
 		BookVO book = new BookVO();
 		book.setBk_num(bk_num);
 		book.setTitle(multi.getParameter("title"));
