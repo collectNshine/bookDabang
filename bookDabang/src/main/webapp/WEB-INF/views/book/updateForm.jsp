@@ -56,7 +56,7 @@
 	<!-- 내용 시작 -->
 	<div class="content-main">
 		<h2>도서 정보 수정</h2>
-		<form action="write.do" method="post" encType="multipart/form-data" id="update_form">
+		<form action="update.do" method="post" encType="multipart/form-data" id="update_form">
 			<input type="hidden" name="bk_num" value="${book.bk_num}">
 			<ul>
 				<li>
@@ -98,13 +98,55 @@
 				<li>
 					<label for="thumbnail">썸네일</label>
 					<input type="file" name="thumbnail" id="thumbnail" accept="image/gif,image/png,image/jpeg">
+					<%--
+					<c:if test="${empty book.thumbnail}">
+						<img src="${pageContext.request.contextPath}/images/bk_no_image.png" 
+								 width="200" class="db_thumbnail">
+						<div id="file_detail">
+							등록된 썸네일이 없습니다.
+						</div>
+					</c:if>
+					 --%>
 					<c:if test="${!empty book.thumbnail}">
-					<div id="file_detail">
-						(${book.thumbnail})파일이 등록되어 있습니다.
+						<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" 
+							 width="200" class="db_thumbnail">
+						<div id="file_detail">
+							(${book.thumbnail})파일이 등록되어 있습니다.
+						<%-- 
 						<input type="button" value="파일삭제" id="file_del">
-					</div>
+						--%>
+						</div>
 					<script type="text/javascript">
 						$(function(){
+							//이미지 미리 보기
+							//처음 화면에 보여지는 이미지 저장
+							let photo_path = $('.db_thumbnail').attr('src');
+							//선택한 이미지 저장
+							let my_photo;
+							$('#thumbnail').change(function(){
+								my_photo = this.files[0];
+								
+								if(!my_photo){ 
+									$('.db_thumbnail').attr('src',photo_path);
+									return;
+								}
+								//파일 용량 체크
+								if(my_photo.size > 1024*1024){
+									alert(Math.round(my_photo.size/1024) + 'kbytes(1024kbytes까지만 업로드 가능)');
+									$('.db_thumbnail').attr('src',photo_path);
+									$(this).val(''); //선택한 파일 정보 지우기
+									return;
+								}
+								
+								let reader = new FileReader();
+								reader.readAsDataURL(my_photo);
+								reader.onload=function(){
+									$('.db_thumbnail').attr('src',reader.result);
+									$('#file_detail').empty();
+								};
+							});//end of change
+							
+							<%-- 
 							$('#file_del').click(function(){
 								let choice = confirm('삭제하시겠습니까?');
 								if(choice){
@@ -129,7 +171,7 @@
 										}
 									});
 								}
-							});
+							});//end of click --%>
 						});
 					</script>
 					</c:if>
@@ -140,8 +182,20 @@
 				</li>
 			</ul>
 			<div class="align-center">
+				<input type="button" value="뒤로" onclick="location.href='list.do'">
 				<input type="submit" value="수정">
-				<input type="button" value="목록" onclick="location.href='list.do'">
+				<input type="button" value="삭제" id="delete_btn">
+				<script type="text/javascript">
+				 let delete_btn = document.getElementById('delete_btn');
+				 //이벤트 연결
+				 delete_btn.onclick=function(){
+					 let choice = confirm('삭제하겠습니까?');
+					 if(choice){
+						 //히스토리를 지우면서 이동
+						 location.replace('delete.do?bk_num=${book.bk_num}');
+					 }
+				 };
+				</script>
 			</div>
 		</form>
 	</div>

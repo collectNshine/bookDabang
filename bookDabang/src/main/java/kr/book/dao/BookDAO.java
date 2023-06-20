@@ -214,6 +214,72 @@ public class BookDAO {
 		
 		
 		//도서 수정 (관리자)
-		//도서 삭제 (관리자)
+		public void updateBook(BookVO book) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			String sub_sql = "";
+			int cnt = 0;
+			try {
+				//커넥션 풀로부터 커넥션을 할당
+				conn = DBUtil.getConnection();
+				//조건 체크 - 파일을 업로드한 경우
+				if(book.getThumbnail() != null) {
+					sub_sql += ",thumbnail=?";
+				}
+				//SQL문 작성
+				sql = "UPDATE book_list SET title=?,author=?,publisher=?,price=?,stock=?,category=?" 
+						+ sub_sql + ",content=? WHERE bk_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setString(++cnt, book.getTitle());
+				pstmt.setString(++cnt, book.getAuthor());
+				pstmt.setString(++cnt, book.getPublisher());
+				pstmt.setInt(++cnt, book.getPrice());
+				pstmt.setInt(++cnt, book.getStock());
+				pstmt.setString(++cnt, book.getCategory());
+				if(book.getThumbnail() != null) {
+					pstmt.setString(++cnt, book.getThumbnail());
+				}
+				pstmt.setString(++cnt, book.getContent());
+				pstmt.setInt(++cnt, book.getBk_num());
+				//SQL문 실행
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+		}
 
+		
+		//도서 삭제 (관리자)
+		public void deleteBook(int bk_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				conn = DBUtil.getConnection();
+				//conn.setAutoCommit(false);
+				
+				//포스트 삭제 메서드(포스트,포스트좋아요,포스트신고,포스트댓글,포스트댓글신고)
+				
+				//리뷰 삭제 메서드(리뷰,리뷰좋아요,리뷰싫어요)
+				
+				//부모 테이블 삭제
+				sql = "DELETE FROM book_list WHERE bk_num=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, bk_num);
+				pstmt.executeUpdate();
+				
+				//conn.commit();
+			}catch(Exception e) {
+				//conn.rollback();
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+		}
+		
 }
