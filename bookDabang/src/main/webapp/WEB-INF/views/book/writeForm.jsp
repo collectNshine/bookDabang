@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
+<head> 
 <meta charset="UTF-8">
 <title>도서 등록</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">

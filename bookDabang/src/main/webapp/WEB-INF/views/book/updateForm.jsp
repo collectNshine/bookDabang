@@ -106,7 +106,7 @@
 							등록된 썸네일이 없습니다.
 						</div>
 					</c:if>
-					 --%>
+					 --%> 
 					<c:if test="${!empty book.thumbnail}">
 						<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" 
 							 width="200" class="db_thumbnail">

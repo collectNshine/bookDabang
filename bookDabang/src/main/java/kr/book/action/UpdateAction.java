@@ -34,7 +34,7 @@ public class UpdateAction implements Action{
 		String thumbnail = multi.getFilesystemName("thumbnail");
 		BookDAO dao = BookDAO.getInstance();
 		//수정 전 데이터 반환
-		BookVO db_book = dao.getBook(bk_num); 
+		BookVO db_book = dao.getBook(bk_num);
 		BookVO book = new BookVO();
 		book.setBk_num(bk_num);
 		book.setTitle(multi.getParameter("title"));
