@@ -16,7 +16,7 @@ import kr.util.FileUtil;
 
 public class DeleteFileAction implements Action{
 
-	@Override
+	@Override 
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//로그인 여부 체크
 		Map<String,String> mapAjax = new HashMap<String,String>();
