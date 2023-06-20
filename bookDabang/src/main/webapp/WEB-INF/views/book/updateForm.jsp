@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.oreilly.servlet.MultipartRequest" %>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
+<%@ page import="java.io.File" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -119,37 +122,38 @@
 					<script type="text/javascript">
 						$(function(){
 							//이미지 미리 보기
-							//처음 화면에 보여지는 이미지 저장
+							//1.처음 화면에 보여지는 기존 DB 이미지 저장
 							let photo_path = $('.db_thumbnail').attr('src');
-							//선택한 이미지 저장
-							let my_photo;
+							//2.새로 선택한 이미지 저장
+							let new_thumbnail;
 							$('#thumbnail').change(function(){
-								my_photo = this.files[0];
-								
-								if(!my_photo){ 
+								new_thumbnail = this.files[0];
+								//새 이미지를 선택 안 했을 경우 (선택하려다 취소)
+								if(!new_thumbnail){ 
 									$('.db_thumbnail').attr('src',photo_path);
 									return;
 								}
-								//파일 용량 체크
-								if(my_photo.size > 1024*1024){
-									alert(Math.round(my_photo.size/1024) + 'kbytes(1024kbytes까지만 업로드 가능)');
+								//파일 용량이 지정한 범위를 넘을 경우
+								if(new_thumbnail.size > 1024*1024){
+									alert(Math.round(new_thumbnail.size/1024) + 'kbytes(1024kbytes까지만 업로드 가능)');
 									$('.db_thumbnail').attr('src',photo_path);
 									$(this).val(''); //선택한 파일 정보 지우기
 									return;
 								}
 								
 								let reader = new FileReader();
-								reader.readAsDataURL(my_photo);
+								reader.readAsDataURL(new_thumbnail);
 								reader.onload=function(){
 									$('.db_thumbnail').attr('src',reader.result);
 									$('#file_detail').empty();
 								};
+								
+								
 							});//end of change
 							
 							<%-- 
-							$('#file_del').click(function(){
-								let choice = confirm('삭제하시겠습니까?');
-								if(choice){
+							$('#update_form').submit(function(){
+								let choice = confirm('수정하시겠습니까?');
 									$.ajax({
 										url:'deleteFile.do',
 										type:'post',
@@ -170,7 +174,7 @@
 											alert('네트워크 오류 발생');
 										}
 									});
-								}
+								
 							});//end of click --%>
 						});
 					</script>
