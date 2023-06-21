@@ -39,7 +39,7 @@ public class ModifyUserAction implements Action {
 		MyPageDAO dao = MyPageDAO.getInstance();
 		dao.updateMember(vo);
 		
-		return "/WEB-INF/views/member/modifyUser.jsp";
+		return "/WEB-INF/views/mypage/modifyUser.jsp";
 	}
 
 }

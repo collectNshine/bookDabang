@@ -23,9 +23,9 @@ public class ModifyUserFormAction implements Action{
 		}
 		//로그인 된 경우
 		MyPageDAO dao = MyPageDAO.getInstance();
-		//MemberVO vo = dao.getMember(user_num);
+		MemberVO vo = dao.getMember(user_num);
 		//request에 회원 정보 담기
-		//request.setAttribute("member", vo);
+		request.setAttribute("member", vo);
 		//JSP 경로 반환
 		return "/WEB-INF/views/mypage/modifyUserForm.jsp";
 	}

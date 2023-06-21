@@ -97,8 +97,8 @@ public class MyPageDAO {
 				//커넥션 풀로부터 커넥션을 할당받음
 				conn = DBUtil.getConnection();
 				//SQL문 생성
-				sql = "SELECT * FROM vo m "
-					+ "LEFT OUTER JOIN vo_detail d "
+				sql = "SELECT * FROM member m "
+					+ "LEFT OUTER JOIN member_detail d "
 					+ "ON m.mem_num = d.mem_num WHERE m.id=?";
 				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
@@ -134,7 +134,7 @@ public class MyPageDAO {
 			//커넥션 풀로부터 커넥션을 할당 받음
 			conn = DBUtil.getConnection();
 			//SQL문 작성
-			sql = "UPDATE vo_detail SET passwd=? WHERE mem_num=?";
+			sql = "UPDATE member_detail SET passwd=? WHERE mem_num=?";
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
@@ -158,7 +158,7 @@ public class MyPageDAO {
 			//커넥션 풀로부터 커넥션을 할당 받음
 			conn = DBUtil.getConnection();
 			//SQL문 작성
-			sql = "UPDATE zvo_detail SET photo=? WHERE mem_num=?";
+			sql = "UPDATE member_detail SET photo=? WHERE mem_num=?";
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
@@ -186,8 +186,8 @@ public class MyPageDAO {
 			//auto commit 해제
 			conn.setAutoCommit(false);
 			
-			//zvo의 auth 변경
-			sql = "UPDATE vo SET auth=0 WHERE mem_num=?";
+			//member의 auth 변경
+			sql = "UPDATE member SET auth=0 WHERE mem_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mem_num);
 			pstmt.executeUpdate();

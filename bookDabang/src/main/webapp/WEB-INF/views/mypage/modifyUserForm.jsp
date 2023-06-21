@@ -28,34 +28,6 @@
 			} //end of for
 		}); //end of submit
 	});
-
-	$(function(){
-		//비밀번호 수정 유효성 체크
-		$('#password_form').submit(function(){
-			//공백 체크
-			let items = 
-				document.querySelectorAll('input[type="text"],input[type="password"]');
-			for(let i=0;i<items.length;i++){
-				if(items[i].value.trim()==''){
-					let label = document.querySelector(
-						               'label[for="'+items[i].id+'"]');
-					alert(label.textContent + ' 항목 필수 입력');
-					items[i].value = '';
-					items[i].focus();
-					return false;
-				}
-			}//end of for
-			
-			//새 비밀번호 = 새 비밀번호 확인 일치 여부 체크
-			if($('#passwd').val()!=$('#cpasswd').val()){
-				alert('새 비밀번호와 새 비밀번호 확인이 불일치합니다.');
-				$('#passwd').val('').focus();
-				$('#cpasswd').val('');
-				return false;
-			}
-			
-		});//end of submit
-	});
 </script>
 </head>
 <body>
@@ -81,7 +53,12 @@
 			</li>	
 			<li>
 				<div class="align-center">
-					<input type="button" value="정보 수정" onclick="location.href='modifyUserForm.do'">
+					<img src="${pageContext.request.contextPath}/images/profile.png" 
+						 width="30" height="30" class="icon">
+					<img src="${pageContext.request.contextPath}/images/trashcan.png" 
+						 width="30" height="30" class="icon">
+					<input type="button" value="비밀번호 변경" class="icon"
+					onclick="location.href='${pageContext.request.contextPath}/mypage/modifyPasswordForm.do'">
 				</div>
 			</li>	
 		</ul>
@@ -93,20 +70,6 @@
 					<label for="name">필명</label>
 					<input type="text" name="name" id="name" 
 						   maxlength="10" value="${vo.name}">
-				</li>
-				<li>
-					<label for="origin_passwd">비밀번호</label>
-					<input type="password" name="origin_passwd" id="origin_passwd" maxlength="12" 
-					style="width: 235px;">
-					<input type="submit" value="수정하기">
-				</li>
-				<li>
-					<label for="passwd">새 비밀번호</label>
-					<input type="password" name="passwd" id="passwd" maxlength="12">
-				</li>				
-				<li>
-					<label for="cpasswd">새 비밀번호 확인</label>
-					<input type="password" name="cpasswd" id="cpasswd" maxlength="12">
 				</li>
 				<li>
 					<label for="phone">휴대폰번호</label>
@@ -136,7 +99,7 @@
 				</li>				
 			</ul>
 			<div class="align-center">
-				<input type="submit" value="수정">
+				<input type="submit" value="확인">
 				<input type="button" value="홈으로" 
 					   onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 			</div>
