@@ -157,33 +157,29 @@ public class RequestDAO {
 		return request;
 	}
 	//글수정
-	public void updateRequest(RequestVO request) throws Exception{
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		
-		try {
-			conn = DBUtil.getConnection();
-			sql = "UPDATE (SELECT * FROM book_request r LEFT OUTER JOIN member USING(mem_num)) "
-					+ "SET req_title=?,req_author=?,req_publisher=?,req_etc=?,req_modifydate=SYSDATE WHERE req_num=?";
-			
-			pstmt= conn.prepareStatement(sql);
-			pstmt.setString(1,request.getReq_title());
-			pstmt.setString(2, request.getReq_author());
-			pstmt.setString(3,request.getReq_publisher());
-			pstmt.setString(4, request.getReq_etc());
-			pstmt.setInt(5,request.getReq_num());
-			
-			pstmt.executeUpdate();
-			
-			
-		}catch(Exception e) {
-			throw new Exception(e);
-		}finally {
-			DBUtil.executeClose(null, pstmt, conn);
-		}
-		
-	}
+	/*
+	 * public void updateRequest(RequestVO request) throws Exception{ Connection
+	 * conn = null; PreparedStatement pstmt = null; String sql = null;
+	 * 
+	 * try { conn = DBUtil.getConnection(); sql =
+	 * "UPDATE (SELECT * FROM book_request r LEFT OUTER JOIN member USING(mem_num)) "
+	 * +
+	 * "SET req_title=?,req_author=?,req_publisher=?,req_etc=?,req_modifydate=SYSDATE WHERE req_num=?"
+	 * ;
+	 * 
+	 * pstmt= conn.prepareStatement(sql); pstmt.setString(1,request.getReq_title());
+	 * pstmt.setString(2, request.getReq_author());
+	 * pstmt.setString(3,request.getReq_publisher()); pstmt.setString(4,
+	 * request.getReq_etc()); pstmt.setInt(5,request.getReq_num());
+	 * 
+	 * pstmt.executeUpdate();
+	 * 
+	 * 
+	 * }catch(Exception e) { throw new Exception(e); }finally {
+	 * DBUtil.executeClose(null, pstmt, conn); }
+	 * 
+	 * }
+	 */
 	
 	
 	//글삭제
