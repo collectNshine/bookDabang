@@ -149,7 +149,7 @@
 		<!-- 검색창 끝 -->
 		
 		<div class="list-space align-right">
-			<input type="button" value="도서 등록" onclick="location.href='writeForm.do'">
+			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'">
 			<%--
 			<input type="button" value="목록" onclick="location.href='list.do'">
 			<input type="button" value="홈으로" 
@@ -164,7 +164,7 @@
 		</c:if>
 		
 		<c:if test="${count > 0}">
-		<table>
+		<table class="align-center">
 			<tr>
 				<th>도서번호</th>
 				<th>도서명</th>
@@ -177,7 +177,7 @@
 			<c:forEach var="book" items="${list}">
 			<tr>
 				<td>${book.bk_num}</td>
-				<td><a href="updateForm.do?bk_num=${book.bk_num}">${book.title}</a></td>
+				<td><a href="${pageContext.request.contextPath}/book/updateForm.do?bk_num=${book.bk_num}">${book.title}</a></td>
 				<td>${book.author}</td>
 				<td>${book.publisher}</td>
 				<td><fmt:formatNumber value="${book.stock}"/></td>

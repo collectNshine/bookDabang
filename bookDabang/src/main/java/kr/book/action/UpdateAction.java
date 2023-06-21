@@ -58,7 +58,7 @@ public class UpdateAction implements Action{
 		response.addHeader("Refresh", "2;url=list.do");//=2초 뒤에 list.do로 이동
 		
 		request.setAttribute("accessMsg", "정상적으로 수정되었습니다.");
-		request.setAttribute("accessUrl", "list.do");
+		request.setAttribute("accessUrl", request.getContextPath()+"/mypage/myPage.do");
 		
 		//JSP 경로 반환
 		return "/WEB-INF/views/common/notice.jsp";

@@ -188,7 +188,7 @@
 				</li>
 			</ul>
 			<div class="align-center">
-				<input type="button" value="뒤로" onclick="location.href='list.do'">
+				<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/myPage.do'">
 				<input type="submit" value="수정">
 				<input type="button" value="삭제" id="delete_btn">
 				<script type="text/javascript">

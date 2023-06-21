@@ -49,7 +49,7 @@ public class WriteAction implements Action {
 		response.addHeader("Refresh", "2;url=list.do");//=2초 뒤에 list.do로 이동
 		
 		request.setAttribute("accessMsg", "성공적으로 등록되었습니다.");
-		request.setAttribute("accessUrl", "list.do");
+		request.setAttribute("accessUrl", request.getContextPath()+"/mypage/myPage.do");
 		
 		//JSP 경로 반환
 		return "/WEB-INF/views/common/notice.jsp";
