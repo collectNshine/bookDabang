@@ -114,7 +114,7 @@
 					 --%> 
 					<c:if test="${!empty book.thumbnail}">
 						<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" 
-							 width="200" class="db_thumbnail">
+							 width="200" class="db-thumbnail">
 						<div id="file_detail">
 							(${book.thumbnail})파일이 등록되어 있습니다.
 						<%-- 
@@ -188,7 +188,7 @@
 				</li>
 			</ul>
 			<div class="align-center">
-				<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/myPage.do'">
+				<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do'">
 				<input type="submit" value="수정">
 				<input type="button" value="삭제" id="delete_btn">
 				<script type="text/javascript">

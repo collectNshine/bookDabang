@@ -1,2 +1,27 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Noto+Sans+KR:wght@300&display=swap');
+.list-group{
+	width:150px;
+	float:left;
+	text-align:center;
+}
+.list-group .active{
+	background-color:grey;
+}
+.book-list{
+	float:right;
+}
+.list-photo{
+	float:left;
+}
+.list-text{
+	float:right;
+}
+.list-content{
+	margin-top: 10px;
+	text-overflow: ellipsis;  
+	overflow : hidden;
+	display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+}
