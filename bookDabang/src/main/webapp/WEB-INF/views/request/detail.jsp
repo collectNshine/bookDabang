@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <style type="text/css">
-	h2{
+/* 	h2{
 		position: relative;
 		right: 750px;
 		top:70px;
@@ -23,7 +23,7 @@
 		background-color:gray;
 		padding-top:80px;
 	}
-
+ */
 </style>
 </head>
 <body>
@@ -62,7 +62,7 @@
 	 	<!-- 좋아요 버튼 넣어야함!! -->
 	 	
 	 	<div class="align-center">
-		 	<input type="button" value="수정" onclick="location.href='modify.do'">
+		 	<input type="button" value="수정"> <!--  onclick="location.href='modify.do' -->
 		 	<input type="button" value="목록" onclick="location.href='list.do'">
 	 	</div>	 	
 	</div>

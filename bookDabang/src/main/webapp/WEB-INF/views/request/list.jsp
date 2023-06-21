@@ -8,31 +8,7 @@
 <meta charset="UTF-8">
 <title>맞춤도서 신청</title>
 <style>
-/* header css */
-	#main_menu{
-		overflow:hidden;
-		padding-top:15px;
-	}
-	#main_logo{
-		float:left;
-		padding-left:20px;
-	}
-	
-	.menu-category li{
-		float:left;
-	}
-	.menu-login li{
-		float:right;
-		padding-right:10px; 
-	}
-	
-	.menu-detail{
-		width:110px;
-		height:20px;
-		padding:0 6px 0 6px;
-		text-align: center;
-	}
-/* header css 끝*/	
+
 	
 	h2{
 		clear:both;
