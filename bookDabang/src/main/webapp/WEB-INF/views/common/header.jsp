@@ -12,7 +12,7 @@
          <li><b>|</b></li>
          <li class="menu-detail"><a href=""><b> 담소마당 </b></a></li>
          <li><b>|</b></li>
-         <li class="menu-detail"><a href=""><b> 맞춤도서 신청 </b></a></li>
+         <li class="menu-detail"><a href="${pageContext.request.contextPath}/request/list.do"><b> 맞춤도서 신청 </b></a></li>
          <li><b>|</b></li>
          <li class="menu-detail"><a href=""><b> 다방안내 </b></a></li>
       </ul>
