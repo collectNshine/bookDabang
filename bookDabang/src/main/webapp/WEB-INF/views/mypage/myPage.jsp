@@ -127,7 +127,7 @@
 		<!-- [1. 도서 관리] 시작 -->
 		<div id="admin_book" class="tab_contents on">
 			<div class="content-main">
-			<h2>도서 관리</h2>
+			 <h2><a href="myPage.do">도서 관리</a></h2>
 			<!-- 검색창 시작 : get방식 -->
 			<form id="search_form" action="myPage.do" method="get">
 				<ul class="search">
