@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
@@ -125,26 +126,70 @@
 			<li data-tab="admin_report" style="cursor: pointer;">신고내역</li>
 		</ul>
 		<div id="admin_book" class="tab_contents on">
-			<table>
-				<tr>
-					<th>도서번호</th>
-					<th>도서명</th>
-					<th>아이디</th>
-					<th>주문상태</th>
-					<th>총 주문 금액</th>
-					<th>주문날짜</th>
-				</tr>
-				 <c:forEach var="admin_book" items="${book_mark}"> 
-				<tr>
-					<td>${bookmark.bk_num}</td>
-					<td>${bookmark.title}</td>
-					<td>${bookmark.author}</td>
-					<td>${bookmark.reg_date}</td>
-					<td>${bookmark.reg_date}</td>
-					<td>${bookmark.reg_date}</td>
-				</tr>
-				</c:forEach>
-			</table>
+	<!-- 내용 시작 -->
+	<div class="content-main">
+		<h2>도서 관리</h2>
+		<!-- 검색창 시작 : get방식 -->
+		<form id="search_form" action="list.do" method="get">
+			<ul class="search">
+				<li>
+					<select name="keyfield">
+						<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>도서명</option>
+						<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자명</option>
+					</select>
+				</li>
+				<li>
+					<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
+				</li>
+				<li>
+					<input type="submit" value="검색">
+				</li>
+			</ul>
+		</form>
+		<!-- 검색창 끝 -->
+		
+		<div class="list-space align-right">
+			<input type="button" value="도서 등록" onclick="location.href='writeForm.do'">
+			<%--
+			<input type="button" value="목록" onclick="location.href='list.do'">
+			<input type="button" value="홈으로" 
+			 onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
+			  --%>
+		</div>
+		
+		<c:if test="${count == 0}">
+			<div class="result-display">
+				표시할 상품이 없습니다.
+			</div>		
+		</c:if>
+		
+		<c:if test="${count > 0}">
+		<table>
+			<tr>
+				<th>도서번호</th>
+				<th>도서명</th>
+				<th>저자명</th>
+				<th>출판사</th>
+				<th>재고</th>
+				<th>분류</th>
+				<th>등록일</th>
+			</tr>
+			<c:forEach var="book" items="${list}">
+			<tr>
+				<td>${book.bk_num}</td>
+				<td><a href="updateForm.do?bk_num=${book.bk_num}">${book.title}</a></td>
+				<td>${book.author}</td>
+				<td>${book.publisher}</td>
+				<td><fmt:formatNumber value="${book.stock}"/></td>
+				<td>${book.category}</td>
+				<td>${book.reg_date}</td>
+			</tr>
+			</c:forEach>
+		</table>
+		<div class="align-center">${page}</div>
+		</c:if>
+	</div>
+	<!-- 내용 끝 -->
 		</div>
 		<div id="admin_order" class="tab_contents">
 			<table>

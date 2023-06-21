@@ -6,12 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
+import kr.book.dao.BookDAO;
+import kr.book.vo.BookVO;
 import kr.controller.Action;
 import kr.member.vo.MemberVO;
 import kr.mypage.dao.MyPageDAO;
 import kr.post.dao.PostDAO;
 import kr.post.vo.PostVO;
+import kr.util.PageUtil;
 
 public class MyPageAction implements Action{
 
@@ -34,6 +36,26 @@ public class MyPageAction implements Action{
 		//PostDAO boardDao = PostDAO.getInstance();
 		//게시판 글
 		//List<PostVO> postList = PostDAO.getPostList(1,5, );	
+		
+		String pageNum = request.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
+		String keyfield = request.getParameter("keyfield");
+		String keyword = request.getParameter("keyword");
+		
+		BookDAO bookDao = BookDAO.getInstance();
+		int count = bookDao.getItemCount(keyfield, keyword);
+		
+		PageUtil page = new PageUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,10,"myPage.do");
+		
+		List<BookVO> list = null;
+		if(count > 0) {
+			list = bookDao.getBookList(page.getStartRow(), page.getEndRow(), keyfield, keyword);
+		}
+		
+		request.setAttribute("count", count);
+		request.setAttribute("list", list);
+		request.setAttribute("page", page.getPage());
+		
 		
 		request.setAttribute("member", vo);
 			
