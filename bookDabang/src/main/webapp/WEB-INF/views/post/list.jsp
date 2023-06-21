@@ -42,7 +42,7 @@
 			</tr>
 			<c:forEach var="post" items="${list}">
 			<tr>
-				<td><a href="detailForm.do?post_num=${post.post_num}">${post.post_title}</a></td>
+				<td><a href="detail.do?post_num=${post.post_num}">${post.post_title}</a></td>
 				<td>${post.post_content}</td>
 				<td>${post.mem_num}</td>
 				<td>${post.post_date}</td>
@@ -52,7 +52,6 @@
 		</table>
 		<div class="align-center">${page}</div>
 		</c:if>
-		</div>
 	</div>
 	<!-- 내용 끝 -->
 </div>
