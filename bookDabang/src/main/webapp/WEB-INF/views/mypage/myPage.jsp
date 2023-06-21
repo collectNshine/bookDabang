@@ -8,8 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <title>MY페이지</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_style.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
@@ -126,8 +128,8 @@
 		</ul>
 		<!-- [1. 도서 관리] 시작 -->
 		<div id="admin_book" class="tab_contents on">
-			<div class="content-main">
-			 <h2><a href="myPage.do">도서 관리</a></h2>
+			<div class="content-main container">
+			<h2><a href="myPage.do">도서 관리</a></h2>
 			<!-- 검색창 시작 : get방식 -->
 			<form id="search_form" action="myPage.do" method="get">
 				<ul class="search">
@@ -168,32 +170,36 @@
 		</c:if>
 		
 		<c:if test="${count > 0}">
-		<table class="align-center">
-			<tr>
-				<th>도서번호</th>
-				<th>도서명</th>
-				<th>저자명</th>
-				<th>출판사</th>
-				<th>재고</th>
-				<th>분류</th>
-				<th>등록일</th>
-			</tr>
-			<c:forEach var="book" items="${list}">
-			<tr>
-				<td>${book.bk_num}</td>
-				<td><a href="${pageContext.request.contextPath}/book/updateForm.do?bk_num=${book.bk_num}">${book.title}</a></td>
-				<td>${book.author}</td>
-				<td>${book.publisher}</td>
-				<td><fmt:formatNumber value="${book.stock}"/></td>
-				<td>${book.category}</td>
-				<td>${book.reg_date}</td>
-			</tr>
-			</c:forEach>
-		</table>
-		<div class="align-center">${page}</div>
+			<table class="table table-hover align-center">
+			<thead>
+				<tr>
+					<th>도서번호</th>
+					<th>도서명</th>
+					<th>저자명</th>
+					<th>출판사</th>
+					<th>재고</th>
+					<th>분류</th>
+					<th>등록일</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="book" items="${list}">
+				<tr>
+					<td>${book.bk_num}</td>
+					<td><a href="${pageContext.request.contextPath}/book/updateForm.do?bk_num=${book.bk_num}">${book.title}</a></td>
+					<td>${book.author}</td>
+					<td>${book.publisher}</td>
+					<td><fmt:formatNumber value="${book.stock}"/></td>
+					<td>${book.category}</td>
+					<td>${book.reg_date}</td>
+				</tr>
+				</c:forEach>
+			</tbody>
+			</table>
+			<div class="align-center">${page}</div>
 		</c:if>
-	</div>
-	<!-- [1. 도서 관리] 끝 -->
+		</div>
+		<!-- [1. 도서 관리] 끝 -->
 	
 	
 		</div>
