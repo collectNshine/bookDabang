@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>MY페이지</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
@@ -41,7 +42,7 @@
 
 				
 		<!-- 사용자 마이페이지 메뉴 시작 -->
-		<c:if test="${!empty user_num && user_auth == 2}">
+		<c:if test="${!empty user_num && user_auth == 1}">
 		<ul class="tabWrap">
 			<li data-tab="book_mark" style="cursor: pointer;" class="on">책갈피</li>
 			<li data-tab="post" style="cursor: pointer;">작성글</li>
