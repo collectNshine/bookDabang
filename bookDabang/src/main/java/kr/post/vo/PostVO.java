@@ -3,15 +3,18 @@ package kr.post.vo;
 import java.sql.Date;
 
 public class PostVO {
-	private int post_num;
-	private String post_title;
-	private String post_content;
-	private Date post_date;
-	private Date post_modifydate;
-	private String post_photo;
-	private String post_ip;
-	private int mem_num;
-	private int bk_num;
+	private int post_num; //서평 번호
+	private String post_title; //제목
+	private String post_content; //내용
+	private Date post_date; //등록일
+	private Date post_modifydate; //수정일
+	private String post_photo; //첨부파일명
+	private String post_ip; //ip주소
+	private int mem_num; //회원번호
+	private int bk_num; //도서번호
+	
+	private String name; //회원 이름(닉네임)
+	private String photo; //회원 프로필 사진 파일명
 	
 	public int getPost_num() {
 		return post_num;
@@ -66,6 +69,18 @@ public class PostVO {
 	}
 	public void setBk_num(int bk_num) {
 		this.bk_num = bk_num;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 	
 }
