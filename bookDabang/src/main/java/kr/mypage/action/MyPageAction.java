@@ -37,6 +37,7 @@ public class MyPageAction implements Action{
 		//게시판 글
 		//List<PostVO> postList = PostDAO.getPostList(1,5, );	
 		
+		/*---[관리자]도서 관리 시작---*/
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		String keyfield = request.getParameter("keyfield");
@@ -55,7 +56,7 @@ public class MyPageAction implements Action{
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("page", page.getPage());
-		
+		/*---[관리자]도서 관리 끝---*/
 		
 		request.setAttribute("member", vo);
 			

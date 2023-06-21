@@ -13,8 +13,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
-
-</script>
+</script> 
 </head>
 <body> 
 <div class="page-main">
@@ -125,36 +124,41 @@
 			<li data-tab="admin_member" style="cursor: pointer;">회원관리</li>
 			<li data-tab="admin_report" style="cursor: pointer;">신고내역</li>
 		</ul>
+		<!-- [1. 도서 관리] 시작 -->
 		<div id="admin_book" class="tab_contents on">
-	<!-- 내용 시작 -->
-	<div class="content-main">
-		<h2>도서 관리</h2>
-		<!-- 검색창 시작 : get방식 -->
-		<form id="search_form" action="list.do" method="get">
-			<ul class="search">
-				<li>
-					<select name="keyfield">
-						<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>도서명</option>
-						<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자명</option>
-					</select>
-				</li>
-				<li>
-					<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
-				</li>
-				<li>
-					<input type="submit" value="검색">
-				</li>
-			</ul>
-		</form>
-		<!-- 검색창 끝 -->
-		
+			<div class="content-main">
+			<h2>도서 관리</h2>
+			<!-- 검색창 시작 : get방식 -->
+			<form id="search_form" action="myPage.do" method="get">
+				<ul class="search">
+					<li>
+						<select name="keyfield">
+							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>도서명</option>
+							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자명</option>
+						</select>
+					</li>
+					<li>
+						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
+					</li>
+					<li>
+						<input type="submit" value="검색">
+					</li>
+				</ul>
+			</form>
+			<script type="text/javascript">
+				$(function(){
+					$('#search_form').submit(function(){
+						if($('#keyword').val().trim() == ''){
+							alert('검색어를 입력하세요');
+							$('#keyword').val('').focus();
+							return false;
+						}
+					});
+				});
+			</script> 
+			<!-- 검색창 끝 -->
 		<div class="list-space align-right">
 			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'">
-			<%--
-			<input type="button" value="목록" onclick="location.href='list.do'">
-			<input type="button" value="홈으로" 
-			 onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
-			  --%>
 		</div>
 		
 		<c:if test="${count == 0}">
@@ -189,7 +193,9 @@
 		<div class="align-center">${page}</div>
 		</c:if>
 	</div>
-	<!-- 내용 끝 -->
+	<!-- [1. 도서 관리] 끝 -->
+	
+	
 		</div>
 		<div id="admin_order" class="tab_contents">
 			<table>
