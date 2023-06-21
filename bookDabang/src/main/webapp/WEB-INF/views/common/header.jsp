@@ -8,7 +8,7 @@
       <ul class="menu-category">
          <li class="menu-detail"><a href="${pageContext.request.contextPath}/book/list.do"><b> 차림표 </b></a></li>
          <li><b>|</b></li>
-         <li class="menu-detail"><a href=""><b> 모음집 </b></a></li>
+         <li class="menu-detail"><a href="${pageContext.request.contextPath}/post/list.do"><b> 모음집 </b></a></li>
          <li><b>|</b></li>
          <li class="menu-detail"><a href=""><b> 담소마당 </b></a></li>
          <li><b>|</b></li>
