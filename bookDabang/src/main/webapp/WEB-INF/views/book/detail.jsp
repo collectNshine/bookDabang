@@ -3,16 +3,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${book.title} | 책다방</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/book_detail_style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/book_style.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
-<!--  
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/book_mark.js"></script>
-
 <script type="text/javascript">
 	$(function(){ 
 		//공백을 두면 2개의 이벤트 동시 연결 (mouseup : 증가/감소 아이콘 누를때)
@@ -34,10 +35,11 @@
 			}
 			
 			//총 주문 금액
-			let total = $('#item_price').val() * $('#order_quantity').val();
+			let total = $('#price').val() * $('#order_quantity').val();
 													  //toLocaleString()으로 숫자 세자리 쉼표 처리
 			$('#item_total_txt').text('총 주문 금액 : ' + total.toLocaleString() + '원');
-		});
+		});  //end of keyup mouseup
+		
 		
 		//장바구니에 상품을 담기 위해 이벤트 처리
 		$('#item_cart').submit(function(event){
@@ -74,10 +76,9 @@
 					alert('네트워크 오류 발생');
 				}
 			});
-		});
+		}); //end of submit
 	});
 </script>
- -->
 </head>
 <body>
 <div class="page-main">
@@ -90,6 +91,7 @@
 		<div class="item-detail">
 			<form id="item_cart">
 				<input type="hidden" name="bk_num" value="${book.bk_num}" id="bk_num">
+				<input type="hidden" name="price" value="${book.price}" id="price">
 				<input type="hidden" name="stock" value="${book.stock}" id="stock">
 				<ul>
 					<li>
@@ -103,12 +105,19 @@
 						</div>
 					</li>
 					<li>
+						<div class="detail-category">
+							${book.category}
+						</div>
+					</li>
+					<li> 
 						<%-- 좋아요 --%>
 						<%-- html은 속성태그 추가X (예외)'data-' 형태로만 추가 가능--%>
 						<img id="output_mark" data-num="${book.bk_num}" 
-							 src="${pageContext.request.contextPath}/images/no_mark.png" width="50">
+							 src="${pageContext.request.contextPath}/images/no_mark.png" width="30">
 						책갈피
-						<span id="output_mcount"></span>
+					</li>
+					<li>
+						<input type="button" class="btn btn-outline-primary" value="서평 작성" onclick="location.href='${pageContext.request.contextPath}/post/writeForm.do?bk_num=${book.bk_num}'">
 					</li>
 				</ul>
 				<hr size="3" width="100%">
@@ -122,7 +131,7 @@
 					<c:if test="${book.stock > 0}">
 						<li>
 							<b>수량</b> <input type="number" name="order_quantity" min="1" max="${book.stock}" 
-								   autocomplete="off" id="order_quantity" class="quantity-width" placeholder="1">
+								   autocomplete="off" id="order_quantity" class="quantity-width" value="1">
 						</li>
 					</c:if>
 					<c:if test="${book.stock <= 0}">
@@ -134,10 +143,13 @@
 				<hr size="1" width="100%">
 				<ul>
 						<li>
-							<span id="item_total_txt">총 주문 금액 : 0원</span>
+							<span id="item_total_txt" style="display:none;">총 주문 금액 : <fmt:formatNumber value="${book.price}"/>원</span>
 						</li>
 						<li>
-							<input type="submit" value="장바구니에 담기">
+							<div class="d-grid gap-2 col-6 mx-auto">
+							<!-- <input type="submit" value="장바구니에 담기"> -->
+							<input type="submit" value="장바구니" class="btn btn-primary">
+							</div>
 						</li>
 				</ul>
 			</form>

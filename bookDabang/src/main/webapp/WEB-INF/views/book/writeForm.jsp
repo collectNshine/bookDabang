@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-<head> 
-<meta charset="UTF-8">
-<title>도서 등록</title>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>도서 등록 | 책다방</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/book_style.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(function(){
@@ -54,33 +58,32 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
 	<div class="content-main">
-		<h2>도서 등록</h2>
+		<h2 class="align-center"><a href="writeForm.do">도서 등록</a></h2>
 		<form action="write.do" method="post" encType="multipart/form-data" id="write_form">
 			<ul>
 				<li>
 					<label for="title">도서명</label>
-					<input type="text" name="title" id="title" maxlength="40">
+					<input type="text" name="title" id="title" class="form-control" maxlength="40">
 				</li>
 				<li>
 					<label for="author">저자명</label>
-					<input type="text" name="author" id="author" maxlength="20">
+					<input type="text" name="author" id="author" class="form-control" maxlength="20">
 				</li>
 				<li>
 					<label for="publisher">출판사</label>
-					<input type="text" name="publisher" id="publisher" maxlength="20">
+					<input type="text" name="publisher" id="publisher" class="form-control" maxlength="20">
 				</li>
 				<li>
 					<label for="price">가격</label>
-					<input type="number" name="price" id="price" min="1" max="99999999">
+					<input type="number" name="price" id="price" class="form-control" min="1" max="99999999">
 				</li>
 				<li>
 					<label for="stock">재고</label>
-					<input type="number" name="stock" id="stock" min="0" max="9999">
+					<input type="number" name="stock" id="stock" class="form-control" min="0" max="9999">
 				</li>
 				<li>
 					분류
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<select name="category" id="category">
+					<select name="category" id="category" class="form-select" aria-label="Default select example">
 						<option value="문학">문학</option>
 						<option value="경제/경영">경제/경영</option>
 						<option value="인문">인문</option>
@@ -94,8 +97,8 @@
 					</select>
 				</li>
 				<li>
-					<label for="thumbnail">썸네일</label>
-					<input type="file" name="thumbnail" id="thumbnail" accept="image/gif,image/png,image/jpeg">
+					<label for="thumbnail" class="form-label">썸네일</label>
+					<input type="file" name="thumbnail" id="thumbnail" class="form-control" accept="image/gif,image/png,image/jpeg">
 					<img src="${pageContext.request.contextPath}/images/bk_no_image.png" width="200" id="show_thumbnail">
 					<script type="text/javascript">
 						$(function(){
@@ -126,12 +129,12 @@
 				</li>
 				<li>
 					<label for="content">내용</label>
-					<textarea rows="5" cols="30" name="content" id="content"></textarea>
+					<textarea rows="5" cols="60" name="content" id="content" class="form-control"></textarea>
 				</li>
 			</ul>
 			<div class="align-center">
-				<input type="submit" value="등록">
-				<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do'">
+				<input type="button" value="목록" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do'">
+				<input type="submit" value="등록" class="btn btn-primary">
 			</div>
 		</form>
 	</div>

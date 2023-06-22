@@ -5,11 +5,15 @@
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="java.io.File" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>도서 정보 수정</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>도서 수정 | 책다방</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/book_style.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(function(){
@@ -66,34 +70,39 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
 	<div class="content-main">
-		<h2>도서 정보 수정</h2>
+		<h2 class="align-center"><a href="updateForm.do?bk_num=${book.bk_num}">도서 수정</a></h2>
 		<form action="update.do" method="post" encType="multipart/form-data" id="update_form">
-			<input type="hidden" name="bk_num" value="${book.bk_num}">
+			<div class="thumbnail-info">
+				<input type="hidden" name="bk_num" value="${book.bk_num}">
+				<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" width="200" id="db_thumbnail">
+				<div id="file_detail">
+					(${book.thumbnail})파일이 등록되어 있습니다.
+				</div>
+			</div>
 			<ul>
 				<li>
 					<label for="title">도서명</label>
-					<input type="text" name="title" id="title" maxlength="40" value="${book.title}">
+					<input type="text" name="title" id="title" class="form-control" maxlength="40" value="${book.title}">
 				</li>
 				<li>
 					<label for="author">저자명</label>
-					<input type="text" name="author" id="author" maxlength="20" value="${book.author}">
+					<input type="text" name="author" id="author" class="form-control" maxlength="20" value="${book.author}">
 				</li>
 				<li>
 					<label for="publisher">출판사</label>
-					<input type="text" name="publisher" id="publisher" maxlength="20" value="${book.publisher}">
+					<input type="text" name="publisher" id="publisher" class="form-control" maxlength="20" value="${book.publisher}">
 				</li>
 				<li>
 					<label for="price">가격</label>
-					<input type="number" name="price" id="price" min="1" max="99999999" value="${book.price}">
+					<input type="number" name="price" id="price" class="form-control" min="1" max="99999999" value="${book.price}">
 				</li>
 				<li>
 					<label for="stock">재고</label>
-					<input type="number" name="stock" id="stock" min="0" max="9999" value="${book.stock}">
+					<input type="number" name="stock" id="stock" class="form-control" min="0" max="9999" value="${book.stock}">
 				</li>
 				<li>
 					분류
-					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<select name="category" id="category">
+					<select name="category" id="category" class="form-select">
 						<option value="문학" <c:if test="${book.category=='문학'}">selected</c:if>>문학</option>
 						<option value="경제/경영" <c:if test="${book.category=='경제/경영'}">selected</c:if>>경제/경영</option>
 						<option value="인문" <c:if test="${book.category=='인문'}">selected</c:if>>인문</option>
@@ -107,12 +116,9 @@
 					</select>
 				</li>
 				<li>
-					<label for="thumbnail">썸네일</label>
-					<input type="file" name="thumbnail" id="thumbnail" accept="image/gif,image/png,image/jpeg">
-					<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" width="200" id="db_thumbnail">
-						<div id="file_detail">
-							(${book.thumbnail})파일이 등록되어 있습니다.
-						</div>
+					<label for="thumbnail" class="form-label">썸네일</label>
+					<input type="file" name="thumbnail" id="thumbnail" class="form-control" accept="image/gif,image/png,image/jpeg">
+
 					<script type="text/javascript">
 						$(function(){
 							//이미지 미리 보기
@@ -175,13 +181,13 @@
 				</li>
 				<li>
 					<label for="content">내용</label>
-					<textarea rows="5" cols="30" name="content" id="content">${book.content}</textarea>
+					<textarea rows="10" cols="60" name="content" id="content" class="form-control">${book.content}</textarea>
 				</li>
 			</ul>
 			<div class="align-center">
-				<input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do'">
-				<input type="submit" value="수정">
-				<input type="button" value="삭제" id="delete_btn">
+				<input type="button" value="목록" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do'">
+				<input type="submit" value="수정" class="btn btn-primary">
+				<input type="button" value="삭제" id="delete_btn" class="btn btn-danger">
 				<script type="text/javascript">
 				 let delete_btn = document.getElementById('delete_btn');
 				 //이벤트 연결

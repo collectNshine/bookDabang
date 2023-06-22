@@ -6,8 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.book.vo.BookMarkVO;
 import kr.book.vo.BookVO;
 import kr.util.DBUtil;
+import kr.util.StringUtil;
 
 public class BookDAO {
 		//싱글턴 패턴 
@@ -17,6 +19,9 @@ public class BookDAO {
 		}
 		private BookDAO() {}
 		
+		
+		
+		/*--------------------도서 관리--------------------*/
 		
 		//도서 등록 (관리자)
 		public void insertBook(BookVO book) throws Exception{
@@ -32,7 +37,7 @@ public class BookDAO {
 				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
 				//?에 데이터 바인딩
-				pstmt.setString(1, book.getTitle());
+				pstmt.setString(1, StringUtil.useNoHtml(book.getTitle()));
 				pstmt.setString(2, book.getAuthor());
 				pstmt.setString(3, book.getPublisher());
 				pstmt.setInt(4, book.getPrice());
@@ -176,7 +181,7 @@ public class BookDAO {
 					book.setStock(rs.getInt("stock"));
 					book.setCategory(rs.getString("category"));
 					book.setThumbnail(rs.getString("thumbnail"));
-					book.setContent(rs.getString("content"));
+					book.setContent(StringUtil.useBrNoHtml(rs.getString("content")));
 					book.setReg_date(rs.getDate("reg_date"));
 				}
 			}catch(Exception e) {
@@ -280,6 +285,169 @@ public class BookDAO {
 			}finally {
 				DBUtil.executeClose(null, pstmt, conn);
 			}
+		}
+		
+		
+		
+		
+		
+		/*--------------------책갈피--------------------*/
+		
+		//책갈피 등록
+		public void insertMark(BookMarkVO markVO) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				//커넥션 풀로부터 커넥션을 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "INSERT INTO book_mark (mark_num,bk_num,mem_num) "
+					+ "VALUES (book_mark_seq.nextval,?,?)";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, markVO.getBk_num());
+				pstmt.setInt(2, markVO.getMem_num());
+				//SQL문 실행
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+		}
+		
+		
+		//책갈피 해제
+		public void deleteMark(int mark_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				//커넥션 풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "DELETE FROM book_mark WHERE mark_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, mark_num);
+				//SQL문 실행
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+		}
+		
+		
+		//책갈피 여부 확인 (내가 이 책을 책갈피 등록해놨는지 확인 용)
+		public BookMarkVO selectMark(BookMarkVO markVO) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			BookMarkVO mark = null;
+			String sql = null;
+			try {
+				//커넥션 풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT * FROM book_mark WHERE bk_num=? AND mem_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, markVO.getBk_num());
+				pstmt.setInt(2, markVO.getMem_num());
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					mark = new BookMarkVO();
+					mark.setMark_num(rs.getInt("mark_num"));
+					mark.setBk_num(rs.getInt("bk_num"));
+					mark.setMem_num(rs.getInt("mem_num"));
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			
+			return mark;
+		}
+		
+		
+		//도서 별 책갈피 저장 개수 (몇 명의 회원이 이 책을 책갈피에 담았는지 확인 용)
+		public int selectMarkCount(int bk_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			int count = 0;
+			try {
+				//커넥션 풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT COUNT(*) FROM book_mark WHERE bk_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, bk_num);
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			return count;
+		}
+		
+
+		//회원 별 책갈피 목록
+		public List<BookVO> getMarkList(int start, int end, int mem_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<BookVO> list = null;
+			String sql = null;
+			try {
+				//커넥션 풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT * "
+					+ "FROM (SELECT a.*, rownum rnum "
+							+ "FROM (SELECT * "
+									+ "FROM member m JOIN book_mark bm USING(mem_num) JOIN book_list bl USING(bk_num) "
+									+ "WHERE m.mem_num=? ORDER BY mark_num DESC)a) "
+							+ "WHERE rnum >= ? AND rnum <= ?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, mem_num);
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				list = new ArrayList<BookVO>();
+				while(rs.next()) {
+					BookVO book = new BookVO();
+					book.setBk_num(rs.getInt("bk_num"));
+					book.setTitle(StringUtil.useNoHtml(rs.getString("title")));
+					book.setAuthor(rs.getString("author"));
+					list.add(book);
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			
+			return list;
 		}
 		
 }

@@ -1,16 +1,19 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Noto+Sans+KR:wght@300&display=swap');
 
-/*-----검색창-----*/
+/*-------------[도서목록]-------------*/
+
+/*--검색창--*/
 .start{
 	text-align:center;
 	margin:50px 0;
 }
-#search_form{
 
+.search li{
+	display:inline-block;
 }
 
-/*-----카테고리-----*/
+/*--카테고리--*/
 .list-group{
 	width:150px;
 	float:left;
@@ -22,7 +25,7 @@
 	border:none;
 }
 
-/*-----목록-----*/
+/*--목록--*/
 .book-list{
 	list-style:none;
 	float:right;
@@ -59,4 +62,25 @@
 	display: -webkit-box;
         -webkit-line-clamp: 3;
         -webkit-box-orient: vertical;
+}
+
+
+
+/*-------------[도서상세]-------------*/
+#output_mark{
+	cursor:pointer;
+}
+
+
+
+/*-------------[도서등록/수정]-------------*/
+.form-select{
+	width:120px;
+	float:left;
+}
+.form-control{
+	width:400px;
+}
+.input-group-text{
+	height:40px;
 }

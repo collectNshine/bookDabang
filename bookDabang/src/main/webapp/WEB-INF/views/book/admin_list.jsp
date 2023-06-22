@@ -37,10 +37,10 @@
 					</select>
 				</li>
 				<li>
-					<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
+					<input type="search" size="16" name="keyword" id="keyword" class="form-control me-2" value="${param.keyword}">
 				</li>
 				<li>
-					<input type="submit" value="검색">
+					<input type="submit" value="검색" class="btn btn-outline-success">
 				</li>
 			</ul>
 		</form>
