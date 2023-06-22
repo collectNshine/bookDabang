@@ -12,6 +12,110 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(function(){
+		
+		//수정 버튼 이벤트 연결
+		$('#photo_btn').click(function(){
+			$('#photo_choice').show();
+			$(this).hide(); //수정버튼 감추기
+			$('#passwd_btn').hide();
+		}); //end of click
+
+		
+		//이미지 미리 보기
+		//처음 화면에 보여지는 이미지 저장
+		let photo_path = $('.my-photo').attr('src');
+		//선택한 이미지 저장
+		let my_photo;
+		$('#photo').change(function(){
+			my_photo = this.files[0];
+			
+			if(!my_photo){ 
+				$('.my-photo').attr('src',photo_path);
+				return;
+			}
+			//파일 용량 체크
+			if(my_photo.size > 1024*1024){
+				alert(Math.round(my_photo.size/1024) + 'kbytes(1024kbytes까지만 업로드 가능)');
+				$('.my-photo').attr('src',photo_path);
+				$(this).val(''); //선택한 파일 정보 지우기
+				return;
+			}
+			
+			let reader = new FileReader();
+			reader.readAsDataURL(my_photo);
+			reader.onload=function(){
+				$('.my-photo').attr('src',reader.result)
+			};
+		});//end of change
+		
+		
+		//전송 버튼 이벤트 연결
+		$('#photo_submit').click(function(){
+			if($('#photo').val()==''){
+				alert('파일을 선택하세요!');
+				$('#photo').focus();
+				return;
+			}
+			//서버에 파일 전송
+			let form_data = new FormData();
+			form_data.append('photo',my_photo);
+			$.ajax({
+				url:'updateMyPhoto.do',
+				type:'post',
+				data:form_data,
+				dataType:'json',
+				contentType:false,//데이터 객체를 문자열로 바꿀지에 대한 설정
+				processData:false,//해당 타입을 true로 하면 일반text로 구분
+				enctype:'multipart/form-data',
+				success:function(param){
+					if(param.result == 'logout'){
+						alert('로그인 후 사용하세요!');
+					}else if(param.result == 'success'){
+					 	alert('프로필 사진이 수정되었습니다.');
+					 	//업로드한 이미지로 초기 이미지를 대체
+					 	photo_path = $('.my-photo').attr('src');
+					 	$('#photo').val('');
+					 	$('#photo_choice').hide();
+					 	$('#photo_btn').show();
+					}else{
+						alert('파일 전송 오류 발생');
+					}
+				},
+				error:function(){
+					alert('네트워크 오류 발생');
+				}
+			});
+		}); //end of submit
+		
+		
+		//취소 버튼 이벤트 연결
+		$('#photo_reset').click(function(){
+			//초기 이미지 표시
+			$('.my-photo').attr('src',photo_path);
+			$('#photo').val('');
+			$('#photo_choice').hide();
+			$('#photo_btn').show(); //수정버튼 다시 보이게
+				$('#photo_btn').show(); //비밀번호 변경 버튼 다시 보이게
+		});
+		
+		/*
+		//사진 삭제 버튼 이벤트 연결
+		$('#photo_delete').click(function(){
+			//초기 이미지 표시
+			$('.my-photo').attr('src',photo_path);
+			$('#photo').val('');
+			$('#photo_choice').hide();
+			$('#photo_btn').show(); //수정버튼 다시 보이게
+			$('.my-photo').attr('src',photo_path);
+			
+			return;
+		});
+		*/
+		
+		
+	}); //end of click
+
+	$(function(){
 		//회원 정보 등록 유효성 체크
 		$('#modify_form').submit(function(){
 			let items = 
@@ -28,6 +132,11 @@
 			} //end of for
 		}); //end of submit
 	});
+	
+	
+		
+		
+		
 </script>
 </head>
 <body>
@@ -44,32 +153,88 @@
 			<li>
 				<c:if test="${empty member.photo}">
 					<img src="${pageContext.request.contextPath}/images/face.png" 
-							width="200" height="200" class="my-photo">
+							width="300" height="300" class="my-photo">
 				</c:if>
 				<c:if test="${!empty member.photo}">
 					<img src="${pageContext.request.contextPath}/upload/${member.photo}" 
-						 width="200" height="200" class="my-photo">
+						 width="300" height="300" class="my-photo">
 				</c:if>
-			</li>	
+			</li>
 			<li>
 				<div class="align-center">
+					<input type="button" value="사진 수정" id="photo_btn">
+					<input type="button" value="비밀번호 변경" id="passwd_btn"
+					onclick="location.href='${pageContext.request.contextPath}/mypage/modifyPasswordForm.do'">
+					<input type="button" value="회원 탈퇴" id="delete_btn"
+					onclick="location.href='${pageContext.request.contextPath}/mypage/deleteUserForm.do'">
+				</div>
+				<div class="align-center" id="photo_choice" style="display:none;">
+					<input type="file" class="align-center" id="photo" accept="image/gif,image/png,image/jpeg">
+					<br>
+					<input type="button" value="전송" id="photo_submit">
+					<input type="button" value="취소" id="photo_reset">
+					<input type="button" value="삭제" id="photo_delete" onclick="location.href='deleteUserForm.do?mem_num=${member.mem_num}'">
+					
+					<script type="text/javascript">
+						$(function(){
+							$('#photo_delete').click(function(){
+								let choice = confirm('삭제하시겠습니까?');
+								if(choice){
+									$.ajax({
+										url:'deleteFile.do',
+										type:'post',
+										data:{board_num:${board.board_num}},
+										dataType:'json',
+										success:function(param){
+											if(param.result == 'logout'){
+												alert('로그인 후 사용 가능합니다.');
+											}else if(param.result = 'success'){
+												$('#file_detail').hide();
+											}else if(param.result = 'wrongAccess'){
+												alert('잘못된 접속입니다.');
+											}else{
+												alert('파일 삭제 오류 발생');
+											}
+										},
+										error:function(){
+											alert('네트워크 오류 발생');
+										}
+									});
+								}
+							});
+						});
+					</script>
+
+					
+				</div>
+				</li>
+			
+			
+			<%--
+			<li>
+				<div class="align-center profile">
 					<img src="${pageContext.request.contextPath}/images/profile.png" 
 						 width="30" height="30" class="icon">
+					<input type="file" id="photo" accept="image/gif,image/png,image/jpeg">
 					<img src="${pageContext.request.contextPath}/images/trashcan.png" 
 						 width="30" height="30" class="icon">
 					<input type="button" value="비밀번호 변경" class="icon"
 					onclick="location.href='${pageContext.request.contextPath}/mypage/modifyPasswordForm.do'">
 				</div>
 			</li>	
+			--%>
+			
+			
+			
 		</ul>
 
 		<!-- 프로필 사진 끝 -->	
-		<form id="modify_form" action="modifyUser.do" method="post">
+		<form id="modify_form" action="modifyUser.do" method="post" style="border:none">
 			<ul>
 				<li>
 					<label for="name">필명</label>
 					<input type="text" name="name" id="name" 
-						   maxlength="10" value="${vo.name}">
+						   maxlength="10" value="${member.name}">
 				</li>
 				<li>
 					<label for="phone">휴대폰번호</label>

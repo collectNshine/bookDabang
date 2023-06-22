@@ -15,13 +15,14 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
+
 </script> 
 </head>
 <body> 
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<hr size="1" noshade="noshade" width="100%">
-		<h2>마이페이지</h2>
+		<h2 class="align-center">마이페이지</h2>
 	<hr size="1" noshade="noshade" width="100%">
 	<div class="mypage-div">
 	<!-- 프로필 사진 시작 -->

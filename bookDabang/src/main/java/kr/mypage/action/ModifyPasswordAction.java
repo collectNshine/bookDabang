@@ -55,7 +55,7 @@ public class ModifyPasswordAction implements Action{
 		request.setAttribute("check", check);
 		
 		//JSP 경로 반환
-		return "/WEB-INF/views/member/modifyPassword.jsp";
+		return "/WEB-INF/views/mypage/modifyPassword.jsp";
 	}
 
 }
