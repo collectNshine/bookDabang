@@ -52,6 +52,7 @@ constraint member_sleep_fk foreign key (mem_num)
 
 create table notice_board(--공지 게시판 정보
 noti_num number,
+noti_categoty number not null, --1: 회원 2:주문/ 주문변경 3:결제 4:증빙서류
 noti_date date not null,
 noti_title varchar2(150) not null,
 noti_content clob not null,
