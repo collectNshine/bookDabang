@@ -66,7 +66,7 @@ public class MyPageDAO {
 		
 		try {
 			conn = DBUtil.getConnection();
-			sql = "UPDATE vo_detail "
+			sql = "UPDATE member_detail "
 					+ "SET name=?,passwd=?,phone=?,email=?,address1=?,zipcode=?,address2=? "
 					+ "WHERE mem_num=?";
 			pstmt = conn.prepareStatement(sql);
@@ -173,9 +173,32 @@ public class MyPageDAO {
 		}
 	}
 	
+	//프로필 사진 정보 삭제
+			public void deletePhoto(int mem_num) throws Exception{
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				String sql = null;
+				try {
+					//커넥션 풀로부터 커넥션을 할당
+					conn = DBUtil.getConnection();
+					//SQL문 작성
+					sql = "UPDATE member_detail SET photo='' WHERE mem_num=?";
+					//PreparedStatement 객체 생성
+					pstmt = conn.prepareStatement(sql);
+					//?에 데이터 바인딩
+					pstmt.setInt(1, mem_num);
+					//SQL문 실행
+					pstmt.executeUpdate();
+				}catch(Exception e) {
+					throw new Exception(e);
+				}finally {
+					DBUtil.executeClose(null, pstmt, conn);
+				}
+			}
+	
 	
 	//회원 탈퇴 (회원정보 삭제)
-	public void deletevo(int mem_num) throws Exception{
+	public void deleteMember(int mem_num) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
@@ -192,7 +215,7 @@ public class MyPageDAO {
 			pstmt.setInt(1, mem_num);
 			pstmt.executeUpdate();
 			
-			//zvo_detail의 레코드 삭제
+			//member_detail의 레코드 삭제
 			sql = "DELETE FROM member_detail WHERE mem_num=?";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, mem_num);
