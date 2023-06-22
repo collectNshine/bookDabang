@@ -2,15 +2,17 @@ package kr.post.dao;
 
 import java.sql.Connection;
 
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 import kr.post.dao.PostDAO;
+import kr.post.vo.PostReplyVO;
 import kr.post.vo.PostVO;
 import kr.util.DBUtil;
+import kr.util.DurationFromNow;
+import kr.util.StringUtil;
 
 	public class PostDAO {
 		//싱글턴 패턴
@@ -359,10 +361,190 @@ import kr.util.DBUtil;
 		}
 */		
 		//댓글 등록
-		//댓글 수
+		public void insertReplyPost(PostReplyVO postReply) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "INSERT INTO post_reply (re_num,re_content,re_ip,mem_num,post_num) VALUES (post_reply_seq.nextval,?,?,?,?)";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setString(1, postReply.getRe_content());
+				pstmt.setString(2, postReply.getRe_ip());
+				pstmt.setInt(3, postReply.getMem_num());
+				pstmt.setInt(4, postReply.getPost_num());
+				//SQL문 실행
+				pstmt.executeUpdate();
+				
+			} catch(Exception e) {
+				throw new Exception(e);
+			} finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+			
+		}
+		
+		//댓글 개수
+		public int getReplyPostCount(int post_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			int count = 0;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT COUNT(*) FROM post_reply p JOIN member m ON p.mem_num=m.mem_num WHERE p.post_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, post_num);
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+								//컬럼 index
+					count = rs.getInt(1);
+				}
+			} catch(Exception e) {
+				throw new Exception(e);
+			} finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			
+			return count;
+		}
+		
 		//댓글 목록
+		public List<PostReplyVO> getListReplyPost(int start, int end, int post_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<PostReplyVO> list = null;
+			String sql = null;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post_reply p JOIN member m USING(mem_num) WHERE p.post_num=? ORDER BY p.re_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, post_num);
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				list = new ArrayList<PostReplyVO>();
+				while(rs.next()) {
+					PostReplyVO reply = new PostReplyVO();
+					reply.setRe_num(rs.getInt("re_num"));
+					reply.setRe_date(rs.getString("re_date"));
+					reply.setRe_content(StringUtil.useBrNoHtml(rs.getString("re_content")));
+					reply.setPost_num(rs.getInt("post_num"));
+					reply.setMem_num(rs.getInt("mem_num"));
+					reply.setId(rs.getString("id"));
+					
+					list.add(reply);
+				}
+			} catch(Exception e) {
+				throw new Exception(e);
+			} finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			
+			return list;
+		}
+
 		//댓글 상세
+		public PostReplyVO getReplyPost(int re_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			PostReplyVO reply = null;
+			String sql = null;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT * FROM post_reply WHERE re_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, re_num);
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					reply = new PostReplyVO(); //자바빈 객체 생성
+					reply.setRe_num(rs.getInt("re_num"));
+					reply.setMem_num(rs.getInt("mem_num"));
+				}
+			} catch(Exception e) {
+				throw new Exception(e);
+			} finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			
+			return reply;
+		}
+		
 		//댓글 수정
+		public void updateReplyPost(PostReplyVO reply) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "UPDATE post_reply SET re_content=?, re_modifydate=SYSDATE, re_ip=? WHERE re_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setString(1, reply.getRe_content());
+				pstmt.setString(2, reply.getRe_ip());
+				pstmt.setInt(3, reply.getRe_num());
+				//SQL문 실행
+				pstmt.executeUpdate();
+			} catch(Exception e){
+				throw new Exception(e);
+			} finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+		}
+		
 		//댓글 삭제
+		public void deleteReplyPost(int re_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "DELETE FROM post_reply WHERE re_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, re_num);
+				//SQL문 실행
+				pstmt.executeUpdate();
+				
+			} catch(Exception e) {
+				throw new Exception(e);
+			} finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+		}
 		
 }

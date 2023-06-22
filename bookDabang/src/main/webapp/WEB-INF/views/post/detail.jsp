@@ -8,6 +8,7 @@
 <title>서평 상세</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/post.reply.js"></script>
 </head>
 <body>
 <div class="page-main">
@@ -73,8 +74,8 @@
 		<hr>
 		<span>댓글</span>
 	</div>
-	<!-- 댓글 시작 -->
-	<!-- 댓글 목록 출력 시작 -->
+		<!-- 댓글 시작 -->
+		<!-- 댓글 목록 출력 시작 -->
 		<div id="output"></div>
 		<div class="paging-button" style="display:none;">
 			<input type="button" value="다음글 보기">
@@ -82,8 +83,8 @@
 		<div id="loading" style="display:none;">
 			<img src="${pageContext.request.contextPath}/images/loading.gif" width="50" height="50">
 		</div>
-	<!-- 댓글 목록 출력 끝 -->
-	<div id="reply_div">
+		<!-- 댓글 목록 출력 끝 -->
+		<div id="reply_div">
 			<span class="re-title">댓글 달기</span>
 			<form id="re_form">
 				<input type="hidden" name="post_num" value="${post.post_num}" id="post_num">
@@ -99,8 +100,8 @@
 				</div>
 				</c:if>
 			</form>
-		</div>
-	<!-- 댓글 끝 -->
+		</div>		
+		<!-- 댓글 끝 -->
 	<!-- 내용 끝 -->
 </div>
 </body>
