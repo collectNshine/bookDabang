@@ -51,6 +51,12 @@
 				$('#content').val('').focus();
 				return false;
 			}
+
+			 let choice = confirm('수정하시겠습니까?');
+			 if(choice){
+				 //히스토리를 지우면서 이동
+				 location.replace('${pageContext.request.contextPath}/mypage/myPage.do');
+			 }
 		});
 	});
 </script>
@@ -103,42 +109,28 @@
 				<li>
 					<label for="thumbnail">썸네일</label>
 					<input type="file" name="thumbnail" id="thumbnail" accept="image/gif,image/png,image/jpeg">
-					<%--
-					<c:if test="${empty book.thumbnail}">
-						<img src="${pageContext.request.contextPath}/images/bk_no_image.png" 
-								 width="200" class="db_thumbnail">
-						<div id="file_detail">
-							등록된 썸네일이 없습니다.
-						</div>
-					</c:if>
-					 --%> 
-					<c:if test="${!empty book.thumbnail}">
-						<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" 
-							 width="200" class="db-thumbnail">
+					<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" width="200" id="db_thumbnail">
 						<div id="file_detail">
 							(${book.thumbnail})파일이 등록되어 있습니다.
-						<%-- 
-						<input type="button" value="파일삭제" id="file_del">
-						--%>
 						</div>
 					<script type="text/javascript">
 						$(function(){
 							//이미지 미리 보기
 							//1.처음 화면에 보여지는 기존 DB 이미지 저장
-							let photo_path = $('.db_thumbnail').attr('src');
+							let photo_path = $('#db_thumbnail').attr('src');
 							//2.새로 선택한 이미지 저장
 							let new_thumbnail;
 							$('#thumbnail').change(function(){
 								new_thumbnail = this.files[0];
 								//새 이미지를 선택 안 했을 경우 (선택하려다 취소)
 								if(!new_thumbnail){ 
-									$('.db_thumbnail').attr('src',photo_path);
+									$('#db_thumbnail').attr('src',photo_path);
 									return;
 								}
 								//파일 용량이 지정한 범위를 넘을 경우
 								if(new_thumbnail.size > 1024*1024){
 									alert(Math.round(new_thumbnail.size/1024) + 'kbytes(1024kbytes까지만 업로드 가능)');
-									$('.db_thumbnail').attr('src',photo_path);
+									$('#db_thumbnail').attr('src',photo_path);
 									$(this).val(''); //선택한 파일 정보 지우기
 									return;
 								}
@@ -146,14 +138,14 @@
 								let reader = new FileReader();
 								reader.readAsDataURL(new_thumbnail);
 								reader.onload=function(){
-									$('.db_thumbnail').attr('src',reader.result);
+									$('#db_thumbnail').attr('src',reader.result);
 									$('#file_detail').empty();
 								};
 								
 								
 							});//end of change
 							
-							<%-- 
+							<%--  파일 삭제 처리 
 							$('#update_form').submit(function(){
 								let choice = confirm('수정하시겠습니까?');
 									$.ajax({
@@ -180,7 +172,6 @@
 							});//end of click --%>
 						});
 					</script>
-					</c:if>
 				</li>
 				<li>
 					<label for="content">내용</label>

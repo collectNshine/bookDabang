@@ -10,7 +10,7 @@
 <title>차림표|책다방</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/book_style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/book_list_style.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -30,6 +30,11 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
 	<div class="content-main">
+		<hr size="1" noshade width="100%">
+		<div class="start">
+		<h2><b>차림표</b></h2>
+		<h6 style="color:grey">책다방에서 마음의 양식을 채워보세요</h6>
+		</div>
 		<!-- 검색창 시작 : get방식 -->
 		<form id="search_form" action="list.do" method="get">
 			<ul class="search">
@@ -70,19 +75,37 @@
 		<!-- 목록 시작 (미완성) -->
 		<c:forEach var="book" items="${list}">
 		<div class="book-list">
-			<div class="list-photo">
-			<a href="detail.do?bk_num=${book.bk_num}">
-				<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" width="200" class="list-thumbnail">
-			</a>
-			</div>
-			<div class="list-text">
-				<div class="list-title"><a href="detail.do?bk_num=${book.bk_num}">${book.title}</a></div>
-				<div class="list-author-publisher">${book.author} | ${book.publisher}</div>
-				<div class="list-price"><fmt:formatNumber value="${book.price}"/>원</div>
-				<div class="list-content">${book.content}</div>
-			</div>
+			<ul class="list-photo">
+				<li>
+					<a href="detail.do?bk_num=${book.bk_num}">
+					<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" width="150" class="list-thumbnail">
+					</a>
+				</li>
+			</ul>
+			<ul class="list-text">
+				<li>
+					<div class="list-title">
+						<a href="detail.do?bk_num=${book.bk_num}"><b>${book.title}</b></a>
+					</div>
+				</li>
+				<li>
+					<div class="list-author-publisher">
+						${book.author} | ${book.publisher}
+					</div>
+				</li>
+				<li>
+					<div class="list-price">
+					<fmt:formatNumber value="${book.price}"/>원
+					</div>
+				</li>
+				<li>
+					<div class="list-content">
+						${book.content}
+					</div>
+				</li>
+			</ul>
+			<hr size="1" noshade width="80%" align="right">
 		</div>
-		<hr size="1" noshade width="96%">
 		</c:forEach>
 		<!-- 목록 끝 -->
 		

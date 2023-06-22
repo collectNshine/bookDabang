@@ -1,0 +1,62 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Noto+Sans+KR:wght@300&display=swap');
+
+/*-----검색창-----*/
+.start{
+	text-align:center;
+	margin:50px 0;
+}
+#search_form{
+
+}
+
+/*-----카테고리-----*/
+.list-group{
+	width:150px;
+	float:left;
+	text-align:center;
+	margin-top:30px;
+}
+.list-group .active{
+	background-color:grey;
+	border:none;
+}
+
+/*-----목록-----*/
+.book-list{
+	list-style:none;
+	float:right;
+	width:80%;
+	margin-top:30px;
+}
+.list-photo{ /*썸네일 사진*/
+	float:left;
+	margin:30px 50px;
+}
+.list-text{ /*도서 정보글*/
+	margin-top:30px;
+}
+.list-text li{
+	margin:5px 60px;
+}
+.list-title{ /*도서 정보글 - 제목*/
+	font-weight:bold;
+	font-size:14pt;
+}
+.list-author-publisher{ /*도서 정보글 - 작가|출판사*/
+	color:grey;
+	font-size:10pt;
+	margin-top:10px;
+}
+.list-price{ /*도서 정보글 - 가격*/
+	color:rgb(56, 76, 255);
+}
+.list-content{ /*도서 정보글 - 책소개*/
+	width:60%;
+	margin-top:50px;
+	text-overflow:ellipsis;  
+	overflow:hidden;
+	display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+}
