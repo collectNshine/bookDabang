@@ -14,30 +14,31 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/book_mark.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/book_review.js"></script>
 <script type="text/javascript">
 	$(function(){ 
-		//공백을 두면 2개의 이벤트 동시 연결 (mouseup : 증가/감소 아이콘 누를때)
+		//수량 이벤트 연결
 		$('#order_quantity').on('keyup mouseup',function(){
-			if($('#order_quantity').val() == ''){
-				$('#item_total_txt').text('총 주문 금액 : 0원');
-				return;
+			//수량 2개 이상 입력 시 총 합계 금액이 보여지게 처리
+			let total = $('#price').val() * $('#order_quantity').val();
+			$('#item_total_txt').text('총 주문 금액 : ' + total.toLocaleString() + '원');
+			if($('#order_quantity').val() < 2){
+				$('#item_total_txt').text('');
 			}
-			if($('#order_quantity').val() <= 0){
-				$('#order_quantity').val('');
+			//음수&문자 입력 방지
+			if($('#order_quantity').val() <= 0 || isNaN($('#order_quantity').val())){
+				$('#order_quantity').val('').focus();
 				return;
+			
 			}
+
 			//둘 중 하나만 Number로 형변환
 			if(Number($('#stock').val()) < $('#order_quantity').val()){
-				alert('수량이 부족합니다.');
+				alert('선택하신 수량보다 재고가 부족합니다.');
 				$('#order_quantity').val('');
-				$('#item_total_txt').text('총 주문 금액 : 0원');
+				$('#item_total_txt').text('');
 				return;
 			}
-			
-			//총 주문 금액
-			let total = $('#price').val() * $('#order_quantity').val();
-													  //toLocaleString()으로 숫자 세자리 쉼표 처리
-			$('#item_total_txt').text('총 주문 금액 : ' + total.toLocaleString() + '원');
 		});  //end of keyup mouseup
 		
 		
@@ -84,9 +85,9 @@
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
-	<div class="content-main">
+	<div class="content-main detail">
 		<div class="item-image">
-			<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" width="400">
+			<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" width="300">
 		</div>
 		<div class="item-detail">
 			<form id="item_cart">
@@ -143,7 +144,7 @@
 				<hr size="1" width="100%">
 				<ul>
 						<li>
-							<span id="item_total_txt" style="display:none;">총 주문 금액 : <fmt:formatNumber value="${book.price}"/>원</span>
+							<span id="item_total_txt"></span>
 						</li>
 						<li>
 							<div class="d-grid gap-2 col-6 mx-auto">
@@ -159,6 +160,57 @@
 			<h3>책 소개</h3>
 			${book.content}
 		</div>
+		<hr size="1" noshade="noshade" width="100%">
+		
+		
+		<!-- 댓글 시작 -->
+		<div id="review_div">
+			<span class="review-title">한 줄 기록</span>
+			<form id="review_form">
+				<input type="hidden" name="bk_num" value="${book.bk_num}" id="bk_num">
+				
+				<div class="user-photo">
+					<c:if test="${!empty user_photo}">
+	           			<img src="${pageContext.request.contextPath}/upload/${user_photo}" width="35" height="35" class="my-photo">
+		      		</c:if>
+					<c:if test="${empty user_photo}">
+		          		<img src="${pageContext.request.contextPath}/images/face.png" width="35" height="35" class="my-photo">
+		        	</c:if>
+		        </div>
+	        	
+	        	<div class="review-content">
+					<textarea rows="2" cols="130" maxlength="50" name="re_content" id="re_content" class="re-content" placeholder="나만의 생각을 간략하게 남겨주세요" <c:if test="${empty user_num}">disabled="disabled"</c:if>><c:if test="${empty user_num}">로그인 후 작성할 수 있습니다.</c:if></textarea>
+				</div>
+				
+				<c:if test="${!empty user_num}"> <!-- 로그인 여부 체크 -->
+				<div class="submit-button">
+					<input type="submit" class="btn btn-dark" value="등록">
+				</div>
+				
+				<span class="review-letter-count" id="re_first">50/50</span>
+				</c:if>
+			</form>
+			<hr size="1" noshade="noshade" width="100%">
+			
+				<!-- 댓글 목록 출력 시작 -->
+		<div id="output"></div>
+		<div class="paging-button" style="display:none;">
+			<input type="button" value="다음글 보기">
+		</div>
+		<div id="loading" style="display:none;">
+			<img src="${pageContext.request.contextPath}/images/loading.gif" width="50" height="50">
+		</div>
+		<!-- 댓글 목록 출력 끝 -->	
+			
+			
+			
+			
+		</div>
+		
+
+		<!-- 댓글 끝 -->
+		
+		
 	</div>
 	<!-- 내용 끝 -->
 </div>
