@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+import com.sun.net.httpserver.Authenticator.Result;
+
 import kr.member.vo.MemberVO;
 import kr.util.DBUtil;
 
@@ -104,6 +106,29 @@ public class MemberDAO {
 			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
-
 	}
+	//[아이디/ 비밀번호 찾기 본인 인증용 이름, 이메일 검색]
+	//찾는 값이 있으면 true, 없으면 false를 반환한다. 
+	public boolean chackNameEmail(String name, String email) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		boolean result = false;
+		try {
+			conn=DBUtil.getConnection();
+			sql="SELECT * FROM member_detail WHERE name=? AND email=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+			rs=pstmt.executeQuery();
+			result = rs.next();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally{
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return result; 
+	}
+	
 }
