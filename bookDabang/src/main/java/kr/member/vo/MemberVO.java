@@ -33,7 +33,7 @@ public class MemberVO {
 		}
 		return false;
 	}
-
+	
 	//getter와 setter 생성
 	public int getMem_num() {
 		return mem_num;

@@ -52,7 +52,7 @@ constraint member_sleep_fk foreign key (mem_num)
 
 create table notice_board(--공지 게시판 정보
 noti_num number,
-noti_categoty number not null, --1: 회원 2:주문/ 주문변경 3:결제 4:증빙서류
+noti_categoty number not null, --1: 회원 2:주문/ 주문변경 3:결제 4:증빙서류 5:공지사항
 noti_date date not null,
 noti_title varchar2(150) not null,
 noti_content clob not null,
@@ -64,3 +64,44 @@ constraint notice_board_fk foreign key (mem_num)
 );
 
 create sequence notice_seq;
+
+create table notice_reply (-- 공지 댓글
+re_num number,
+re_content varchar2(150) not null,
+re_emo varchar2(1000) ,
+re_ip varchar2(15) not null,
+re_date date not null,
+re_motifydate date,
+noti_num number not null,
+mem_num number not null,
+constraint noti_reply_pk 
+                   primary key (re_num),
+ constraint noti_reply1_fk
+                 foreign key (noti_num) 
+                 references notice_board (noti_num),
+constraint noti_reply2_fk
+                 foreign key (mem_num) 
+                 references member (mem_num)
+);
+
+create sequence notice_reply_seq;
+
+create table qa_board ( --1:1 게시판
+qa_num number, --id 값
+ref number not null default 0,
+step number default 0,
+reforder number default 0,
+answerNum number default 0, 
+parentNum number  default 0,
+qa_title varchar2(150) not null,
+qa_content clob not null,
+reg_date date not null,
+mem_num number not null,
+constraint qa_board_pk 
+                   primary key (qna_num),
+constraint qa_board_fk
+                 foreign key (mem_num) 
+                 references member (mem_num)
+);
+
+create sequence qa_board_seq;
