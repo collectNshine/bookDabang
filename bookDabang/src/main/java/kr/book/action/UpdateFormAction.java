@@ -27,6 +27,11 @@ public class UpdateFormAction implements Action {
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		
+		//POST 방식의 접근만 허용
+		if(request.getMethod().toUpperCase().equals("GET")) {
+			return "redirect:/mypage/myPage.do";
+		}
+		
 		//관리자 로그인 O
 		int bk_num = Integer.parseInt(request.getParameter("bk_num"));
 		BookDAO dao = BookDAO.getInstance();
