@@ -1,4 +1,4 @@
-<%-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -28,6 +28,7 @@
 		});
 		
 	});
+	
 </script>
 </head>
 <body>
@@ -36,27 +37,30 @@
 	<div class="content-main">
 		<h2>도서 신청 수정</h2>
 		<form id="modify_form" action="modify.do" method="post" >
+			<input type="hidden" name="req_num" value="${request.req_num}">
 			<ul>
 				<li>
 					<label for="req_title">책 제목</label>
-					<input type="text" name="req_title" id="req_title" maxlength="50">
+					<input type="text" name="req_title" id="req_title" value ="${request.req_title}" maxlength="50">
 				</li>
 				<li>
 					<label for="req_author">저자</label>
-					<input type="text" name="req_author" id="req_author" maxlength="50">
+					<input type="text" name="req_author" id="req_author" value ="${request.req_author}" maxlength="50">
 				</li>
 				<li>
 					<label for="req_publisher">출판사</label>
-					<input type="text" name="req_publisher" id="req_publisher" maxlength="50">
+					<input type="text" name="req_publisher" id="req_publisher" value ="${request.req_publisher}" maxlength="50">
 				</li>
 				<li>
 					<label for="req_etc">기타</label>
-					<input type="text" name="req_etc" id="req_etc" maxlength="150">
+					<input type="text" name="req_etc" id="req_etc" value ="${request.req_etc}" maxlength="150">
 				</li>
 			</ul>
+	
 			<div class="align-center">
 				<input type="button" value="취소" onclick="location.href='list.do'">
-				<input type="submit" value="수정">
+				<input type="submit" value="수정" onclick="location.href='modify.do?req_num=${request.req_num}'">
+				
 			</div>
 		</form>
 		
@@ -64,4 +68,4 @@
 	
 </div>
 </body>
-</html> --%>
+</html> 

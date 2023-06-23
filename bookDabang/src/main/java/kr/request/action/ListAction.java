@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
 import kr.request.dao.RequestDAO;
@@ -22,12 +23,16 @@ public class ListAction implements Action{
 		
 		RequestDAO dao = RequestDAO.getInstance();
 		int count = dao.getRequestCount(keyfield,keyword);
-		PageUtil page = new PageUtil(keyfield,keyword,Integer.parseInt(pageNum),count,20,10,"list.do");
+		PageUtil page = new PageUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,10,"list.do");
 		
 		List<RequestVO> list = null;
 		
-		if(count > 0 ) { list = dao.getListRequest(page.getStartRow(),page.getEndRow(),keyfield,keyword); }
-		
+		if(count > 0 ) { 
+			HttpSession session = request.getSession();
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			if(user_num == null) user_num = 0;
+			list = dao.getListRequest(page.getStartRow(),page.getEndRow(),keyfield,keyword,user_num); 
+		}
 		
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);

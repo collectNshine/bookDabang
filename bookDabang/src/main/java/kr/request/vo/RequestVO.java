@@ -14,6 +14,8 @@ public class RequestVO {
 	private int mem_num; //회원번호
 	private String id; //회원이름
 	
+	private int cnt;//좋아요 개수
+	private String clicked; //로그인한 사용자가 클릭했지는 clicked 면 클릭, null이면 미 클릭
 	
 	public String getId() {
 		return id;
@@ -75,7 +77,16 @@ public class RequestVO {
 	public void setMem_num(int mem_num) {
 		this.mem_num = mem_num;
 	}
-	
-	
-	
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+	public String getClicked() {
+		return clicked;
+	}
+	public void setClicked(String clicked) {
+		this.clicked = clicked;
+	}
 }

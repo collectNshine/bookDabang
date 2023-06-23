@@ -24,6 +24,7 @@
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/request.fav.js"></script>
 <script type="text/javascript">
 	$(function(){
 		$('#search_form').submit(function(){
@@ -84,8 +85,23 @@
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>
 				<td>${request.req_author}</td>
 				<td>${request.req_publisher}</td>
-				<td>${request.req_date}</td>
-				<td>추천수</td>							<%--추천수이미지랑 추천수count 넣어야해!! --%>
+				<c:choose>
+					<c:when test="${request.req_modifydate!=null}">
+						<td>${request.req_modifydate}</td>
+					</c:when>
+					<c:otherwise>
+						<td>${request.req_date}</td>
+					</c:otherwise>
+				</c:choose>
+				<td>
+					<c:if test="${request.clicked != 'clicked'}">
+						<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
+					</c:if>
+					<c:if test="${request.clicked == 'clicked'}">
+						<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav02.gif" width="50">
+					</c:if>
+					<span class="output-fcount">${request.cnt}</span>	
+				</td>							
 			</tr>
 			</c:forEach>
 		</table>
