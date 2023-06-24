@@ -8,6 +8,7 @@ import java.util.List;
 
 import kr.book.vo.BookMarkVO;
 import kr.book.vo.BookVO;
+import kr.book.vo.ReviewVO;
 import kr.util.DBUtil;
 import kr.util.StringUtil;
 
@@ -450,4 +451,174 @@ public class BookDAO {
 			return list;
 		}
 		
+		
+		
+		
+		
+		/*--------------------한 줄 리뷰--------------------*/
+		
+		//댓글 등록
+		public void insertReview(ReviewVO review) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				//커넥션 풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "INSERT INTO review (review_num,review_content,review_ip,mem_num,bk_num) "
+					+ "VALUES (review_seq.nextval,?,?,?,?)";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setString(1, review.getReview_content());
+				pstmt.setString(2, review.getReview_ip());
+				pstmt.setInt(3, review.getMem_num());
+				pstmt.setInt(4, review.getBk_num());
+				//SQL문 실행
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+		}
+		
+		
+		//댓글 개수
+		public int getReviewCount(int bk_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			int count = 0;
+			try {
+				//커넥션 풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT COUNT(*) FROM review r JOIN member m ON r.mem_num = m.mem_num WHERE r.bk_num = ?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, bk_num);
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1); //컬럼인덱스로 불러옴
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			
+			return count;
+		}
+		
+		
+		//댓글 목록
+		public List<ReviewVO> getListReview(int start, int end, int bk_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<ReviewVO> list = null;
+			String sql = null;
+			try {
+				//커넥션 풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT * "
+					+ "FROM (SELECT a.*, rownum rnum "
+							+ "FROM (SELECT * "
+									+ "FROM review r JOIN member_detail m USING(mem_num) "
+									+ "WHERE r.bk_num=? ORDER BY r.review_num DESC)a) "
+							+ "WHERE rnum >= ? AND rnum <= ?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, bk_num);
+				pstmt.setInt(2, start);
+				pstmt.setInt(3, end);
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				list = new ArrayList<ReviewVO>();
+				while(rs.next()) {
+					ReviewVO review = new ReviewVO();
+					review.setReview_num(rs.getInt("review_num"));
+					review.setReview_date(rs.getString("review_date"));
+					if(rs.getString("review_modifydate") != null) {
+						review.setReview_modifydate(rs.getString("review_modifyDate"));
+					}
+					review.setReview_content(StringUtil.useBrNoHtml(rs.getString("review_content")));
+					review.setBk_num(rs.getInt("bk_num"));
+					review.setMem_num(rs.getInt("mem_num"));
+					review.setName(rs.getString("name"));
+					
+					list.add(review);
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			
+			return list;
+		}
+		
+		
+		//댓글 삭제
+		public void deleteReview(int review_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				//커넥션 풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "DELETE FROM review WHERE review_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, review_num);
+				//SQL문 실행
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+		}
+		
+		
+		//댓글 상세 (댓글 수정/삭제 시 작성자 회원번호 체크 용도)
+		public ReviewVO getReviewDetail(int review_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ReviewVO review = null;
+			String sql = null;
+			try {
+				//커넥션 풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT * FROM review WHERE review_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, review_num);
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					review = new ReviewVO();
+					review.setReview_num(rs.getInt("review_num"));
+					review.setMem_num(rs.getInt("mem_num"));
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			
+			return review;
+		}
 }
