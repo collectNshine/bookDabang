@@ -6,14 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kr.book.dao.BookDAO;
-import kr.book.vo.BookVO;
+
 import kr.controller.Action;
 import kr.member.vo.MemberVO;
 import kr.mypage.dao.MyPageDAO;
-import kr.util.PageUtil;
- 
-public class MyPageAction implements Action{ //[관리자]도서관리
+import kr.post.vo.PostVO;
+public class MyPageActionPost implements Action{ //[사용자] 작성글
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -21,46 +19,53 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		HttpSession session = request.getSession();
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		
-		//로그인 되어 있지 않은 경우
+		//로그인이 되지 않은 경우
 		if(user_num == null) {
-			return "redirefct:/member/loginForm.do";
+			return "redirect:/member/loginForm.do";
 		}
-		
-		//로그인 되어 있는 경우
+		//로그인 된 경우
 		MyPageDAO dao = MyPageDAO.getInstance();
 		//회원 정보
 		MemberVO vo = dao.getMember(user_num);
 		
-		//PostDAO boardDao = PostDAO.getInstance();
-		//게시판 글
-		//List<PostVO> postList = PostDAO.getPostList(1,5, );	
+		/*-- [사용자]작성글 시작 --*/
+		MyPageDAO postdao = MyPageDAO.getInstance();
+		List<PostVO> postlist = postdao.getListPost(1, 5, user_num);
 		
-		/*---[관리자]도서 관리 시작---*/
+
+		
+		/*
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
+		
 		String keyfield = request.getParameter("keyfield");
 		String keyword = request.getParameter("keyword");
 		
-		BookDAO bookDao = BookDAO.getInstance();
-		int count = bookDao.getItemCount(keyfield, keyword);
+		PostDAO postdao = PostDAO.getInstance();
 		
-		PageUtil page = new PageUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,10,"myPage.do");
 		
-		List<BookVO> list = null;
+		int count = postdao.getPostCount(keyfield, keyword);
+									//keyfield, keyword, currentPage, count, rowCount, pageCount, 요청URL
+		PageUtil page = new PageUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 10, 10, "myPagePost.do");
+		
+		List<PostVO> postlist = null;
 		if(count > 0) {
-			list = bookDao.getBookList(page.getStartRow(), page.getEndRow(), keyfield, keyword);
+			postlist = postdao.getPostList(page.getStartRow(), page.getEndRow(), keyfield, keyword);
 		}
-		
 		request.setAttribute("count", count);
-		request.setAttribute("list", list);
 		request.setAttribute("page", page.getPage());
-		/*---[관리자]도서 관리 끝---*/
+		*/
+		
+		request.setAttribute("postList", postlist);
+		
+		
+		/*-- [사용자]작성글 끝 --*/
 		
 		request.setAttribute("member", vo);
-			
+		
 		
 		//JSP 경로 반환
-		return "/WEB-INF/views/mypage/myPage.jsp";
+		return "/WEB-INF/views/mypage/mypage.jsp";
 	}
 
 }
