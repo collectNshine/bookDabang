@@ -28,6 +28,11 @@ public class UpdateAction implements Action{
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 
+		//POST 방식의 접근만 허용
+		if(request.getMethod().toUpperCase().equals("GET")) {
+			return "redirect:/mypage/myPage.do";
+		}
+		
 		//로그인 된 경우
 		MultipartRequest multi = FileUtil.createFile(request);
 		int bk_num = Integer.parseInt(multi.getParameter("bk_num"));

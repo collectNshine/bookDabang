@@ -43,13 +43,6 @@
 				$('#stock').focus();
 				return false;
 			}
-			/*
-			if($('#thumbnail').val()==''){
-				alert('썸네일 사진을 첨부하세요!');
-				$('#thumbnail').focus();
-				return false;
-			}
-			*/
 			if($('#content').val().trim()==''){
 				alert('내용을 입력하세요!');
 				$('#content').val('').focus();
