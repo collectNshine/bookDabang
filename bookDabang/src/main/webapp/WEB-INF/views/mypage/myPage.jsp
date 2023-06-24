@@ -381,6 +381,43 @@
 		
 		<!-- [4. 신고 내역] 시작 -->
 		<div id="admin_report" class="tab_contents">
+		<h2><a href="myPage.do">신고 내역</a></h2>
+		<%--
+		<!-- 검색창 시작 : get방식 -->
+			<form id="search_form" action="myPage.do" method="get">
+				<ul class="search">
+					<li>
+						<select name="repoKeyfield">
+							<option value="1" <c:if test="${param.repoKeyfield==1}">selected</c:if>>신고유형</option>
+							<option value="2" <c:if test="${param.repoKeyfield==2}">selected</c:if>>회원번호</option>
+						</select>
+					</li>
+					<li>
+						<input type="search" size="16" name="repoKeyword" id="repoKeyword" value="${param.repoKeyword}">
+					</li>
+					<li>
+						<input type="submit" value="검색">
+					</li>
+				</ul>
+			</form>
+			<script type="text/javascript">
+				$(function(){
+					$('#search_form').submit(function(){
+						if($('#repoKeyword').val().trim() == ''){
+							alert('검색어를 입력하세요');
+							$('#repoKeyword').val('').focus();
+							return false;
+						}
+					});
+				});
+			</script> 
+			<!-- 검색창 끝 -->
+			--%>
+			<c:if test="${repoCount == 0}">
+				<div class="result-display">
+					신고 내역이 없습니다.
+				</div>		
+			</c:if>
 			<table>
 				<tr>
 					<th>신고 번호</th>
@@ -389,17 +426,40 @@
 					<th>신고 내용</th>
 					<th>신고 날짜</th>
 				</tr>
-				<c:forEach var="admin_report" items="${order}"> 
+				<c:forEach var="report" items="${repoList}"> 
 				<tr>
-					<td>${order.order_num}</td>
-					<td>${order.book_title}</td>
-					<td>${order.order_total}</td>
-					<td>${order.reg_date}</td>
+					<td>
+					<c:if test="${user_auth == 9}">
+					<input class="checkbox" name="checkbox" type="checkbox" value="${report.repo_num}">
+					</c:if>
+					<a href="${pageContext.request.contextPath}/post/detailReport.do?repo_num=${report.repo_num}">${report.repo_num}</a>
+					</td>
+					<td>${report.mem_num}</td>
+					<td>${report.repo_category}</td>
+					<td>${report.repo_content}</td>
+					<td>${report.repo_date}</td>
 				</tr>
 				</c:forEach>
 			</table>
+			<c:if test="${user_auth == 9}">
+			<input id="all_btn" type="button" value="전체 선택">
+			<input id="del_btn" type="button" value="삭제"> 
+			<script type="text/javascript">
+			let del_btn = document.getElementById('del_btn');
+			//이벤트 연결
+			del_btn.onclick=function(){
+				let choice = confirm('삭제하시겠습니까?');
+				if(choice){
+				//location.replace('deleteReport.do?repo_num=${report.repo_num}');
+				//history.go(0);
+				}
+			};
+			</script>
+			</c:if>
+			<div class="align-center">${repoPage}</div>
 		</div>
 		<!-- [4. 신고 내역] 끝 -->
+		
 		<!-- [5. 도서 신청] 시작 -->
 		<div id="admin_request" class="tab_contents">
 			<div class="content-main container">

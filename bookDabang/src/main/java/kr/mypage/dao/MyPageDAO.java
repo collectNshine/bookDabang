@@ -397,7 +397,7 @@ public class MyPageDAO {
 				post.setPost_num(rs.getInt("Post_num")); 
 				post.setPost_title(rs.getString("post_title"));
 				post.setPost_content(rs.getString("post_content"));
-				post.setPost_date(rs.getDate("post_date"));
+				post.setPost_date(rs.getString("post_date"));
 				
 				postlist.add(post);
 			}

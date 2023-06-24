@@ -2,13 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>서평 상세</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/post.fav.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/post.reply.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/post.report.js"></script>
 </head>
 <body>
 <div class="page-main">
@@ -16,6 +21,71 @@
 	<!-- 내용 시작 -->
 	<div class="content-main">
 	<h2>${post.post_title}</h2>
+	<div class="align-right">
+	<%-- 신고 --%>
+	<!-- 신고 버튼 -->
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" id="modal">신고하기</button>
+	<!-- 모달창 시작 -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  	<div class="modal-dialog modal-lg" role="document">
+    	<div class="modal-content">
+      	<div class="modal-header">
+        	<h5 class="modal-title" id="exampleModalLabel">신고</h5>
+        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          	<span aria-hidden="true">&times;</span>
+        	</button>
+      	</div>
+      	<div class="modal-body">
+        	<form style="border:none;" id="repo_submit" action="writeReport.do" method="post">
+        	<input type="hidden" name="post_num" value="${post.post_num}">
+               <div class="form-row">
+                  <dl class="row">
+                     <dd class="align-center"><b>신고하기</b></dd>
+                        <dd class="col-12 col-sm-10 d-flex align-items-center">
+                        <fieldset data-role="controlgroup">
+                           <div class="form-check form-check-inline">
+                               <input class="form-check-input" type="radio" name="repo_category" id="repo_category1" value="1">
+                               <label class="form-check-label" for="inlineRadio1">욕설 및 비방</label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                               <input class="form-check-input" type="radio" name="repo_category" id="repo_category2" value="2">
+                               <label class="form-check-label" for="inlineRadio2">홍보 및 영리 목적</label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="repo_category" id="repo_category3" value="3">
+                                <label class="form-check-label" for="inlineRadio3">불법 정보, 청소년 유해</label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                                 <input class="form-check-input" type="radio" name="repo_category" id="repo_category4" value="4">
+                                 <label class="form-check-label" for="inlineRadio4">개인 정보 노출/유포/거래</label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                                 <input class="form-check-input" type="radio" name="repo_category" id="repo_category5" value="5">
+                                 <label class="form-check-label" for="inlineRadio5">도배 및 스팸</label>
+                           </div>
+                           <div class="form-check form-check-inline">
+                                 <input class="form-check-input" type="radio" name="repo_category" id="repo_category6" value="6">
+                                 <label class="form-check-label" for="inlineRadio6">기타</label>
+                           </div>
+                           <div>
+                           <textarea name="repo_content" id="repo_content" placeholder="*상세 사유를 입력하세요."></textarea>
+                           </div>
+                      </fieldset>
+                     </dd>       
+                  </dl>
+               </div>  
+                 <div class="modal-footer">
+        	<button type="button" class="btn btn-secondary" data-dismiss="modal" id="modal_cancel" onclick="location.href='${pageContext.request.contextPath}/post/detail.do?post_num=${post.post_num}'">취소</button>
+        	<input type="submit" id="report" class="btn btn-primary" value="등록">
+      			</div>               
+        	</form>
+      	</div>
+
+    	</div>
+  	</div>
+	</div>
+	<!-- 모달창 끝 -->
+	</div>
 		<ul class="detail-info">
 			<li>
 				<c:if test="${!empty post.photo}">
@@ -45,8 +115,7 @@
 			<li>
 				<%-- 좋아요 --%>
 				<%-- html은 속성태그 추가X (예외)'data-' 형태로만 추가 가능--%>
-				<img id="output_fav" data-num="${post.post_num}" 
-					 src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
+				<img id="output_fav" data-num="${post.post_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
 				좋아요
 				<span id="output_fcount"></span>
 			</li>
