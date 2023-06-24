@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_style.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/request.fav.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 
@@ -209,6 +210,7 @@
 			<li data-tab="admin_order" style="cursor: pointer;">주문관리</li>
 			<li data-tab="admin_member" style="cursor: pointer;">회원관리</li>
 			<li data-tab="admin_report" style="cursor: pointer;">신고내역</li>
+			<li data-tab="admin_request" style="cursor: pointer;">도서신청</li>
 		</ul>
 		
 		<!-- [1. 도서 관리] 시작 -->
@@ -398,6 +400,76 @@
 			</table>
 		</div>
 		<!-- [4. 신고 내역] 끝 -->
+		<!-- [5. 도서 신청] 시작 -->
+		<div id="admin_request" class="tab_contents">
+			<div class="content-main container">
+			<h2>도서신청</h2>
+			<form id="search_form" action="myPage.do" method="get">
+				<ul class="search">
+					<li>
+						<select name="keyfield">
+							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
+							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자</option>
+							<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>출판사</option>
+						</select>
+					</li>
+					<li>
+						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
+					</li>
+					<li>
+						<input type="submit" value="조회">
+					</li>
+				</ul>
+			</form>
+			<!-- 검색창 끝 -->
+		<div class="list-space align-right">
+			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'">
+		</div>
+		
+		<c:if test="${req_count == 0 }">
+		<div class="result-display">
+			신청된 도서가 없습니다.
+		</div>
+		</c:if>
+		
+		<c:if test="${req_count > 0}">
+			<table class="table table-hover align-center">
+			<thead>
+				<tr>
+					<th>진행상태</th>
+					<th>제목</th>
+					<th>저자</th>
+					<th>출판사</th>
+					<th>신청일</th>
+					<th>추천수</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="req_list" items="${req_list}">
+			<tr>
+				<td class="align-center"><input type="checkbox" id="req_admin" value="책등록완료"></td>                     
+				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>
+				<td>${request.req_author}</td>
+				<td>${request.req_publisher}</td>
+				<c:choose>
+					<c:when test="${request.req_modifydate!=null}">
+						<td>${request.req_modifSydate}</td>
+					</c:when>
+					<c:otherwise>
+						<td>${request.req_date}</td>
+					</c:otherwise>
+				</c:choose>
+				<td>
+					<span class="output-fcount">${request.cnt}</span>	
+				</td>							
+			</tr>
+			</c:forEach>
+			</tbody>
+			</table>
+			<div class="align-center">${req_page}</div>
+		</c:if>
+		</div>
+		<!-- [5. 도서 신청] 끝 -->
 		<!-- 관리자 마이페이지 메뉴 끝 -->
 		
 		<script type="text/javascript">

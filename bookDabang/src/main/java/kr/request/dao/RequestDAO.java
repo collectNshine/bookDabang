@@ -218,6 +218,34 @@ public class RequestDAO {
 	
 	  }
 	  
+	  //추천수
+	  public void getFavRequest(RequestFavVO fav) throws Exception{
+		  Connection conn = null;
+		  PreparedStatement pstmt = null;
+		  String sql = null;
+		  
+		  try {
+			  conn = DBUtil.getConnection();
+			  sql = "SELECT cnt, clicked FROM (SELECT * FROM book_request r JOIN member m USING(mem_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num) f USING(req_num) LEFT OUTER JOIN (select 'clicked' clicked, req_num from book_request_fav WHERE mem_num=1) USING(req_num) ORDER BY req_num DESC) WHERE mem_num=? AND req_num=?";
+			  pstmt = conn.prepareStatement(sql);
+			  pstmt.setInt(1,fav.getMem_num());
+			  pstmt.setInt(2, fav.getReq_num());
+			  pstmt.executeUpdate();
+			  
+		  }catch(Exception e) {
+			  throw new Exception(e);
+		  }finally {
+			  DBUtil.executeClose(null, pstmt, conn);
+		  }
+		  
+		  
+	  }
+	  
+	  
+	  
+	  
+	  
+	  
 	  //추천수 등록
 	  public void giveFav(RequestFavVO fav) throws Exception{
 		  Connection conn = null;

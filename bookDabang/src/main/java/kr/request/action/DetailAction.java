@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
 import kr.request.dao.RequestDAO;
+import kr.request.vo.RequestFavVO;
 import kr.request.vo.RequestVO;
 
 public class DetailAction implements Action{
@@ -24,6 +25,10 @@ public class DetailAction implements Action{
 		RequestDAO dao = RequestDAO.getInstance();
 		RequestVO request = dao.getRequest(req_num);
 		request.setMem_num(user_num);
+		RequestFavVO fav = new RequestFavVO();
+		fav.setMem_num(user_num);
+		fav.setReq_num(req_num);
+		dao.getFavRequest(fav);
 		
 		/* request.setId(id); */
 		request1.setAttribute("request", request);

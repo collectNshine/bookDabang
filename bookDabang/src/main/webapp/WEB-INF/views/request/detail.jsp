@@ -9,6 +9,7 @@
 <title>도서신청 상세페이지</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/request.fav.js"></script>
 <style type="text/css">
 	/* h2{
 		position: relative;
@@ -58,6 +59,7 @@
 		</div>
 		<ul>
 			<li><input type="hidden" value="${request.req_num}"> </li>
+			<li><input type="hidden" value="${request.mem_num}"></li>
 		</ul>
 		<ul>
 			<li>작성자</li>
@@ -81,6 +83,16 @@
 		</ul>
 	 	
 	 	<!-- 좋아요 버튼 넣어야함!! -->
+	 	
+	 	<div class="align-center">
+	 	<c:if test="${request.clicked != 'clicked'}">
+						<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
+					</c:if>
+					<c:if test="${request.clicked == 'clicked'}">
+						<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav02.gif" width="50">
+		</c:if>
+		<span class="output-fcount">${request.cnt}</span>
+		</div>
 	 	<!-- 좋아요 버튼 끝 -->
 	 	<c:if test="${user_num == request.mem_num}">
 	 	<div class="align-center">
