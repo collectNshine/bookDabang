@@ -63,8 +63,7 @@ $(document).ready(function(){
 	
 	$('#email_form').submit(function(){
 		input = $('#auth').val().trim();
-		alert(input);
-		alert(rannum);
+
 		if(input == ""){
 			$('#guide2').text('인증번호를 입력해주세요.').css('color','#F00');
 			return false ;

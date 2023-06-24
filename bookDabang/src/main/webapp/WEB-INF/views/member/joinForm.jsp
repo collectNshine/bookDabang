@@ -82,7 +82,7 @@ $(document).ready(function() {
 			$(this).prop('checked',true);//액션 발생한 체크박스만 체크
 		}
 	});
-	//인풋 상자에 입력하면 가이드 다 지우기 
+	//입력하면 가이드 다 지우기 
 	$('input').keydown(function(){
 		$('#guide').text('');
 		$('#guide2').text('');
