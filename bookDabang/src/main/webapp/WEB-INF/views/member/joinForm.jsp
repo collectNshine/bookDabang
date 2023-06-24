@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
-
 <style>
 #type_num{
 	display:none;
@@ -201,7 +200,7 @@ $(document).ready(function() {
 			<div id="type_num" >
 				<ul >
 					<li>
-						<input id="num" name="num" type="text" placeholder="인증번호">
+						<input id="auth" name="auth" type="text" placeholder="인증번호">
 					</li>
 					<li>
 						<input id="all_submit" type="submit" value="가입하기">
