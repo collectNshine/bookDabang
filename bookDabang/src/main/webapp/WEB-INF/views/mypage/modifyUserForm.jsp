@@ -18,6 +18,7 @@
 			$('#photo_choice').show();
 			$(this).hide(); //수정버튼 감추기
 			$('#passwd_btn').hide();
+			$('#delete_btn').hide();
 		}); //end of click
 
 		
@@ -95,7 +96,8 @@
 			$('#photo').val('');
 			$('#photo_choice').hide();
 			$('#photo_btn').show(); //수정버튼 다시 보이게
-				$('#photo_btn').show(); //비밀번호 변경 버튼 다시 보이게
+			$('#passwd_btn').show(); //비밀번호 변경 버튼 다시 보이게
+			$('#delete_btn').show(); //회원탈퇴 버튼 다시 보이게
 		});
 		
 		/*
@@ -151,12 +153,12 @@
 	<!-- 프로필 사진 시작 -->
 		<ul class="profile">
 			<li>
-				<c:if test="${empty member.photo}">
+				<c:if test="${empty user_photo}">
 					<img src="${pageContext.request.contextPath}/images/face.png" 
 							width="300" height="300" class="my-photo">
 				</c:if>
-				<c:if test="${!empty member.photo}">
-					<img src="${pageContext.request.contextPath}/upload/${member.photo}" 
+				<c:if test="${!empty user_photo}">
+					<img src="${pageContext.request.contextPath}/upload/${user_photo}" 
 						 width="300" height="300" class="my-photo">
 				</c:if>
 			</li>
@@ -171,9 +173,9 @@
 				<div class="align-center" id="photo_choice" style="display:none;">
 					<input type="file" class="align-center" id="photo" accept="image/gif,image/png,image/jpeg">
 					<br>
-					<input type="button" value="전송" id="photo_submit">
+					<input type="button" value="저장" id="photo_submit">
 					<input type="button" value="취소" id="photo_reset">
-					<input type="button" value="삭제" id="photo_delete" onclick="location.href='deleteUserForm.do?mem_num=${member.mem_num}'">
+					<input type="button" value="삭제" id="photo_delete">
 					
 					<script type="text/javascript">
 						$(function(){

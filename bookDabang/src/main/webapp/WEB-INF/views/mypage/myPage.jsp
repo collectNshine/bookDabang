@@ -28,16 +28,15 @@
 	<!-- 프로필 사진 시작 -->
 		<ul>
 			<li>
-				<c:if test="${empty member.photo}">
+				<c:if test="${empty user_photo}">
 					<img src="${pageContext.request.contextPath}/images/face.png" 
 							width="200" height="200" class="my-photo">
-					<input type="button" value="정보 수정" onclick="location.href='modifyUserForm.do'">
+					<input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
 				</c:if>
-				<c:if test="${!empty member.photo}">
-					<img src="${pageContext.request.contextPath}/upload/${member.photo}" 
+				<c:if test="${!empty user_photo}">
+					<img src="${pageContext.request.contextPath}/upload/${user_photo}" 
 						 width="200" height="200" class="my-photo">
-					 <input type="button" value="정보 수정" onclick="location.href='modifyUserForm.do'">
-					 <input type="button" value="비밀번호 변경" onclick="location.href='modifyPasswordForm.do'">
+					 <input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
 				</c:if>
 			</li>		
 		</ul>
@@ -51,6 +50,8 @@
 			<li data-tab="post" style="cursor: pointer;">작성글</li>
 			<li data-tab="order" style="cursor: pointer;">주문목록</li>
 		</ul>
+		
+		<!-- 사용자 [1. 책갈피] 시작 -->
 		<div id="book_mark" class="tab_contents on">
 			<table>
 				<tr>
@@ -69,25 +70,106 @@
 				</c:forEach>
 			</table>
 		</div>
-		<div id="post" class="tab_contents">
-			<table>
-				<tr>
-					<th>NO.</th>
-					<th>제목</th>
-					<th>내용</th>
-					<th>등록일</th>
-				</tr>
-				<c:forEach var="post" items="${post}"> 
-				<tr>
-					<td>${post.post_num}</td>
-					<td>${post.post_title}</td>
-					<td>${post.post_content}</td>
-					<td>${post.post_date}</td>
-				</tr>
-				</c:forEach>
-			</table>
+		<!-- [1. 책갈피] 끝 -->
+		
+		<!-- 사용자 [2. 작성글] 시작 -->
+	<div id="post" class="tab_contents">
+		<div class="content-main container">
+		<!-- 검색창 시작 : get방식 -->
+			<form id="search_form" action="myPagePost.do" method="get">
+				<ul class="search">
+					<li>
+						<select name="keyfield">
+							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>게시글 번호</option>
+							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>게시글 내용</option>
+						</select>
+					</li>
+					<li>
+						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
+					</li>
+					<li>
+						<input type="submit" value="검색">
+					</li>
+				</ul>
+			</form>
+			<script type="text/javascript">
+				$(function(){
+					$('#search_form').submit(function(){
+						if($('#keyword').val().trim() == ''){
+							alert('검색어를 입력하세요');
+							$('#keyword').val('').focus();
+							return false;
+						}
+					});
+				});
+			</script> 
+			<!-- 검색창 끝 -->
+		<%-- 	
+		<c:if test="${count == 0}">
+			<div class="result-display">
+				표시할 작성글이 없습니다.
+			</div>		
+		</c:if>
+		
+		<c:if test="${count > 0}">
+		--%>
+		<table class="table table-hover align-center">
+			<tr>
+				<th>NO.</th>
+				<th>제목</th>
+				<th>내용</th>
+				<th>등록일</th>
+			</tr>
+			<c:forEach var="post" items="${postlist}">
+			<tr>
+				<td>${post.post_num}</td>
+				<td>${post.post_title}</td>
+				<td>${post.post_content}</td>
+				<td>${post.post_date}</td>
+			</tr>
+			</c:forEach>		
+		</table>
+		<div class="align-center">${page}</div>
+		<%-- 
+		</c:if>
+		--%>
 		</div>
+	</div>
+		<!-- [2. 작성글] 끝 -->
+		
+		
+		<!-- 사용자 [3. 주문목록] 시작 -->
 		<div id="order" class="tab_contents">
+		<div class="content-main container">
+		<!-- 검색창 시작 : get방식 -->
+			<form id="search_form" action="myPagePost.do" method="get">
+				<ul class="search">
+					<li>
+						<select name="keyfield">
+							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
+							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>내용</option>
+						</select>
+					</li>
+					<li>
+						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
+					</li>
+					<li>
+						<input type="submit" value="검색">
+					</li>
+				</ul>
+			</form>
+			<script type="text/javascript">
+				$(function(){
+					$('#search_form').submit(function(){
+						if($('#keyword').val().trim() == ''){
+							alert('검색어를 입력하세요');
+							$('#keyword').val('').focus();
+							return false;
+						}
+					});
+				});
+			</script> 
+			<!-- 검색창 끝 -->
 			<table>
 				<tr>
 					<th>NO.</th>
@@ -104,7 +186,9 @@
 				</tr>
 				</c:forEach>
 			</table>
+			</div>
 		</div>
+		<!-- [3. 주문목록] 끝 -->
 		
 		<script type="text/javascript">
 			$('.tabWrap li').click(function(){
@@ -118,7 +202,6 @@
 		</c:if>
 		
 		
-		
 		<!-- 관리자 마이페이지 메뉴 시작 -->
 		<c:if test="${!empty user_num && user_auth == 9}">
 		<ul class="tabWrap">
@@ -127,6 +210,7 @@
 			<li data-tab="admin_member" style="cursor: pointer;">회원관리</li>
 			<li data-tab="admin_report" style="cursor: pointer;">신고내역</li>
 		</ul>
+		
 		<!-- [1. 도서 관리] 시작 -->
 		<div id="admin_book" class="tab_contents on">
 			<div class="content-main container">
@@ -200,10 +284,10 @@
 			<div class="align-center">${page}</div>
 		</c:if>
 		</div>
-		<!-- [1. 도서 관리] 끝 -->
+	</div>
+	<!-- [1. 도서 관리] 끝 -->
 	
-	
-		</div>
+	<!-- [2. 주문 관리] 시작 -->
 		<div id="admin_order" class="tab_contents">
 			<table>
 				<tr>
@@ -226,28 +310,74 @@
 				</c:forEach>
 			</table>
 		</div>
+		<!-- [2. 주문 관리] 끝 -->
+		
+		<!-- [3. 회원 관리] 시작 -->
 		<div id="admin_member" class="tab_contents">
-			<table>
-				<tr>
-					<th>이름(닉네임)</th>
-					<th>성별</th>
-					<th>생년월일</th>
-					<th>이메일</th>
-					<th>계정 생성일</th>
-					<th>최근 로그인 날짜</th>
-				</tr>
-				<c:forEach var="admin_member" items="${order}"> 
-				<tr>
-					<td>${order.order_num}</td>
-					<td>${order.book_title}</td>
-					<td>${order.order_total}</td>
-					<td>${order.reg_date}</td>
-					<td>${order.reg_date}</td>
-					<td>${order.reg_date}</td>
-				</tr>
-				</c:forEach>
-			</table>
-		</div>
+			<div class="content-main">
+				<h2><a href="myPage.do">회원 관리</a></h2>
+				<!-- 검색창 시작 : get방식 -->
+				<form id="search_form2" action="myPage.do" method="get">
+					<ul class="search">
+						<li>
+							<select name="keyfield">
+							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>이름</option>
+							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>이메일</option>
+						</select>
+						</li>
+						<li>
+							<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
+						</li>
+						<li>
+							<input type="submit" value="검색">
+						</li>
+					</ul>
+				</form>
+				<script type="text/javascript">
+					$(function(){
+						$('#search_form2').submit(function(){
+							if($('#keyword').val().trim() == ''){
+								alert('검색어를 입력하세요');
+								$('#keyword').val('').focus();
+								return false;
+							}
+						});
+					});
+				</script>
+				<!-- 검색창 끝 -->
+				<c:if test="${count == 0}">
+					<div class="result-display">
+						표시할 회원정보가 없습니다.
+					</div>		
+				</c:if>
+				<c:if test="${count > 0}">
+					<table class="table table-hover align-center">
+						<tr>
+							<th>이름(닉네임)</th>
+							<th>성별</th>
+							<th>생년월일</th>
+							<th>이메일</th>
+							<th>계정 생성일</th>
+							<th>최근 로그인 날짜</th>
+						</tr>
+						<c:forEach var="admin_member" items="${memberlist}"> 
+							<tr>
+								<td>${admin_member.name}</td>
+								<td>${admin_member.sex}</td>
+								<td>${admin_member.birthday}</td>
+								<td>${admin_member.email}</td>
+								<td>${admin_member.reg_date}</td>
+								<td>${admin_member.latest_login}</td>
+							</tr>
+						</c:forEach>
+					</table>
+					<div class="align-center">${page}</div>
+				</c:if>
+				</div>
+				</div>
+		<!-- [3. 회원 관리] 끝 -->
+		
+		<!-- [4. 신고 내역] 시작 -->
 		<div id="admin_report" class="tab_contents">
 			<table>
 				<tr>
@@ -267,6 +397,8 @@
 				</c:forEach>
 			</table>
 		</div>
+		<!-- [4. 신고 내역] 끝 -->
+		<!-- 관리자 마이페이지 메뉴 끝 -->
 		
 		<script type="text/javascript">
 			$('.tabWrap li').click(function(){
