@@ -11,6 +11,8 @@ import kr.book.vo.BookVO;
 import kr.controller.Action;
 import kr.member.vo.MemberVO;
 import kr.mypage.dao.MyPageDAO;
+import kr.post.dao.PostDAO;
+import kr.post.vo.PostReportVO;
 import kr.request.dao.RequestDAO;
 import kr.request.vo.RequestFavVO;
 import kr.request.vo.RequestVO;
@@ -79,6 +81,26 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		request.setAttribute("req_page", req_page.getPage());
 		
 		/* [관리자]도서 신청 끝 */
+		
+		/*---[관리자]신고 관리 시작---*/
+		String repoPageNum = request.getParameter("repoPageNum");
+		if(repoPageNum == null) repoPageNum = "1";
+		String repoKeyfield = request.getParameter("repoKeyfield");
+		String repoKeyword = request.getParameter("repoKeyword");
+		PostDAO postDao = PostDAO.getInstance();
+		int repoCount = postDao.getReportCount(repoKeyfield, repoKeyword);
+									//keyfield, keyword, currentPage, count, rowCount, pageCount, 요청URL
+		PageUtil repoPage = new PageUtil(repoKeyfield, repoKeyword, Integer.parseInt(repoPageNum), repoCount, 10, 10, "myPage.do");
+		
+		List<PostReportVO> repoList = null;
+		if(repoCount > 0) {
+			repoList = postDao.getReportList(repoPage.getStartRow(), repoPage.getEndRow(), repoKeyfield, repoKeyword);
+		}
+		
+		request.setAttribute("repoCount", repoCount);
+		request.setAttribute("repoList", repoList);
+		request.setAttribute("repoPage", repoPage.getPage());
+		/*---[관리자]신고 관리 끝---*/
 		
 		request.setAttribute("member", vo);
 			

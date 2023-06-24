@@ -553,7 +553,8 @@ public class BookDAO {
 					review.setBk_num(rs.getInt("bk_num"));
 					review.setMem_num(rs.getInt("mem_num"));
 					review.setName(rs.getString("name"));
-					
+					review.setPhoto(rs.getString("photo"));
+
 					list.add(review);
 				}
 			}catch(Exception e) {

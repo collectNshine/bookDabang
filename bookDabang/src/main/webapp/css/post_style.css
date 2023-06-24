@@ -1,0 +1,48 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Noto+Sans+KR:wght@300&display=swap');
+/* 서평모음집
+------------------*/
+.tabWrap{display : flex; gap: 10px ; border: 1px solid #1b1b1b; border-left:none; border-right : none; padding: 5px 10px ;}
+.tabWrap li{padding: 5px 10px; }
+.tabWrap li.on{background : #aaa}
+div#post-list{
+	width:400px;
+	height:350px;
+	/*border:1px solid red;*/
+	float:left;
+}
+div#review-list{
+	width:400px;
+	height:350px;
+	/*border:1px solid red;*/
+	float:left;
+}
+div#profile{
+	width:50px; 
+	height:80px; 
+	float:left; 
+	margin-right:10px;
+	margin-left:10px;
+	margin-top:-30px;
+}
+div#profile2{
+	width:120px; 
+	height:80px; 
+	float:left;
+	margin-top:-5px; 
+}
+.card-footer{
+	height:50px; 
+}
+.post-thumbnail{
+	text-align:center;
+	margin-right:20px;
+	margin-top:-20px; 
+}
+.reply{
+	float: right;
+	margin-top: 4px;
+}
+.fav{
+	float: right;
+}

@@ -6,8 +6,8 @@ public class PostVO {
 	private int post_num; //서평 번호
 	private String post_title; //제목
 	private String post_content; //내용
-	private Date post_date; //등록일
-	private Date post_modifydate; //수정일
+	private String post_date; //등록일
+	private String post_modifydate; //수정일
 	private String post_photo; //첨부파일명
 	private String post_ip; //ip주소
 	private int mem_num; //회원번호
@@ -15,6 +15,7 @@ public class PostVO {
 	
 	private String name; //회원 이름(닉네임)
 	private String photo; //회원 프로필 사진 파일명
+	private String thumbnail; //책 표지
 	
 	public int getPost_num() {
 		return post_num;
@@ -34,16 +35,16 @@ public class PostVO {
 	public void setPost_content(String post_content) {
 		this.post_content = post_content;
 	}
-	public Date getPost_date() {
+	public String getPost_date() {
 		return post_date;
 	}
-	public void setPost_date(Date post_date) {
+	public void setPost_date(String post_date) {
 		this.post_date = post_date;
 	}
-	public Date getPost_modifydate() {
+	public String getPost_modifydate() {
 		return post_modifydate;
 	}
-	public void setPost_modifydate(Date post_modifydate) {
+	public void setPost_modifydate(String post_modifydate) {
 		this.post_modifydate = post_modifydate;
 	}
 	public String getPost_photo() {
@@ -81,6 +82,12 @@ public class PostVO {
 	}
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 	
 }

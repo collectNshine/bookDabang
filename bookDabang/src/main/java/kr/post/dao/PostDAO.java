@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.post.dao.PostDAO;
+import kr.post.vo.PostFavVO;
 import kr.post.vo.PostReplyVO;
+import kr.post.vo.PostReportVO;
 import kr.post.vo.PostVO;
 import kr.util.DBUtil;
 import kr.util.DurationFromNow;
@@ -63,7 +65,7 @@ import kr.util.StringUtil;
 				//커넥션 풀로부터 커넥션을 할당
 				conn = DBUtil.getConnection();
 				//SQL문 작성
-				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post p JOIN member m USING(mem_num) ORDER BY p.post_num DESC)a) WHERE rnum>=? AND rnum<=?";
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post p JOIN member m USING(mem_num) LEFT OUTER JOIN member_detail d USING(mem_num) LEFT OUTER JOIN book_list b USING(bk_num) ORDER BY p.post_num DESC)a) WHERE rnum>=? AND rnum<=?";
 				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
 				//?에 데이터 바인딩
@@ -80,12 +82,18 @@ import kr.util.StringUtil;
 					post.setPost_num(rs.getInt("post_num"));
 					post.setPost_title(rs.getString("post_title"));
 					post.setPost_content(rs.getString("post_content"));
-					post.setPost_date(rs.getDate("post_date"));
-					post.setPost_modifydate(rs.getDate("post_modifydate"));
+					//날짜 -> 1분전, 1시간전, 1일전 형식의 문자열로 변환
+					post.setPost_date(DurationFromNow.getTimeDiffLabel(rs.getString("post_date")));
+					if(rs.getString("post_modifydate") != null) {
+						post.setPost_modifydate(DurationFromNow.getTimeDiffLabel(rs.getString("post_modifyDate")));
+					}
 					post.setPost_photo(rs.getString("post_photo"));
 					post.setPost_ip(rs.getString("post_ip"));
 					post.setMem_num(rs.getInt("mem_num"));
 					post.setBk_num(rs.getInt("bk_num"));
+					post.setName(rs.getString("name"));
+					post.setPhoto(rs.getString("photo"));
+					
 					//자바빈을 ArrayList에 저장
 					list.add(post);
 				}
@@ -98,7 +106,7 @@ import kr.util.StringUtil;
 			return list;
 		}
 		
-		//총 레코드 수
+		//총 서평 수
 		public int getPostCount(String keyfield, String keyword) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -152,8 +160,8 @@ import kr.util.StringUtil;
 					post.setPost_num(rs.getInt("post_num"));
 					post.setPost_title(rs.getString("post_title"));
 					post.setPost_content(rs.getString("post_content"));
-					post.setPost_date(rs.getDate("post_date"));
-					post.setPost_modifydate(rs.getDate("post_modifydate"));
+					post.setPost_date(rs.getString("post_date"));
+					post.setPost_modifydate(rs.getString("post_modifydate"));
 					post.setPost_photo(rs.getString("post_photo"));
 					post.setMem_num(rs.getInt("mem_num"));
 					post.setBk_num(rs.getInt("bk_num"));
@@ -208,8 +216,8 @@ import kr.util.StringUtil;
 		//서평 삭제
 		public void deleteBoard(int post_num) throws Exception{
 			Connection conn = null;
-			//PreparedStatement pstmt = null;
-			//PreparedStatement pstmt2 = null;
+			PreparedStatement pstmt = null;
+			PreparedStatement pstmt2 = null;
 			PreparedStatement pstmt3 = null;
 			String sql = null;
 			try {
@@ -217,7 +225,7 @@ import kr.util.StringUtil;
 				conn = DBUtil.getConnection();
 				//auto commit 해제
 				conn.setAutoCommit(false);
-				/*
+				
 				//좋아요 삭제
 				sql = "DELETE FROM post_fav WHERE post_num=?";
 				pstmt = conn.prepareStatement(sql);
@@ -229,7 +237,7 @@ import kr.util.StringUtil;
 				pstmt2 = conn.prepareStatement(sql);
 				pstmt2.setInt(1, post_num);
 				pstmt2.executeUpdate();
-				*/
+				
 				//부모글 삭제
 				sql = "DELETE FROM post WHERE post_num=?";
 				pstmt3 = conn.prepareStatement(sql);
@@ -244,11 +252,11 @@ import kr.util.StringUtil;
 				throw new Exception(e);
 			}finally {
 				DBUtil.executeClose(null, pstmt3, null);
-				//DBUtil.executeClose(null, pstmt2, null);
-				//DBUtil.executeClose(null, pstmt, conn);
+				DBUtil.executeClose(null, pstmt2, null);
+				DBUtil.executeClose(null, pstmt, conn);
 			}
 		}
-/*
+
 		//좋아요 등록
 		public void insertFav(PostFavVO favVO) throws Exception{
 			Connection conn = null;
@@ -273,7 +281,7 @@ import kr.util.StringUtil;
 			}
 		}
 		
-		//좋아요 수
+		//좋아요 개수
 		public int selectFavCount(int post_num) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -324,7 +332,7 @@ import kr.util.StringUtil;
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
 					fav = new PostFavVO();
-					fav.setPost_fav_num(0);
+					fav.setPost_fav_num(rs.getInt("post_fav_num"));
 					fav.setPost_num(rs.getInt("post_num"));
 					fav.setMem_num(rs.getInt("mem_num"));
 				}
@@ -359,7 +367,7 @@ import kr.util.StringUtil;
 				DBUtil.executeClose(null, pstmt, conn);
 			}
 		}
-*/		
+		
 		//댓글 등록
 		public void insertReplyPost(PostReplyVO postReply) throws Exception{
 			Connection conn = null;
@@ -543,6 +551,174 @@ import kr.util.StringUtil;
 			} catch(Exception e) {
 				throw new Exception(e);
 			} finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+		}
+		
+		//신고 등록
+		public void insertReportPost(PostReportVO postReport) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "INSERT INTO post_report (repo_num,repo_content,repo_ip,repo_category,mem_num,post_num) VALUES (post_report_seq.nextval,?,?,?,?,?)";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setString(1, postReport.getRepo_content());
+				pstmt.setString(2, postReport.getRepo_ip());
+				pstmt.setInt(3, postReport.getRepo_category());
+				pstmt.setInt(4, postReport.getMem_num());
+				pstmt.setInt(5, postReport.getPost_num());
+				//SQL문 실행
+				pstmt.executeUpdate();
+				
+			} catch(Exception e) {
+				throw new Exception(e);
+			} finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+			
+		}
+		
+		//신고 목록
+		public List<PostReportVO> getReportList(int start, int end, String keyfield, String keyword) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<PostReportVO> list = null;
+			String sql = null;
+			int cnt = 0;
+			try {
+				//커넥션 풀로부터 커넥션을 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post_report ORDER BY repo_date DESC)a) WHERE rnum>=? AND rnum<=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				if(keyword!=null && !"".equals(keyword)) {
+					pstmt.setString(++cnt, "%" + keyword + "%");
+				}
+				pstmt.setInt(++cnt, start);
+				pstmt.setInt(++cnt, end);
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				list = new ArrayList<PostReportVO>();
+				while(rs.next()) {
+					PostReportVO prepo = new PostReportVO();
+					prepo.setRepo_num(rs.getInt("repo_num"));
+					prepo.setRepo_date(rs.getDate("repo_date"));
+					prepo.setRepo_ip(rs.getString("repo_ip"));
+					prepo.setRepo_content(rs.getString("repo_content"));
+					prepo.setRepo_ip(rs.getString("repo_ip"));
+					prepo.setRepo_category(rs.getInt("repo_category"));
+					prepo.setMem_num(rs.getInt("mem_num"));
+					//자바빈을 ArrayList에 저장
+					list.add(prepo);
+				}
+			}catch(Exception e){
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			
+			return list;
+		}
+		
+		//총 신고 수
+		//public int getReportCount(String repoKeyfield, String repoKeyword) throws Exception{
+		public int getReportCount(String keyfield, String keyword) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			int count = 0;
+			try {
+				//커넥션 풀로부터 커넥션을 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT COUNT(*) FROM post_report pr JOIN member m USING(mem_num)";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				if(keyword!=null && !"".equals(keyword)) {
+					pstmt.setString(1, "%" + keyword + "%");
+				}
+				/*
+				if(repoKeyword!=null && !"".equals(repoKeyword)) {
+					pstmt.setString(1, "%" + repoKeyword + "%");
+				}
+				 */
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1); //컬럼인덱스로 간단히 불러옴
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+
+			return count;
+		}
+		
+		//신고 상세
+		public PostReportVO getReport(int repo_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			PostReportVO repo = null;
+			String sql = null;
+			try {
+				//커넥션 풀로부터 커넥션을 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성 (탈퇴시에도 누락되지 않도록 LEFT OUTER JOIN함)
+				sql = "SELECT * FROM post_report pr JOIN member m USING(mem_num) LEFT OUTER JOIN member_detail d USING(mem_num) WHERE pr.repo_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, repo_num);
+				//SQL문을 실행해서 결과행을 ResultSet에 담음
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					repo = new PostReportVO();
+					repo.setRepo_num(rs.getInt("repo_num"));
+					repo.setRepo_content(rs.getString("repo_content"));
+					repo.setRepo_category(rs.getInt("repo_category"));
+					repo.setRepo_date(rs.getDate("repo_date"));
+					repo.setRepo_ip(rs.getString("repo_num"));
+					repo.setMem_num(rs.getInt("mem_num"));
+					repo.setPost_num(rs.getInt("post_num"));
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			
+			return repo;
+		}
+		
+		//신고 삭제
+		public void deleteReport(int repo_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				//커넥션 풀로부터 커넥션을 할당
+				conn = DBUtil.getConnection();
+				sql = "DELETE FROM post_report WHERE repo_num=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, repo_num);
+				pstmt.executeUpdate();		
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
 				DBUtil.executeClose(null, pstmt, conn);
 			}
 		}
