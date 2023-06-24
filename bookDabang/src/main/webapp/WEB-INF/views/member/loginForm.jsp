@@ -17,31 +17,26 @@
 //입력값 검증
 	$(document).ready(function(){
 		
-		//submit할 때 이벤트
 		$('#login_Form').submit(function(event){
-			let id = $('#id').val();
-			let passwd = $('#passwd').val();
-			
-			if(id==""){
+	
+			if($('#id').val().trim()==""){
 				$('#guide').text("아이디를 입력해주세요.").css("color","#F00");
 				$('#id').focus();
 				event.preventDefault();
 				return;
 			}
-			if(passwd==""){
+			if($('#passwd').val().trim()==""){
 				$('#guide').text("비밀번호를 입력해주세요.").css("color","#F00");
 				$('#passwd').focus();
 				event.preventDefault();
 				return;
 			}
-		});
-		
+		});	
 	});
 	//로그인 실패 
 </script>
 </head>
 <body>
-<h2>loginForm.jsp</h2>
 	<div>
 		<img id="logo" src="../images/임시_로고.png" width="130" onclick="location.href='../main/main.do'">
 		<form id="login_Form" action="login.do" method="post">

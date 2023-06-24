@@ -17,7 +17,7 @@ public class MemberDAO {
 	};
 	private MemberDAO(){}; 
 
-	//로그인 : 유저 검색 [20230611]
+	//로그인 : 유저 검색
 	public MemberVO selectUser(String id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -52,7 +52,7 @@ public class MemberDAO {
 		return vo;
 	}
 
-	//회원가입[20230615]
+	//회원가입
 	public void insertUser(MemberVO vo) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -129,6 +129,55 @@ public class MemberDAO {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
 		return result; 
+	}
+	
+	//아이디와 이메일 정보를 가지고 아이디를 검색하는 메서드
+	public String idSearch(String name, String email) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String result = null;
+		String sql = null;
+		ResultSet rs = null;
+		try {
+			conn = DBUtil.getConnection();
+			sql="SELECT * FROM member m JOIN member_detail d USING(mem_num) WHERE name=? AND email=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, name); 
+			pstmt.setString(2, email);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = rs.getString("id");
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	//아이디와 이메일 정보를 가지고 비밀번호를 변경하는 메서드 
+	public void passwdChange(String name, String email,String newPasswd) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+
+		try {
+			conn = DBUtil.getConnection();
+			sql="UPDATE (SELECT * FROM member m JOIN member_detail d USING(mem_num)) SET passwd = ? WHERE name=? AND email=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, newPasswd);
+			pstmt.setString(2, name); 
+			pstmt.setString(3, email);
+			
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+		return;
 	}
 	
 }
