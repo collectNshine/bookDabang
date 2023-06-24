@@ -18,14 +18,19 @@
 <script type="text/javascript">
 //아이디 입력값 검증
 $(document).ready(function() {
+	
+	var click_check = false;
+	
+	var rannum = "";
+	var input = "";
+	var email = "";
+	
     $("#id").blur(function(){
         if (!/^[A-Za-z0-9]{5,20}$/.test($('#id').val())) {
             $('#guide').text("아이디는 5~20자의 영어대소문자와 숫자로 구성되어야 합니다.").css('color','#F00');
             $('#id').val('');
             return false;
-        }else{
-			$('#guide').text('').css("color","#000");//이부분 아래도 중복인데 단지 li의 글앞머리 기호가 빨개지는게 보기싫어서 넣음.
-		}
+        }
         //아이디 중복체크
         $.ajax({ 
     		url:'checkId.do',
@@ -46,29 +51,20 @@ $(document).ready(function() {
     		}
     	});
     });
-  //비밀번호 입력값 검증
-    
-});
-
-$(function(){
-	//▲전체 입력값 채우기
-	let check = document.getElementsByClassName();
-	//비밀번호 일치 확인 버튼 눌렀는지 아닌지 확인. 
-	let btnClickCheck = 0;//......
-	
+ 	 //비밀번호 입력값 검증
 	$("#passwd").blur(function(){
-  
-        //▲ 수정할 것
-        if(!/^[A-Za-z0-9]{8,16}$/.test($('#passwd').val())){
-			 $('#guide').text("비밀번호는 8~16자의 영대소문자, 숫자, 특수문자로 구성되어야 합니다.").css('color','#F00');
-	        
-		}else{
-			$('#guide').text('').css("color","#000");
+		click_check = false;
+		
+		if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/.test($("#passwd").val())){
+			 $('#guide').text("비밀번호는 8~16자 영문 대소문자, 숫자와 특수문자로 구성되어야 합니다.").css('color','#F00');
+	            $('#passwd').val('');
+	            return false;
 		}
-    });
+	});
 	
 	//비밀번호 일치 확인 
 	$('#passwd_btn').click(function(){
+		click_check = true;
 		//비밀번호와 비밀번호 확인값 일치 확인
 		if($('#passwd').val()!=$('#passwd2').val()){
 			$('#guide').text("비밀번호와 비밀번호 확인이 불일치합니다.").css("color","#F00");
@@ -76,9 +72,10 @@ $(function(){
 			$('#passwd2').val('');
 			return false;
 		}else{
-			$('#guide').text("비밀번호와 비밀번호 확인이 일치합니다.").css("color","#000");
+			$('#guide').text("비밀번호와 비밀번호 확인이 일치합니다.")
 		}
 	});
+	
 	//체크박스 하나만 선택하게 만들기 
 	$('input[type="checkbox"]').click(function(){
 		if($(this).prop('checked')){//체크 액션 발생 속성이 checked가 됨
@@ -86,43 +83,69 @@ $(function(){
 			$(this).prop('checked',true);//액션 발생한 체크박스만 체크
 		}
 	});
-		
-	//이메일 인증 버튼 클릭시 인증번호 입력창 나오게 만들기
-	let rannum = null;
-	$('#email_btn').click(function(){
-			$('#type_num').show();
-	
-			if($('#email').val()!=""){
-				$.ajax({
-					url:'checkAuthNum.do',
-					type:'post',
-					dataType:'json',
-					data:{name : $('#name').val(),
-						  email : $('#email').val()},
-					success:function(data){
-						rannum = data.rannum;
-					},
-					error:function(){
-						alert('에러가 발생했습니다. ');
-					}
-				});
-			}
-		});
-	
-		$('#join_Form').submit(function(event){
-			if($('#num').val != rannum){
-				alert('틀린 인증번호입니다.');
-				event.preventDefault();
-			}
-			
-		});
+	//인풋 상자에 입력하면 가이드 다 지우기 
+	$('input').keydown(function(){
+		$('#guide').text('');
+		$('#guide2').text('');
 	});
+	//버튼을 누르면 인증 번호 입력창 등장.
+	$('#email_btn').click(function(){
+		//전체 입력값 확인
+		let checks = document.getElementsByClassName('check');
+		for(let i = 0; i<checks.length; i++){
+			   if(checks[i].value.trim()==''){
+				   $('#guide2').text(checks[i].placeholder +"은(는) 필수 입력값입니다.").css("color","#F00");
+				   checks[i].focus();
+				   
+				   return false;
+			   }
+		}
 		
-//▲이메일 인증 구현하기
+		// 비밀번호 확인버튼 눌렀는지 확인
+		if(click_check == false){
+			$('#guide').text("비밀번호 확인 버튼을 눌러주세요.").css("color","#F00");
+			return false;
+		}else{
+			$('#guide').text('');
+		}
+		
+		$('#type_num').show();
+		//이메일 인증 기능
+		$.ajax({
+			url:'sendAuthNum.do',
+			type:'post',
+			dataType:'json',
+			data:{email : $('#email').val()},
+			success:function(data){
+				rannum = data.rannum;
+				//처음 입력한 이메일 값을 변수에 저장한다. 
+				email = $('#email').val();
+			},
+			error:function(){
+				alert('에러가 발생했습니다.');
+			}
+		});
+		$('#guide').text('');
+		$('#guide2').text('');
+	});//end of email_btn
+	
+	$('#join_Form').submit(function(){
+		
+		input = $('#auth').val().trim();
+		if(rannum !== input || rannum == ''){
+			$('#guide2').text('다시 입력 바랍니다.').css('color','#F00');
+			return false ;
+		}
+		if(email != $('#email').val().trim()){ //인증 후 이메일 주소 바꾸기 불가능.
+			$('#guide2').text('잘못된 접근입니다.').css('color','#F00');
+			return false ;
+		}
+	});
+});
+		
 </script>
 </head>
 <body>
-<h2>joinForm.jsp</h2>
 	<div>
 		<img id="logo" src="../images/임시_로고.png" width="130" onclick="location.href='../main/main.do'">
 		<form id="join_Form" action="join.do" method="post">
@@ -147,7 +170,7 @@ $(function(){
 					</li>
 					<li>
 						<label>생일</label>
-						<input class="check" id="birthday" name="birthday" type="date">
+						<input class="check" id="birthday" name="birthday" type="date" placeholder ="생일">
 					</li>
 					<li>
 						<input class="check" id="zipcode" name="zipcode" type="text" placeholder="우편번호">
@@ -169,7 +192,7 @@ $(function(){
 					<li>
 						<input class="check" id="email" name="email" type="email" placeholder="이메일">
 					</li>
-					<li>아래 버튼을 누르고 가입하기를 눌러주세요.</li>
+					<li id="guide2"></li>
 					<li>
 						<input  id="email_btn" type="button" value="이메일주소로 인증번호발송">
 					</li>
@@ -181,8 +204,9 @@ $(function(){
 						<input id="num" name="num" type="text" placeholder="인증번호">
 					</li>
 					<li>
-						<input type="submit" value="가입하기">
+						<input id="all_submit" type="submit" value="가입하기">
 					</li>
+
 				</ul>
 			</div>
 			<!-- 우편번호 검색 시작 -->
