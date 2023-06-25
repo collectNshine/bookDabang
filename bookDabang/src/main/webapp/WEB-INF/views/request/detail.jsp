@@ -60,6 +60,8 @@
 		<ul>
 			<li><input type="hidden" value="${request.req_num}"> </li>
 			<li><input type="hidden" value="${request.mem_num}"></li>
+			<li><input type="hidden" value="${request.clicked}"></li>
+			<li><input type="hidden" value="${request.cnt}"></li>
 		</ul>
 		<ul>
 			<li>작성자</li>
@@ -82,20 +84,25 @@
 			<li>${request.req_etc}</li>
 		</ul>
 	 	
-	 	<!-- 좋아요 버튼 넣어야함!! -->
+	 	<!-- 좋아요 버튼-->
 	 	
 	 	<div class="align-center">
-	 	<c:if test="${request.clicked != 'clicked'}">
-						<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
-					</c:if>
-					<c:if test="${request.clicked == 'clicked'}">
-						<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav02.gif" width="50">
-		</c:if>
+	 	<c:forEach var="request" items="${list}">
+	 	<c:choose>
+		 	<c:when test="${request.clicked != 'clicked'}">
+				<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
+			</c:when>
+			<c:when test="${request.clicked == 'clicked'}">
+				<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav02.gif" width="50">
+			</c:when>
+		</c:choose>
 		<span class="output-fcount">${request.cnt}</span>
+		</c:forEach>
 		</div>
 	 	<!-- 좋아요 버튼 끝 -->
 	 	<c:if test="${user_num == request.mem_num}">
 	 	<div class="align-center">
+		 	<input type="button" value="목록" onclick="location.href='list.do'">
 		 	<input type="button" value="수정" onclick="location.href='modifyForm.do?req_num=${request.req_num}'">
 		 	<input type="button" value="삭제" id="delete_btn">
 		 	<script type="text/javascript">

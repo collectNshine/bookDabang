@@ -534,7 +534,7 @@
 			<tbody>
 				<c:forEach var="request" items="${req_list}">
 			<tr>
-				<td class="align-center"><input type="checkbox" id="req_admin" value="책등록완료"></td>                     
+				<td class="align-center"><input type="checkbox" id="reqstate" name="reqstate" value="reqstate"></td>                    
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>
 				<td>${request.req_author}</td>
 				<td>${request.req_publisher}</td>

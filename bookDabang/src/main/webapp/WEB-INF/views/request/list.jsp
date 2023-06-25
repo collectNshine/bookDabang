@@ -81,7 +81,10 @@
 			</tr>
 			<c:forEach var="request" items="${list}">
 			<tr>
-				<td>진행상태</td>                         <%--추가완료/준비중 이미지 넣어야해!! --%>
+				<td>
+					<button id="req_done">추가완료</button>	
+					<button id="req_ing">준비중</button>	
+				</td>                  
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>
 				<td>${request.req_author}</td>
 				<td>${request.req_publisher}</td>
