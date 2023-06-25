@@ -19,13 +19,14 @@
 #out_chat{ margin-left:10px; }
 
 .chatRoom{ width:700px; margin:auto; }
-#chatTitle{ font-weight:bold; font-size:1.5em; margin-left:10px; }
+#chatTitle{ font-weight:bold; font-size:1.5em; margin-left:10px; width:80%; }
 .chat-photo{ object-fit:cover; object-position:top; border-radius:50%; }
 
 .top-bar{
 	background:rgba(108, 117, 125, .1); width:100%; height:50px; margin:10px 0;
 	display: flex; align-items: center; border-radius: 10px 10px 0 0;
 }
+.chatAlign-right{ clear:both; text-align:right; width:20%; margin:0 10px; }
 
 .chat-message-group .chat-thumb{ float: left; width: 10%; }
 .chat-message-group .chat-messages{ float: left; width: 90%; margin-bottom: 20px; }
