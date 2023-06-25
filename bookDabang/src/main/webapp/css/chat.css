@@ -2,19 +2,24 @@
 
 /* 담소마당(chat) */
 .chat-left{ width:35%; float:left;}
-.chat-right{ width:60%; float:right; padding:10px; justify-content:center; }
+.chat-right{ width:65%; float:right; padding:10px; justify-content:center; }
+
+.form-select{ width:30%; float:left; }
+.searchForm{ width:70%; }
 
 .chatlist{ width:700px; }
-.chatlist-img{ float:left; width:30%; }
+.chatlist-img{ float:left; width:25%; }
 .chatlist-img img{ width:100px; height:100px; }
-.chatlist-title{ float:left; width:65%; margin:10px 0; }
-.chatlist-btn{ float:left; width:65%; }
+.chatlist-title{ float:left; width:45%; margin:10px auto; font-weight:1.2em; }
+.chatlist-btn{ float:left; width:45%; margin:0 auto; }
 
 .make-chat{ margin:auto; }
-#write_form{ border:none; background:rgba(108, 117, 125, .1); }
+.make-chat-content{ text-align:center; }
+#write_form{ border:none; width:600px; margin:auto; }
+#out_chat{ margin-left:10px; }
 
 .chatRoom{ width:700px; margin:auto; }
-#chat_title{ font-weight:bold; font-size:1.5em; margin-left:10px; }
+#chatTitle{ font-weight:bold; font-size:1.5em; margin-left:10px; }
 .chat-photo{ object-fit:cover; object-position:top; border-radius:50%; }
 
 .top-bar{

@@ -26,15 +26,15 @@
 				<form id="search_form" action="list.do" method="get">
 					<ul class="search">
 						<li>
-							<select name="keyfield">
+							<select name="keyfield" class="form-select">
 								<option value="1" <c:if test="${param.keyfield == 1}">SELECTED</c:if>>제목</option>
 							</select>
 						</li>
 						<li>
-							<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
-						</li>
-						<li>
-							<input type="submit" value="검색" class="btn btn-outline-secondary">
+							<div class="searchForm input-group mb-3">
+  								<input type="search" size="16" class="form-control" name="keyword" id="keyword" value="${param.keyword}">
+								<input type="submit" value="검색" class="btn btn-outline-secondary">
+							</div>
 						</li>
 					</ul>
 				</form>
@@ -64,7 +64,7 @@
 								</c:if>
 							</div>
 							<div class="chatlist-title align-center">
-								<span><b>${chat.chat_num} | ${chat.chat_title}</b></span>
+								<span><b>${chat.chat_title}</b></span>
 							</div>
 							<div class="chatlist-btn align-center">
 								<input type="button" value="open" class="btn btn-outline-secondary into-chat" data-chatnum="${chat.chat_num}" data-title="${chat.chat_title}" data-img="${chat.chat_img}">
@@ -82,20 +82,19 @@
 			<div class="chat-right">
 				<%-- 채팅생성 div --%>
 				<div class="make-chat" style="display:none;">
-					<div class="align-right"><input type="button" value="close" id="out_chat" class="btn btn-outline-secondary"></div>
 					<div class="make-chat-content"></div>
 				</div>
 				<%-- 채팅방 div --%>
 				<div class="chatRoom" style="display:none;">
 					<div class="align-right"><input type="button" value="close" id="out_chat2" class="btn btn-outline-secondary"></div>
 					<div class="top-bar">
-						<div id="chat_title"></div>
+						<div id="chatTitle"></div>
 					</div>
 					<div class="bottom">
 						<div class="chat-list scrollBar" style="overflow-y:scroll; height:500px;"></div>
 						<div class="chat-input">
 							<form class="write-chat">
-								<textarea rows="2" cols="75" name="chat_content" class="chat-content" placeholder="내용을 입력하세요" style="width:80%"></textarea>
+								<textarea rows="2" cols="75" name="chat_content" class="chat-content form-control" placeholder="내용을 입력하세요" style="width:80%"></textarea>
 								<input type="submit" value="send" class="btn btn-outline-secondary" style="width:15%">
 							</form>
 						</div>
