@@ -441,7 +441,7 @@ import kr.util.StringUtil;
 				//커넥션풀로부터 커넥션 할당
 				conn = DBUtil.getConnection();
 				//SQL문 작성
-				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post_reply p JOIN member m USING(mem_num) WHERE p.post_num=? ORDER BY p.re_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post_reply p JOIN member m USING(mem_num) LEFT OUTER JOIN member_detail d USING(mem_num) WHERE p.post_num=? ORDER BY p.re_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
 				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
 				//?에 데이터 바인딩
@@ -459,6 +459,7 @@ import kr.util.StringUtil;
 					reply.setPost_num(rs.getInt("post_num"));
 					reply.setMem_num(rs.getInt("mem_num"));
 					reply.setId(rs.getString("id"));
+					reply.setName(rs.getString("name"));
 					
 					list.add(reply);
 				}
