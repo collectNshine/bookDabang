@@ -7,19 +7,23 @@ $(function() {
 		$('.chatRoom').hide();
 		
 		let make_chat = '';
-		make_chat += '<form id="write_form">';
+		make_chat += '<form id="write_form"">';
 		make_chat += '<ul>';
 		make_chat += '<li>';
-		make_chat += '<label for="chat_title">제목</label>';
-		make_chat += '<input type="text" name="chat_title" id="chat_title" maxlength="50">';
+		make_chat += '<div class="input-group flex-nowrap">';
+		make_chat += '<span class="input-group-text" id="addon-wrapping">제목</span>';
+		make_chat += '<input type="text" name="chat_title" maxlength="50" class="form-control" aria-label="Username" aria-describedby="addon-wrapping">';
+		make_chat += '</div>';
 		make_chat += '</li>';
 		make_chat += '<li>';
-		make_chat += '<label for="chat_img">파일</label>';
-		make_chat += '<input type="file" name="chat_img" id="chat_img" accept="image/gif,image/png,image/jpeg">';
+		make_chat += '<div class="input-group mb-3">';
+		make_chat += '<input type="file" name="chat_img" class="form-control" id="chat_img" accept="image/gif,image/png,image/jpeg">';
+		make_chat += '</div>';
 		make_chat += '</li>';
 		make_chat += '<ul>';
 		make_chat += '<div class="align-center">';
 		make_chat += '<input type="submit" value="생성" class="btn btn-outline-secondary">';
+		make_chat += '<input type="button" value="close" id="out_chat" class="btn btn-outline-secondary">';
 		make_chat += '</div>';
 		make_chat += '</form>';
 		
@@ -36,7 +40,7 @@ $(function() {
 	});
 	
 	// 닫기버튼
-	$('#out_chat').click(function() {
+	$(document).on('click', '#out_chat', function() {
 		location.reload();
 		$('.make-chat-content').empty();
 		$('.make-chat').hide();
@@ -113,7 +117,7 @@ $(function() {
 		});
 	}
 	
-	// 채팅입장
+	// 채팅 입장
 	$(document).on('click', '.into-chat', function() {
 		$('.chatRoom').show();
 		$('.make-chat-content').empty();
@@ -122,7 +126,7 @@ $(function() {
 		let chatTitle = '<img src="../upload/' + $(this).attr('data-img') + '" class="chat-photo" width="40" height="40">';
 		if(!$(this).attr('data-img')) { chatTitle = '<img src="../images/face.png" class="chat-photo" width="40" height="40">'; }
 		chatTitle += '&nbsp;&nbsp;<span>' + $(this).attr('data-title') + '</span>';
-		$('#chat_title').html(chatTitle);
+		$('#chatTitle').html(chatTitle);
 	
 		chat_num = $(this).attr('data-chatnum');			
 				
