@@ -514,7 +514,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="req_list" items="${req_list}">
+				<c:forEach var="request" items="${req_list}">
 			<tr>
 				<td class="align-center"><input type="checkbox" id="req_admin" value="책등록완료"></td>                     
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>
