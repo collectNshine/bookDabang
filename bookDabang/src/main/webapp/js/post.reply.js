@@ -27,7 +27,7 @@ $(function(){
 				
 				$(param.list).each(function(index,item){
 					let output = '<div class="item">';
-					output += '<h4>' + item.id + '</h4>';
+					output += '<h4>' + item.name + '</h4>';
 					output += '<div class="sub-item">';
 					output += '<p>' + item.re_content + '</p>';
 					
