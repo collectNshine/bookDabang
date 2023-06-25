@@ -410,7 +410,7 @@
 			<script type="text/javascript">
 				$(function(){
 					$('#search_form4').submit(function(){
-						if($('#rrepoKeyword').val().trim() == ''){
+						if($('#repoKeyword').val().trim() == ''){
 							alert('검색어를 입력하세요');
 							$('#repoKeyword').val('').focus();
 							return false;
@@ -509,6 +509,7 @@
 				});
 			</script> 
 			<!-- 검색창 끝 -->
+		<form>
 		<div class="list-space align-right">
 			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'">
 		</div>
@@ -523,6 +524,7 @@
 			<table class="table table-hover align-center">
 			<thead>
 				<tr>
+					<th>확인</th>
 					<th>진행상태</th>
 					<th>제목</th>
 					<th>저자</th>
@@ -534,7 +536,13 @@
 			<tbody>
 				<c:forEach var="request" items="${req_list}">
 			<tr>
-				<td class="align-center"><input type="checkbox" id="reqstate" name="reqstate" value="reqstate"></td>                    
+				<td class="align-center"><input type="checkbox" id="reqstate" name="reqstate" value="${request.req_num}"></td> 
+				<c:if test="${request.req_state == 0}">
+					<td><button>준비중</button></td>
+				</c:if>
+				<c:if test="${request.req_state == 1}"> 
+					<td><button>추가완료</button></td>
+				</c:if>				               
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>
 				<td>${request.req_author}</td>
 				<td>${request.req_publisher}</td>
@@ -553,8 +561,20 @@
 			</c:forEach>
 			</tbody>
 			</table>
+			<input type="submit" value="추가 완료" id="reqstate_done" class="align-left">
+			</form>
+			<script type="text/javascript">
+				let reqstate_done = document.getElementById('reqstate_done');
+				//이벤트 연결
+				/* del_btn.onclick=function(){
+					location.replace('${pageContext.request.contextPath}/request/UpdateStateAction');
+					}
+				}; */
+			
+			</script>
 			<div class="align-center">${req_Page}</div>
 		</c:if>
+		</div>
 		</div>
 		<!-- [5. 도서 신청] 끝 -->
 		<!-- 관리자 마이페이지 메뉴 끝 -->

@@ -81,10 +81,12 @@
 			</tr>
 			<c:forEach var="request" items="${list}">
 			<tr>
-				<td>
-					<button id="req_done">추가완료</button>	
-					<button id="req_ing">준비중</button>	
-				</td>                  
+				<c:if test="${request.req_state == 0}">
+					<td class="align-center"><button>준비중</button></td>
+				</c:if>
+				<c:if test="${request.req_state == 1}"> 
+					<td class="align-center"><button>추가완료</button></td>
+				</c:if>	                  
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>
 				<td>${request.req_author}</td>
 				<td>${request.req_publisher}</td>

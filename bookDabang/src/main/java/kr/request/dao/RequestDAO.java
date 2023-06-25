@@ -383,4 +383,25 @@ public class RequestDAO {
 		 }
 		 
 	 }
+	 
+	 //신청진행상태 업데이트
+	 public void updateState(RequestVO req) throws Exception{
+		 Connection conn = null;
+		 PreparedStatement pstmt = null;
+		 String sql = null;
+		 try {
+			 conn=DBUtil.getConnection();
+			 sql = "UPDATE book_request SET req_state=1 WHERE req_num = ?";
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setInt(1,req.getReq_num());
+			 pstmt.executeUpdate();
+		 }catch(Exception e) {
+			 throw new Exception(e);
+		 }finally {
+			 DBUtil.executeClose(null, pstmt, conn);
+		 }
+	 }
+	 
+	 
+	 
 }
