@@ -29,7 +29,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		
 		//로그인 되어 있지 않은 경우
 		if(user_num == null) {
-			return "redirefct:/member/loginForm.do";
+			return "redirect:/member/loginForm.do";
 		}
 		
 		//로그인 되어 있는 경우
