@@ -13,7 +13,7 @@
          <li><b>|</b></li>
          <li class="menu-detail"><a href="${pageContext.request.contextPath}/post/list.do">모음집</a></li>
          <li><b>|</b></li>
-         <li class="menu-detail"><a href="">담소마당</a></li>
+         <li class="menu-detail"><a href="${pageContext.request.contextPath}/chat/list.do">담소마당</a></li>
          <li><b>|</b></li>
          <li class="menu-detail"><a href="${pageContext.request.contextPath}/request/list.do">맞춤도서 신청</a></li>
          <li><b>|</b></li>
