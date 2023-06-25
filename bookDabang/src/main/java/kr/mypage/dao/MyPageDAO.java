@@ -423,7 +423,7 @@ public class MyPageDAO {
 					//커넥션 풀로부터 커넥션을 할당
 					conn = DBUtil.getConnection();
 					//SQL문 작성
-					sql = "SELECT COUNT(*) FROM post p JOIN member m ON p.mem_num=m.mem_num WHERE p.post_num";
+					sql = "SELECT COUNT(*) FROM post p JOIN member_detail m ON p.mem_num=m.mem_num";
 					//PreparedStatement 객체 생성
 					pstmt = conn.prepareStatement(sql);
 					if(keyword!=null && !"".equals(keyword)) {

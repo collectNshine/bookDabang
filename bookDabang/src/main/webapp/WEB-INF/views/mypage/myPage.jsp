@@ -26,18 +26,26 @@
 		<h2 class="align-center">마이페이지</h2>
 	<hr size="1" noshade="noshade" width="100%">
 	<div class="mypage-div">
-	<!-- 프로필 사진 시작 -->
+	<!-- 프로필 사진 시작 --> 
 		<ul>
-			<li>
+			<li style="display:flex;">
 				<c:if test="${empty user_photo}">
-					<img src="${pageContext.request.contextPath}/images/face.png" 
-							width="200" height="200" class="my-photo">
-					<input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
+					<div>
+						<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
+					</div>
+					<div>
+						<h4>님의 책다방</h4>
+						<input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
+					</div>
+					
 				</c:if>
 				<c:if test="${!empty user_photo}">
 					<img src="${pageContext.request.contextPath}/upload/${user_photo}" 
 						 width="200" height="200" class="my-photo">
-					 <input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
+					<div style="display:flex;justify-content: space-around;flex-direction: column;">	 
+						 <h4>님의 책다방</h4>
+						 <input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
+					 </div>
 				</c:if>
 			</li>		
 		</ul>
@@ -77,7 +85,7 @@
 	<div id="post" class="tab_contents">
 		<div class="content-main container">
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form" action="myPage.do" method="get">
+			<form id="search_form" action="myPagePost.do" method="get">
 				<ul class="search">
 					<li>
 						<select name="keyfield">
@@ -104,12 +112,13 @@
 					});
 				});
 			</script> 
-			<!-- 검색창 끝 -->
+			<!-- 검색창 끝 -->	
 		<c:if test="${count == 0}">
 			<div class="result-display">
 				표시할 작성글이 없습니다.
 			</div>		
 		</c:if>
+		
 		<c:if test="${count > 0}">
 		<table class="table table-hover align-center">
 			<tr>
@@ -119,12 +128,12 @@
 				<th>등록일</th>
 			</tr>
 			<c:forEach var="post" items="${postlist}">
-				<tr>
-					<td>${post.post_num}</td>
-					<td>${post.post_title}</td>
-					<td>${post.post_content}</td>
-					<td>${post.post_date}</td>
-				</tr>
+			<tr>
+				<td>${post.post_num}</td>
+				<td>${post.post_title}</td>
+				<td>${post.post_content}</td>
+				<td>${post.post_date}</td>
+			</tr>
 			</c:forEach>		
 		</table>
 		</c:if>
@@ -503,7 +512,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="request" items="${req_list}">
+				<c:forEach var="req_list" items="${req_list}">
 			<tr>
 				<td class="align-center"><input type="checkbox" id="req_admin" value="책등록완료"></td>                     
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>

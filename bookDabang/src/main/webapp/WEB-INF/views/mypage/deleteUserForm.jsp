@@ -6,6 +6,15 @@
 <meta charset="UTF-8">
 <title>회원 탈퇴</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<style type="text/css">
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 360px;
+}
+form ul li {
+    clear: both;
+    margin-bottom: 10px;
+}
+</style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(function(){
@@ -46,15 +55,15 @@
 			<ul>
 				<li>
 					<label for="id">아이디</label>
-					<input type="text" name="id" id="id" maxlength="12" autocomplete="off">
+					<input type="text" name="id" id="id" maxlength="12" autocomplete="off" placeholder="현재 아이디를 입력해주세요.">
 				</li>
 				<li>
 					<label for="passwd">비밀번호</label>
-					<input type="password" name="passwd" id="passwd" maxlength="12">
+					<input type="password" name="passwd" id="passwd" maxlength="12" placeholder="현재 비밀번호를 입력해주세요.">
 				</li>				
 				<li>
 					<label for="cpasswd">비밀번호 확인</label>
-					<input type="password" name="cpasswd" id="cpasswd" maxlength="12">
+					<input type="password" name="cpasswd" id="cpasswd" maxlength="12" placeholder="비밀번호 확인을 위해 비밀번호를 다시 한번 입력해주세요.">
 				</li>				
 			</ul>
 			<div class="align-center">

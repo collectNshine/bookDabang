@@ -6,6 +6,10 @@
 <meta charset="UTF-8">
 <title>비밀번호 수정</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<style>
+	ul.modifyPasswordForm li{margin-top : 10px}
+	ul.modifyPasswordForm li input{width: 370px;}
+</style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(function(){
@@ -43,24 +47,22 @@
 		<h2 class="align-center">비밀번호 수정</h2>
 		<hr size="1" noshade="noshade" width="100%">
 		<form id="password_form" action="modifyPassword.do" method="post" style="border:none">
-			<ul>
+			<ul class="modifyPasswordForm">
 				<li>
 					<label for="id">아이디</label>
-					<input type="text" name="id" id="id" maxlength="12" autocomplete="off">
+					<input type="text" name="id" id="id" maxlength="12" autocomplete="off" placeholder="현재 아이디를 입력해주세요.">
 				</li>
 				<li>
 					<label for="origin_passwd">현재 비밀번호</label>
-					<input type="password" name="origin_passwd" id="origin_passwd" maxlength="12"><br>
+					<input type="password" name="origin_passwd" id="origin_passwd" maxlength="12" placeholder="현재 비밀번호를 입력해주세요."><br>
 				</li>
 				<li>
 					<label for="passwd">새 비밀번호</label>
-					<input type="password" name="passwd" id="passwd" maxlength="12"><br>
-					<span id="passwdfont">※영문,숫자,특수문자 포함 8~16자로 입력하세요.</span>
+					<input type="password" name="passwd" id="passwd" maxlength="12" placeholder="영문,숫자,특수문자 포함 8~16자로 입력해주세요."><br>
 				</li>				
 				<li>
 					<label for="cpasswd">새 비밀번호 확인</label>
-					<input type="password" name="cpasswd" id="cpasswd" maxlength="12"><br>
-					<span id="passwdfont">※비밀번호 확인을 위해 비밀번호를 다시 한번 입력해주세요.</span>
+					<input type="password" name="cpasswd" id="cpasswd" maxlength="12" placeholder="비밀번호 확인을 위해 비밀번호를 다시 한번 입력해주세요."><br>
 				</li>				
 			</ul>
 		<div class="align-center">
