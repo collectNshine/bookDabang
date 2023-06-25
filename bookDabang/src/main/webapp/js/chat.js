@@ -81,12 +81,15 @@ $(function() {
 	
 	// 채팅 목록
 	function selectList() {
+		$('#loading').show();
+		
 		$.ajax({
 			url:'listChat.do',
 			type:'post',
 			data:{chat_num:chat_num},
 			dataType:'json',
 			success:function(param) {
+				$('#loading').hide();
 				$('.chat-list').empty();
 				
 				$(param.list).each(function(index, item) {
@@ -134,15 +137,7 @@ $(function() {
 	});
 	
 	// 채팅 등록
-	$(document).on('submit', '.write-chat', function(event) {
-		event.preventDefault();
-		
-		if($('.chat-content').val().trim() == '') {
-			alert('내용 입력!!');
-			$('.chat-content').val().focus();
-			return false;
-		}
-		
+	function insertChat() {
 		let chat_content = $('.chat-content').val();
 		
 		$.ajax({
@@ -159,6 +154,40 @@ $(function() {
 			},
 			error:function() { alert('Network Error!!'); }
 		});
+	}
+	
+	// click
+	$(document).on('submit', '.write-chat', function(event) {
+		event.preventDefault();
+		
+		if($('.chat-content').val().trim() == '') {
+			alert('내용 입력!!');
+			$('.chat-content').val().focus();
+			return false;
+		}
+		
+		insertChat();
+	});
+	
+	// enter
+	$(document).on('keypress', '.chat-content', function(event) {
+		
+		if(event.keyCode && event.keyCode == 13){
+			$(".write-chat").trigger("submit");
+			return false;
+		}
+		
+		if(event.keyCode && evnet.keyCode == 13){
+			  e.preventDefault();	
+		}
+		
+		if($('.chat-content').val().trim() == '') {
+			alert('내용 입력!!');
+			$('.chat-content').val().focus();
+			return false;
+		}
+		
+		insertChat();
 	});
 	
 	// 닫기버튼2	
