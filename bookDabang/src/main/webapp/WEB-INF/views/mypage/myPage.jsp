@@ -26,18 +26,26 @@
 		<h2 class="align-center">마이페이지</h2>
 	<hr size="1" noshade="noshade" width="100%">
 	<div class="mypage-div">
-	<!-- 프로필 사진 시작 -->
+	<!-- 프로필 사진 시작 --> 
 		<ul>
-			<li>
+			<li style="display:flex;">
 				<c:if test="${empty user_photo}">
-					<img src="${pageContext.request.contextPath}/images/face.png" 
-							width="200" height="200" class="my-photo">
-					<input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
+					<div>
+						<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
+					</div>
+					<div>
+						<h4>님의 책다방</h4>
+						<input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
+					</div>
+					
 				</c:if>
 				<c:if test="${!empty user_photo}">
 					<img src="${pageContext.request.contextPath}/upload/${user_photo}" 
 						 width="200" height="200" class="my-photo">
-					 <input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
+					<div style="display:flex;justify-content: space-around;flex-direction: column;">	 
+						 <h4>님의 책다방</h4>
+						 <input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
+					 </div>
 				</c:if>
 			</li>		
 		</ul>
@@ -104,8 +112,7 @@
 					});
 				});
 			</script> 
-			<!-- 검색창 끝 -->
-		<%-- 	
+			<!-- 검색창 끝 -->	
 		<c:if test="${count == 0}">
 			<div class="result-display">
 				표시할 작성글이 없습니다.
@@ -113,7 +120,6 @@
 		</c:if>
 		
 		<c:if test="${count > 0}">
-		--%>
 		<table class="table table-hover align-center">
 			<tr>
 				<th>NO.</th>
@@ -130,6 +136,7 @@
 			</tr>
 			</c:forEach>		
 		</table>
+		</c:if>
 		<div class="align-center">${page}</div>
 		<%-- 
 		</c:if>
@@ -514,7 +521,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="request" items="${req_list}">
+				<c:forEach var="req_list" items="${req_list}">
 			<tr>
 				<td class="align-center"><input type="checkbox" id="req_admin" value="책등록완료"></td>                     
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>

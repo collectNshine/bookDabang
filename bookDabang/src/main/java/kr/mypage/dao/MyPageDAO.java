@@ -362,7 +362,90 @@ public class MyPageDAO {
 		
 		return marklist;
 	}
+	
 	//내가 쓴 글 목록
+			public List<PostVO> getListMyPost(int start, int end, String keyfield, String keyword, int mem_num)throws Exception{
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				List<PostVO> postlist = null;
+				String sql = null;
+				String sub_sql = "";
+				
+				try {
+					//커넥션풀로부터 커넥션 할당
+					conn = DBUtil.getConnection();
+					//SQL문 작성
+					sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post WHERE mem_num=?" + sub_sql + " ORDER BY post_date DESC)a) WHERE rnum >= ? AND rnum <= ?";
+					
+					/*
+					sql = "SELECT * FROM (SELECT a.*, rownum rnum "
+			  		   		+ "FROM (SELECT * FROM member_detail "
+			   				+sub_sql+" ORDER BY mem_num DESC)a) "
+			   				+ "WHERE rnum>=? AND rnum<=?";
+					*/
+					//PreparedStatement 객체 생성
+					pstmt = conn.prepareStatement(sql);
+					//?에 데이터 바인딩
+					pstmt.setInt(1, mem_num);
+					pstmt.setInt(2, start);
+					pstmt.setInt(3, end);
+					//SQL문 실행
+					rs = pstmt.executeQuery();
+					postlist = new ArrayList<PostVO>();
+					while(rs.next()) {
+						PostVO post = new PostVO();
+						post.setPost_num(rs.getInt("Post_num")); 
+						post.setPost_title(rs.getString("post_title"));
+						post.setPost_content(rs.getString("post_content"));
+						post.setPost_date(rs.getString("post_date"));
+						
+						postlist.add(post);
+					}
+				}catch(Exception e) {
+					throw new Exception(e);
+				}finally {
+					//자원정리
+					DBUtil.executeClose(rs, pstmt, conn);
+				}
+				
+				return postlist;
+			}
+			
+			//내가 쓴 서평 수
+			public int getMyPostCount(String keyfield, String keyword) throws Exception{
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				String sql = null;
+				int count = 0;
+				try {
+					//커넥션 풀로부터 커넥션을 할당
+					conn = DBUtil.getConnection();
+					//SQL문 작성
+					sql = "SELECT COUNT(*) FROM post p JOIN member_detail m ON p.mem_num=m.mem_num";
+					//PreparedStatement 객체 생성
+					pstmt = conn.prepareStatement(sql);
+					if(keyword!=null && !"".equals(keyword)) {
+						pstmt.setString(1, "%" + keyword + "%");
+					}
+					//SQL문 실행
+					rs = pstmt.executeQuery();
+					if(rs.next()) {
+						count = rs.getInt(1); //컬럼인덱스로 간단히 불러옴
+					}
+				}catch(Exception e) {
+					throw new Exception(e);
+				}finally {
+					DBUtil.executeClose(rs, pstmt, conn);
+				}
+
+				return count;
+			}
+			
+			
+	//내가 쓴 글 목록
+	/*
 	public List<PostVO> getListPost(int start,int end,int mem_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -377,12 +460,6 @@ public class MyPageDAO {
 			//SQL문 작성
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post WHERE mem_num=?" + sub_sql + " ORDER BY post_date DESC)a) WHERE rnum >= ? AND rnum <= ?";
 			
-			/*
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum "
-	  		   		+ "FROM (SELECT * FROM member_detail "
-	   				+sub_sql+" ORDER BY mem_num DESC)a) "
-	   				+ "WHERE rnum>=? AND rnum<=?";
-			*/
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
@@ -410,6 +487,7 @@ public class MyPageDAO {
 		
 		return postlist;
 	}
+	*/
 	/*
 	//전체 회원 수
 	public int getMemberCount(String keyfield, String keyword)throws Exception{

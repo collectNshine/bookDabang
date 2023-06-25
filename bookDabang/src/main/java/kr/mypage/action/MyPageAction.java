@@ -13,6 +13,7 @@ import kr.member.vo.MemberVO;
 import kr.mypage.dao.MyPageDAO;
 import kr.post.dao.PostDAO;
 import kr.post.vo.PostReportVO;
+import kr.post.vo.PostVO;
 import kr.request.dao.RequestDAO;
 import kr.request.vo.RequestFavVO;
 import kr.request.vo.RequestVO;
@@ -39,6 +40,26 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		//PostDAO boardDao = PostDAO.getInstance();
 		//게시판 글
 		//List<PostVO> postList = PostDAO.getPostList(1,5, );	
+		
+		/*-- [사용자]작성글 시작 --*/
+		String PostpageNum = request.getParameter("pageNum");
+		if(PostpageNum == null) PostpageNum = "1";
+		String Postkeyfield = request.getParameter("keyfield");
+		String Postkeyword = request.getParameter("keyword");
+		
+		MyPageDAO postdao = MyPageDAO.getInstance();
+		int post_count = postdao.getMyPostCount(Postkeyfield, Postkeyword);
+		PageUtil post_page = new PageUtil(Postkeyfield,Postkeyword,Integer.parseInt(PostpageNum),post_count,10,10,"myPage.do");
+		
+		List<PostVO> postlist = null;
+		if(post_count > 0) {
+			postlist = postdao.getListMyPost(post_page.getStartRow(), post_page.getEndRow(), Postkeyfield, Postkeyword, user_num);
+		}
+		request.setAttribute("postCount", post_count);
+		request.setAttribute("postList", postlist);
+		request.setAttribute("postPage", post_page.getPage());
+		
+		/*-- [사용자]작성글 끝 --*/
 		
 		/*---[관리자]도서 관리 시작---*/
 		String pageNum = request.getParameter("pageNum");

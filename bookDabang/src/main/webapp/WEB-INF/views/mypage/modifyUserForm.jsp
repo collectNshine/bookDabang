@@ -40,6 +40,7 @@
 				$('.my-photo').attr('src',photo_path);
 				$(this).val(''); //선택한 파일 정보 지우기
 				return;
+				
 			}
 			
 			let reader = new FileReader();
@@ -47,6 +48,9 @@
 			reader.onload=function(){
 				$('.my-photo').attr('src',reader.result)
 			};
+			
+			
+			
 		});//end of change
 		
 		
@@ -77,7 +81,10 @@
 					 	photo_path = $('.my-photo').attr('src');
 					 	$('#photo').val('');
 					 	$('#photo_choice').hide();
-					 	$('#photo_btn').show();
+					 	
+					 	$('#photo_btn').show(); //수정버튼 다시 보이게
+						$('#passwd_btn').show(); //비밀번호 변경 버튼 다시 보이게
+						$('#delete_btn').show(); //회원탈퇴 버튼 다시 보이게
 					}else{
 						alert('파일 전송 오류 발생');
 					}
@@ -100,19 +107,24 @@
 			$('#delete_btn').show(); //회원탈퇴 버튼 다시 보이게
 		});
 		
-		/*
+		
 		//사진 삭제 버튼 이벤트 연결
 		$('#photo_delete').click(function(){
+			if (confirm("이미지를 삭제하시겠습니까?")) {
+				// $('.my-photo').attr('src',photo_path);
+				// <img id="profile1" src="${pageContext.request.contextPath}/images/face.png">
+				 $('.profile .my-photo').attr("src",'${pageContext.request.contextPath}/images/face.png');
+			  }
 			//초기 이미지 표시
-			$('.my-photo').attr('src',photo_path);
-			$('#photo').val('');
-			$('#photo_choice').hide();
-			$('#photo_btn').show(); //수정버튼 다시 보이게
-			$('.my-photo').attr('src',photo_path);
+
 			
-			return;
+			//$('.my-photo').attr('src',photo_path);
+			//$('#photo').val('');
+			//$('#photo_choice').hide();
+			//$('#photo_btn').show(); //수정버튼 다시 보이게
+			
 		});
-		*/
+		
 		
 		
 	}); //end of click
@@ -159,7 +171,7 @@
 				</c:if>
 				<c:if test="${!empty user_photo}">
 					<img src="${pageContext.request.contextPath}/upload/${user_photo}" 
-						 width="300" height="300" class="my-photo">
+						 width="300" height="300" class="my-photo" style="margin-bottom:20px;">
 				</c:if>
 			</li>
 			<li>
@@ -171,7 +183,7 @@
 					onclick="location.href='${pageContext.request.contextPath}/mypage/deleteUserForm.do'">
 				</div>
 				<div class="align-center" id="photo_choice" style="display:none;">
-					<input type="file" class="align-center" id="photo" accept="image/gif,image/png,image/jpeg">
+					<input type="file" class="align-center" style="padding-left:115px" id="photo" accept="image/gif,image/png,image/jpeg">
 					<br>
 					<input type="button" value="저장" id="photo_submit">
 					<input type="button" value="취소" id="photo_reset">
@@ -232,7 +244,7 @@
 
 		<!-- 프로필 사진 끝 -->	
 		<form id="modify_form" action="modifyUser.do" method="post" style="border:none">
-			<ul>
+			<ul  style="border-: 1px solid">
 				<li>
 					<label for="name">필명</label>
 					<input type="text" name="name" id="name" 
