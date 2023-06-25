@@ -9,7 +9,6 @@ public class ReviewVO {
 	private int mem_num; //작성자 회원번호
 	private int bk_num; //도서 번호
 	private String name; //닉네임(이름)
-	private String photo; //프로필 사진
 	
 	public int getReview_num() {
 		return review_num;
@@ -59,11 +58,4 @@ public class ReviewVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getPhoto() {
-		return photo;
-	}
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
-	
 }
