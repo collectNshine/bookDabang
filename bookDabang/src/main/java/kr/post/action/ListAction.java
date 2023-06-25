@@ -51,15 +51,18 @@ public class ListAction implements Action{
 		/*---서평 피드 끝---*/
 		
 		/*---한줄기록 피드 시작---*
-		request.setCharacterEncoding("utf-8");
-		int bk_num = Integer.parseInt(request.getParameter("bk_num"));
+		//request.setCharacterEncoding("utf-8");
+		//int bk_num = Integer.parseInt(request.getParameter("bk_num"));
 		
 		String rePageNum = request.getParameter("rePageNum");
 		if(rePageNum == null) rePageNum = "1";
 		
+		String reKeyfield = request.getParameter("reKeyfield");
+		String reKeyword = request.getParameter("reKeyword");
+		
 		BookDAO bookDao = BookDAO.getInstance();
-		int reCount = bookDao.getReviewCount(bk_num);
-		PageUtil rePage = new PageUtil(Integer.parseInt(rePageNum), reCount, 10, 10, "listReview.do");
+		int reCount = bookDao.getReCount(reKeyfield, reKeyword);
+		PageUtil rePage = new PageUtil(reKeyfield, reKeyword, Integer.parseInt(rePageNum), reCount, 10, 10, "list.do");
 		
 		List<ReviewVO> reList = null;
 		if(reCount > 0) {
