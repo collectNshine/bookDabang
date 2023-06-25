@@ -586,6 +586,7 @@ import kr.util.StringUtil;
 		}
 		
 		//신고 목록
+		//public List<PostReportVO> getReportList(int start, int end, String repoKeyfield, String repoKeyword) throws Exception{
 		public List<PostReportVO> getReportList(int start, int end, String keyfield, String keyword) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -604,6 +605,11 @@ import kr.util.StringUtil;
 				if(keyword!=null && !"".equals(keyword)) {
 					pstmt.setString(++cnt, "%" + keyword + "%");
 				}
+				/*
+				if(repoKeyword!=null && !"".equals(repoKeyword)) {
+					pstmt.setString(++cnt, "%" + repoKeyword + "%");
+				}
+				 */
 				pstmt.setInt(++cnt, start);
 				pstmt.setInt(++cnt, end);
 				//SQL문 실행
@@ -630,19 +636,30 @@ import kr.util.StringUtil;
 			return list;
 		}
 		
-		//총 신고 수
+		//총 신고 수(검색 레코드 수)
 		//public int getReportCount(String repoKeyfield, String repoKeyword) throws Exception{
 		public int getReportCount(String keyfield, String keyword) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			String sql = null;
+			String sub_sql = "";
 			int count = 0;
 			try {
 				//커넥션 풀로부터 커넥션을 할당
 				conn = DBUtil.getConnection();
 				//SQL문 작성
-				sql = "SELECT COUNT(*) FROM post_report pr JOIN member m USING(mem_num)";
+				if(keyword != null && !"".equals(keyword)) {
+					if(keyfield.equals("1")) sub_sql += "WHERE pr.repo_category LIKE '%' || ? || '%'";
+					if(keyfield.equals("2")) sub_sql += "WHERE mem_num LIKE '%' || ? || '%'";
+				}
+				/*
+				if(repoKeyword != null && !"".equals(repoKeyword)) {
+					if(repoKeyfield.equals("1")) sub_sql += "WHERE pr.repo_category LIKE '%' || ? || '%'";
+					if(repoKeyfield.equals("2")) sub_sql += "WHERE mem_num LIKE '%' || ? || '%'";
+				}
+				*/
+				sql = "SELECT COUNT(*) FROM post_report pr JOIN member m USING(mem_num)" + sub_sql;
 				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
 				if(keyword!=null && !"".equals(keyword)) {
