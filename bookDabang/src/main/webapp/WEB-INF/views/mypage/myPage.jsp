@@ -77,7 +77,7 @@
 	<div id="post" class="tab_contents">
 		<div class="content-main container">
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form" action="myPagePost.do" method="get">
+			<form id="search_form" action="myPage.do" method="get">
 				<ul class="search">
 					<li>
 						<select name="keyfield">
@@ -105,15 +105,12 @@
 				});
 			</script> 
 			<!-- 검색창 끝 -->
-		<%-- 	
 		<c:if test="${count == 0}">
 			<div class="result-display">
 				표시할 작성글이 없습니다.
 			</div>		
 		</c:if>
-		
 		<c:if test="${count > 0}">
-		--%>
 		<table class="table table-hover align-center">
 			<tr>
 				<th>NO.</th>
@@ -122,14 +119,15 @@
 				<th>등록일</th>
 			</tr>
 			<c:forEach var="post" items="${postlist}">
-			<tr>
-				<td>${post.post_num}</td>
-				<td>${post.post_title}</td>
-				<td>${post.post_content}</td>
-				<td>${post.post_date}</td>
-			</tr>
+				<tr>
+					<td>${post.post_num}</td>
+					<td>${post.post_title}</td>
+					<td>${post.post_content}</td>
+					<td>${post.post_date}</td>
+				</tr>
 			</c:forEach>		
 		</table>
+		</c:if>
 		<div class="align-center">${page}</div>
 		<%-- 
 		</c:if>
