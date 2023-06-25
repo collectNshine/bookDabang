@@ -116,6 +116,9 @@ a:hover{
 form#search_form{
 	border:none;
 }
+form#search_form4{
+	border:none;
+}
 ul.search{
 	width:340px;
 	list-style:none;

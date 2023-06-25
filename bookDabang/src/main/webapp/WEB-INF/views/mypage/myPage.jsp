@@ -382,9 +382,9 @@
 		<!-- [4. 신고 내역] 시작 -->
 		<div id="admin_report" class="tab_contents">
 		<h2><a href="myPage.do">신고 내역</a></h2>
-		<%--
+		
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form" action="myPage.do" method="get">
+			<form id="search_form4" action="myPage.do" method="get">
 				<ul class="search">
 					<li>
 						<select name="repoKeyfield">
@@ -402,8 +402,8 @@
 			</form>
 			<script type="text/javascript">
 				$(function(){
-					$('#search_form').submit(function(){
-						if($('#repoKeyword').val().trim() == ''){
+					$('#search_form4').submit(function(){
+						if($('#rrepoKeyword').val().trim() == ''){
 							alert('검색어를 입력하세요');
 							$('#repoKeyword').val('').focus();
 							return false;
@@ -412,12 +412,13 @@
 				});
 			</script> 
 			<!-- 검색창 끝 -->
-			--%>
+			
 			<c:if test="${repoCount == 0}">
 				<div class="result-display">
 					신고 내역이 없습니다.
 				</div>		
 			</c:if>
+			<c:if test="${repoCount > 0}">
 			<table>
 				<tr>
 					<th>신고 번호</th>
@@ -443,6 +444,13 @@
 			</table>
 			<c:if test="${user_auth == 9}">
 			<input id="all_btn" type="button" value="전체 선택">
+			<script type="text/javascript">
+			let all_btn = document.getElementById('all_btn');
+			//이벤트 연결
+			all_btn.onclick=function(){
+				$(":checkbox").attr("checked","checked")
+			};
+			</script>
 			<input id="del_btn" type="button" value="삭제"> 
 			<script type="text/javascript">
 			let del_btn = document.getElementById('del_btn');
@@ -457,6 +465,7 @@
 			</script>
 			</c:if>
 			<div class="align-center">${repoPage}</div>
+		</c:if>
 		</div>
 		<!-- [4. 신고 내역] 끝 -->
 		
