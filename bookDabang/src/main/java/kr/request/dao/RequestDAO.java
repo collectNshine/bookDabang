@@ -116,7 +116,6 @@ public class RequestDAO {
 				request.setReq_ip(rs.getString("req_ip"));
 				request.setCnt(rs.getInt("cnt"));
 				request.setClicked(rs.getString("clicked"));
-				//추천수도 추가해야해
 				
 				list.add(request);
 			}
@@ -226,10 +225,19 @@ public class RequestDAO {
 		  
 		  try {
 			  conn = DBUtil.getConnection();
-			  sql = "SELECT cnt, clicked FROM (SELECT * FROM book_request r JOIN member m USING(mem_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num) f USING(req_num) LEFT OUTER JOIN (select 'clicked' clicked, req_num from book_request_fav WHERE mem_num=1) USING(req_num) ORDER BY req_num DESC) WHERE mem_num=? AND req_num=?";
+				/*
+				 * sql =
+				 * "SELECT cnt, clicked FROM (SELECT * FROM book_request r JOIN member m USING(mem_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num) f USING(req_num) LEFT OUTER JOIN (select 'clicked' clicked, req_num from book_request_fav WHERE mem_num=?) USING(req_num) ORDER BY req_num DESC) WHERE mem_num=? AND req_num=?"
+				 * ;
+				 */
+			  sql= "SELECT clicked,cnt FROM "
+			  		+ "(SELECT * FROM book_request r JOIN member m USING(mem_num) JOIN "
+			  		+ "(SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num) f USING(req_num) JOIN "
+			  		+ "(SELECT 'clicked' clicked, req_num from book_request_fav WHERE mem_num=?) c USING(req_num) "
+			  		+ "ORDER BY req_num DESC) a WHERE req_num=? ";
 			  pstmt = conn.prepareStatement(sql);
 			  pstmt.setInt(1,fav.getMem_num());
-			  pstmt.setInt(2, fav.getReq_num());
+			  pstmt.setInt(2,fav.getReq_num());
 			  pstmt.executeUpdate();
 			  
 		  }catch(Exception e) {
@@ -241,7 +249,22 @@ public class RequestDAO {
 		  
 	  }
 	  
-	  
+		/*
+		 * public List<RequestFavVO> getListFav(int mem_num,int req_num) throws
+		 * Exception{ Connection conn = null; PreparedStatement pstmt = null; ResultSet
+		 * rs = null; List<RequestFavVO> list = null; String sql = null; try { conn =
+		 * DBUtil.getConnection(); sql =
+		 * "SELECT cnt, clicked FROM (SELECT * FROM book_request r JOIN member m USING(mem_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num) f USING(req_num) LEFT OUTER JOIN (select 'clicked' clicked, req_num from book_request_fav WHERE mem_num=1) USING(req_num) ORDER BY req_num DESC) WHERE mem_num=? AND req_num=?"
+		 * ; pstmt = conn.prepareStatement(sql); pstmt.setInt(1,mem_num);
+		 * pstmt.setInt(2, mem_num); pstmt.setInt(3, mem_num); rs =
+		 * pstmt.executeQuery(); while(rs.next()) { list = new RequestFavVO();
+		 * 
+		 * }
+		 * 
+		 * 
+		 * }catch(Exception e) { throw new Exception(e); }finally {
+		 * DBUtil.executeClose(rs, pstmt, conn); } return list; }
+		 */
 	  
 	  
 	  

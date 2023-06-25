@@ -480,35 +480,46 @@
 		<div id="admin_request" class="tab_contents">
 			<div class="content-main container">
 			<h2>도서신청</h2>
-			<form id="search_form" action="myPage.do" method="get">
+			<form id="search_form5" action="myPage.do" method="get">
 				<ul class="search">
 					<li>
-						<select name="keyfield">
-							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
-							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자</option>
-							<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>출판사</option>
+						<select name="req_Keyfield">
+							<option value="1" <c:if test="${param.req_keyfield==1}">selected</c:if>>제목</option>
+							<option value="2" <c:if test="${param.req_Keyfield==2}">selected</c:if>>저자</option>
+							<option value="3" <c:if test="${param.req_Keyfield==3}">selected</c:if>>출판사</option>
 						</select>
 					</li>
 					<li>
-						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
+						<input type="search" size="16" name="req_Keyword" id="req_Keyword" value="${param.req_Keyword}">
 					</li>
 					<li>
 						<input type="submit" value="조회">
 					</li>
 				</ul>
 			</form>
+			<script type="text/javascript">
+				$(function(){
+					$('#search_form5').submit(function(){
+						if($('#req_Keyword').val().trim() == ''){
+							alert('검색어를 입력하세요');
+							$('#req_Keyword').val('').focus();
+							return false;
+						}
+					});
+				});
+			</script> 
 			<!-- 검색창 끝 -->
 		<div class="list-space align-right">
 			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'">
 		</div>
 		
-		<c:if test="${req_count == 0 }">
+		<c:if test="${req_Count == 0 }">
 		<div class="result-display">
 			신청된 도서가 없습니다.
 		</div>
 		</c:if>
 		
-		<c:if test="${req_count > 0}">
+		<c:if test="${req_Count > 0}">
 			<table class="table table-hover align-center">
 			<thead>
 				<tr>
@@ -521,7 +532,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="req_list" items="${req_list}">
+				<c:forEach var="request" items="${req_list}">
 			<tr>
 				<td class="align-center"><input type="checkbox" id="req_admin" value="책등록완료"></td>                     
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>
@@ -529,7 +540,7 @@
 				<td>${request.req_publisher}</td>
 				<c:choose>
 					<c:when test="${request.req_modifydate!=null}">
-						<td>${request.req_modifSydate}</td>
+						<td>${request.req_modifydate}</td>
 					</c:when>
 					<c:otherwise>
 						<td>${request.req_date}</td>
@@ -542,7 +553,7 @@
 			</c:forEach>
 			</tbody>
 			</table>
-			<div class="align-center">${req_page}</div>
+			<div class="align-center">${req_Page}</div>
 		</c:if>
 		</div>
 		<!-- [5. 도서 신청] 끝 -->
