@@ -10,6 +10,7 @@ import kr.book.vo.BookMarkVO;
 import kr.book.vo.BookVO;
 import kr.book.vo.ReviewVO;
 import kr.util.DBUtil;
+import kr.util.DurationFromNow;
 import kr.util.StringUtil;
 
 public class BookDAO {
@@ -264,11 +265,18 @@ public class BookDAO {
 		public void deleteBook(int bk_num) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
+			PreparedStatement pstmt1 = null;
 			String sql = null;
 			try {
 				conn = DBUtil.getConnection();
-				//conn.setAutoCommit(false);
+				conn.setAutoCommit(false);
 				
+				//북마크 삭제
+				sql = "DELETE FROM book_mark WHERE bk_num=?";
+				pstmt1 = conn.prepareStatement(sql);
+				pstmt1.setInt(1, bk_num);
+				pstmt1.executeUpdate();
+
 				//포스트 삭제 메서드(포스트,포스트좋아요,포스트신고,포스트댓글,포스트댓글신고)
 				
 				//리뷰 삭제 메서드(리뷰,리뷰좋아요,리뷰싫어요)
@@ -279,11 +287,12 @@ public class BookDAO {
 				pstmt.setInt(1, bk_num);
 				pstmt.executeUpdate();
 				
-				//conn.commit();
+				conn.commit();
 			}catch(Exception e) {
-				//conn.rollback();
+				conn.rollback();
 				throw new Exception(e);
 			}finally {
+				DBUtil.executeClose(null, pstmt1, null);
 				DBUtil.executeClose(null, pstmt, conn);
 			}
 		}
@@ -553,8 +562,7 @@ public class BookDAO {
 					review.setBk_num(rs.getInt("bk_num"));
 					review.setMem_num(rs.getInt("mem_num"));
 					review.setName(rs.getString("name"));
-					review.setPhoto(rs.getString("photo"));
-
+					
 					list.add(review);
 				}
 			}catch(Exception e) {
@@ -566,59 +574,44 @@ public class BookDAO {
 			return list;
 		}
 		
-		/*
-		//총 댓글 수(총 레코드 수)
-		public int getReCount(String keyfield, String keyword) throws Exception{
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			String sql = null;
-			int count = 0;
-			try {
-				//커넥션 풀로부터 커넥션을 할당
-				conn = DBUtil.getConnection();
-				//SQL문 작성
-				sql = "SELECT COUNT(*) FROM post_review pr JOIN member m USING(mem_num)";
-				//PreparedStatement 객체 생성
-				pstmt = conn.prepareStatement(sql);
-				if(keyword!=null && !"".equals(keyword)) {
-					pstmt.setString(1, "%" + keyword + "%");
-				}
-				//SQL문 실행
-				rs = pstmt.executeQuery();
-				if(rs.next()) {
-					count = rs.getInt(1); //컬럼인덱스로 간단히 불러옴
-				}
-			}catch(Exception e) {
-				throw new Exception(e);
-			}finally {
-				DBUtil.executeClose(rs, pstmt, conn);
-			}
-
-			return count;
-		}
-		*/
 		
 		//댓글 삭제
 		public void deleteReview(int review_num) throws Exception{
 			Connection conn = null;
-			PreparedStatement pstmt = null;
+//			PreparedStatement pstmt1 = null;
+//			PreparedStatement pstmt2 = null;
+			PreparedStatement pstmt3 = null;
 			String sql = null;
 			try {
 				//커넥션 풀로부터 커넥션 할당
 				conn = DBUtil.getConnection();
-				//SQL문 작성
+//				conn.setAutoCommit(false);
+				
+				//댓글 좋아요 삭제
+//				sql = "DELETE FROM review_like WHERE review_num=?";
+//				pstmt1 = conn.prepareStatement(sql);
+//				pstmt1.setInt(1, review_num);
+//				pstmt1.executeUpdate();
+				
+				//댓글 싫어요 삭제
+//				sql = "DELETE FROM review_dislike WHERE review_num=?";
+//				pstmt2 = conn.prepareStatement(sql);
+//				pstmt2.setInt(1, review_num);
+//				pstmt2.executeUpdate();
+				
+				//부모 테이블(댓글) 삭제
 				sql = "DELETE FROM review WHERE review_num=?";
-				//PreparedStatement 객체 생성
-				pstmt = conn.prepareStatement(sql);
-				//?에 데이터 바인딩
-				pstmt.setInt(1, review_num);
-				//SQL문 실행
-				pstmt.executeUpdate();
+				pstmt3 = conn.prepareStatement(sql);
+				pstmt3.setInt(1, review_num);
+				pstmt3.executeUpdate();
+//				conn.commit();
 			}catch(Exception e) {
+//				conn.rollback();
 				throw new Exception(e);
 			}finally {
-				DBUtil.executeClose(null, pstmt, conn);
+				DBUtil.executeClose(null, pstmt3, null);
+//				DBUtil.executeClose(null, pstmt2, null);
+//				DBUtil.executeClose(null, pstmt1, conn);
 			}
 		}
 		
@@ -654,4 +647,37 @@ public class BookDAO {
 			
 			return review;
 		}
+		
+		
+		//댓글 수정
+		public void updateReview(ReviewVO review) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				//커넥션 풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "UPDATE review SET review_content=?,review_modifydate=SYSDATE,review_ip=? WHERE review_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setString(1, review.getReview_content());
+				pstmt.setString(2, review.getReview_ip());
+				pstmt.setInt(3, review.getReview_num());
+				//SQL문 실행
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
 }

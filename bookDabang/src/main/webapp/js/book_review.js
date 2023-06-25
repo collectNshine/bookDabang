@@ -28,29 +28,37 @@ $(function(){
 				
 				$(param.list).each(function(index,item){
 					let output = '<div class="item">';
-					output += '<h4>' + item.name + '</h4>';
-					output += '<div class="sub-item">';
-					output += '<p>' + item.review_content + '</p>';
-					
-					//날짜
-					//javascript는 값만 넣어도 값이 있으면 true, 없으면 false로 반환
-					if(item.review_modifydate){
-						output += '<span class="modify-date">최근 수정일 : ' + item.review_modifydate + '</span>';
+					//프로필 사진
+					output += '<span class="user-photo">';
+					if(item.photo){
+						output += '<img src="../upload/' + item.photo + '" width="35" height="35" class="my-photo">';
 					}else{
-						output += '<span class="modify-date">등록일 : ' + item.review_date + '</span>';
+						output += '<img src="../images/face.png" width="35" height="35" class="my-photo">';
 					}
-					
+					output += '</span>';
+					//닉네임, 날짜
+					output += '<span class="name-date">';
+					output += '<div class="name">' + item.name + '</div>';
+					if(item.review_modifydate){ //값이 있으면 true, 없으면 false (javascript)
+						output += '<span class="modify-date">' + item.review_modifydate + ' 수정됨</span>';
+					}else{
+						output += '<span class="modify-date">' + item.review_date + '</span>';
+					}
+					output += '</span>';
+					//내용
+					output += '<p class="review-content">' + item.review_content + '</p>';
 					//수정, 삭제 버튼
 					//(로그인한 회원 번호) = (작성자 회원 번호) 일치 여부 체크
 					if(param.user_num == item.mem_num){
-						//이벤트 발생(버튼 클릭) 시 본인에게서 회원번호를 뽑아내어 item.re_num에 넣어짐
+						//이벤트 발생(버튼 클릭) 시 본인에게서 회원번호를 뽑아내어 item.review_num에 넣어짐
 						//이벤트가 반복적으로 발생하므로 id가 아닌 class 속성 부여
-						output += ' <input type="button" data-renum="' + item.review_num + '" value="수정" class="modify-btn">';
-						output += ' <input type="button" data-renum="' + item.review_num + '" value="삭제" class="delete-btn">';
+						output += '<div class="review-button">'
+						output += ' <input type="button" data-renum="' + item.review_num + '" value="수정" class="modify-btn btn btn-outline-primary">';
+						output += ' <input type="button" data-renum="' + item.review_num + '" value="삭제" class="delete-btn btn btn-outline-danger">';
+						output += '</div>';
 					}
 					
 					output += '<hr size="1" noshade width="100%">';
-					output += '</div>';
 					output += '</div>';
 					
 					//문서 객체에 추가
@@ -72,7 +80,7 @@ $(function(){
 			}
 		});
 	}
-	
+
 	
 	//페이지 처리 이벤트 연결 
 	//(다음 댓글 보기 버튼 클릭 시 데이터 추가)
@@ -91,7 +99,7 @@ $(function(){
 			alert('내용을 입력하세요!');
 			$('#re_content').val('').focus();
 			return false;
-		}ㅠ 
+		}
 		
 		//form 이하의 태그에서 입력한 데이터를 모두 읽어옴
 		let form_data = $(this).serialize();
@@ -181,58 +189,100 @@ $(function(){
 		});
 	});
 	
-	
-	//댓글 수정 버튼 클릭 시 수정 폼 노출
-	$(document).on('click','.modify-btn',function(){
-		//댓글 번호
-		let re_num = $(this).attr('data-renum');
-		//댓글 내용
-		//parent() : 부모를 구해줌
-		//replace(/A/,'B') : A를 B로 바꿔줌 (g:지정문자열 모두/i:대소문자 무시)
-		let content = $(this).parent().find('p').html().replace(/<br>/gi,'\n');
-		//댓글 수정폼 UI
-		let modifyUI = '<form id="mre_form">';
-		modifyUI += '<input type="hidden" name="re_num" id="mre_num" value="'+re_num+'">';
-		modifyUI += '<textarea rows="3" cols="50" name="re_content" id="mre_content" class="rep-content">'+content+'</textarea>';
-		modifyUI += '<div id="mre_first"><span class="letter-count">300/300</span></div>';
-		modifyUI += '<div id="mre_second" class="align-right">';
-		modifyUI += ' <input type="submit" value="수정">';
-		modifyUI += ' <input type="button" value="취소" class="re-reset">';
-		modifyUI += '</div>';
-		modifyUI += '<hr size="1" noshade width="96%">';
-		modifyUI += '</form>';
-		
-		//이전에 이미 수정하던 댓글이 있을 경우, 
-		//수정버튼을 클릭하면 숨겨져있는 sub-item을 환원하고 수정폼을 초기화함.
-		initModifyForm();
-		
-		//데이터가 표시되어 있는 div를 감춤.
-		$(this).parent().hide();
-		//수정폼을 수정하고자 하는 데이터가 있는 div에 노출.
-		//(부모'들' 중에서 클래스가 item인 부모에 modifyUI를 append시킴으로서)
-		$(this).parents('.item').append(modifyUI);
-		
-		//입력한 글자수 셋팅
-		let inputLength = $('#mre_content').val().length;
-		let remain = 300 - inputLength;
-		remain += '/300';
-		//문서객체에 반영
-		$('#mre_first .letter-count').text(remain);
+		//댓글 수정 버튼 클릭 시 수정 폼 노출
+		$(document).on('click','.modify-btn',function(){
+			//댓글 번호
+			let review_num = $(this).attr('data-renum');
+			//댓글 내용
+			//replace(/A/,'B') : A를 B로 바꿔줌 (g:지정문자열 모두/i:대소문자 무시)
+			let content = $(this).parent().parent().find('p').html().replace(/<br>/gi,'\n');
+			//댓글 수정폼 UI
+			let modifyUI = '<form id="mreview_form">';
+			modifyUI += '<input type="hidden" name="review_num" id="mre_num" value="'+review_num+'">';
+			modifyUI += '<textarea rows="2" cols="130" maxlength="50" name="review_content" id="mreview_content" class="rep-content">'+content+'</textarea>';
+			modifyUI += '<div id="mre_first"><span class="letter-count">50/50</span></div>';
+			modifyUI += '<div class="review-button">'
+			modifyUI += '<input type="submit" value="수정" class="btn btn-outline-primary">';
+			modifyUI += '<input type="button" value="취소" class="re-reset btn btn-outline-secondary">';
+			modifyUI += '</div>';
+			modifyUI += '<hr size="1" noshade width="96%">';
+			modifyUI += '</form>';
+			
+			//이전에 이미 수정하던 댓글이 있을 경우, 
+			//수정버튼을 클릭하면 숨겨져있는 sub-item을 환원하고 수정폼을 초기화함.
+			initModifyForm();
+			
+			//데이터가 표시되어 있는 div를 감춤.
+			$(this).parent().parent().find('p').hide();
+			$(this).parent().parent().find('.review-button').hide();
+			//수정폼을 수정하고자 하는 데이터가 있는 div에 노출.
+			//(부모'들' 중에서 클래스가 item인 부모에 modifyUI를 append시킴으로서)
+			$(this).parents('.item').append(modifyUI);
+			
+			//입력한 글자수 셋팅
+			let inputLength = $('#mreview_content').val().length;
+			let remain = 50 - inputLength;
+			remain += '/50';
+			//문서객체에 반영
+			$('#mre_first .letter-count').text(remain);
 	});
 	
 	
 	//수정 폼에서 취소 버튼 클릭 시 수정 폼 초기화
 	$(document).on('click','.re-reset',function(){
 		initModifyForm();
+		$('.review-content').show();
 	});
 	
 	
 	//댓글 수정 폼 초기화
 	function initModifyForm(){
-		$('.sub-item').show();
-		$('#mre_form').remove();
+		$('.review-button').show();
+		$('.review-content').show();
+		$('#mreview_form').remove();
 	}
 	
+
+	//댓글 수정
+	$(document).on('submit','#mreview_form',function(event){
+		//기본 이벤트 제거
+		event.preventDefault();
+		
+		if($('#mreview_content').val().trim() == ''){
+			alert('내용을 입력하세요!');
+			$('#mreview_content').val('').focus();
+			return false;
+		}
+		
+		//폼에 입력한 데이터 반환
+		let form_data = $(this).serialize();
+		
+		//서버와 통신
+		$.ajax({
+			url:'updateReview.do',
+			type:'post',
+			data:form_data,
+			dataType:'json',
+			success:function(param){
+				if(param.result == 'logout'){
+					alert('로그인해야 수정할 수 있습니다.');
+				}else if(param.result == 'success'){
+					$('#mreview_form').parent().find('p').html($('#mreview_content').val()
+					.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>'));
+					//날짜 처리
+					//수정 폼 삭제 및 초기화
+					initModifyForm();
+				}else if(param.result == 'wrongAccess'){
+					alert('타인의 글을 수정할 수 없습니다.');
+				}else{
+					alert('댓글 수정 오류 발생');
+				}
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
+	});
 	
 	//초기 데이터(목록) 호출
 	selectList(1);
