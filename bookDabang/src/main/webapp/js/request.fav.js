@@ -1,4 +1,3 @@
-
 $(function(){
 	//추천수 선택했는지, 총 추천수 개수
 	function doyouFavme(){
