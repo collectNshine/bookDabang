@@ -566,6 +566,38 @@ public class BookDAO {
 			return list;
 		}
 		
+		/*
+		//총 댓글 수(총 레코드 수)
+		public int getReCount(String keyfield, String keyword) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			int count = 0;
+			try {
+				//커넥션 풀로부터 커넥션을 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT COUNT(*) FROM post_review pr JOIN member m USING(mem_num)";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				if(keyword!=null && !"".equals(keyword)) {
+					pstmt.setString(1, "%" + keyword + "%");
+				}
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1); //컬럼인덱스로 간단히 불러옴
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+
+			return count;
+		}
+		*/
 		
 		//댓글 삭제
 		public void deleteReview(int review_num) throws Exception{
