@@ -62,9 +62,14 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		/*---[관리자]도서 관리 끝---*/
 		
 		/* [관리자]도서 신청 시작 */
+		String req_PageNum = request.getParameter("req_PageNum");
+		if(req_PageNum == null) req_PageNum = "1";
+		String req_keyfield = request.getParameter("req_keyfield");
+		String req_keyword = request.getParameter("req_keyword");
+		
 		RequestDAO req_dao = RequestDAO.getInstance();
-		int req_count = req_dao.getRequestCount(keyfield, keyword);
-		PageUtil req_page = new PageUtil(keyfield,keyword,Integer.parseInt(pageNum),req_count,10,10,"myPage.do");
+		int req_count = req_dao.getRequestCount(req_keyfield, req_keyword);
+		PageUtil req_page = new PageUtil(req_keyfield,req_keyword,Integer.parseInt(req_PageNum),req_count,10,10,"myPage.do");
 		
 	
 		RequestFavVO fav = new RequestFavVO();
@@ -73,7 +78,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		
 		List<RequestVO> req_list = null;
 		if(req_count > 0) {
-			req_list = req_dao.getListRequest(req_page.getStartRow(), req_page.getEndRow(), keyfield, keyword,user_num);
+			req_list = req_dao.getListRequest(req_page.getStartRow(), req_page.getEndRow(), req_keyfield, req_keyword,user_num);
 		}
 		
 		request.setAttribute("req_count", req_count);
