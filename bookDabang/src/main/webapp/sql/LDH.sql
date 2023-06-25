@@ -8,6 +8,7 @@ create table book_request(
  req_date date default SYSDATE not null,
  req_modifydate date,
  mem_num number not null,
+ req_state number(1) default 0 not null,
  constraint book_request_pk primary key (req_num),
  constraint book_request_fk foreign key (mem_num) references member(mem_num)
 );

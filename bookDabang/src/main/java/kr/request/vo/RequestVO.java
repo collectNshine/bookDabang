@@ -13,6 +13,8 @@ public class RequestVO {
 	private Date req_modifydate; //수정날짜
 	private int mem_num; //회원번호
 	private String id; //회원이름
+	private int req_state; //신청 상태 0:준비중 1:추가완료
+	
 	
 	private int cnt;//좋아요 개수
 	private String clicked; //로그인한 사용자가 클릭했지는 clicked 면 클릭, null이면 미 클릭
@@ -89,4 +91,12 @@ public class RequestVO {
 	public void setClicked(String clicked) {
 		this.clicked = clicked;
 	}
+	public int getReq_state() {
+		return req_state;
+	}
+	public void setReq_state(int req_state) {
+		this.req_state = req_state;
+	}
+	
+	
 }
