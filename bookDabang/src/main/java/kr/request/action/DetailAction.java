@@ -1,5 +1,6 @@
 package kr.request.action;
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,7 @@ public class DetailAction implements Action{
 		RequestDAO dao = RequestDAO.getInstance();
 		RequestVO request = dao.getRequest(req_num);
 		request.setMem_num(user_num);
+		
 		RequestFavVO fav = new RequestFavVO();
 		fav.setMem_num(user_num);
 		fav.setReq_num(req_num);
@@ -32,6 +34,7 @@ public class DetailAction implements Action{
 		
 		/* request.setId(id); */
 		request1.setAttribute("request", request);
+		request1.setAttribute("fav", fav); 
 		
 
 		return "/WEB-INF/views/request/detail.jsp"; 
