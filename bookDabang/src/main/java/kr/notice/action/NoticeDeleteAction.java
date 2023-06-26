@@ -11,10 +11,10 @@ public class NoticeDeleteAction implements Action{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
-		int noti_num = Integer.parseInt(request.getParameter("noti_num"));
+		String[] noti_nums = request.getParameterValues("noti_nums");
 		
 		NoticeDAO dao = NoticeDAO.getInstance();
-		dao.deleteNotice(noti_num);
+		dao.deleteNotice(noti_nums);
 		
 		return "redirect:/notice/noticeList.do" ;
 	}

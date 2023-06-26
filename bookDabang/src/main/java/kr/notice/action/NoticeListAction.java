@@ -28,7 +28,7 @@ public class NoticeListAction implements Action{
 		Integer category = Integer.parseInt(noti_category);
 		
 		NoticeDAO dao = NoticeDAO.getInstance();
-		int count = dao.countNotice(keyfield, keyword);
+		int count = dao.countNotice(keyfield, keyword, category);
 		
 		PageUtil page = new PageUtil(keyfield, keyword, Integer.parseInt(pageNum),
 				count, 15, 5, "noticeList.do");

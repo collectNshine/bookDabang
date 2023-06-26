@@ -25,10 +25,6 @@ color:red;
 			<th>제목</th>
 			<th>작성자</th>
 			<th>작성일</th>
-			<th>refer</th>
-			<th>step</th>
-			<th>depth</th>
-			<th>delflag</th>
 		</tr>
 		<c:forEach var="qna" items="${list}">
 		<tr>
@@ -49,16 +45,13 @@ color:red;
 			<td id="deleted">삭제된 게시물입니다.</td>
 			</c:otherwise>
 			</c:choose>
-			<td>작성자</td>
+			<td>${qna.name}</td>
 			<td>${qna.reg_date}</td>
-			<td>${qna.refer}</td>
-			<td>${qna.step}</td>
-			<td>${qna.depth}</td>
-			<td>${qna.delflag}</td>
 		</tr>
 		</c:forEach>
 	</table>
 	<input type="button" value="글쓰기" onclick="location.href='qnaWriteForm.do'">
+	 ${page}
 </div>
 </body>
 </html>

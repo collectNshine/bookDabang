@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import kr.notice.vo.NoticeReplyVO;
 import kr.notice.vo.NoticeVO;
 import kr.util.DBUtil;
 
@@ -107,35 +106,54 @@ public class NoticeDAO {
 	}
 	
 	//전체 글 수 체크(검색필드와 검색단어의 영향을 받음.)
-	public int countNotice(String keyfield,String keyword) throws Exception{
+	public int countNotice(String keyfield,String keyword,Integer category) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
 		String sub_sql = "";
-		int count = 0;
-		 if(keyword != null && !"".equals(keyword)) {
-			 if(keyfield.equals("1")) sub_sql += " WHERE noti_title LIKE ?";
-			 else if(keyfield.equals("2"))sub_sql += " WHERE noti_content LIKE ?";
-		 }
+		int cnt = 0;
+		
+		 
 		try {
+			
+			if((keyfield!=null && !"".equals(keyfield))||category!= null && category > 0) {
+				sub_sql+=" WHERE";
+				
+				if(keyfield!=null && !"".equals(keyfield)) {
+					if(keyfield.equals("1"))sub_sql += " noti_title LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += " noti_content LIKE ?";
+				}
+				if((keyfield!=null && !"".equals(keyfield))&&category!=null && category > 0) {
+					sub_sql+=" AND";
+				}
+				if(category!=null&& category > 0) {
+					sub_sql += " noti_category=?";
+				}
+			}
+			
 			conn=DBUtil.getConnection();
 			sql="SELECT count(*) FROM notice_board"+ sub_sql;
 			pstmt=conn.prepareStatement(sql);
+			
 				if(keyword != null 
 					      && !"".equals(keyword)) {
-				pstmt.setString(1, "%" + keyword + "%");
+				pstmt.setString(++cnt, "%" + keyword + "%");
 				}
+				if(category!=null&& category > 0) {
+					pstmt.setInt(++cnt, category);
+					}
+				
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				count = rs.getInt(1);
+				cnt = rs.getInt(1);
 			}
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
-		return count;
+		return cnt;
 	}
 	//카테고리 이름과 게시글 정보 값 얻어오기
 	public List<NoticeVO> categoryNameNum() throws Exception{
@@ -216,15 +234,14 @@ public class NoticeDAO {
 		}
 	}
 	//글 삭제하기(DELETE)
-	public void deleteNotice(int noti_num) throws Exception{
+	public void deleteNotice(String[] noti_nums) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 			conn=DBUtil.getConnection();
-			sql="DELETE FROM notice_board WHERE noti_num = ?";
+			sql="DELETE FROM notice_board WHERE noti_num IN("+ String.join(",",noti_nums)+")";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, noti_num);
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			throw new Exception(e);
@@ -232,9 +249,7 @@ public class NoticeDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	/*------------------------------------------------------*/
-	//이모티콘을 달 수 있는 댓글구현하기.
-	
+	/*
 	//댓글등록
 	public void insertReply(NoticeReplyVO vo) throws Exception{
 		Connection conn = null;
@@ -385,4 +400,5 @@ public class NoticeDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
+	*/
 }
