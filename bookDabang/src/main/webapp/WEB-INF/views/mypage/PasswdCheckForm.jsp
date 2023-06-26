@@ -48,7 +48,7 @@ input[type="password"], input[type="email"] {
 
 function chkPW(){
 
-	 var pw = $("#passwd").val();
+	 var pw = $('#passwd').val();
 	 var num = pw.search(/[0-9]/g);
 	 var eng = pw.search(/[a-z]/ig);
 	 var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
@@ -60,7 +60,7 @@ function chkPW(){
 	 }else if(pw.search(/\s/) != -1){
 	  alert("비밀번호는 공백 없이 입력해주세요.");
 	  return false;
-	 }else if(pw !=$(passwd).val()){
+	 }else if(pw != '1234'){
 	  	alert("비밀번호 확인이 불일치합니다.");
 	  	$('#passwd').val('').focus();
 		$('#passwd').val('');
@@ -70,11 +70,10 @@ function chkPW(){
 		window.location.replace('${pageContext.request.contextPath}/mypage/modifyUserForm.do')
 	    return true;
 	 }
-}
+	}
 
-	
-
-	/* $(function(){
+/*
+		 $(function(){
 				$('#passwdcheck_form').submit(function(){
 					if($('#passwd').val().trim()==''){
 						alert('비밀번호를 입력하세요');
@@ -92,7 +91,9 @@ function chkPW(){
 					
 				});//end of submit
 			}); 
-		*/	
+					*/	
+				
+		
 </script> 
 </body>
 </html>

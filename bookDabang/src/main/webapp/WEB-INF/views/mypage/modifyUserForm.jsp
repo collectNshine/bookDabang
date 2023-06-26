@@ -10,6 +10,26 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<style>
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 500px;
+    height: 40px;
+    margin-bottom: 10px;
+    box-shadow: 3px 3px 3px  gray;
+}
+form {
+    width: 750px;
+    margin: 0 auto;
+    border: 1px solid #000;
+    padding: 10px 10px 10px 30px;
+}
+.profile li img {
+    display: block;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+}
+</style>
 <script type="text/javascript">
 	$(function(){
 		
@@ -108,25 +128,53 @@
 		});
 		
 		
+	
+		
 		//사진 삭제 버튼 이벤트 연결
 		$('#photo_delete').click(function(){
 			if (confirm("이미지를 삭제하시겠습니까?")) {
 				// $('.my-photo').attr('src',photo_path);
 				// <img id="profile1" src="${pageContext.request.contextPath}/images/face.png">
-				 $('.profile .my-photo').attr("src",'${pageContext.request.contextPath}/images/face.png');
+				
+				 $(".my-photo").attr("src","${pageContext.request.contextPath}/images/face.png");
 			  }
 			//초기 이미지 표시
-
-			
 			//$('.my-photo').attr('src',photo_path);
 			//$('#photo').val('');
 			//$('#photo_choice').hide();
 			//$('#photo_btn').show(); //수정버튼 다시 보이게
-			
+			let form_data = new FormData();
+			form_data.append('photo',my_photo);
+			$.ajax({
+				url:'updateMyPhoto.do',
+				type:'post',
+				data:form_data,
+				dataType:'json',
+				contentType:false,//데이터 객체를 문자열로 바꿀지에 대한 설정
+				processData:false,//해당 타입을 true로 하면 일반text로 구분
+				enctype:'multipart/form-data',
+				success:function(param){
+					if(param.result == 'logout'){
+						alert('로그인 후 사용하세요!');
+					}else if(param.result == 'success'){
+					 	alert('이미지가 삭제되었습니다.');
+					 	//업로드한 이미지로 초기 이미지를 대체
+					 	photo_path = $('.my-photo').attr('${pageContext.request.contextPath}/images/face.png');
+					 	$('#photo').val('');
+					 	$('#photo_choice').hide();
+					 	
+					 	$('#photo_btn').show(); //수정버튼 다시 보이게
+						$('#passwd_btn').show(); //비밀번호 변경 버튼 다시 보이게
+						$('#delete_btn').show(); //회원탈퇴 버튼 다시 보이게
+					}else{
+						alert('파일 전송 오류 발생');
+					}
+				},
+				error:function(){
+					alert('네트워크 오류 발생');
+				}
+			});
 		});
-		
-		
-		
 	}); //end of click
 
 	$(function(){
@@ -148,9 +196,6 @@
 	});
 	
 	
-		
-		
-		
 </script>
 </head>
 <body>
@@ -167,11 +212,11 @@
 			<li>
 				<c:if test="${empty user_photo}">
 					<img src="${pageContext.request.contextPath}/images/face.png" 
-							width="300" height="300" class="my-photo">
+							width="350" height="350" class="my-photo">
 				</c:if>
 				<c:if test="${!empty user_photo}">
 					<img src="${pageContext.request.contextPath}/upload/${user_photo}" 
-						 width="300" height="300" class="my-photo" style="margin-bottom:20px;">
+						 width="350" height="350" class="my-photo" style="margin-bottom:20px;">
 				</c:if>
 			</li>
 			<li>
@@ -189,13 +234,14 @@
 					<input type="button" value="취소" id="photo_reset">
 					<input type="button" value="삭제" id="photo_delete">
 					
+					<%--
 					<script type="text/javascript">
 						$(function(){
 							$('#photo_delete').click(function(){
 								let choice = confirm('삭제하시겠습니까?');
 								if(choice){
 									$.ajax({
-										url:'deleteFile.do',
+										url:'deleteFileForm.do',
 										type:'post',
 										data:'${board.board_num}',
 										dataType:'json',
@@ -216,9 +262,10 @@
 									});
 								}
 							});
-						});
+						})
+						;
 					</script>
-
+						 --%>
 					
 				</div>
 				</li>
@@ -244,40 +291,40 @@
 
 		<!-- 프로필 사진 끝 -->	
 		<form id="modify_form" action="modifyUser.do" method="post" style="border:none">
-			<ul  style="border-: 1px solid">
+			<ul style= "width: 1200px; height:300px;">
 				<li>
-					<label for="name">필명</label>
+					<label for="name"><b>필명</b></label>
 					<input type="text" name="name" id="name" 
 						   maxlength="10" value="${member.name}">
 				</li>
 				<li>
-					<label for="phone">휴대폰번호</label>
+					<label for="phone"><b>휴대폰번호</b></label>
 					<input type="text" name="phone" id="phone" 
 						   maxlength="15" value="${member.phone}">
 				</li>	
 				<li>
-					<label for="email">이메일</label>
+					<label for="email"><b>이메일</b></label>
 					<input type="email" name="email" id="email" 
 						   maxlength="50" value="${member.email}">
 				</li>
 				<li>
-					<label for="zipcode">우편번호</label>
+					<label for="zipcode"><b>우편번호</b></label>
 					<input type="text" name="zipcode" id="zipcode" 
-						   maxlength="5" value="${member.zipcode}">
+						   maxlength="5" value="${member.zipcode}" style="width:405px;">
 					<input type="button" value="우편번호 찾기" onclick="execDaumPostcode()">
 				</li>				
 				<li>
-					<label for="address1">주소</label>
+					<label for="address1"><b>주소</b></label>
 					<input type="text" name="address1" id="address1"
 						   maxlength="30" value="${member.address1}">
 				</li>				
 				<li>
-					<label for="address2">상세번호</label>
+					<label for="address2"><b>상세번호</b></label>
 					<input type="text" name="address2" id="address2"
 						   maxlength="30" value="${member.address2}">
 				</li>				
 			</ul>
-			<div class="align-center">
+			<div class="align-center"  style="margin-top: 50px;">
 				<input type="submit" value="확인">
 				<input type="button" value="홈으로" 
 					   onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
