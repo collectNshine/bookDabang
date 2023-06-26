@@ -70,8 +70,9 @@ function chkPW(){
 		window.location.replace('${pageContext.request.contextPath}/mypage/modifyUserForm.do')
 	    return true;
 	 }
+}
 
-	}
+	
 
 	/* $(function(){
 				$('#passwdcheck_form').submit(function(){
