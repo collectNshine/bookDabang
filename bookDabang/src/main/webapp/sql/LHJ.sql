@@ -1,4 +1,4 @@
-create table order(
+create table orders(
 order_num number,
 book_title varchar2(120) not null,
 order_total varchar2(9) not null,
@@ -15,18 +15,18 @@ constraint order_pk primary key (order_num),
 constraint order_fk foreign key (mem_num) references member (mem_num)
 );
 
-create sequnece order_seq;
+create sequence order_seq;
 
 create table order_detail(
-detail_num number not null
-book_num number not null
-book_title varchar2(120) not null
-book_price number(8) not null
-book_total number(8) not null
-order_quantity varchar2(7) not null
-order_num varchar2 not null
+detail_num number not null,
+book_num number not null,
+book_title varchar2(120) not null,
+book_price number(8) not null,
+book_total number(8) not null,
+order_quantity varchar2(7) not null,
+order_num number not null,
 constraint order_detail_pk primary key (detail_num),
-constraint order_detail_fk foreign key (order_num) references order (order_num)
+constraint order_detail_fk foreign key (order_num) references orders (order_num)
 );
-create sequnece order_detail_seq;
+create sequence order_detail_seq;
 

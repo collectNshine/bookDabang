@@ -5,6 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style type="text/css">
+input[type="text"], input[type="password"], input[type="email"] {
+    width: 600px;
+};
+</style>
 <meta charset="UTF-8">
 <title>회원정보 수정</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
@@ -113,7 +118,7 @@
 			if (confirm("이미지를 삭제하시겠습니까?")) {
 				// $('.my-photo').attr('src',photo_path);
 				// <img id="profile1" src="${pageContext.request.contextPath}/images/face.png">
-				 $('.profile .my-photo').attr("src",'${pageContext.request.contextPath}/images/face.png');
+				 $('.my-photo').attr('src','${pageContext.request.contextPath}/images/face.png');
 			  }
 			//초기 이미지 표시
 
@@ -218,31 +223,25 @@
 							});
 						});
 					</script>
-
-					
 				</div>
 				</li>
-			
-			
-			<%--
-			<li>
-				<div class="align-center profile">
-					<img src="${pageContext.request.contextPath}/images/profile.png" 
-						 width="30" height="30" class="icon">
-					<input type="file" id="photo" accept="image/gif,image/png,image/jpeg">
-					<img src="${pageContext.request.contextPath}/images/trashcan.png" 
-						 width="30" height="30" class="icon">
-					<input type="button" value="비밀번호 변경" class="icon"
-					onclick="location.href='${pageContext.request.contextPath}/mypage/modifyPasswordForm.do'">
-				</div>
-			</li>	
-			--%>
-			
-			
-			
+					<%--
+					<li>
+						<div class="align-center profile">
+							<img src="${pageContext.request.contextPath}/images/profile.png" 
+								 width="30" height="30" class="icon">
+							<input type="file" id="photo" accept="image/gif,image/png,image/jpeg">
+							<img src="${pageContext.request.contextPath}/images/trashcan.png" 
+								 width="30" height="30" class="icon">
+							<input type="button" value="비밀번호 변경" class="icon"
+							onclick="location.href='${pageContext.request.contextPath}/mypage/modifyPasswordForm.do'">
+						</div>
+					</li>	
+					--%>
 		</ul>
 
 		<!-- 프로필 사진 끝 -->	
+		<hr size="1" noshade="noshade" width="100%">
 		<form id="modify_form" action="modifyUser.do" method="post" style="border:none">
 			<ul  style="border-: 1px solid">
 				<li>
