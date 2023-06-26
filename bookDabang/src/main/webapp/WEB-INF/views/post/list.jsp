@@ -17,10 +17,6 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
 	<div class="content-main">
-	<ul class="tabWrap">
-			<li data-tab="postfeed" style="cursor: pointer;" class="on">서평</li>
-			<li data-tab="reviewfeed" style="cursor: pointer;">한 줄 기록</li>
-	</ul>
 	<!-- [1. 서평 모음집] 시작 -->
 	<div id="postfeed" class="tab_contents on">
 		<div class="content-main container">
