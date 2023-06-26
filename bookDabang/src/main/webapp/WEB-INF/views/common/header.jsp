@@ -11,7 +11,15 @@
       <ul class="menu-category">
          <li class="menu-detail"><a href="${pageContext.request.contextPath}/book/list.do">차림표</a></li>
          <li><b>|</b></li>
-         <li class="menu-detail"><a href="${pageContext.request.contextPath}/post/list.do">모음집</a></li>
+         <li class="menu-detail">
+        	 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-bs-toggle="dropdown">
+         		모음집
+        	 </a>
+        	 <ul class="dropdown-menu">
+  				<li><a class="dropdown-item" href="${pageContext.request.contextPath}/post/list.do">서평 모음집</a></li>
+  				<li><a class="dropdown-item" href="${pageContext.request.contextPath}/book/listFeed.do">한 줄 기록 모음집</a></li>
+  			</ul>
+  		 </li>
          <li><b>|</b></li>
          <li class="menu-detail"><a href="${pageContext.request.contextPath}/chat/list.do">담소마당</a></li>
          <li><b>|</b></li>

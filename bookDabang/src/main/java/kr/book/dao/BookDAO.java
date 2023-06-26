@@ -674,10 +674,88 @@ public class BookDAO {
 			}
 		}
 		
+		//한 줄 기록 피드
+		//총 댓글 수(총 레코드 수)
+		public int getReCount(String keyfield, String keyword) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			int count = 0;
+			try {
+				//커넥션 풀로부터 커넥션을 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT COUNT(*) FROM review r JOIN member m USING(mem_num)";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				if(keyword!=null && !"".equals(keyword)) {
+					pstmt.setString(1, "%" + keyword + "%");
+				}
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1); //컬럼인덱스로 간단히 불러옴
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+
+			return count;
+		}
 		
-		
-		
-		
-		
-		
+		//한줄기록 피드 목록
+		public List<ReviewVO> getReList(int start, int end, String keyfield, String keyword) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<ReviewVO> list = null;
+			String sql = null;
+			int cnt = 0;
+			try {
+				//커넥션 풀로부터 커넥션을 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM review r JOIN member m USING(mem_num) LEFT OUTER JOIN member_detail d USING(mem_num) LEFT OUTER JOIN book_list b USING(bk_num) ORDER BY r.review_num DESC)a) WHERE rnum>=? AND rnum<=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				if(keyword!=null && !"".equals(keyword)) {
+					pstmt.setString(++cnt, "%" + keyword + "%");
+				}
+				pstmt.setInt(++cnt, start);
+				pstmt.setInt(++cnt, end);
+				//SQL문 실행
+				rs = pstmt.executeQuery();
+				list = new ArrayList<ReviewVO>();
+				while(rs.next()) {
+					ReviewVO review = new ReviewVO();
+					review.setReview_num(rs.getInt("review_num"));
+					review.setReview_content(StringUtil.useBrNoHtml(rs.getString("review_content")));
+					//날짜 -> 1분전, 1시간전, 1일전 형식의 문자열로 변환
+					review.setReview_date(DurationFromNow.getTimeDiffLabel(rs.getString("review_date")));
+					if(rs.getString("review_modifydate") != null) {
+						review.setReview_modifydate(DurationFromNow.getTimeDiffLabel(rs.getString("review_modifyDate")));
+					}
+					review.setBk_num(rs.getInt("bk_num"));
+					review.setMem_num(rs.getInt("mem_num"));
+					review.setName(rs.getString("name"));
+					review.setPhoto(rs.getString("photo"));
+					review.setTitle(rs.getString("title"));
+					review.setAuthor(rs.getString("author"));
+					review.setThumbnail(rs.getString("thumbnail"));
+					
+					//자바빈을 ArrayList에 저장
+					list.add(review);
+				}
+			}catch(Exception e){
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+					
+			return list;
+		}	
 }
