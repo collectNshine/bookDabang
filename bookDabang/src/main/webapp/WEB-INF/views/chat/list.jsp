@@ -84,11 +84,16 @@
 				<div class="make-chat" style="display:none;">
 					<div class="make-chat-content"></div>
 				</div>
+				<%-- 채팅방 입장 전 보여지는 화면 --%>
+				<div class="chatList-img">
+					<h4>책에 대한 다양한 담소를 나누는 공간</h4>
+					<img src="${pageContext.request.contextPath}/images/chatListImg.png">
+				</div>
 				<%-- 채팅방 div --%>
 				<div class="chatRoom" style="display:none;">
 					<div class="top-bar">
 						<div id="chatTitle"></div>
-						<div class="chatAlign-right"><input type="button" value="close" id="out_chat2" class="btn btn-outline-secondary"></div>
+						<div class="chatAlign-right"><input type="button" value="close" id="out_chat2" class="btn btn-outline-secondary btn-sm"></div>
 					</div>
 					<div class="bottom">
 						<div class="chat-list scrollBar" style="overflow-y:scroll; height:500px;"></div>
