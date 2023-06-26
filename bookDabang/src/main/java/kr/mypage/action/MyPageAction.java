@@ -84,10 +84,10 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		
 		/* [관리자]도서 신청 시작 */
 		String req_PageNum = request.getParameter("req_PageNum");
-		/* String[] reqstate = request.getParameterValues("reqstate"); */
+		
+		
 		RequestDAO req_dao = RequestDAO.getInstance();
 		RequestVO reqvo = new RequestVO();
-		
 		
 		if(req_PageNum == null) req_PageNum = "1";
 		String req_Keyfield = request.getParameter("req_Keyfield");

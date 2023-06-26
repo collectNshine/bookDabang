@@ -12,8 +12,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_style.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/request.fav.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/request.fav.js"></script>
 <script type="text/javascript">
 
 
@@ -509,7 +509,7 @@
 				});
 			</script> 
 			<!-- 검색창 끝 -->
-		<form>
+		<!-- <form id="request_admin"> -->
 		<div class="list-space align-right">
 			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'">
 		</div>
@@ -536,13 +536,17 @@
 			<tbody>
 				<c:forEach var="request" items="${req_list}">
 			<tr>
-				<td class="align-center"><input type="checkbox" id="reqstate" name="reqstate" value="${request.req_num}"></td> 
-				<c:if test="${request.req_state == 0}">
-					<td><button>준비중</button></td>
-				</c:if>
-				<c:if test="${request.req_state == 1}"> 
-					<td><button>추가완료</button></td>
-				</c:if>				               
+				<td class="align-center">
+				
+					<input type="checkbox" class="reqstate" name="reqstate"
+					 <c:if test="${request.req_state == 1}">disabled</c:if>
+					 value="${request.req_num}" data-num="${request.req_state}">
+					
+				</td> 
+				<td>
+				<c:if test="${request.req_state == 0}"><button>준비중</button></c:if>
+				<c:if test="${request.req_state == 1}"><button>추가완료</button></c:if>
+				</td>			               
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>
 				<td>${request.req_author}</td>
 				<td>${request.req_publisher}</td>
@@ -561,15 +565,36 @@
 			</c:forEach>
 			</tbody>
 			</table>
-			<input type="submit" value="추가 완료" id="reqstate_done" class="align-left">
-			</form>
+			<input type="button" value="추가 완료" id="reqstate_done" class="align-left">
+			<!-- </form> -->
 			<script type="text/javascript">
-				let reqstate_done = document.getElementById('reqstate_done');
-				//이벤트 연결
-				/* del_btn.onclick=function(){
-					location.replace('${pageContext.request.contextPath}/request/UpdateStateAction');
+				$('#reqstate_done').click(function(){
+					if($('input[type=checkbox]:checked').length<1){
+						alert('하나 이상의 항목을 선택하세요');
+						return false;
 					}
-				}; */
+					let reqstate = new Array();
+					$('input[type="checkbox"]:checked').each(function(index,item){
+						reqstate.push($(this).val());
+					});
+					$.ajax({
+						url:'requestStateUpdate.do',
+						type:'post',
+						data:{'reqstate':reqstate.toString()},
+						dataType:'json',
+						success:function(param){
+							if(param.result == 'success'){
+								alert('추가되었습니다.');
+							}else{
+								alert('오류발생');
+							}
+						},
+						error:function(){
+							alert('추가할 도서를 선택하세요.')
+						}
+					});
+				});
+				
 			
 			</script>
 			<div class="align-center">${req_Page}</div>
