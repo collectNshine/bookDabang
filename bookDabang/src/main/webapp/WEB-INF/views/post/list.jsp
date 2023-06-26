@@ -63,8 +63,12 @@
     				<h5 class="card-title"><b><a href="detail.do?post_num=${post.post_num}">${post.post_title}</a></b></h5>
     				<p class="card-text"><a href="detail.do?post_num=${post.post_num}">${post.post_content}</a></p>
     			<div class="card-footer">
-    				<small class="text-muted"><img class="fav" src="../images/like.png" width="33" height="33"><!-- ${favcount} --></small>
-       				<small class="text-muted"><img class="reply" src="../images/reply.png" width="25" height="25"></small>
+    				<small class="text-muted"><img class="fav" src="../images/like.png" width="33" height="33">
+    				<!-- ${favcount} -->
+    				</small>
+       				<small class="text-muted"><img class="reply" src="../images/reply.png" width="25" height="25">
+       				<!-- ${recount} -->
+       				</small>
       			</div>
       			<br>
     			<a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${post.bk_num}" class="btn btn-primary" style="color:white;">도서 상세 보러가기</a>

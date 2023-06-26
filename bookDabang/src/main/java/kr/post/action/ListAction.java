@@ -6,9 +6,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.book.dao.BookDAO;
+import kr.book.vo.BookVO;
 import kr.book.vo.ReviewVO;
 import kr.controller.Action;
 import kr.post.dao.PostDAO;
+import kr.post.vo.PostFavVO;
 import kr.post.vo.PostVO;
 import kr.util.PageUtil;
 
@@ -36,6 +38,8 @@ public class ListAction implements Action{
 		
 		PostDAO dao = PostDAO.getInstance();
 		//int favcount = dao.selectFavCount(post_num);
+		//int recount = dao.getReplyPostCount(post_num);
+		
 		int count = dao.getPostCount(keyfield, keyword);
 									//keyfield, keyword, currentPage, count, rowCount, pageCount, 요청URL
 		PageUtil page = new PageUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 10, 10, "list.do");
@@ -45,6 +49,7 @@ public class ListAction implements Action{
 			list = dao.getPostList(page.getStartRow(), page.getEndRow(), keyfield, keyword);
 		}
 		//request.setAttribute("favcount", favcount);
+		//request.setAttribute("recount", recount);
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("page", page.getPage());
@@ -52,7 +57,7 @@ public class ListAction implements Action{
 		
 		/*---한줄기록 피드 시작---*
 		//request.setCharacterEncoding("utf-8");
-		//int bk_num = Integer.parseInt(request.getParameter("bk_num"));
+		int bk_num = Integer.parseInt(request.getParameter("bk_num"));
 		
 		String rePageNum = request.getParameter("rePageNum");
 		if(rePageNum == null) rePageNum = "1";
@@ -61,6 +66,9 @@ public class ListAction implements Action{
 		String reKeyword = request.getParameter("reKeyword");
 		
 		BookDAO bookDao = BookDAO.getInstance();
+		BookVO book = bookDao.getBook(bk_num);
+		request.setAttribute("book", book);
+		
 		int reCount = bookDao.getReCount(reKeyfield, reKeyword);
 		PageUtil rePage = new PageUtil(reKeyfield, reKeyword, Integer.parseInt(rePageNum), reCount, 10, 10, "list.do");
 		

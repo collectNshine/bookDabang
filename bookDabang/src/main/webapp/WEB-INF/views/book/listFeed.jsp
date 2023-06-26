@@ -49,7 +49,7 @@
 	         		</c:if>
 	         		</div>
   				<div class="card-body">
-  				<p class="card-text"><a href="listReview.do?review_num=${review.review_num}">${review.review_content}</a></p>
+  				<p class="card-text"><a href="detail.do?bk_num=${review.bk_num}">${review.review_content}</a></p>
     			
     				<div id="bookinfo" style="float:left;"><b>${review.title}</b><p>${review.author}</div>
     				<div id="bookinfo2" style="float:right;"><img src="${pageContext.request.contextPath}/upload/${post.thumbnail}" width="150" class="list-thumbnail"></div>

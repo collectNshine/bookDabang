@@ -93,6 +93,7 @@ import kr.util.StringUtil;
 					post.setBk_num(rs.getInt("bk_num"));
 					post.setName(rs.getString("name"));
 					post.setPhoto(rs.getString("photo"));
+					post.setThumbnail(rs.getString("thumbnail"));
 					
 					//자바빈을 ArrayList에 저장
 					list.add(post);
