@@ -113,6 +113,7 @@ public class RequestDAO {
 				request.setReq_publisher(rs.getString("req_publisher"));
 				request.setReq_etc(rs.getString("req_etc"));
 				request.setReq_date(rs.getDate("req_date"));
+				request.setReq_state(rs.getInt("req_state"));
 				request.setReq_ip(rs.getString("req_ip"));
 				request.setCnt(rs.getInt("cnt"));
 				request.setClicked(rs.getString("clicked"));
@@ -385,15 +386,15 @@ public class RequestDAO {
 	 }
 	 
 	 //신청진행상태 업데이트
-	 public void updateState(RequestVO req) throws Exception{
+	 public void updateState(String[]reqstate) throws Exception{
 		 Connection conn = null;
 		 PreparedStatement pstmt = null;
 		 String sql = null;
 		 try {
 			 conn=DBUtil.getConnection();
-			 sql = "UPDATE book_request SET req_state=1 WHERE req_num = ?";
+			 sql = "UPDATE book_request SET req_state=1 WHERE req_num IN(" + String.join(",", reqstate) +")";
+			 System.out.println(sql);
 			 pstmt = conn.prepareStatement(sql);
-			 pstmt.setInt(1,req.getReq_num());
 			 pstmt.executeUpdate();
 		 }catch(Exception e) {
 			 throw new Exception(e);
