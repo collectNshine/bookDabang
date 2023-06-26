@@ -48,7 +48,7 @@ $(document).ready(function(){
 		<h2>서평 쓰기</h2>
 		<br><hr><br>
 		<form id="write_form" action="write.do" method="post" enctype="multipart/form-data" style="width:1024px; height:1500px;">
-		<input type="hidden" name="bk_num" id="bk_num" value="2">
+		<input type="hidden" name="bk_num" id="bk_num" value="${book.bk_num}">
 			<div class="list-space align-right">
 				<input type="submit" value="서평 등록" style="width:100px; height:30px; margin-right:20px; background-color:black; color:white;">
 			</div>	
