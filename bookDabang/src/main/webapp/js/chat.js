@@ -36,7 +36,7 @@ $(function() {
 		make_chat += '<li>';
 		make_chat += '<div class="input-group flex-nowrap">';
 		make_chat += '<span class="input-group-text" id="addon-wrapping">제목</span>';
-		make_chat += '<input type="text" name="chat_title" maxlength="50" class="form-control" aria-label="Username" aria-describedby="addon-wrapping">';
+		make_chat += '<input type="text" name="chat_title" id="chat_title" maxlength="50" class="form-control" aria-label="Username" aria-describedby="addon-wrapping">';
 		make_chat += '</div>';
 		make_chat += '</li>';
 		make_chat += '<li>';
