@@ -63,30 +63,6 @@ $(function() {
 		}
 	});
 	
-	// Image 처리
-	let photo_path = $('.my-photo').attr('src');	// 처음 화면에 보여지는 이미지 저장
-	let my_photo;	// 선택한 이미지
-	$('#photo').change(function() {
-		my_photo = this.files[0];
-		if(!my_photo) {
-			$('.my-photo').attr('src', photo_path);
-			return;
-		}
-		
-		// 파일 용량 체크
-		if(my_photo.size > 1024*1024) {
-			alert(Math.round(my_photo.size/1024) + 'kbytes(1024kbytes까지만 업로드 가능)');
-			$('.my-photo').attr('src', photo_path);
-			$(this).val('');	// 선택한 파일 정보 지우기
-			return;
-		}
-		
-		let reader = new FileReader();
-		reader.readAsDataURL(my_photo);
-		
-		reader.onload = function() { $('.my-photo').attr('src', reader.result); };
-	});
-	
 	// 닫기버튼
 	$(document).on('click', '#out_chat', function() {
 		location.reload();
@@ -104,6 +80,8 @@ $(function() {
 		}
 		
 		let form_data = new FormData();
+		let chat_img = $('#chat_img')[0].files[0];	// 선택한 이미지
+		
 		form_data.append('chat_title', $('#chat_title').val());
 		form_data.append('chat_img', chat_img);
 		$.ajax({
