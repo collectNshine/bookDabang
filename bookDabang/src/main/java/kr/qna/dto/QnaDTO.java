@@ -16,7 +16,8 @@ public class QnaDTO implements Serializable {
 	private Date reg_date;
 	private int mem_num;
 	private int delflag;
-	
+	//-----------member_detail
+	private String name;
 	
 
 	public QnaDTO() {
@@ -109,7 +110,13 @@ public class QnaDTO implements Serializable {
 	public void setDelflag(int delflag) {
 		this.delflag = delflag;
 	}
+	public String getName() {
+		return name;
+	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
 	//쉽게 값을 뽑아서 내용 확인해볼 수 있다. 
 	@Override
 	public String toString() {

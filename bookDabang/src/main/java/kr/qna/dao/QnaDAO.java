@@ -17,8 +17,8 @@ public class QnaDAO {
 	}
 	private QnaDAO(){};
 	
-	//글 목록 조회하기 
-	public List<QnaDTO> selectList() throws Exception{
+	//글 목록 조회하기 (페이징 처리만 추가한다.)
+	public List<QnaDTO> selectList(int start, int end) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
@@ -27,8 +27,13 @@ public class QnaDAO {
 		
 		try {
 			conn = DBUtil.getConnection();
-			sql="SELECT * FROM qna_board ORDER BY refer,step";
+			sql="SELECT * FROM (SELECT a.*,rownum rnum FROM "
+					+ "(SELECT * FROM qna_board JOIN member_detail USING(mem_num) ORDER BY refer,step)a) "
+					+ "WHERE rnum>=? AND rnum<=?";
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
 			rs = pstmt.executeQuery();
 			list = new ArrayList<QnaDTO>();
 			
@@ -44,6 +49,8 @@ public class QnaDAO {
 				dto.setReg_date(rs.getDate("reg_date"));
 				dto.setMem_num(rs.getInt("mem_num"));
 				dto.setDelflag(rs.getInt("delflag"));
+				//--------------------------------------member_detail
+				dto.setName(rs.getString("name"));
 				list.add(dto);
 			}
 		}catch(Exception e){
@@ -52,6 +59,28 @@ public class QnaDAO {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
 		return list;
+	}
+	//전체 글 수 카운트 
+	public int countQna() throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		int count = 0;
+		try {
+			conn = DBUtil.getConnection();
+			sql="SELECT count(*) FROM qna_board";
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return count;
 	}
 	//새글 추가하기 
 	public void insertQna(QnaDTO dto) throws Exception{

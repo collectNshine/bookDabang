@@ -20,8 +20,7 @@
 			return;
 			}
 		});
-		/*
-		//▲ 수정
+		
 		//전체 체크박스 선택, 전체 체크박스 취소
 		let btn_status = false;
 		$('#all_btn').click(function(){
@@ -35,14 +34,16 @@
 				btn_status = false;
 			}
 		});//end of #all_btn
-
+		
+		
 		//삭제 버튼 클릭	
 		$('#del_btn').click(function(){
-			let valueArr = new Array();
+			let noti_nums = new Array();
+			
 			let list = $('.checkbox');
 				for(let i=0;i<list.length;i++){//선택되어있으면 배열에 값을 저장함.
 					if(list[i].checked){
-						valueArr.push(list[i].value);//input 태그의 value...는 아니고 
+						noti_nums.push(list[i].value);//input 태그의 value...는 아니고 
 					}
 				}
 			
@@ -51,20 +52,17 @@
 				type:'post',
 				traditional:true,
 				data:{
-					'valueArr':valueArr
+					'noti_nums':noti_nums
 				},
-				success:function(param){
-					if(param.result == 'success'){
+				success:function(){
 						alert('삭제되었습니다.');
-					}else{
-						alert('삭제 실패하였습니다.');
-					}
 				},
 				error:function(){
 					alert('선택 값이 없습니다.');
 				}
 			});
-		});//end of #del_btn*/
+			 location.reload(); //현재 페이지 새로고침
+		});//end of #del_btn
 	});
 </script> 
 
