@@ -89,12 +89,13 @@
 	 	<div class="align-center">
 	 	<c:forEach var="request" items="${list}">
 	 	<c:choose>
-		 	<c:when test="${request.clicked != 'clicked'}">
-				<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
-			</c:when>
-			<c:when test="${request.clicked == 'clicked'}">
+		 	<c:when test="${request.clicked == 'clicked'}">
 				<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav02.gif" width="50">
 			</c:when>
+			<c:when test = "${empty request.clicked}"> 
+				<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
+			</c:when>
+			
 		</c:choose>
 		<span class="output-fcount">${request.cnt}</span>
 		</c:forEach>
