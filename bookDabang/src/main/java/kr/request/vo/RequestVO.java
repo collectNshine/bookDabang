@@ -18,6 +18,7 @@ public class RequestVO {
 	
 	private int cnt;//좋아요 개수
 	private String clicked; //로그인한 사용자가 클릭했지는 clicked 면 클릭, null이면 미 클릭
+
 	
 	public String getId() {
 		return id;
@@ -97,6 +98,6 @@ public class RequestVO {
 	public void setReq_state(int req_state) {
 		this.req_state = req_state;
 	}
-	
+
 	
 }

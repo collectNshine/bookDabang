@@ -31,17 +31,11 @@ public class DetailAction implements Action{
 		
 		List<RequestVO> list = null;
 		list = dao.getFavRequest(user_num, req_num);
-		
-		/*
-		 * RequestFavVO fav = new RequestFavVO(); fav.setMem_num(user_num);
-		 * fav.setReq_num(req_num); dao.getFavRequest(user_num, req_num);
-		 */
-		 
-		
+		request1.setAttribute("list", list);
+	
 		/* request.setId(id); */
 		request1.setAttribute("request", request);
-		/* request1.setAttribute("fav", fav); */
-		request1.setAttribute("list", list);
+		
 		
 
 		return "/WEB-INF/views/request/detail.jsp"; 

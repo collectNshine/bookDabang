@@ -217,34 +217,6 @@ public class RequestDAO {
 		  }
 	
 	  }
-	  /*
-	  //추천수
-	  public void getFavRequest(RequestFavVO fav) throws Exception{
-		  Connection conn = null;
-		  PreparedStatement pstmt = null;
-		  String sql = null;
-		  
-		  try {
-			  conn = DBUtil.getConnection();
-			  sql= "SELECT clicked,cnt FROM "
-			  		+ "(SELECT * FROM book_request r JOIN member m USING(mem_num) JOIN "
-			  		+ "(SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num) f USING(req_num) JOIN "
-			  		+ "(SELECT 'clicked' clicked, req_num from book_request_fav WHERE mem_num=?) c USING(req_num) "
-			  		+ "ORDER BY req_num DESC) a WHERE req_num=? ";
-			  pstmt = conn.prepareStatement(sql);
-			  pstmt.setInt(1,fav.getMem_num());
-			  pstmt.setInt(2,fav.getReq_num());
-			  pstmt.executeUpdate();
-			  
-		  }catch(Exception e) {
-			  throw new Exception(e);
-		  }finally {
-			  DBUtil.executeClose(null, pstmt, conn);
-		  }
-		  
-		  
-	  }
-	  */
 		
 	  public List<RequestVO> getFavRequest(int mem_num, int req_num) throws Exception{
 		  Connection conn = null;
@@ -255,16 +227,17 @@ public class RequestDAO {
 		  
 		  try {
 			  conn = DBUtil.getConnection();
-				/*
-				 * sql =
-				 * "SELECT cnt, clicked FROM (SELECT * FROM book_request r JOIN member m USING(mem_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num) f USING(req_num) LEFT OUTER JOIN (select 'clicked' clicked, req_num from book_request_fav WHERE mem_num=?) USING(req_num) ORDER BY req_num DESC) WHERE mem_num=? AND req_num=?"
-				 * ;
-				 */
-			  sql= "SELECT clicked,cnt FROM "
-			  		+ "(SELECT * FROM book_request r JOIN member m USING(mem_num) JOIN "
-			  		+ "(SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num) f USING(req_num) JOIN "
-			  		+ "(SELECT 'clicked' clicked, req_num from book_request_fav WHERE mem_num=?) c USING(req_num) "
-			  		+ "ORDER BY req_num DESC) a WHERE req_num=? ";
+			 /*
+			  sql= "SELECT 'clicked' clicked, cnt FROM "
+			  		+ "(SELECT * FROM "
+			  		+ "(SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num ORDER BY req_num DESC) a JOIN "
+			  		+ "(SELECT 'clicked' clicked, req_num from book_request_fav WHERE mem_num=?)b USING(req_num) "
+			  		+ "WHERE req_num=?)c";
+			  		
+			  */
+			  
+			  sql = " SELECT a.* FROM (SELECT * FROM book_request r JOIN member m USING(mem_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num) f USING(req_num) LEFT OUTER JOIN (select 'clicked' clicked, req_num from book_request_fav WHERE mem_num=?) USING(req_num) ORDER BY req_num DESC)a WHERE req_num=?";
+			  
 			  pstmt = conn.prepareStatement(sql);
 			  pstmt.setInt(1,mem_num);
 			  pstmt.setInt(2,req_num);
@@ -274,9 +247,9 @@ public class RequestDAO {
 				  RequestVO req = new RequestVO();
 				  req.setMem_num(mem_num);
 				  req.setReq_num(req_num);
-				  req.setClicked(rs.getString("clicked"));
+				  req.setClicked(rs.getString("clicked")); 
 				  req.setCnt(rs.getInt("cnt"));
-				  
+					 
 				  list.add(req);
 			  }
 			  
@@ -288,7 +261,6 @@ public class RequestDAO {
 		  return list;
 		  
 	  }	  
-	  
 	  
 	  //추천수 등록
 	  public void giveFav(RequestFavVO fav) throws Exception{
