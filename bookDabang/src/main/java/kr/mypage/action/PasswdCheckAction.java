@@ -60,7 +60,7 @@ public class PasswdCheckAction implements Action{
 				}
 				//인증 실패시 호출
 				return "/WEB-INF/views/mypage/modifyUserForm.jsp";
-				}
 		}
+	}
 
 
