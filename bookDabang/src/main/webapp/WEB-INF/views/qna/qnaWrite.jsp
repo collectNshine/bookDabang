@@ -44,34 +44,21 @@ $(document).ready(function(){
 			event.preventDefault();
 			return;
 		}
-		if(keyfield==""){
-			$('#guide').text("카테고리를 선택해주세요.").css("color","#F00");
-			$('#noti_category').focus();
-			event.preventDefault();
-			return;
-		}
 	});
 	
 });
+
+
 </script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<form id="write_Form" action="noticeWrite.do" method="post">
+	<form id="write_Form" action="qnaWrite.do" method="post">
 		<ul>
-			<li>
-			<select name="noti_category" id="noti_category">
-				<option value="">카테고리</option>
-				<option value="1">회원</option>
-				<option value="2">주문/주문변경</option>
-				<option value="3">결제</option>
-				<option value="4">증빙서류</option>
-				<option value="5">공지사항</option>
-			</select>
-			<input id="noti_title" name="noti_title" type="text" placeholder="제목" maxlength="50">
+			<input id="noti_title" name="qna_title" type="text" placeholder="제목" maxlength="50">
 			</li>
 			<li id="guide"></li>
-			<li><textarea id="summernote" name="noti_content" placeholder="내용" ></textarea></li>
+			<li><textarea id="summernote" name="qna_content" placeholder="내용" ></textarea></li>
 			<li><input type="submit" value="글쓰기"></li>
 		</ul>
 	</form>

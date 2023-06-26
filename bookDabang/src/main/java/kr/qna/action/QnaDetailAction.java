@@ -1,16 +1,15 @@
-package kr.qa.action;
+package kr.qna.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.controller.Action;
 
-public class QAListAction implements Action {
+public class QnaDetailAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
-		return "/WEB-INF/views/QA/QAList.jsp";
+		return "/WEB-INF/views/qna/qnaDetail.jsp";
 	}
 	
 }
