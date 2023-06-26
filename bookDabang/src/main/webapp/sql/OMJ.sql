@@ -86,22 +86,21 @@ constraint noti_reply2_fk
 
 create sequence notice_reply_seq;
 
-create table qa_board ( --1:1 게시판
-qa_num number, --id 값
-ref number not null default 0,
-step number default 0,
-reforder number default 0,
-answerNum number default 0, 
-parentNum number  default 0,
-qa_title varchar2(150) not null,
-qa_content clob not null,
-reg_date date not null,
-mem_num number not null,
-constraint qa_board_pk 
+create table qna_board (--1:1 게시판
+qna_num number, --글번호
+refer number default 0 not null, -- 글의 그룹
+step number default 0 not null,-- 답글의 순서
+depth number default 0 not null,-- 답글의 들여쓰기 
+qna_title varchar2(150) not null, -- 글 제목
+qna_content varchar2(4000)not null, -- 글 내용
+reg_date date not null default SYSDATE,-- 글 작성일
+mem_num number not null,-- 글 작성자 
+delflag number not null default 0, -- 미삭제:0, 삭제:1
+constraint qna_board_pk 
                    primary key (qna_num),
-constraint qa_board_fk
+constraint qna_board_fk
                  foreign key (mem_num) 
                  references member (mem_num)
 );
 
-create sequence qa_board_seq;
+create sequence qna_board_seq;

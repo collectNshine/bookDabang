@@ -80,7 +80,7 @@
 			<li><a href="noticeList.do?noti_category=${noti2.noti_category}">${noti2.noti_category_name}(${noti2.noti_category_count})</a></li>
 		</c:forEach>
 		<p>
-		<li><a href="${pageContext.request.contextPath}/QA/QAList.do"><b>1:1문의</b></a></li>  
+		<li><a href="${pageContext.request.contextPath}/qna/qnaList.do"><b>1:1문의</b></a></li>  
 	</ul>
 <!--QnA 박스 -->
 </div>
