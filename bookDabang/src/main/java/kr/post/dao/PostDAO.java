@@ -12,7 +12,6 @@ import kr.post.vo.PostFavVO;
 import kr.post.vo.PostReplyVO;
 import kr.post.vo.PostReportVO;
 import kr.post.vo.PostVO;
-import kr.request.vo.RequestVO;
 import kr.util.DBUtil;
 import kr.util.DurationFromNow;
 import kr.util.StringUtil;
@@ -614,30 +613,29 @@ import kr.util.StringUtil;
 		}
 		
 		//신고 목록
-		//public List<PostReportVO> getReportList(int start, int end, String repoKeyfield, String repoKeyword) throws Exception{
 		public List<PostReportVO> getReportList(int start, int end, String keyfield, String keyword) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			List<PostReportVO> list = null;
 			String sql = null;
+			String sub_sql = "";
 			int cnt = 0;
 			try {
 				//커넥션 풀로부터 커넥션을 할당
 				conn = DBUtil.getConnection();
 				//SQL문 작성
-				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post_report ORDER BY repo_date DESC)a) WHERE rnum>=? AND rnum<=?";
+				if(keyword != null && !"".equals(keyword)) {
+					if(keyfield.equals("1")) sub_sql += "WHERE repo_category LIKE ?";
+					if(keyfield.equals("2")) sub_sql += "WHERE mem_num LIKE ?";
+				}
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post_report " + sub_sql + " ORDER BY repo_date DESC)a) WHERE rnum>=? AND rnum<=?";
 				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
 				//?에 데이터 바인딩
 				if(keyword!=null && !"".equals(keyword)) {
 					pstmt.setString(++cnt, "%" + keyword + "%");
 				}
-				/*
-				if(repoKeyword!=null && !"".equals(repoKeyword)) {
-					pstmt.setString(++cnt, "%" + repoKeyword + "%");
-				}
-				 */
 				pstmt.setInt(++cnt, start);
 				pstmt.setInt(++cnt, end);
 				//SQL문 실행
@@ -665,7 +663,6 @@ import kr.util.StringUtil;
 		}
 		
 		//총 신고 수(검색 레코드 수)
-		//public int getReportCount(String repoKeyfield, String repoKeyword) throws Exception{
 		public int getReportCount(String keyfield, String keyword) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -681,23 +678,12 @@ import kr.util.StringUtil;
 					if(keyfield.equals("1")) sub_sql += "WHERE pr.repo_category LIKE '%' || ? || '%'";
 					if(keyfield.equals("2")) sub_sql += "WHERE mem_num LIKE '%' || ? || '%'";
 				}
-				/*
-				if(repoKeyword != null && !"".equals(repoKeyword)) {
-					if(repoKeyfield.equals("1")) sub_sql += "WHERE pr.repo_category LIKE '%' || ? || '%'";
-					if(repoKeyfield.equals("2")) sub_sql += "WHERE mem_num LIKE '%' || ? || '%'";
-				}
-				*/
 				sql = "SELECT COUNT(*) FROM post_report pr JOIN member m USING(mem_num)" + sub_sql;
 				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
 				if(keyword!=null && !"".equals(keyword)) {
 					pstmt.setString(1, "%" + keyword + "%");
 				}
-				/*
-				if(repoKeyword!=null && !"".equals(repoKeyword)) {
-					pstmt.setString(1, "%" + repoKeyword + "%");
-				}
-				 */
 				//SQL문 실행
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
