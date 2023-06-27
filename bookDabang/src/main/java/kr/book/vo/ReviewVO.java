@@ -14,6 +14,12 @@ public class ReviewVO {
 	private String author; //저자명
 	private String thumbnail; //책 표지
 	
+	private int cnt_like;
+	private String clicked_like;
+	private int cnt_dislike;
+	private String clicked_dislike;
+	
+	
 	public int getReview_num() {
 		return review_num;
 	}
@@ -86,5 +92,30 @@ public class ReviewVO {
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
 	}
+	public int getCnt_like() {
+		return cnt_like;
+	}
+	public void setCnt_like(int cnt_like) {
+		this.cnt_like = cnt_like;
+	}
+	public String getClicked_like() {
+		return clicked_like;
+	}
+	public void setClicked_like(String clicked_like) {
+		this.clicked_like = clicked_like;
+	}
+	public int getCnt_dislike() {
+		return cnt_dislike;
+	}
+	public void setCnt_dislike(int cnt_dislike) {
+		this.cnt_dislike = cnt_dislike;
+	}
+	public String getClicked_dislike() {
+		return clicked_dislike;
+	}
+	public void setClicked_dislike(String clicked_dislike) {
+		this.clicked_dislike = clicked_dislike;
+	}
+	
 	
 }

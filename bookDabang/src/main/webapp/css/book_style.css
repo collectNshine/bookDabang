@@ -8,9 +8,9 @@
 	text-align:center;
 	margin:50px 0;
 }
-
-.search li{
-	display:inline-block;
+.form-select{
+	margin:5px 10px 0;
+	padding:.375rem 2.25rem .375rem 2rem;
 }
 
 /*--카테고리--*/
@@ -35,6 +35,9 @@
 .list-photo{ /*썸네일 사진*/
 	float:left;
 	margin:30px 50px;
+}
+.list-thumbnail{ /*썸네일 사진*/
+	box-shadow:5px 5px 13px #808080;
 }
 .list-text{ /*도서 정보글*/
 	margin-top:30px;
@@ -79,7 +82,7 @@
 div#review_div{
 	padding:5px 10px 40px 10px;
 	margin-top:10px;
-	background-color:rgb(250,250,210);
+	/*background-color:rgb(250,250,210);*/
 }
 form#review_form{
 	width:100%;
@@ -119,7 +122,10 @@ textarea.form-control{
 .review-button{
 	text-align:right;
 }
-
+.bi-hand-thumbs-up{
+	font-size: 22px;
+    line-height: 22px;
+}
 /*-------------[도서등록/수정]-------------*/
 .form-select{
 	width:120px;

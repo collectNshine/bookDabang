@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.book.dao.BookDAO;
+import kr.book.vo.BookMarkVO;
 import kr.book.vo.BookVO;
 import kr.controller.Action;
 import kr.member.vo.MemberVO;
@@ -43,6 +44,29 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		
 		
 		
+		/*--- [사용자]책갈피 시작 ---*/
+		String bm_pageNum = request.getParameter("bm_pageNum");
+		if(bm_pageNum == null) bm_pageNum = "1";
+		String bm_keyfield = request.getParameter("bm_keyfield");
+		String bm_keyword = request.getParameter("bm_keyword");
+		
+		BookDAO bm_dao = BookDAO.getInstance();
+		int bm_count = bm_dao.selectUserMarkCount(bm_keyfield, bm_keyword, user_num);
+		
+		PageUtil bm_page = new PageUtil(bm_keyfield,bm_keyword,Integer.parseInt(bm_pageNum),bm_count,10,10,"myPage.do");
+		
+		List<BookMarkVO> bm_list = null;
+		if(bm_count > 0) {
+			bm_list = bm_dao.getMarkList(bm_page.getStartRow(), bm_page.getEndRow(), bm_keyfield, bm_keyword, user_num);
+		}
+		
+		request.setAttribute("bm_count", bm_count);
+		request.setAttribute("bm_list", bm_list);
+		request.setAttribute("bm_page", bm_page.getPage());
+		/*--- [사용자]책갈피 끝 ---*/
+		
+		
+		
 		/*-- [사용자]작성글 시작 --*/
 		/*
 		String PostpageNum = request.getParameter("pageNum");
@@ -63,7 +87,6 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		request.setAttribute("postPage", post_page.getPage());
 		*/
 		/*-- [사용자]작성글 끝 --*/
-		
 		
 		
 		
@@ -89,9 +112,11 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		request.setAttribute("page", page.getPage());
 		/*---[관리자]도서 관리 끝---*/
 		
-		/* [관리자]도서 신청 시작 */
-		String req_PageNum = request.getParameter("req_PageNum");
 		
+		
+		
+		/*---[관리자]도서 신청 시작---*/
+		String req_PageNum = request.getParameter("req_PageNum");
 		
 		RequestDAO req_dao = RequestDAO.getInstance();
 		RequestVO reqvo = new RequestVO();
@@ -111,8 +136,10 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		request.setAttribute("req_Count", req_Count);
 		request.setAttribute("req_list", req_list);
 		request.setAttribute("req_Page", req_Page.getPage());
+		/*---[관리자]도서 신청 끝---*/
 		
-		/* [관리자]도서 신청 끝 */
+		
+		
 		
 		/*---[관리자]신고 관리 시작---*/
 		String repoPageNum = request.getParameter("repoPageNum");
@@ -134,9 +161,9 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		request.setAttribute("repoPage", repoPage.getPage());
 		/*---[관리자]신고 관리 끝---*/
 		
+		
 		request.setAttribute("member", vo);
 			
-		
 		//JSP 경로 반환
 		return "/WEB-INF/views/mypage/myPage.jsp";
 	}

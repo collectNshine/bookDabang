@@ -5,6 +5,11 @@ public class BookMarkVO {
 	private int bk_num;
 	private int mem_num;
 	
+	private String title;
+	private String author;
+	private String publisher;
+	private String thumbnail;
+	
 	//디폴트 생성자
 	public BookMarkVO() {}
 	
@@ -37,4 +42,37 @@ public class BookMarkVO {
 	public void setMem_num(int mem_num) {
 		this.mem_num = mem_num;
 	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public String getThumbnail() {
+		return thumbnail;
+	}
+
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+	
 }

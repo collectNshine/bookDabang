@@ -35,14 +35,11 @@ public class DeleteAction implements Action{
 		dao.deleteBook(bk_num);
 		//파일 삭제 (null여부는 메서드에 포함되어 있으므로 따로 체크X)
 		FileUtil.removeFile(request, db_book.getThumbnail());
+
+		//자바스크립트로 띄움
+		request.setAttribute("notice_msg", "정상적으로 삭제되었습니다.");
+		request.setAttribute("notice_url", request.getContextPath()+"/mypage/myPage.do");
 		
-		//refresh 정보를 응답 헤더에 추가
-		response.addHeader("Refresh", "2;url=list.do");//=2초 뒤에 list.do로 이동
-		
-		request.setAttribute("accessMsg", "정상적으로 삭제되었습니다.");
-		request.setAttribute("accessUrl", request.getContextPath()+"/mypage/myPage.do");
-		
-		//JSP 경로 반환
-		return "/WEB-INF/views/common/notice.jsp";
+		return "/WEB-INF/views/common/alert_singleView.jsp";
 	}
 }

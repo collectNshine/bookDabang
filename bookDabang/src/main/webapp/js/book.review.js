@@ -3,6 +3,93 @@ $(function(){
 	let count;
 	let rowCount;
 	
+	//좋아요 등록(및 삭제) 이벤트 처리
+	$(document).on('click','.output_like',function(){
+		let click_btn = $(this);
+		$.ajax({
+			url:'writeLike.do',
+			type:'post',
+			data:{review_num:$(this).attr('data-num')},
+			dataType:'json',
+			success:function(param){
+				if(param.result == 'logout'){
+					alert('로그인 후 좋아요를 눌러주세요');
+				}else if(param.result == 'success'){
+					displayLike(param,click_btn);
+				}else{
+					alert('좋아요 표시 오류 발생');
+				}
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
+	});
+	
+	//좋아요 표시 (UI 처리)
+	function displayLike(param,click_btn){
+	let output;
+	if(param.status == 'noLike'){
+		//js파일은 el 사용X - html경로인식 방법 사용
+		output = '<i class="bi bi-hand-thumbs-up"></i>'; 
+	}else{
+		output = '<i class="bi bi-hand-thumbs-up-fill"></i>';
+	}
+	//문서 객체 설정
+	click_btn.html(output);
+	click_btn.parent().find('.output_lcount').text(param.count);
+	}
+	
+	
+	
+	//별로에요 등록(및 삭제) 이벤트 처리
+	$(document).on('click','.output_dislike',function(){
+		let click_btn = $(this);
+		$.ajax({
+			url:'writeDislike.do',
+			type:'post',
+			data:{review_num:$(this).attr('data-num')},
+			dataType:'json',
+			success:function(param){
+				if(param.result == 'logout'){
+					alert('로그인 후 좋아요를 눌러주세요');
+				}else if(param.result == 'success'){
+					displayDislike(param,click_btn);
+				}else{
+					alert('좋아요 표시 오류 발생');
+				}
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
+	});
+	
+	//별로에요 표시 (UI 처리)
+	function displayDislike(param,click_btn){
+	let output;
+	if(param.status == 'noDislike'){
+		//js파일은 el 사용X - html경로인식 방법 사용
+		output = '<i class="bi bi-hand-thumbs-down"></i>'; 
+	}else{
+		output = '<i class="bi bi-hand-thumbs-down-fill"></i>';
+	}
+	//문서 객체 설정
+	click_btn.html(output);
+	click_btn.parent().find('.output_dlcount').text(param.count);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//댓글 목록
 	function selectList(pageNum){
 		//연산을 위해 pageNum을 변수에 저장
@@ -47,6 +134,26 @@ $(function(){
 					output += '</span>';
 					//내용
 					output += '<p class="review-content">' + item.review_content + '</p>';
+					output += '<ul class="like-buttons">'
+					output += '<li>'
+					output += '<button type="button" class="btn output_like" data-num="'+item.review_num+'">';
+					if(item.clicked_like != 'clicked'){
+						output += '<i class="bi bi-hand-thumbs-up"></i>';
+					}else{
+						output += '<i class="bi bi-hand-thumbs-up-fill"></i>';
+					}
+					output += '</button>';
+					output += '<span class="output_lcount">'+item.cnt_like+'</span>'
+					output += '<button type="button" class="btn output_dislike" data-num="'+item.review_num+'">';
+					if(item.clicked_dislike != 'clicked'){
+						output += '<i class="bi bi-hand-thumbs-down"></i>';
+					}else{
+						output += '<i class="bi bi-hand-thumbs-down-fill"></i>';
+					}
+					output += '</button>';
+					output += '<span class="output_dlcount">'+item.cnt_dislike+'</span>'
+					output += '</li>'
+					output += '</ul>'
 					//수정, 삭제 버튼
 					//(로그인한 회원 번호) = (작성자 회원 번호) 일치 여부 체크
 					if(param.user_num == item.mem_num){
