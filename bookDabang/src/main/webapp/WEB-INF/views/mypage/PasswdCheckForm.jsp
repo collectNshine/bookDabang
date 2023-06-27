@@ -25,7 +25,7 @@ input[type="password"], input[type="email"] {
 			width="100" height="100" class="align-center lock" >
 		</p>
 		<div style="font-size:17px;">
-		<p class="align-center">비밀번호 확인</p>
+		<h3 class="align-center">비밀번호 확인</h3>
 		<hr size="1" noshade="noshade" width="700px;">
 		<p class="align-center">개인정보 변경을 위해 비밀번호를 입력해주세요.</p>
 		</div>
@@ -49,6 +49,8 @@ input[type="password"], input[type="email"] {
 function chkPW(){
 
 	 var pw = $('#passwd').val();
+	 var pw2 = '1234';
+	 
 	 var num = pw.search(/[0-9]/g);
 	 var eng = pw.search(/[a-z]/ig);
 	 var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
@@ -60,13 +62,13 @@ function chkPW(){
 	 }else if(pw.search(/\s/) != -1){
 	  alert("비밀번호는 공백 없이 입력해주세요.");
 	  return false;
-	 }else if(pw != '1234'){
+	 }else if(pw != pw2){
 	  	alert("비밀번호 확인이 불일치합니다.");
 	  	$('#passwd').val('').focus();
 		$('#passwd').val('');
 		return false;
 	 }else {
-		alert("통과"); 
+		alert("확인이 완료되었습니다."); 
 		window.location.replace('${pageContext.request.contextPath}/mypage/modifyUserForm.do')
 	    return true;
 	 }

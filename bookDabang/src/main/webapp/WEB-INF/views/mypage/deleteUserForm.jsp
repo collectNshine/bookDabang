@@ -14,6 +14,8 @@ form ul li {
     clear: both;
     margin-bottom: 10px;
 }
+ul.deleteUserForm li{margin-top : 10px}
+ul.deleteUserForm li input{width: 370px;}
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -40,7 +42,10 @@ form ul li {
 				$('#passwd').val('').focus();
 				$('#cpasswd').val('');
 				return false;
+			}else{
+				alert('회원탈퇴를 하시겠습니까?');
 			}
+			
 		});//end of submit
 	});
 </script>
@@ -48,11 +53,20 @@ form ul li {
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	<hr size="1" noshade="noshade" width="100%">
 	<!-- 내용 시작 -->
-	<div class="content-main">
-		<h2>회원 탈퇴</h2>
-		<form id="delete_form" action="deleteUser.do" method="post">
-			<ul>
+	<div class="content-main" style="margin-top: 40px;">
+		<p class="align-center">
+			<img src="${pageContext.request.contextPath}/images/my_page.png" 
+			width="100" height="100" class="align-center lock" >
+		</p>
+		<div style="font-size:17px;">
+			<h3 class="align-center">회원 탈퇴</h3>
+			<hr size="1" noshade="noshade" width="700px;">
+			<p class="align-center">회원탈퇴를 위해 정보를 입력해주세요.</p>
+		</div>
+		<form id="delete_form" action="deleteUser.do" method="post" style="border:none">
+			<ul class="deleteUserForm">
 				<li>
 					<label for="id">아이디</label>
 					<input type="text" name="id" id="id" maxlength="12" autocomplete="off" placeholder="현재 아이디를 입력해주세요.">

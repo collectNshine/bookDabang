@@ -32,7 +32,7 @@
 						<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
 					</div>
 					<div>
-						<h4>님의 책다방</h4>
+						<h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_name}</b>님의 책다방</h4>
 						<input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
 					</div>
 					
@@ -41,7 +41,7 @@
 					<img src="${pageContext.request.contextPath}/upload/${user_photo}" 
 						 width="200" height="200" class="my-photo">
 					<div style="display:flex;justify-content: space-around;flex-direction: column;">	 
-						 <h4>님의 책다방</h4>
+						 <h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_name}</b>님의 책다방</h4>
 						 <input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
 					 </div>
 				</c:if>
@@ -278,7 +278,7 @@
 			<div class="content-main container">
 			<h2><a href="myPage.do">도서 관리</a></h2>
 			<!-- 검색창 시작 : get방식 -->
-			<form id="search_form" action="myPage.do" method="get">
+			<form id="search_form" action="myPage.do#admin_book" method="get">
 				<ul class="search">
 					<li>
 						<select name="keyfield">
@@ -352,7 +352,7 @@
 	<!-- [2. 주문 관리] 시작 -->
 		<div id="admin_order" class="tab_contents">
 			<table>
-				<tr> 
+				<tr>
 					<th>주문번호</th>
 					<th>도서명</th>
 					<th>아이디</th>
@@ -379,7 +379,7 @@
 			<div class="content-main">
 				<h2><a href="myPage.do">회원 관리</a></h2>
 				<!-- 검색창 시작 : get방식 -->
-				<form id="search_form2" action="myPage.do" method="get">
+				<form id="search_form2" action="myPage.do#admin_member" method="get">
 					<ul class="search">
 						<li>
 							<select name="keyfield">
@@ -444,7 +444,7 @@
 		<h2><a href="myPage.do">신고 내역</a></h2>
 		
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form4" action="myPage.do" method="get">
+			<form id="search_form4" action="myPage.do#admin_report" method="get">
 				<ul class="search">
 					<li>
 						<select name="repoKeyfield">
@@ -533,7 +533,7 @@
 		<div id="admin_request" class="tab_contents">
 			<div class="content-main container">
 			<h2>도서신청</h2>
-			<form id="search_form5" action="myPage.do" method="get">
+			<form id="search_form5" action="myPage.do#admin_request" method="get">
 				<ul class="search">
 					<li>
 						<select name="req_Keyfield">
@@ -648,7 +648,8 @@
 					});
 				});
 				
-			
+			   
+				
 			</script>
 			<div class="align-center">${req_Page}</div>
 		</c:if>
