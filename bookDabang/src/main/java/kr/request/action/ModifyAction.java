@@ -25,6 +25,7 @@ public class ModifyAction implements Action{
 	  request.setReq_title(request1.getParameter("req_title"));
 	  request.setReq_author(request1.getParameter("req_author"));
 	  request.setReq_publisher(request1.getParameter("req_publisher"));
+	  request.setReq_etc(request1.getParameter("req_etc"));
 	  request.setId(request1.getParameter("id"));
 	  request.setReq_ip(request1.getRemoteAddr()); 
 	  request.setMem_num(user_num);

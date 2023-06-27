@@ -17,7 +17,6 @@ public class DetailAction implements Action{
 	@Override
 	public String execute(HttpServletRequest request1, HttpServletResponse response) throws Exception {
 		HttpSession session = request1.getSession();
-		/* String id = session.getAttribute("id"); */
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		if(user_num == null) {
 			return "redirect:/member/loginForm.do";
