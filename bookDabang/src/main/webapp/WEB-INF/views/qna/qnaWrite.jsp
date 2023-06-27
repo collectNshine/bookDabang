@@ -28,13 +28,13 @@ $(document).ready(function(){
 	 
 	//submit할 때 이벤트
 	$('#write_Form').submit(function(event){
-		let title = $('#noti_title').val().trim();
+		let title = $('#qna_title').val().trim();
 		let content = $('#summernote').val().trim();
 		let keyfield = $('#noti_category').val().trim();
 		
 		if(title==""){
 			$('#guide').text("제목을 입력해주세요.").css("color","#F00");
-			$('#noti_title').focus();
+			$('#qna_title').focus();
 			event.preventDefault();
 			return;
 		}
@@ -48,14 +48,15 @@ $(document).ready(function(){
 	
 });
 
-
 </script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<form id="write_Form" action="qnaWrite.do" method="post">
 		<ul>
-			<input id="noti_title" name="qna_title" type="text" placeholder="제목" maxlength="50">
+			<li>
+			<input type="hidden" nam="qna_num" value="${qna_num}">
+			<input id="qna_title" name="qna_title" type="text" placeholder="제목" maxlength="50">
 			</li>
 			<li id="guide"></li>
 			<li><textarea id="summernote" name="qna_content" placeholder="내용" ></textarea></li>

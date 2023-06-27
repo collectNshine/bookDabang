@@ -28,13 +28,13 @@ $(document).ready(function(){
       });
 	//submit할 때 이벤트
 	$('#edit_Form').submit(function(event){
-		let title = $('#noti_title').val().trim();
+		let title = $('#qna_title').val().trim();
 		let content = $('#summernote').val().trim();
 		let keyfield = $('#noti_category').val().trim();
 		
 		if(title==""){
 			$('#guide').text("제목을 입력해주세요.").css("color","#F00");
-			$('#noti_title').focus();
+			$('#qna_title').focus();
 			event.preventDefault();
 			return;
 		}
@@ -55,11 +55,13 @@ $(document).ready(function(){
 		<ul>
 			<li>
 			<input id="qna_num" name="qna_num" type="hidden" value="${dto.qna_num}">
-			<input id="noti_title" name="qna_title" type="text" value="${dto.qna_title}" maxlength="50">
+			<input id="qna_title" name="qna_title" type="text" value="${dto.qna_title}" maxlength="50">
 			</li>
 			<li id="guide"></li>
 			<li><textarea id="summernote" name="qna_content" placeholder="내용">${dto.qna_content}</textarea></li>
+			<c:if test="${user_num == dto.mem_num or user_auth == 9}">
 			<li><input type="submit" value="수정하기"></li>
+			</c:if>
 		</ul>
 	</form>
 </body>

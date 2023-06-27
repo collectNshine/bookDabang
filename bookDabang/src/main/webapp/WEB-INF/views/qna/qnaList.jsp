@@ -9,7 +9,6 @@
 <style type="text/css">
 #deleted{
 color:red;
-
 }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
@@ -38,7 +37,7 @@ color:red;
 						<c:if test="${qna.depth != 0 }">
 						ㄴ
 						</c:if>
-					<a href="qnaDetailForm.do?qna_num=${qna.qna_num}">${qna.qna_title}</a>
+					<a href="qnaDetail.do?qna_num=${qna.qna_num}">${qna.qna_title}</a>
 					</td>
 				</c:when>
 			<c:otherwise>

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,9 +16,7 @@
 <script type="text/javascript">
 //입력값 검증
 	$(document).ready(function(){
-		
 		$('#login_Form').submit(function(event){
-	
 			if($('#id').val().trim()==""){
 				$('#guide').text("아이디를 입력해주세요.").css("color","#F00");
 				$('#id').focus();
@@ -34,7 +32,7 @@
 		});	
 	});
 	//로그인 실패 
-</script>
+</script>		
 </head>
 <body>
 	<div>
@@ -59,5 +57,16 @@
 		<a href="myIdSearchForm.do">아이디 찾기</a>
 		<a href="joinForm.do">회원가입</a>
 	</div>
+	<div>
+		<img id="captchaImg" src="${pageContext.request.contextPath}/member/captchaImg.do"/><!-- 이거 안된다. -->
+	</div>
+	<div id="catpcha"></div>
+
+        <div id="audiocatpch" style="display: none;"></div>
+        <input id="reLoad" type="button" value="새로고침" />
+        <input id="soundOn" type="button" value="음성듣기" />
+        <br />
+        <input type="text" id="answer" name="answer" value="" />
+        <input type="button" id="frmSubmit" value="확인" />
 	</body>
 </html>

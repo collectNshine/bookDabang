@@ -28,7 +28,7 @@ public class QnaDAO {
 		try {
 			conn = DBUtil.getConnection();
 			sql="SELECT * FROM (SELECT a.*,rownum rnum FROM "
-					+ "(SELECT * FROM qna_board JOIN member_detail USING(mem_num) ORDER BY refer,step)a) "
+					+ "(SELECT * FROM qna_board JOIN member_detail USING(mem_num) ORDER BY refer DESC,step)a) "
 					+ "WHERE rnum>=? AND rnum<=?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, start);

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.controller.Action;
 import kr.notice.dao.NoticeDAO;
 import kr.notice.vo.NoticeVO;
-import kr.util.PageUtil;
+import kr.util.PageUtil_updated;
 
 
 public class NoticeListAction implements Action{
@@ -16,6 +16,7 @@ public class NoticeListAction implements Action{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
+		
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 	
@@ -30,8 +31,8 @@ public class NoticeListAction implements Action{
 		NoticeDAO dao = NoticeDAO.getInstance();
 		int count = dao.countNotice(keyfield, keyword, category);
 		
-		PageUtil page = new PageUtil(keyfield, keyword, Integer.parseInt(pageNum),
-				count, 15, 5, "noticeList.do");
+		PageUtil_updated page = new PageUtil_updated(keyfield, keyword, Integer.parseInt(pageNum),
+				count, 15, 5, "noticeList.do",category);
 		
 		List<NoticeVO> list = null;
 		List<NoticeVO> list2 = null;
@@ -45,7 +46,7 @@ public class NoticeListAction implements Action{
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("list2", list2);
-		request.setAttribute("noti_category", noti_category);
+		request.setAttribute("noti_category", category);
 		request.setAttribute("page", page.getPage());
 		
 		return "/WEB-INF/views/notice/noticeList.jsp";

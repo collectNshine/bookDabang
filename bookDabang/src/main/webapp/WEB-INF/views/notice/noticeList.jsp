@@ -12,7 +12,6 @@
 <script type="text/javascript">
 	
 	$(document).ready(function(){
-		
 		$('#list_Form').submit(function(event){
 			if($('#keyword').val().trim()==""){
 				$('#guide').text('검색어를 입력해주세요.').css('color','#F00');
@@ -70,7 +69,7 @@
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <div>
-<!-- QnA 박스 -->
+<!-- QnA 박스 시작-->
 	<ul>
 		<li><b>QnA</b></li>   
 		<li><a href="noticeList.do" >전체질문</a></li>
@@ -80,10 +79,10 @@
 		<p>
 		<li><a href="${pageContext.request.contextPath}/qna/qnaList.do"><b>1:1문의</b></a></li>  
 	</ul>
-<!--QnA 박스 -->
+<!--QnA 박스 끝-->
 </div>
 <div>
-<!-- 검색상자 -->
+<!-- 검색상자 시작-->
 	<form id="list_Form" action="noticeList.do" method="post">
 		<ul>
 			<li>
@@ -99,13 +98,13 @@
 			<li id="guide"></li>
 		</ul>	
 	</form>
-<!-- 검색상자 -->
+<!-- 검색상자 끝-->
 </div>
 <div>
 <c:if test="${count > 0}">
 	<table>
 		<tr>
-			<th></th><!-- 글 숫자 -->
+			<th></th>
 			<th>카테고리</th>
 			<th>제목</th>
 			<th>작성일</th>
@@ -114,9 +113,11 @@
 		<c:forEach var="noti" items="${list}">
 		<tr>
 			<td>
+			<!-- 관리자 체크박스 시작 -->
 			<c:if test="${user_auth == 9}">
 			<input class="checkbox" name="checkbox" type="checkbox" value="${noti.noti_num}">
 			</c:if>
+			<!-- 관리자 체크박스 끝 -->
 			${noti.noti_num}
 			</td>
 			<td>
@@ -134,7 +135,6 @@
 			<td>${noti.noti_date}</td>
 		</tr>
 		</c:forEach>
-		
 	</table>
 	</c:if>
 	<c:if test="${count <= 0}">
@@ -142,11 +142,13 @@
 			oops! 검색 결과가 없습니다. 
 		</div>
 	</c:if>
+	<!-- 관리자 글쓰기, 삭제 시작 -->
 	<c:if test="${user_auth == 9}">
 		<input id="all_btn" type="button" value="전체 선택" >
 		<input id="del_btn" type="button" value="선택 삭제"> 
 		<input type="button" value="글쓰기" onclick="location.href='noticeWriteForm.do'">
 	</c:if>
+	<!-- 관리자 글쓰기, 삭제 끝 -->
 	<div class="align-center">${page}</div>
 </div>
 </body>

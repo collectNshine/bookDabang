@@ -10,7 +10,7 @@ public class SleepMemberAction implements Action {
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		return "/WEB-INF/views/views/member/sleepMember.jsp";
+		return "/WEB-INF/views/member/sleepMember.jsp";
 	}
 
 }
