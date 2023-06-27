@@ -22,7 +22,7 @@ public class DetailAction implements Action{
 		post.setPost_title(StringUtil.useNoHtml(post.getPost_title()));
 		
 		//HTML 태그를 허용하지 않으면서 줄바꿈 처리
-		post.setPost_content(StringUtil.useBrNoHtml(post.getPost_content()));
+		//post.setPost_content(StringUtil.useBrNoHtml(post.getPost_content()));
 		
 		request.setAttribute("post", post);
 		
