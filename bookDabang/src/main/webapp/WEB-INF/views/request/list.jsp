@@ -7,22 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>맞춤도서 신청</title>
-<style>
-
-	
-	h2{
-		clear:both;
-		float:left;
-	}
-	.search li{
-		float:right;
-	}
-	.result-display{
-		clear:both;
-	}
-	
-</style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/request_style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/request.fav.js"></script>
 <script type="text/javascript">
@@ -48,17 +34,17 @@
 	<form id="search_form" action="list.do" method="get">
 		<ul class="search">
 			<li>
-				<select name="keyfield"> 
+				<select class="req_search1" name="keyfield"> 
 					<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
 					<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자</option>
 					<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>출판사</option>
 				</select>
 			</li>
 			<li>
-				<input type="search" name="keyword" id="keyword" value="${param.keyword}">
+				<input class="req_search2" type="search" name="keyword" id="keyword" value="${param.keyword}">
 			</li>
 			<li>
-				<input type="submit" value="조회">
+				<input class="req_search3" type="submit" value="조회">
 			</li>
 		</ul>
 	</form>
@@ -115,7 +101,8 @@
 	</div>
 	<!-- 신청목록리스트 끝 -->
 	<div class="list-space align-right">
-		<input type="button" value="글쓰기" id="wbutton" onclick="location.href='writeForm.do'" 
+		<button type"button"><img src="${pageContext.request.contextPath}/images/req_write" onclick="location.href='writeForm.do'"></button>
+		<!-- <input type="button" value="글쓰기" id="wbutton" onclick="location.href='writeForm.do'"  -->
 			<c:if test="${empty user_num}">disabled="disabled"</c:if>>
 	</div>
 	</div>
