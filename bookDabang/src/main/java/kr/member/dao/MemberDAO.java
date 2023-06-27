@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import com.sun.net.httpserver.Authenticator.Result;
 
 import kr.member.vo.MemberVO;
 import kr.util.DBUtil;
@@ -17,7 +16,7 @@ public class MemberDAO {
 	};
 	private MemberDAO(){}; 
 
-	//로그인 : 유저 검색
+	//로그인 : 활성 유저 검색
 	public MemberVO selectUser(String id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -51,6 +50,38 @@ public class MemberDAO {
 		}
 		return vo;
 	}
+	//로그인 : 휴면계정 유저 검색
+		public MemberVO selectSleepUser(String id) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			MemberVO vo = null;
+			try {
+				conn = DBUtil.getConnection();
+				sql = "SELECT * FROM member b LEFT OUTER JOIN member_sleep s ON b.mem_num = s.mem_num WHERE id = ?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					vo = new MemberVO();
+					vo.setMem_num(rs.getInt("mem_num"));
+					vo.setId(rs.getString("id"));
+					vo.setPasswd(rs.getString("spasswd"));
+					vo.setAuth(rs.getInt("auth"));
+					vo.setState(rs.getInt("state"));
+
+					//세션에 담을 내용이 있다면 아래에 추가한다.
+					vo.setName(rs.getString("sname"));
+					vo.setPhoto(rs.getString("sphoto"));
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally{
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			return vo;
+		}
 
 	//회원가입
 	public void insertUser(MemberVO vo) throws Exception{
@@ -105,6 +136,43 @@ public class MemberDAO {
 			DBUtil.executeClose(null, pstmt3, null);
 			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(rs, pstmt, conn);
+		}
+	}
+	
+	//활성계정 최근 로그인 일수 업데이트 
+	public void updateLatestLoginDate(String id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			conn=DBUtil.getConnection();
+			sql="UPDATE (SELECT * FROM member m JOIN member_detail d USING(mem_num) where id = ?) SET latest_login = SYSDATE";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally{
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	
+	//휴면계정 삭제
+	public void deleteSleepMember(String name) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			conn=DBUtil.getConnection();
+			sql="DELETE FROM  member_sleep where sname = ?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,name);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally{
+			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
 	//[아이디/ 비밀번호 찾기 본인 인증용 이름, 이메일 검색]

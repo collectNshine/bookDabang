@@ -1,3 +1,32 @@
+--로그인을 안 한지 1년이 넘어가면 member_sleep 테이블로 이동시키는 sql문
+--batch를 실행시키는 bat을 만들어서 자정마다 bat 자동 실행하게 만든다. 
+DELETE FROM
+(SELECT * FROM member_detail WHERE SYSDATE - (INTERVAL '1' YEAR) > latest_login); 
+
+-- 위의 배치가 실행되기 전에 member_detail에서 member_sleep으로 데이터 저장.
+CREATE TRIGGER detailToSleep
+BEFORE -- DELETE 이벤트가 발생하기 전.
+DELETE ON member_detail
+FOR EACH ROW
+BEGIN
+	insert into member_sleep values(:old.mem_num,:old.name,:old.passwd,:old.sex,
+	:old.birthday,:old.phone,:old.photo,:old.zipcode,:old.address1,:old.address2,
+	:old.email,:old.reg_date,SYSDATE);
+	update member set state=1 WHERE mem_num = :old.mem_num;
+END;
+
+-- member_sleep 삭제 전에 member_detail 테이블로 데이터 추가하는 트리거 
+CREATE TRIGGER sleepToDetail
+BEFORE -- DELETE 이벤트가 발생하기 전.
+DELETE ON member_sleep
+FOR EACH ROW
+BEGIN
+	insert into member_detail values(:old.mem_num,:old.sname,:old.spasswd,:old.ssex,
+	:old.sbirthday,:old.sphone,:old.sphoto,:old.szipcode,:old.saddress1,:old.saddress2,
+	:old.semail,:old.sreg_date,SYSDATE,0);
+	update member set state=0 WHERE mem_num = :old.mem_num;
+END;
+----
 
 create table member(
 mem_num number,

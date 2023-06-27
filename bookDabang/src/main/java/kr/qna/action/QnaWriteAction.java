@@ -16,6 +16,9 @@ public class QnaWriteAction implements Action{
 		
 		HttpSession session = request.getSession();
 		Integer user_num = (Integer)session.getAttribute("user_num");//작성자
+		if(user_num == null) {//로그인을 하지 않은 경우.
+			return "redirect:/member/loginForm.do";
+		}
 		String qna_title = request.getParameter("qna_title");
 		String qna_content = request.getParameter("qna_content");
 		

@@ -16,7 +16,6 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <script type="text/javascript">
-
 $(document).ready(function(){
 	$('#summernote').summernote({
         placeholder: '글을 입력해주세요.',
@@ -52,21 +51,22 @@ $(document).ready(function(){
 		}
 	});
 });
-
 </script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<form id="edit_Form" action="noticeEdit.do" method="post">
-		<ul>
-			<li>
-			<input id="noti_num" name="noti_num" type="hidden" value="${dto.qna_num}" >
-			<input id="noti_title" name="noti_title" type="text" value="${dto.qna_title}" maxlength="50">
-			</li>
-			<li id="guide"></li>
-			<li><textarea id="summernote" name="noti_content" placeholder="내용">${dto.qna_content}</textarea></li>
-			<li><input type="submit" value="수정하기"></li>
-		</ul>
-	</form>
+	<c:if test="${user_auth == 9 }">
+		<form id="edit_Form" action="noticeEdit.do" method="post">
+			<ul>
+				<li>
+					<input id="noti_num" name="noti_num" type="hidden" value="${dto.qna_num}" >
+					<input id="noti_title" name="noti_title" type="text" value="${dto.qna_title}" maxlength="50">
+				</li>
+				<li id="guide"></li>
+				<li><textarea id="summernote" name="noti_content" placeholder="내용">${dto.qna_content}</textarea></li>
+				<li><input type="submit" value="수정하기"></li>
+			</ul>
+		</form>
+	</c:if>
 </body>
 </html>

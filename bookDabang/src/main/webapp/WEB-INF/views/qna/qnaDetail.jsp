@@ -53,10 +53,15 @@ $(document).ready(function(){
 		<hr size ="1" width="100%" noshade="noshade" />
 		<li><p>${dto.qna_content}<p></li>
 		<hr size ="1" width="100%" noshade="noshade" />
+		
 		<li>
+			<c:if test="${user_num == dto.mem_num or user_auth == 9}">
 			<input type="button" value="수정" onclick="location.href='qnaEditForm.do?qna_num=${dto.qna_num}'">
 			<input id="delete_btn" type="button" value="삭제" >
+			</c:if>
+			<c:if test="${user_num != null}">
 			<input id="add_btn" type="button" value="답글 추가하기" >
+			</c:if>
 		</li>
 		<hr size ="1" width="100%" noshade="noshade" />
 	</ul>

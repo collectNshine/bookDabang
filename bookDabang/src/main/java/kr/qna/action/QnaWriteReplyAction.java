@@ -16,21 +16,30 @@ public class QnaWriteReplyAction implements Action{
 		
 		HttpSession session = request.getSession();
 		Integer user_num = (Integer)session.getAttribute("user_num");//작성자
+		Integer user_auth = (Integer)session.getAttribute("user_auth");
+		
+		if(user_num == null) {//로그인을 하지 않은 경우.
+			return "redirect:/member/loginForm.do";
+		}
 		
 		int qna_num = Integer.parseInt(request.getParameter("qna_num"));
 		String qna_title = request.getParameter("qna_title");
 		String qna_content = request.getParameter("qna_content");
 		
-		
 		QnaDAO dao = QnaDAO.getInstance();
-		QnaDTO dto = new QnaDTO();
-		dto.setQna_num(qna_num);
-		dto.setQna_title(qna_title);
-		dto.setQna_content(qna_content);
-		dto.setMem_num(user_num);
+	
+		QnaDTO db_dto = new QnaDTO();
+		db_dto = dao.selectDetail(qna_num);
 		
-		dao.replyQna(dto);
+		if(user_num == db_dto.getMem_num() || user_auth == 9) {
+			QnaDTO dto = new QnaDTO();
+			dto.setQna_num(qna_num);
+			dto.setQna_title(qna_title);
+			dto.setQna_content(qna_content);
+			dto.setMem_num(user_num);
 		
+			dao.replyQna(dto);
+		}
 		return "redirect:/qna/qnaList.do";
 	}
 

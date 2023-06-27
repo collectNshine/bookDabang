@@ -19,15 +19,16 @@
 		<hr size ="1" width="100%" noshade="noshade" />
 		<li><p>${noti.noti_content}<p></li>
 		<hr size ="1" width="100%" noshade="noshade" />
+		<!-- 관리자만 수정,삭제 가능 -->
 		<c:if test="${user_auth == 9}">
 		<li>
 			<input type="button" value="수정" onclick="location.href='${pageContext.request.contextPath}/notice/noticeEditForm.do?noti_num=${noti.noti_num}'">
 			<input id="delete_btn" type="button" value="삭제" >
 		</li>
 		</c:if>
+		<!-- 관리자만 수정,삭제 가능 -->
 	</ul>
 </div>
-<!-- 댓글목록 끝 -->
 <script type="text/javascript">
 	$(function(){
 		$('#delete_btn').click(function(){
