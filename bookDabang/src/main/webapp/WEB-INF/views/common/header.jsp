@@ -30,7 +30,7 @@
          	<c:if test="${!empty user_photo}">
         	<li>
            		 <a href="${pageContext.request.contextPath}/mypage/myPage.do"><img src="${pageContext.request.contextPath}/upload/${user_photo}" width="25" height="25" class="my-photo"></a>
-	        </li>
+	        </li> 
 	         </c:if>
 	         <c:if test="${empty user_photo}">
 	         <li>

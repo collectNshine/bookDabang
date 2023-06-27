@@ -1,4 +1,4 @@
-$(function() {
+$(function() {  
 	// 전체선택
 	/*$('#check_all').click(function() {
 		if($('#check_all').prop('checked')) {

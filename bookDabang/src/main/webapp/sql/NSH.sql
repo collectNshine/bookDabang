@@ -1,4 +1,4 @@
--- 채팅방
+-- 채팅방  
 create table chat(
 	chat_num number not null,
 	mem_num number not null,
