@@ -54,9 +54,9 @@
 	         		</div>
   				<div class="card-body">
   				<p class="card-text"><a href="detail.do?bk_num=${review.bk_num}">${review.review_content}</a></p>
-    			
+    			<hr size="1" noshade width="100%">
     				<div id="bookinfo" style="float:left;"><b>${review.title}</b><p>${review.author}</div>
-    				<div id="bookinfo2" style="float:right;"><img src="${pageContext.request.contextPath}/upload/${post.thumbnail}" width="150" class="list-thumbnail"></div>
+    				<div id="bookinfo2" style="float:right;"><a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${review.bk_num}"><img src="${pageContext.request.contextPath}/upload/${review.thumbnail}" width="50" height="70"></a></div>
       			
       			<br>
   				</div>
