@@ -30,3 +30,17 @@ create table chat_message(
 );
 
 create sequence chat_message_seq;
+
+-- 장바구니
+create table cart(
+	cart_num number,
+	bk_num number not null,
+	order_quantity number(5) not null,
+	cart_date date default sysdate not null,
+	mem_num number not null,
+	constraint cart_pk primary key (cart_num),
+	constraint cart_book_fk foreign key (bk_num) references book_list (bk_num),
+	constraint cart_book_fk2 foreign key (mem_num) references member (mem_num)
+);
+
+create sequence cart_seq;
