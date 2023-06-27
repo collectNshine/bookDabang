@@ -23,6 +23,11 @@ public class UpdateFormAction implements Action{
 		int post_num = Integer.parseInt(request.getParameter("post_num"));
 		PostDAO dao = PostDAO.getInstance();
 		PostVO post = dao.getPost(post_num);
+
+		request.getParameter("post_title");
+		request.getParameter("post_content");
+		request.getParameter("post_photo");
+		
 		//로그인한 회원번호와 작성자 회원번호 일치 여부 체크
 		if(user_num != post.getMem_num()) {
 			//로그인한 회원번호와 작성자 회원번호 불일치
