@@ -14,10 +14,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/request.fav.js"></script>
-<script type="text/javascript">
 
 
-</script> 
 </head>
 <body> 
 <div class="page-main">
@@ -55,10 +53,25 @@
 		<!-- 사용자 마이페이지 메뉴 시작 -->
 		<c:if test="${!empty user_num && user_auth == 1}">
 		<ul class="tabWrap">
-			<li data-tab="book_mark" style="cursor: pointer;" class="on">책갈피</li>
-			<li data-tab="post" style="cursor: pointer;">작성글</li>
-			<li data-tab="order" style="cursor: pointer;">주문목록</li>
+			<li data-tab="book_mark" style="cursor: pointer;" class="on"><a href="#book_mark">책갈피</a></li>
+			<li data-tab="post" style="cursor: pointer;"><a href="#post">작성글</a></li>
+			<li data-tab="order" style="cursor: pointer;"><a href="#order">주문목록</a></li>
 		</ul>
+		
+		<%-- 
+		<script type="text/javascript">
+		$('.tabWrap a').click(function(e){
+			e.preventDefault();
+	        
+			const target = $(this).data('target');
+
+			$(this).addClass('on').siblings('a').removeClass('on');
+
+			$(target).addClass('on').siblings('.con').removeClass('on');
+		}) 
+
+		</script> 
+		--%>
 		
 		<!-- 사용자 [1. 책갈피] 시작 -->
 		<div id="book_mark" class="tab_contents on">
@@ -101,7 +114,18 @@
 					</li>
 				</ul>
 			</form>
+			
 			<script type="text/javascript">
+			<%-- 
+			$(function() {
+				 $(".tabWrap").tabs({
+				        select: function(event, ui) {                   
+				        window.location.replace(ui.tab.hash);
+				   		//위 두줄을 추가를 하면 새로고침을 해도 선택된 탭에서 계속 유지가 된다.
+				     	}
+				 });
+			})
+			--%>
 				$(function(){
 					$('#search_form').submit(function(){
 						if($('#keyword').val().trim() == ''){
@@ -197,8 +221,17 @@
 			</div>
 		</div>
 		<!-- [3. 주문목록] 끝 -->
-		
 		<script type="text/javascript">
+			$(function(){
+				let hash = window.location.hash;
+				if(hash){
+					$(this).addClass('on').siblings().removeClass('on')
+					$('.tab_contents').removeClass('on')
+					$(hash).addClass('on')
+					$('.tabWrap li').removeClass('on');
+					$('.tabWrap').find('li[data-tab='+hash.substring(1)+']').addClass('on');
+				}
+			});
 			$('.tabWrap li').click(function(){
 				const getID = $(this).attr('data-tab')
 				console.log(getID)
@@ -213,12 +246,32 @@
 		<!-- 관리자 마이페이지 메뉴 시작 -->
 		<c:if test="${!empty user_num && user_auth == 9}">
 		<ul class="tabWrap">
-			<li data-tab="admin_book" style="cursor: pointer;" class="on">도서관리</li>
-			<li data-tab="admin_order" style="cursor: pointer;">주문관리</li>
-			<li data-tab="admin_member" style="cursor: pointer;">회원관리</li>
-			<li data-tab="admin_report" style="cursor: pointer;">신고내역</li>
-			<li data-tab="admin_request" style="cursor: pointer;">도서신청</li>
+			<li data-tab="admin_book" style="cursor: pointer;" class="on"><a href="#admin_book">도서관리</a></li>
+			<li data-tab="admin_order" style="cursor: pointer;"><a href="#admin_order">주문관리</a></li>
+			<li data-tab="admin_member" style="cursor: pointer;"><a href="#admin_member">회원관리</a></li>
+			<li data-tab="admin_report" style="cursor: pointer;"><a href="#admin_report">신고내역</a></li>
+			<li data-tab="admin_request" style="cursor: pointer;"><a href="#admin_request">도서신청</a></li>
 		</ul>
+		
+		<%-- 
+		<script type="text/javascript">
+		$(function() {
+			 $(".tabWrap").tabs({
+			        select: function(event, ui) {                   
+			        window.location.replace(ui.tab.hash);
+			   		//위 두줄을 추가를 하면 새로고침을 해도 선택된 탭에서 계속 유지가 된다.
+			     	}
+			 });
+		});
+		
+		$(document).ready(function(e){
+			var ink = document.location.href;
+			var tab = link.split('/').pop();
+			$('a[href$='+tab+']').trigger("click");
+			e.preventDefault(); /// 기본 동작을 막을 때(새로고침)
+		});
+		</script>  
+		--%>
 		
 		<!-- [1. 도서 관리] 시작 -->
 		<div id="admin_book" class="tab_contents on">
@@ -605,6 +658,16 @@
 		<!-- 관리자 마이페이지 메뉴 끝 -->
 		
 		<script type="text/javascript">
+			$(function(){
+				let hash = window.location.hash;
+				if(hash){
+					$(this).addClass('on').siblings().removeClass('on')
+					$('.tab_contents').removeClass('on')
+					$(hash).addClass('on')
+					$('.tabWrap li').removeClass('on');
+					$('.tabWrap').find('li[data-tab='+hash.substring(1)+']').addClass('on');
+				}
+			});
 			$('.tabWrap li').click(function(){
 				const getID = $(this).attr('data-tab')
 				console.log(getID)
