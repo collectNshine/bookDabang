@@ -9,12 +9,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${book.title} | 책다방</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/book_style.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/book_mark.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/book_review.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/book.mark.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/book.review.js"></script>
 <script type="text/javascript">
 	$(function(){ 
 		//수량 이벤트 연결
@@ -22,7 +23,7 @@
 			//수량 2개 이상 입력 시 총 합계 금액이 보여지게 처리
 			let total = $('#price').val() * $('#order_quantity').val();
 			$('#item_total_txt').text('총 주문 금액 : ' + total.toLocaleString() + '원');
-			if($('#order_quantity').val() < 2){
+			if($('#order_quantity').val() < 2){ 
 				$('#item_total_txt').text('');
 			}
 			//음수&문자 입력 방지
@@ -168,6 +169,7 @@
 			<span class="review-title">한 줄 기록</span>
 			<form id="review_form">
 				<input type="hidden" name="bk_num" value="${book.bk_num}" id="bk_num">
+				<input type="hidden" name="review_num" value="${review.review_num}" id="review_num">
 				
 				<div class="user-photo">
 					<c:if test="${!empty user_photo}">

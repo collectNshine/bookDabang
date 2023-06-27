@@ -48,12 +48,11 @@ public class WriteAction implements Action {
 		//refresh 정보를 응답 헤더에 추가
 		response.addHeader("Refresh", "2;url=list.do");//=2초 뒤에 list.do로 이동
 		
-		request.setAttribute("accessMsg", "성공적으로 등록되었습니다.");
-		request.setAttribute("accessUrl", request.getContextPath()+"/mypage/myPage.do");
+		//자바스크립트로 띄움
+		request.setAttribute("notice_msg", "정상적으로 등록되었습니다.");
+		request.setAttribute("notice_url", request.getContextPath()+"/mypage/myPage.do");
 		
-		//JSP 경로 반환
-		return "/WEB-INF/views/common/notice.jsp";
-		//notice.jsp를 보여주다가 2초 뒤에 list.do로 이동
+		return "/WEB-INF/views/common/alert_singleView.jsp";
 
 	}
 

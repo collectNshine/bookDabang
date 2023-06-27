@@ -75,24 +75,56 @@
 		
 		<!-- 사용자 [1. 책갈피] 시작 -->
 		<div id="book_mark" class="tab_contents on">
-			<table>
-				<tr>
-					<th>NO.</th>
-					<th>도서명</th>
-					<th>저자</th>
-					<th>등록일</th>
-				</tr>
-				 <c:forEach var="book_mark" items="${book_mark}"> 
-				<tr>
-					<td>${bookmark.bk_num}</td>
-					<td>${bookmark.title}</td>
-					<td>${bookmark.author}</td>
-					<td>${bookmark.reg_date}</td>
-				</tr>
+			<div class="content-main container">
+			<br><h2><a href="myPage.do">나의 책갈피</a></h2><br>
+			<!-- 검색창 시작 : get방식 -->
+			<form id="bm_search_form" action="myPage.do" method="get" class="d-flex" role="search">
+				<select name="bm_keyfield" class="form-select">
+					<option value="1" <c:if test="${param.bm_keyfield==1}">selected</c:if>>도서명</option>
+					<option value="2" <c:if test="${param.bm_keyfield==2}">selected</c:if>>저자명</option>
+				</select>
+				<input type="search" size="16" name="bm_keyword" id="bm_keyword" value="${param.bm_keyword}" class="form-control me-2">
+				<input type="submit" value="검색"  class="btn btn-outline-success">
+			</form>
+			<script type="text/javascript">
+				$(function(){
+					$('#bm_search_form').submit(function(){
+						if($('#bm_keyword').val().trim() == ''){
+							alert('검색어를 입력하세요');
+							$('#bm_keyword').val('').focus();
+							return false;
+						}
+					});
+				});
+			</script> <br>
+			<!-- 검색창 끝 -->
+			<!-- 목록 시작 -->
+			<c:if test="${bm_count == 0}">
+				<div class="result-display">
+					표시할 상품이 없습니다.
+				</div>		
+			</c:if>
+			<div class="bm-list">
+			<c:if test="${bm_count > 0}">
+				<c:forEach var="bm" items="${bm_list}">
+				<div class="card">
+					<a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${bm.bk_num}">
+						<img src="${pageContext.request.contextPath}/upload/${bm.thumbnail}" class="card-img-top">
+					</a>
+				 	<div class="card-body">
+					    <p class="card-title bm-title">${bm.title}</p>
+					    <p class="card-text bm-author-publisher">${bm.author} | ${bm.publisher}</p>
+				   </div>
+				</div>
 				</c:forEach>
-			</table>
+				<!-- 목록 끝 -->
+				<div class="align-center">${bm_page}</div>
+			</c:if>
+			</div>
+			</div>
 		</div>
 		<!-- [1. 책갈피] 끝 -->
+		
 		
 		<!-- 사용자 [2. 작성글] 시작 -->
 	<div id="post" class="tab_contents">
@@ -243,6 +275,8 @@
 		</c:if>
 		
 		
+		
+		
 		<!-- 관리자 마이페이지 메뉴 시작 -->
 		<c:if test="${!empty user_num && user_auth == 9}">
 		<ul class="tabWrap">
@@ -349,6 +383,7 @@
 	</div>
 	<!-- [1. 도서 관리] 끝 -->
 	
+	
 	<!-- [2. 주문 관리] 시작 -->
 		<div id="admin_order" class="tab_contents">
 			<table>
@@ -373,6 +408,7 @@
 			</table>
 		</div>
 		<!-- [2. 주문 관리] 끝 -->
+		
 		
 		<!-- [3. 회원 관리] 시작 -->
 		<div id="admin_member" class="tab_contents">
@@ -438,6 +474,7 @@
 				</div>
 				</div>
 		<!-- [3. 회원 관리] 끝 -->
+		
 		
 		<!-- [4. 신고 내역] 시작 -->
 		<div id="admin_report" class="tab_contents">
@@ -528,6 +565,7 @@
 		</c:if>
 		</div>
 		<!-- [4. 신고 내역] 끝 -->
+		
 		
 		<!-- [5. 도서 신청] 시작 -->
 		<div id="admin_request" class="tab_contents">
@@ -678,7 +716,6 @@
 			})
 		</script>
 		</c:if>
-		
 		
 	</div>
 </div>

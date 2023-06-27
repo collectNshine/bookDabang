@@ -42,7 +42,11 @@ public class ListReviewAction implements Action{
 		
 		List<ReviewVO> list = null;
 		if(count > 0) {
-			list = dao.getListReview(page.getStartRow(), page.getEndRow(), bk_num);
+			HttpSession session = request.getSession();
+			Integer user_num = (Integer)session.getAttribute("user_num");
+			if(user_num == null) user_num = 0;
+			list = dao.getListLike(page.getStartRow(), page.getEndRow(), user_num, bk_num);
+			//list = dao.getListReview(page.getStartRow(), page.getEndRow(), bk_num);
 		}else {
 			list = Collections.emptyList(); //ajax 통신을 위해 리스트를 null이 아니게, 비어있게 설정.
 		}
@@ -51,12 +55,20 @@ public class ListReviewAction implements Action{
 		HttpSession session = request.getSession();
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		
+		
 		Map<String,Object> mapAjax = new HashMap<String,Object>();
 		mapAjax.put("count", count);
 		mapAjax.put("rowCount", rowCount);
 		mapAjax.put("list", list);
 		//로그인한 사람이 작성자인지 체크하기 위해 전송
 		mapAjax.put("user_num", user_num);
+		
+		
+		request.setAttribute("count", count);
+		request.setAttribute("list", list);
+		request.setAttribute("rowCount", rowCount);
+		request.setAttribute("page", page.getPage());
+		
 		
 		//JSON 데이터 생성
 		ObjectMapper mapper = new ObjectMapper();

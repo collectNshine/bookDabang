@@ -53,6 +53,8 @@
 			 if(choice){
 				 //히스토리를 지우면서 이동
 				 location.replace('${pageContext.request.contextPath}/mypage/myPage.do');
+			 }else{
+				 return false;
 			 }
 		});
 	});
@@ -189,6 +191,8 @@
 					 if(choice){
 						 //히스토리를 지우면서 이동
 						 location.replace('delete.do?bk_num=${book.bk_num}');
+					 }else{
+						 return false;
 					 }
 				 };
 				</script>
