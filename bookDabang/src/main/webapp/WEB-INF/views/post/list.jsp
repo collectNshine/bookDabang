@@ -17,10 +17,13 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
 	<div class="content-main">
+	<hr size="1" noshade width="100%">
 	<!-- [1. 서평 모음집] 시작 -->
 	<div id="postfeed" class="tab_contents on">
 		<div class="content-main container">
-		<h2><a href="list.do">서평 모음집</a></h2>
+		<br>
+		<h2><a href="list.do"><b>서평 모음집</b></a></h2>
+		<br>
 		<br>
 		<c:if test="${count == 0}">
 			<div class="result-display">
@@ -29,7 +32,7 @@
 		</c:if>
 		
 		<c:if test="${count > 0}">
-		<div class="row row-cols-1 row-cols-md-3 g-4">
+		<div class="row row-cols-1 row-cols-md-3 g-4" style="margin-left: 25px;">
 		<c:forEach var="post" items="${list}">
   			<div id="post-list" class="col">
     			<div class="card h-100">
@@ -63,12 +66,8 @@
     				<h5 class="card-title"><b><a href="detail.do?post_num=${post.post_num}">${post.post_title}</a></b></h5>
     				<p class="card-text"><a href="detail.do?post_num=${post.post_num}">${post.post_content}</a></p>
     			<div class="card-footer">
-    				<small class="text-muted"><img class="fav" src="../images/like.png" width="33" height="33">
-    				<!-- ${favcount} -->
-    				</small>
-       				<small class="text-muted"><img class="reply" src="../images/reply.png" width="25" height="25">
-       				<!-- ${recount} -->
-       				</small>
+    				<small class="footer1"><img class="fav" src="../images/like.png" width="33" height="33">${post.cnt}</small>
+       				<small class="footer2"><a href="detail.do?post_num=${post.post_num}"><img class="reply" src="../images/reply.png" width="25" height="25"> ${post.rcnt}</a></small>
       			</div>
       			<br>
     			<a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${post.bk_num}" class="btn btn-primary" style="color:white;">도서 상세 보러가기</a>

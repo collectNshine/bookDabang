@@ -15,10 +15,14 @@
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
+	<div class="content-main">
+	<hr size="1" noshade width="100%">
 	<!-- [2. 한줄기록] 시작 -->
 	<div id="reviewfeed" class="tab_contents on">
 		<div class="content-main container">
-		<h2><a href="listReview.do">한 줄 기록 모음집</a></h2>
+		<br>
+		<h2><a href="listReview.do"><b>한 줄 기록 모음집</b></a></h2>
+		<br>
 		<br>
 		<c:if test="${count == 0}">
 			<div class="result-display">
@@ -27,7 +31,7 @@
 		</c:if>
 		
 		<c:if test="${count > 0}">
-		<div class="row row-cols-1 row-cols-md-3 g-4"">
+		<div class="row row-cols-1 row-cols-md-3 g-4">
 		<c:forEach var="review" items="${list}">
   			<div id="review-list" class="col">
     			<div class="card h-100">

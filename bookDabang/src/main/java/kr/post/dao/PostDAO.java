@@ -12,6 +12,7 @@ import kr.post.vo.PostFavVO;
 import kr.post.vo.PostReplyVO;
 import kr.post.vo.PostReportVO;
 import kr.post.vo.PostVO;
+import kr.request.vo.RequestVO;
 import kr.util.DBUtil;
 import kr.util.DurationFromNow;
 import kr.util.StringUtil;
@@ -65,7 +66,7 @@ import kr.util.StringUtil;
 				//커넥션 풀로부터 커넥션을 할당
 				conn = DBUtil.getConnection();
 				//SQL문 작성
-				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post p JOIN member m USING(mem_num) LEFT OUTER JOIN member_detail d USING(mem_num) LEFT OUTER JOIN book_list b USING(bk_num) ORDER BY p.post_num DESC)a) WHERE rnum>=? AND rnum<=?";
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post p JOIN member m USING(mem_num) LEFT OUTER JOIN member_detail d USING(mem_num) LEFT OUTER JOIN book_list b USING(bk_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, post_num FROM post_fav group by post_num) f USING(post_num) LEFT OUTER JOIN (SELECT COUNT(*) rcnt, post_num FROM post_reply GROUP BY post_num) re USING(post_num) ORDER BY post_num DESC)a) WHERE rnum>=? AND rnum<=?";
 				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
 				//?에 데이터 바인딩
@@ -94,6 +95,8 @@ import kr.util.StringUtil;
 					post.setName(rs.getString("name"));
 					post.setPhoto(rs.getString("photo"));
 					post.setThumbnail(rs.getString("thumbnail"));
+					post.setCnt(rs.getInt("cnt"));
+					post.setRcnt(rs.getInt("rcnt"));
 					
 					//자바빈을 ArrayList에 저장
 					list.add(post);
@@ -205,6 +208,29 @@ import kr.util.StringUtil;
 				}
 				pstmt.setString(++cnt, post.getPost_ip());
 				pstmt.setInt(++cnt, post.getPost_num());
+				//SQL문 실행
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+		}
+		
+		//파일 정보 삭제
+		public void deleteFile(int post_num) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				//커넥션 풀로부터 커넥션을 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "UPDATE post SET post_photo='' WHERE post_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, post_num);
 				//SQL문 실행
 				pstmt.executeUpdate();
 			}catch(Exception e) {

@@ -39,10 +39,11 @@ div#profile2{
 	margin-right:20px;
 	margin-top:-20px; 
 }
-.reply{
+.footer2{
 	float: right;
 	margin-top: 4px;
+	margin-right: 10px;
 }
-.fav{
+.footer1{
 	float: right;
 }
