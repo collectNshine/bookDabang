@@ -41,7 +41,10 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		//게시판 글
 		//List<PostVO> postList = PostDAO.getPostList(1,5, );	
 		
+		
+		
 		/*-- [사용자]작성글 시작 --*/
+		/*
 		String PostpageNum = request.getParameter("pageNum");
 		if(PostpageNum == null) PostpageNum = "1";
 		String Postkeyfield = request.getParameter("keyfield");
@@ -58,8 +61,12 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		request.setAttribute("postCount", post_count);
 		request.setAttribute("postList", postlist);
 		request.setAttribute("postPage", post_page.getPage());
-		
+		*/
 		/*-- [사용자]작성글 끝 --*/
+		
+		
+		
+		
 		
 		/*---[관리자]도서 관리 시작---*/
 		String pageNum = request.getParameter("pageNum");
