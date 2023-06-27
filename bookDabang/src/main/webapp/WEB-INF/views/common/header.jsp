@@ -38,7 +38,7 @@
 	         </li>
 	         </c:if>
 	     <li>
-	         <a href=""><img src="${pageContext.request.contextPath}/images/new_cart.png" width="25" height="25"></a>
+	         <a href="${pageContext.request.contextPath}/cart/list.do"><img src="${pageContext.request.contextPath}/images/new_cart.png" width="25" height="25"></a>
 	     </li>
 	     <li>
 	         <input type="button" value="Logout" onclick="location.href='${pageContext.request.contextPath}/member/logout.do'">
