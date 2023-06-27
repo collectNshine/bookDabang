@@ -37,19 +37,15 @@ public class ListAction implements Action{
 		String keyword = request.getParameter("keyword");
 		
 		PostDAO dao = PostDAO.getInstance();
-		//int favcount = dao.selectFavCount(post_num);
-		//int recount = dao.getReplyPostCount(post_num);
 		
 		int count = dao.getPostCount(keyfield, keyword);
 									//keyfield, keyword, currentPage, count, rowCount, pageCount, 요청URL
-		PageUtil page = new PageUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 10, 10, "list.do");
+		PageUtil page = new PageUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 12, 10, "list.do");
 		
 		List<PostVO> list = null;
 		if(count > 0) {
 			list = dao.getPostList(page.getStartRow(), page.getEndRow(), keyfield, keyword);
 		}
-		//request.setAttribute("favcount", favcount);
-		//request.setAttribute("recount", recount);
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("page", page.getPage());
