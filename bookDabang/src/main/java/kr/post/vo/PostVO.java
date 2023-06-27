@@ -16,6 +16,8 @@ public class PostVO {
 	private String name; //회원 이름(닉네임)
 	private String photo; //회원 프로필 사진 파일명
 	private String thumbnail; //책 표지
+	private int cnt; //좋아요 개수
+	private int rcnt; //댓글 개수
 	
 	public int getPost_num() {
 		return post_num;
@@ -88,6 +90,18 @@ public class PostVO {
 	}
 	public void setThumbnail(String thumbnail) {
 		this.thumbnail = thumbnail;
+	}
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+	public int getRcnt() {
+		return rcnt;
+	}
+	public void setRcnt(int rcnt) {
+		this.rcnt = rcnt;
 	}
 	
 }
