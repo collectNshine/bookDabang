@@ -352,7 +352,7 @@
 	<!-- [2. 주문 관리] 시작 -->
 		<div id="admin_order" class="tab_contents">
 			<table>
-				<tr>
+				<tr> 
 					<th>주문번호</th>
 					<th>도서명</th>
 					<th>아이디</th>
