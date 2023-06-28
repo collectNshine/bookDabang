@@ -35,7 +35,7 @@ public class UpdateFormAction implements Action {
 		
 		book.setContent(StringUtil.changeBr(book.getContent()));
 		
-		request.setAttribute("book", book);
+		request.setAttribute("book", book); 
 		
 		return "/WEB-INF/views/book/updateForm.jsp";
 

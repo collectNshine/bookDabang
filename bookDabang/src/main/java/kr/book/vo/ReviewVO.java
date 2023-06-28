@@ -17,7 +17,7 @@ public class ReviewVO {
 	private int cnt_like;
 	private String clicked_like;
 	private int cnt_dislike;
-	private String clicked_dislike;
+	private String clicked_dislike; 
 	
 	
 	public int getReview_num() {

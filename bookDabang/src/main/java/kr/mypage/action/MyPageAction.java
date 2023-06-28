@@ -89,7 +89,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		
 		
 		
-		/*---[관리자]도서 관리 시작---*/
+		/*---[관리자]도서 관리 시작---*/ 
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		String keyfield = request.getParameter("keyfield");
