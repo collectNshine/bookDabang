@@ -50,7 +50,7 @@
 			
 			$('input[name="cart_ship"]').attr('value', ship);
 			$('input[name="total_price"]').attr('value', total);
-		}
+		} 
 	</script>
 </head>
 <body>
