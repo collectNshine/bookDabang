@@ -11,11 +11,18 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_style.css">
+<style>
+ul.search {
+    width: 780px;
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: flex;
+}
+</style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/request.fav.js"></script>
-
-
 </head>
 <body> 
 <div class="page-main">
@@ -78,7 +85,7 @@
 			<div class="content-main container">
 			<br><h2><a href="myPage.do">나의 책갈피</a></h2><br>
 			<!-- 검색창 시작 : get방식 -->
-			<form id="bm_search_form" action="myPage.do" method="get" class="d-flex" role="search">
+			<form id="bm_search_form" action="myPage.do" method="get" class="d-flex" role="search" >
 				<select name="bm_keyfield" class="form-select">
 					<option value="1" <c:if test="${param.bm_keyfield==1}">selected</c:if>>도서명</option>
 					<option value="2" <c:if test="${param.bm_keyfield==2}">selected</c:if>>저자명</option>
@@ -130,19 +137,19 @@
 	<div id="post" class="tab_contents">
 		<div class="content-main container">
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form" action="myPagePost.do" method="get">
+			<form id="search_form" action="myPagePost.do" method="get" class="d-flex">
 				<ul class="search">
 					<li>
-						<select name="keyfield">
+						<select name="keyfield" class="form-select">
 							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>게시글 번호</option>
 							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>게시글 내용</option>
 						</select>
 					</li>
 					<li>
-						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
+						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" class="form-control me-2">
 					</li>
 					<li>
-						<input type="submit" value="검색">
+						<input type="submit" value="검색" class="btn btn-outline-success">
 					</li>
 				</ul>
 			</form>
@@ -206,19 +213,19 @@
 		<div id="order" class="tab_contents">
 		<div class="content-main container">
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form" action="myPagePost.do" method="get">
+			<form id="search_form" action="myPagePost.do" method="get" class="d-flex">
 				<ul class="search">
 					<li>
-						<select name="keyfield">
+						<select name="keyfield" class="form-select">
 							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
 							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>내용</option>
 						</select>
 					</li>
 					<li>
-						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
+						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" class="form-control me-2">
 					</li>
 					<li>
-						<input type="submit" value="검색">
+						<input type="submit" value="검색" class="btn btn-outline-success">
 					</li>
 				</ul>
 			</form>
@@ -312,7 +319,7 @@
 			<div class="content-main container">
 			<br><h2><a href="myPage.do">도서 관리</a></h2>
 			<!-- 검색창 시작 : get방식 -->
-			<form id="search_form" action="myPage.do#admin_book" method="get"  class="d-flex" role="search">
+			<form id="search_form" action="myPage.do#admin_book" method="get"  class="d-flex" role="search" >
 				<select name="keyfield" class="form-select">
 					<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>도서명</option>
 					<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자명</option>
@@ -379,26 +386,66 @@
 	
 	<!-- [2. 주문 관리] 시작 -->
 		<div id="admin_order" class="tab_contents">
-			<table>
-				<tr>
-					<th>주문번호</th>
-					<th>도서명</th>
-					<th>아이디</th>
-					<th>주문 상태</th>
-					<th>총 주문 금액</th>
-					<th>주문 날짜</th>
-				</tr>
-				<c:forEach var="admin_order" items="${post}"> 
-				<tr>
-					<td>${post.post_num}</td>
-					<td>${post.post_title}</td>
-					<td>${post.post_content}</td>
-					<td>${post.post_date}</td>
-					<td>${post.post_date}</td>
-					<td>${post.post_date}</td>
-				</tr>
-				</c:forEach>
-			</table>
+			<div class="content-main">
+				<h2><a href="myPage.do">주문 관리</a></h2>
+					<!-- 검색창 시작 : get방식 -->
+					<form id="search_form2" action="myPage.do#admin_order" method="get" class="d-flex">
+						<ul class="search">
+							<li>
+								<select name="keyfield" class="form-select">
+								<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>주문번호</option>
+								<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>도서명</option>
+							</select>
+							</li>
+							<li>
+								<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" class="form-control me-2">
+							</li>
+							<li>
+								<input type="submit" value="검색" class="btn btn-outline-success">
+							</li>
+						</ul>
+					</form>
+					<script type="text/javascript">
+						$(function(){
+							$('#search_form2').submit(function(){
+								if($('#keyword').val().trim() == ''){
+									alert('검색어를 입력하세요');
+									$('#keyword').val('').focus();
+									return false;
+								}
+							});
+						});
+					</script>
+					<!-- 검색창 끝 -->
+					<c:if test="${count == 0}">
+						<div class="result-display">
+							표시할 상품이 없습니다.
+						</div>		
+					</c:if>
+					
+					<c:if test="${count > 0}">
+				<table>
+					<tr>
+						<th>주문번호</th>
+						<th>도서명</th>
+						<th>아이디</th>
+						<th>주문 상태</th>
+						<th>총 주문 금액</th>
+						<th>주문 날짜</th>
+					</tr>
+					<c:forEach var="admin_order" items="${order}"> 
+					<tr>
+						<td>${admin_order.post_num}</td>
+						<td>${admin_order.post_title}</td>
+						<td>${admin_order.post_content}</td>
+						<td>${admin_order.post_date}</td>
+						<td>${admin_order.post_date}</td>
+						<td>${admin_order.post_date}</td>
+					</tr>
+					</c:forEach>
+				</table>
+				</c:if>
+			</div>
 		</div>
 		<!-- [2. 주문 관리] 끝 -->
 		
@@ -407,41 +454,43 @@
 		<div id="admin_member" class="tab_contents">
 			<div class="content-main">
 				<h2><a href="myPage.do">회원 관리</a></h2>
+				
 				<!-- 검색창 시작 : get방식 -->
-				<form id="search_form2" action="myPage.do#admin_member" method="get">
+				<form id="search_form3" action="myPage.do#admin_member" method="get" class="d-flex">
 					<ul class="search">
 						<li>
-							<select name="keyfield">
-							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>이름</option>
-							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>이메일</option>
-						</select>
+							<select name="adminMemberKeyfield" class="form-select">
+							<option value="1" <c:if test="${param.adminMemberKeyfield==1}">selected</c:if>>이름</option>
+							<option value="2" <c:if test="${param.adminMemberKeyfield==2}">selected</c:if>>이메일</option>
+							</select>
 						</li>
 						<li>
-							<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
+							<input type="search" size="16" name="adminMemberKeyword" id="adminMemberKeyword" value="${param.adminMemberKeyword}">
 						</li>
 						<li>
-							<input type="submit" value="검색">
+							<input type="submit" value="검색" class="btn btn-outline-success">
 						</li>
 					</ul>
 				</form>
 				<script type="text/javascript">
 					$(function(){
-						$('#search_form2').submit(function(){
-							if($('#keyword').val().trim() == ''){
+						$('#search_form3').submit(function(){
+							if($('#adminMemberKeyword').val().trim() == ''){
 								alert('검색어를 입력하세요');
-								$('#keyword').val('').focus();
+								$('#adminMemberKeyword').val('').focus();
 								return false;
 							}
 						});
 					});
 				</script>
 				<!-- 검색창 끝 -->
-				<c:if test="${count == 0}">
+				
+				<c:if test="${adminMemberCount == 0}">
 					<div class="result-display">
 						표시할 회원정보가 없습니다.
 					</div>		
 				</c:if>
-				<c:if test="${count > 0}">
+				<c:if test="${adminMemberCount > 0}">
 					<table class="table table-hover align-center">
 						<tr>
 							<th>이름(닉네임)</th>
@@ -451,7 +500,7 @@
 							<th>계정 생성일</th>
 							<th>최근 로그인 날짜</th>
 						</tr>
-						<c:forEach var="admin_member" items="${memberlist}"> 
+						<c:forEach var="admin_member" items="${adminMemberList}"> 
 							<tr>
 								<td>${admin_member.name}</td>
 								<td>${admin_member.sex}</td>
@@ -462,10 +511,10 @@
 							</tr>
 						</c:forEach>
 					</table>
-					<div class="align-center">${page}</div>
+					<div class="align-center">${adminMemberPage}</div>
 				</c:if>
-				</div>
-				</div>
+			</div>
+		</div>
 		<!-- [3. 회원 관리] 끝 -->
 		
 		
@@ -474,10 +523,10 @@
 		<h2><a href="myPage.do">신고 내역</a></h2>
 		
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form4" action="myPage.do#admin_report" method="get">
+			<form id="search_form4" action="myPage.do#admin_report" method="get" class="d-flex">
 				<ul class="search">
 					<li>
-						<select name="repoKeyfield">
+						<select name="repoKeyfield" class="form-select">
 							<option value="1" <c:if test="${param.repoKeyfield==1}">selected</c:if>>신고유형</option>
 							<option value="2" <c:if test="${param.repoKeyfield==2}">selected</c:if>>회원번호</option>
 						</select>
@@ -486,7 +535,7 @@
 						<input type="search" size="16" name="repoKeyword" id="repoKeyword" value="${param.repoKeyword}">
 					</li>
 					<li>
-						<input type="submit" value="검색">
+						<input type="submit" value="검색" class="btn btn-outline-success">
 					</li>
 				</ul>
 			</form>
@@ -567,7 +616,7 @@
 			<form id="search_form5" action="myPage.do#admin_request" method="get">
 				<ul class="search">
 					<li>
-						<select name="req_Keyfield">
+						<select name="req_Keyfield" class="form-select">
 							<option value="1" <c:if test="${param.req_keyfield==1}">selected</c:if>>제목</option>
 							<option value="2" <c:if test="${param.req_Keyfield==2}">selected</c:if>>저자</option>
 							<option value="3" <c:if test="${param.req_Keyfield==3}">selected</c:if>>출판사</option>
@@ -577,7 +626,7 @@
 						<input type="search" size="16" name="req_Keyword" id="req_Keyword" value="${param.req_Keyword}">
 					</li>
 					<li>
-						<input type="submit" value="조회">
+						<input type="submit" value="조회" class="btn btn-outline-success">
 					</li>
 				</ul>
 			</form>
@@ -678,8 +727,6 @@
 						}
 					});
 				});
-				
-			   
 				
 			</script>
 			<div class="align-center">${req_Page}</div>
