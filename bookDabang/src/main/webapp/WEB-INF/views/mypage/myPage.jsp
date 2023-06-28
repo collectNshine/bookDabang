@@ -310,23 +310,15 @@
 		<!-- [1. 도서 관리] 시작 -->
 		<div id="admin_book" class="tab_contents on">
 			<div class="content-main container">
-			<h2><a href="myPage.do">도서 관리</a></h2>
+			<br><h2><a href="myPage.do">도서 관리</a></h2>
 			<!-- 검색창 시작 : get방식 -->
-			<form id="search_form" action="myPage.do#admin_book" method="get">
-				<ul class="search">
-					<li>
-						<select name="keyfield">
-							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>도서명</option>
-							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자명</option>
-						</select>
-					</li>
-					<li>
-						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
-					</li>
-					<li>
-						<input type="submit" value="검색">
-					</li>
-				</ul>
+			<form id="search_form" action="myPage.do#admin_book" method="get"  class="d-flex" role="search">
+				<select name="keyfield" class="form-select">
+					<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>도서명</option>
+					<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자명</option>
+				</select>
+				<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}"  class="form-control me-2">
+				<input type="submit" value="검색" class="btn btn-outline-success">
 			</form>
 			<script type="text/javascript">
 				$(function(){
@@ -338,10 +330,10 @@
 						}
 					});
 				});
-			</script> 
+			</script><br>
 			<!-- 검색창 끝 -->
 		<div class="list-space align-right">
-			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'">
+			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'" class="btn btn-primary">
 		</div>
 		
 		<c:if test="${count == 0}">
@@ -379,6 +371,7 @@
 			</table>
 			<div class="align-center">${page}</div>
 		</c:if>
+		</div>
 		</div>
 	</div>
 	<!-- [1. 도서 관리] 끝 -->
@@ -516,7 +509,7 @@
 				</div>		
 			</c:if>
 			<c:if test="${repoCount > 0}">
-			<table>
+			<table class="table table-hover align-center">
 				<tr>
 					<th>신고 번호</th>
 					<th>회원 번호</th>
