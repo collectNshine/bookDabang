@@ -243,6 +243,26 @@ public class CartDAO {
 		finally { DBUtil.executeClose(null, pstmt, conn); }
 	}
 	
+	// 전체 삭제
+	public void deleteAllCart(int mem_num) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			sql = "DELETE FROM cart WHERE mem_num=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+			
+			pstmt.executeUpdate();
+		} catch(Exception e) { throw new Exception(e); }
+		finally { DBUtil.executeClose(null, pstmt, conn); }
+		
+	}
+	
 	// 회원번호(mem_num)별 총 구매 금액
 	public int getTotalByMem_num(int mem_num) throws Exception {
 		Connection conn = null;

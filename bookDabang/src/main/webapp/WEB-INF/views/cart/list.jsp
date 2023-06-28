@@ -91,7 +91,8 @@
 			<form id="cart_order" action="${pageContext.request.contextPath}/order/orderForm.do" method="post">
 				<input type="hidden" name="cart_ship" value="">
 				<input type="hidden" name="total_price" value="">
-				<input type="hidden" name="cart_nums" value="">
+				<input type="hidden" name="cart_nums" value="" id="cart_nums">
+				<div><input type="button" value="전체삭제" class="delete-all btn btn-outline-secondary" onclick="location.href='deleteAllCart.do'"></div>
 				<div class="cart-table">
 				<ul class="list-group">
 					<li class="list-group-item">
