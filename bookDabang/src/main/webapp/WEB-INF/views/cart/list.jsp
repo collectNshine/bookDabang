@@ -34,10 +34,16 @@
 		});
 		
 		function check() {
+			let array = new Array;
 			let list = $('.book-check');
 			let selected = 0, total = 0, ship = 0;
 			
-			for(let i = 0; i < list.length; i++) { if(list[i].checked) { selected += Number(list[i].value); } }
+			for(let i = 0; i < list.length; i++) {
+				if(list[i].checked) {
+					selected += Number(list[i].value);
+					array.push(list[i].dataset.value)
+				}
+			}
 			
 			// 3만원 이하 구매시 3000원 택배비 추가
 			if(selected <= 30000 && selected != 0) { ship = 3000; }
@@ -50,7 +56,8 @@
 			
 			$('input[name="cart_ship"]').attr('value', ship);
 			$('input[name="total_price"]').attr('value', total);
-		} 
+			$('input[name="cart_nums"]').attr('value', array);
+		}
 	</script>
 </head>
 <body>
@@ -79,6 +86,7 @@
 			<form id="cart_order" action="${pageContext.request.contextPath}/order/orderForm.do" method="post">
 				<input type="hidden" name="cart_ship" value="">
 				<input type="hidden" name="total_price" value="">
+				<input type="hidden" name="cart_nums" value="">
 				<div class="cart-table">
 				<ul class="list-group">
 					<li class="list-group-item">
@@ -93,7 +101,7 @@
 					<c:forEach var="cart" items="${list}">
 					<li class="list-group-item">
 						<ul class="cart-booklist">
-							<li><div class="cart-check"><input type="checkbox" name="selectBook" class="book-check" value="${cart.bookVO.price * cart.order_quantity}" onClick="check()"></div></li>
+							<li><div class="cart-check"><input type="checkbox" name="selectBook" class="book-check" value="${cart.bookVO.price * cart.order_quantity}" onClick="check()" data-value="${cart.cart_num}"></div></li>
 							<li><div class="cart-bookimg"><img src="${pageContext.request.contextPath}/upload/${cart.bookVO.thumbnail}" width="100" height="100"></div></li>
 							<li><div class="cart-booktitle">${cart.bookVO.title}</div></li>
 							<li><div id="cart-bookprice" class="cart-bookprice">${cart.bookVO.price}</div></li>
