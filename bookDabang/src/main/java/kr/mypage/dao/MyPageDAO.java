@@ -58,52 +58,64 @@ public class MyPageDAO {
 				return vo;
 			}
 			
-		/*
+		
 		//회원상세정보(관리자) 
-		public List<MemberVO> getMemberList(int start, int end, String keyfield,String keyword) throws Exception{
+		public List<MemberVO> getListMemberByAdmin(int start, int end, String keyfield,String keyword) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
-			List<MemberVO> memberlist = null;
+			List<MemberVO> adminMemberList = null;
 			String sql = null;
 			String sub_sql = "";
 			int cnt = 0;
 			
 			try {
-				conn = DBUtil.getConnection();
-				
 				//커넥션 풀로부터 커넥션을 할당받음
 				conn = DBUtil.getConnection();
-				//sub_sql문 작성
+				
 				if(keyword!=null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "WHERE name LIKE ?";
-				if(keyfield.equals("2")) sub_sql += "WHERE email LIKE ?";
+					if(keyfield.equals("1")) sub_sql += "WHERE name LIKE ?";
+					else if(keyfield.equals("2")) sub_sql += "WHERE email LIKE ?";
 				}
+				
+				//SQL문 작성
 				sql = "SELECT * FROM (SELECT a.*, rownum rnum "
-				  		   + "FROM (SELECT * FROM member_detail "
-		  		   			+sub_sql+" ORDER BY mem_num DESC)a) "
-		  		   + "WHERE rnum>=? AND rnum<=?";
+						+ "FROM (SELECT * FROM member m "
+						+ "LEFT OUTER JOIN member_detail d "
+						+ "USING(mem_num) " + sub_sql 
+						+ " ORDER BY reg_date DESC NULLS LAST)a) "
+						+ "WHERE rnum >= ? AND rnum <= ?";
+				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
-				//?에 데이터 바인딩
+				
 				if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(++cnt, "%"+keyword+"%");
 				}
+				//?에 데이터 바인딩
 				pstmt.setInt(++cnt, start);
 				pstmt.setInt(++cnt, end);
 				
 				//SQL문 실행
 				rs = pstmt.executeQuery();
-				memberlist = new ArrayList<MemberVO>();
+				adminMemberList = new ArrayList<MemberVO>();
 				while(rs.next()) {
 					MemberVO vo = new MemberVO();
+					vo.setMem_num(rs.getInt("mem_num"));
+					vo.setId(rs.getString("id"));
+					vo.setAuth(rs.getInt("auth"));
+					vo.setPasswd(rs.getString("passwd"));
 					vo.setName(rs.getString("name"));
 					vo.setSex(rs.getInt("sex"));
-					vo.setBirthday(rs.getString("birthday"));
+					vo.setPhone(rs.getString("phone"));
 					vo.setEmail(rs.getString("email"));
+					vo.setZipcode(rs.getString("zipcode"));
+					vo.setAddress1(rs.getString("address1"));
+					vo.setAddress2(rs.getString("address2"));
+					vo.setPhoto(rs.getString("photo"));
 					vo.setReg_date(rs.getDate("reg_date"));
 					vo.setLatest_login(rs.getDate("latest_login"));
 					
-					memberlist.add(vo);
+					adminMemberList.add(vo);
 				}
 				
 				
@@ -113,9 +125,9 @@ public class MyPageDAO {
 				DBUtil.executeClose(rs, pstmt, conn);
 			}
 			
-			return memberlist;
+			return adminMemberList;
 		}
-		*/
+		
 		
 	//회원정보 수정
 	public void updateMember(MemberVO vo) throws Exception{
@@ -488,35 +500,37 @@ public class MyPageDAO {
 		return postlist;
 	}
 	*/
-	/*
-	//전체 회원 수
-	public int getMemberCount(String keyfield, String keyword)throws Exception{
+	
+	//전체 회원 수 (관리자)
+	public int getMemberCountByAdmin(String adminMemberKeyfield, String adminMemberKeyword)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
 		String sub_sql = "";
-		int count = 0;
+		int adminMemberCount = 0;
 		try {
 			//커넥션 풀로부터 커넥션을 할당받음
 			conn = DBUtil.getConnection();
 			//sub_sql문 작성
-			if(keyword!=null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "WHERE name LIKE ?";
-				if(keyfield.equals("2")) sub_sql += "WHERE email LIKE ?";
+			if(adminMemberKeyword!=null && !"".equals(adminMemberKeyword)) {
+				if(adminMemberKeyfield.equals("1")) sub_sql += "WHERE name LIKE ?";
+				else if(adminMemberKeyfield.equals("2")) sub_sql += "WHERE email LIKE ?";
 			}
 			//SQL문 작성
-			sql = "SELECT COUNT(*) FROM member_detail " + sub_sql;
+			sql = "SELECT COUNT(*) FROM member m "
+					+ "LEFT OUTER JOIN member_detail d "
+					+ "USING(mem_num) " + sub_sql;
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
-			if(keyword!=null && !"".equals(keyword)) {
-				pstmt.setString(1, "%"+keyword+"%");
+			if(adminMemberKeyword!=null && !"".equals(adminMemberKeyword)) {
+				pstmt.setString(1, "%"+adminMemberKeyword+"%");
 			}
 			//SQL문 실행
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				count = rs.getInt(1);
+				adminMemberCount = rs.getInt(1);
 			}
 		}catch(Exception e) {
 			throw new Exception(e);
@@ -524,7 +538,7 @@ public class MyPageDAO {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
 		
-		return count;
+		return adminMemberCount;
 	}
-	*/
+	
 }

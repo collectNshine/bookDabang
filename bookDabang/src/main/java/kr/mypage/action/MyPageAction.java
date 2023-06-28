@@ -14,9 +14,7 @@ import kr.member.vo.MemberVO;
 import kr.mypage.dao.MyPageDAO;
 import kr.post.dao.PostDAO;
 import kr.post.vo.PostReportVO;
-import kr.post.vo.PostVO;
 import kr.request.dao.RequestDAO;
-import kr.request.vo.RequestFavVO;
 import kr.request.vo.RequestVO;
 import kr.util.PageUtil;
  
@@ -126,7 +124,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		String req_Keyword = request.getParameter("req_Keyword");
 		
 		int req_Count = req_dao.getRequestCount(req_Keyfield, req_Keyword);
-		PageUtil req_Page = new PageUtil(req_Keyfield,req_Keyword,Integer.parseInt(req_PageNum),req_Count,10,10,"myPage.do");
+		PageUtil req_Page = new PageUtil(req_Keyfield,req_Keyword,Integer.parseInt(req_PageNum),req_Count,10,10,"myPage.do#admin_request");
 		
 		List<RequestVO> req_list = null;
 		if(req_Count > 0) {
@@ -140,6 +138,32 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		
 		
 		
+		/*---[관리자]회원 관리 시작---*/
+		String adminMemberpageNum = request.getParameter("adminMemberpageNum");
+		if(adminMemberpageNum == null) adminMemberpageNum = "1";
+		
+		String adminMemberKeyfield = request.getParameter("adminMemberKeyfield");
+		String adminMemberKeyword = request.getParameter("adminMemberKeyword");
+		
+		MyPageDAO adminMemberDao = MyPageDAO.getInstance();
+		int adminMemberCount = adminMemberDao.getMemberCountByAdmin(adminMemberKeyfield, adminMemberKeyword);
+		
+		//페이지 처리
+		PageUtil adminMemberPage = new PageUtil(adminMemberKeyfield,adminMemberKeyword,Integer.parseInt(adminMemberpageNum),adminMemberCount,10,10,"myPage.do#admin_member");
+		List<MemberVO> adminMemberList = null;
+		if(adminMemberCount > 0) {
+			adminMemberList = dao.getListMemberByAdmin(adminMemberPage.getStartRow(), adminMemberPage.getEndRow(), adminMemberKeyfield, adminMemberKeyword);
+			
+		}
+		
+		request.setAttribute("adminMemberCount", adminMemberCount);
+		request.setAttribute("adminMemberList", adminMemberList);
+		request.setAttribute("adminMemberPage", adminMemberPage.getPage());
+		
+		/*---[관리자]회원 관리 끝---*/
+		
+		
+		
 		
 		/*---[관리자]신고 관리 시작---*/
 		String repoPageNum = request.getParameter("repoPageNum");
@@ -149,7 +173,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		PostDAO postDao = PostDAO.getInstance();
 		int repoCount = postDao.getReportCount(repoKeyfield, repoKeyword);
 									//keyfield, keyword, currentPage, count, rowCount, pageCount, 요청URL
-		PageUtil repoPage = new PageUtil(repoKeyfield, repoKeyword, Integer.parseInt(repoPageNum), repoCount, 10, 10, "myPage.do");
+		PageUtil repoPage = new PageUtil(repoKeyfield, repoKeyword, Integer.parseInt(repoPageNum), repoCount, 10, 10, "myPage.do#admin_report");
 		
 		List<PostReportVO> repoList = null;
 		if(repoCount > 0) {

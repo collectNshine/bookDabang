@@ -30,7 +30,7 @@
   	<div class="modal-dialog modal-lg" role="document">
     	<div class="modal-content">
       	<div class="modal-header">
-        	<h5 class="modal-title" id="exampleModalLabel">신고</h5>
+        	<h5 class="modal-title" id="exampleModalLabel"><b>신고</b></h5>
         	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
           	<span aria-hidden="true">&times;</span>
         	</button>
@@ -38,37 +38,39 @@
       	<div class="modal-body">
         	<form style="border:none;" id="repo_submit" action="writeReport.do" method="post">
         	<input type="hidden" name="post_num" value="${post.post_num}">
-               <div class="form-row">
+               <div class="form-row" style="margin-left:100px;">
                   <dl class="row">
-                     <dd class="align-center"><b>신고하기</b></dd>
-                        <dd class="col-12 col-sm-10 d-flex align-items-center">
+                     <dd class="align-center" style="margin-left: -50px;"><b>신고하기</b></dd>
+                     <br>
+                     <br>
+                        <dd class="col-1 col-sm-2 d-flex align-items-center" style="width:300; margin-left: 70px">
                         <fieldset data-role="controlgroup">
                            <div class="form-check form-check-inline">
                                <input class="form-check-input" type="radio" name="repo_category" id="repo_category1" value="1">
-                               <label class="form-check-label" for="inlineRadio1">욕설 및 비방</label>
+                               <label class="form-check-label" for="inlineRadio1" style="width:102px">욕설 및 비방</label>
                            </div>
                            <div class="form-check form-check-inline">
                                <input class="form-check-input" type="radio" name="repo_category" id="repo_category2" value="2">
-                               <label class="form-check-label" for="inlineRadio2">홍보 및 영리 목적</label>
+                               <label class="form-check-label" for="inlineRadio2" style="width:135px">홍보 및 영리 목적</label>
                            </div>
                            <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="repo_category" id="repo_category3" value="3">
-                                <label class="form-check-label" for="inlineRadio3">불법 정보, 청소년 유해</label>
+                                <label class="form-check-label" for="inlineRadio3" style="width:168px">불법 정보, 청소년 유해</label>
                            </div>
                            <div class="form-check form-check-inline">
                                  <input class="form-check-input" type="radio" name="repo_category" id="repo_category4" value="4">
-                                 <label class="form-check-label" for="inlineRadio4">개인 정보 노출/유포/거래</label>
+                                 <label class="form-check-label" for="inlineRadio4" style="width:186px">개인 정보 노출/유포/거래</label>
                            </div>
                            <div class="form-check form-check-inline">
                                  <input class="form-check-input" type="radio" name="repo_category" id="repo_category5" value="5">
-                                 <label class="form-check-label" for="inlineRadio5">도배 및 스팸</label>
+                                 <label class="form-check-label" for="inlineRadio5" style="width:100px">도배 및 스팸</label>
                            </div>
                            <div class="form-check form-check-inline">
                                  <input class="form-check-input" type="radio" name="repo_category" id="repo_category6" value="6">
-                                 <label class="form-check-label" for="inlineRadio6">기타</label>
+                                 <label class="form-check-label" for="inlineRadio6" style="width:47px">기타</label>
                            </div>
                            <div>
-                           <textarea name="repo_content" id="repo_content" placeholder="*상세 사유를 입력하세요."></textarea>
+                           <textarea name="repo_content" id="repo_content" placeholder="*상세 사유를 입력하세요." style="width:230px; height: 68px; margin-top: 10px;"></textarea>
                            </div>
                       </fieldset>
                      </dd>       
