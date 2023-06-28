@@ -9,6 +9,8 @@
 	</div>
    <div id="main_menu">
       <ul class="menu-category">
+         <li class="menu-detail"><a href="${pageContext.request.contextPath}/introduction/intro.do">다방소개</a></li>
+         <li><b>|</b></li>
          <li class="menu-detail"><a href="${pageContext.request.contextPath}/book/list.do">차림표</a></li>
          <li><b>|</b></li>
          <li class="menu-detail">
