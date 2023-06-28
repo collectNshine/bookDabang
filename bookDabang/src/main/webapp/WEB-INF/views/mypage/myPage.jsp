@@ -288,31 +288,13 @@ ul.search {
 		<c:if test="${!empty user_num && user_auth == 9}">
 		<ul class="tabWrap">
 			<li data-tab="admin_book" style="cursor: pointer;" class="on"><a href="#admin_book">도서관리</a></li>
-			<li data-tab="admin_order" style="cursor: pointer;"><a href="#admin_order">주문관리</a></li>
-			<li data-tab="admin_member" style="cursor: pointer;"><a href="#admin_member">회원관리</a></li>
-			<li data-tab="admin_report" style="cursor: pointer;"><a href="#admin_report">신고내역</a></li>
-			<li data-tab="admin_request" style="cursor: pointer;"><a href="#admin_request">도서신청</a></li>
+			<li data-tab="admin_order" style="cursor: pointer;"><a href="myPage.do#admin_order">주문관리</a></li>
+			<li data-tab="admin_member" style="cursor: pointer;"><a href="myPage.do#admin_member">회원관리</a></li>
+			<li data-tab="admin_report" style="cursor: pointer;"><a href="myPage.do#admin_report">신고내역</a></li>
+			<li data-tab="admin_request" style="cursor: pointer;"><a href="myPage.do#admin_request">도서신청</a></li>
 		</ul>
 		
-		<%-- 
-		<script type="text/javascript">
-		$(function() {
-			 $(".tabWrap").tabs({
-			        select: function(event, ui) {                   
-			        window.location.replace(ui.tab.hash);
-			   		//위 두줄을 추가를 하면 새로고침을 해도 선택된 탭에서 계속 유지가 된다.
-			     	}
-			 });
-		});
-		
-		$(document).ready(function(e){
-			var ink = document.location.href;
-			var tab = link.split('/').pop();
-			$('a[href$='+tab+']').trigger("click");
-			e.preventDefault(); /// 기본 동작을 막을 때(새로고침)
-		});
-		</script>  
-		--%>
+	
 		
 		<!-- [1. 도서 관리] 시작 -->
 		<div id="admin_book" class="tab_contents on">
