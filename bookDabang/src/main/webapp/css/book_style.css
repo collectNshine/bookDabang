@@ -11,6 +11,11 @@
 .form-select{
 	margin:5px 10px 0;
 	padding:.375rem 2.25rem .375rem 2rem;
+	width:120px;
+}
+#list_search_form{
+	margin-bottom:30px;
+	border:none;
 }
 
 /*--카테고리--*/
@@ -30,7 +35,6 @@
 	list-style:none;
 	float:right;
 	width:80%;
-	margin-top:30px;
 }
 .list-photo{ /*썸네일 사진*/
 	float:left;
@@ -67,6 +71,52 @@
         -webkit-box-orient: vertical;
 }
 
+/*-------------[도서등록/수정폼]-------------*/
+div.thumbnail-info{
+	width:40%;
+	float:left;
+	margin:35px 0 0;
+	text-align:center;
+}
+.info_form{
+	width:1100px;
+	margin:30px auto;
+	padding:40px 0;
+	border:1px solid #000;
+}
+#file_detail{
+	margin:20px;
+}
+div.book-info{
+	width:60%;
+	float:right;
+	padding:10px 10px 10px 30px;
+}
+div.button-info{
+	text-align:center;
+	clear:both;
+}
+textarea.form-control{
+	margin:10px 10px;
+	width:470px;
+	height:120px;
+}
+.input-group-text{
+	height:40px;
+}
+.info_form ul li{
+	margin:10px 0;
+	vertical-align:middle;
+}
+.info_form ul li label{
+	font-weight:bold;
+	width:80px;
+	margin:0 auto;
+	vertical-align:middle;
+}
+input.form-control{
+	width:310px;
+}
 
 
 /*-------------[도서상세]-------------*/
@@ -94,10 +144,6 @@ span.review-title{
 	line-height:200%;
 	margin:20px;
 }
-textarea.form-control{
-	text-align:center;
-	margin:10px 10px;
-}
 .user-photo{
 	float:left;
 	width:60px;
@@ -114,26 +160,10 @@ span.review-letter-count{
 	clear:both;
 	text-align:right;
 }
-textarea.form-control{
-	width:500px;
-	height:50px;
-	margin:10px 10px;
-}
 .review-button{
 	text-align:right;
 }
 .bi-hand-thumbs-up{
 	font-size: 22px;
     line-height: 22px;
-}
-/*-------------[도서등록/수정]-------------*/
-.form-select{
-	width:120px;
-	float:left;
-}
-.form-control{
-	width:400px;
-}
-.input-group-text{
-	height:40px;
 }

@@ -11,7 +11,8 @@ public class StringUtil {
 				  .replaceAll("\r",	"<br>")
 				  .replaceAll("\n", "<br>");
 	}
-	
+
+
 	/*
 	 * HTML를 허용하지 않으면서 줄바꿈
 	 */
@@ -26,15 +27,17 @@ public class StringUtil {
 				  .replaceAll("\n", "<br>");
 	}
 	
+	
 	/*
 	 * HTML를 허용하지 않음
 	 */
 	public static String useNoHtml(String str) {
-		if(str==null) return null;
+		if(str == null) return null;
 		
 		return str.replaceAll("<", "&lt;")
 				  .replaceAll(">", "&gt;");
 	}
+	
 	
 	/*
 	 * 큰 따옴표 처리
@@ -44,6 +47,7 @@ public class StringUtil {
 		
 		return str.replaceAll("\"", "&quot;");
 	}
+	
 	
 	/*
 	 * 문자열을 지정한 문자열 개수 이후에 ...으로 처리
@@ -57,8 +61,17 @@ public class StringUtil {
 		}
 		return content;
 	}
+	
+	
+	
+	
+	/*
+	 * 줄바꿈 태그 변경
+	 */
+	public static String changeBr(String str) {
+		if(str == null) return null;
+		
+		return str.replaceAll("<br>", "\r\n");
+	}	
 }
-
-
-
 

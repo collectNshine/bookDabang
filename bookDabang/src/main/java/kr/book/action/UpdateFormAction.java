@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import kr.book.dao.BookDAO;
 import kr.book.vo.BookVO;
 import kr.controller.Action;
+import kr.util.StringUtil;
 
 public class UpdateFormAction implements Action {
 
@@ -31,6 +32,8 @@ public class UpdateFormAction implements Action {
 		int bk_num = Integer.parseInt(request.getParameter("bk_num"));
 		BookDAO dao = BookDAO.getInstance();
 		BookVO book = dao.getBook(bk_num);
+		
+		book.setContent(StringUtil.changeBr(book.getContent()));
 		
 		request.setAttribute("book", book);
 		

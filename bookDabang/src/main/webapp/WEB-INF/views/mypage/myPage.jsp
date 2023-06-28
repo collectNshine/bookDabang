@@ -301,7 +301,7 @@ ul.search {
 			<div class="content-main container">
 			<br><h2><a href="myPage.do">도서 관리</a></h2>
 			<!-- 검색창 시작 : get방식 -->
-			<form id="search_form" action="myPage.do#admin_book" method="get"  class="d-flex" role="search" >
+			<form id="search_form" action="myPage.do#admin_book" method="get"  class="d-flex" role="search">
 				<select name="keyfield" class="form-select">
 					<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>도서명</option>
 					<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자명</option>
@@ -322,9 +322,9 @@ ul.search {
 			</script><br>
 			<!-- 검색창 끝 -->
 		<div class="list-space align-right">
+			<input type="button" value="선택 삭제" class="btn btn-primary" id="selectDelete_btn">
 			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'" class="btn btn-primary">
 		</div>
-		
 		<c:if test="${count == 0}">
 			<div class="result-display">
 				표시할 상품이 없습니다.
@@ -335,34 +335,93 @@ ul.search {
 			<table class="table table-hover align-center">
 			<thead>
 				<tr>
+					<th><input type="checkbox" name="allCheck" id="allCheck"></th>
 					<th>도서번호</th>
 					<th>도서명</th>
 					<th>저자명</th>
 					<th>출판사</th>
 					<th>재고</th>
-					<th>분류</th>
 					<th>등록일</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="book" items="${list}">
 				<tr>
+					<td><input type="checkbox" class="chBox" name="chBox" value="${book.bk_num}"></td>
 					<td>${book.bk_num}</td>
 					<td><a href="${pageContext.request.contextPath}/book/updateForm.do?bk_num=${book.bk_num}">${book.title}</a></td>
 					<td>${book.author}</td>
 					<td>${book.publisher}</td>
 					<td><fmt:formatNumber value="${book.stock}"/></td>
-					<td>${book.category}</td>
 					<td>${book.reg_date}</td>
 				</tr>
 				</c:forEach>
 			</tbody>
 			</table>
-			<div class="align-center">${page}</div>
+			<div class="page-button">${page}</div>
 		</c:if>
 		</div>
 		</div>
 	</div>
+		<script type="text/javascript">
+		//모두 선택 체크박스 클릭 이벤트
+		$("#allCheck").click(function(){
+			 var chk = $("#allCheck").prop("checked");
+			 if(chk) {
+			  $(".chBox").prop("checked", true);
+			 } else {
+			  $(".chBox").prop("checked", false);
+			 }
+		});
+		
+		//모두 선택일 때 개별 체크박스 하나 해제 시 모두 선택 해제
+		 $(".chBox").click(function(){
+			  $("#allCheck").prop("checked", false);
+		});
+		
+		<%--
+		//선택 삭제 버튼 클릭 이벤트
+		 $("#selectDelete_btn").click(function(){
+		 		if($('input[class='chBox']:checked').length < 1){
+					alert('하나 이상의 항목을 선택하세요');
+					return false;
+				}
+				
+			   let checkArr = new Array();
+			   
+			   $("input[class='chBox']:checked").each(function(index,item){
+			    	checkArr.push($(this).val());
+			   });
+			   
+			   $.ajax({
+				    url:"deleteBooks.do",
+				    type:"post",
+				    data:{checkArr:checkArr},
+				    dataType:'json',
+				    success : function(){
+				    	let choice = confirm("정말 삭제하시겠습니까?");
+				    	if(choice){
+							if(param.result == 'logout'){
+								alert('로그인 후 삭제할 수 있습니다.');
+							}else if(param.result =='success'){
+								alert('등록된 도서가 삭제되었습니다.');
+								location.href='myPage.do';
+							}else if(param.result == 'wrongAccess'){
+								alert('잘못된 접근입니다.');
+							}else{
+								alert('도서 정보 삭제 중 오류가 발생했습니다.');
+							}
+						}
+				    },
+				    error:function(){
+				    	alert('네트워크 오류 발생');
+				    }
+			   });
+			   
+		 });
+		--%>
+		</script>
+		
 	<!-- [1. 도서 관리] 끝 -->
 	
 	

@@ -16,7 +16,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script> 
 <script type="text/javascript">
 	$(function(){
-		$('#search_form').submit(function(){
+		$('#list_search_form').submit(function(){
 			if($('#keyword').val().trim() == ''){
 				alert('검색어를 입력하세요');
 				$('#keyword').val('').focus();
@@ -37,7 +37,8 @@
 		<h6 style="color:grey">책다방에서 마음의 양식을 채워보세요</h6>
 		</div>
 		<!-- 검색창 시작 : get방식 -->
-		<form id="search_form" action="list.do" method="get" class="d-flex" role="search">
+		<form id="list_search_form" action="list.do" method="get" class="d-flex" role="search">
+		<input type="hidden" name="category" value="${param.category}">
 			<select name="keyfield" class="form-select">
 				<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>도서명</option>
 				<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자명</option>
@@ -47,43 +48,20 @@
 		</form>
 		<!-- 검색창 끝 -->
 
-		<!-- 카테고리 시작 (미완성) -->
+		<!-- 카테고리 시작 -->
 		<div class="list-group">
-		  <input type="button" name="category" class="list-group-item list-group-item-action active" aria-current="true" value="전체">
-		  <input type="button" class="list-group-item list-group-item-action" value="문학">
-		  <input type="button" class="list-group-item list-group-item-action" value="경제/경영">
-		  <a href="#" class="list-group-item list-group-item-action">인문</a>
-		  <a href="#" class="list-group-item list-group-item-action">예술/대중문화</a>
-		  <a href="#" class="list-group-item list-group-item-action">사회/정치</a>
-		  <a href="#" class="list-group-item list-group-item-action">자연과학</a>
-		  <a href="#" class="list-group-item list-group-item-action">자기계발</a>
-		  <a href="#" class="list-group-item list-group-item-action">IT모바일</a>
-		  <a href="#" class="list-group-item list-group-item-action">유아/어린이</a>
-		  <a href="#" class="list-group-item list-group-item-action">만화</a>
+		  <a href="list.do" class="list-group-item list-group-item-action <c:if test="${empty param.category}">active</c:if>" aria-current="true">전체</a>
+		  <a href="list.do?category=문학" class="list-group-item list-group-item-action <c:if test="${param.category == '문학'}">active</c:if>">문학</a>
+		  <a href="list.do?category=경제/경영" class="list-group-item list-group-item-action <c:if test="${param.category == '경제/경영'}">active</c:if>">경제/경영</a>
+		  <a href="list.do?category=인문" class="list-group-item list-group-item-action <c:if test="${param.category == '인문'}">active</c:if>">인문</a>
+		  <a href="list.do?category=예술/대중문화" class="list-group-item list-group-item-action <c:if test="${param.category == '예술/대중문화'}">active</c:if>">예술/대중문화</a>
+		  <a href="list.do?category=사회/정치" class="list-group-item list-group-item-action <c:if test="${param.category == '사회/정치'}">active</c:if>">사회/정치</a>
+		  <a href="list.do?category=자연과학" class="list-group-item list-group-item-action <c:if test="${param.category == '자연과학'}">active</c:if>">자연과학</a>
+		  <a href="list.do?category=자기계발" class="list-group-item list-group-item-action <c:if test="${param.category == '자기계발'}">active</c:if>">자기계발</a>
+		  <a href="list.do?category=IT모바일" class="list-group-item list-group-item-action <c:if test="${param.category == 'IT모바일'}">active</c:if>">IT모바일</a>
+		  <a href="list.do?category=유아/어린이" class="list-group-item list-group-item-action <c:if test="${param.category == '유아/어린이'}">active</c:if>">유아/어린이</a>
+		  <a href="list.do?category=만화" class="list-group-item list-group-item-action <c:if test="${param.category == '만화'}">active</c:if>">만화</a>
 		</div>
-		<!-- 
-		<script type="text/javascript">
-			$(function(){
-			    $("input:button[name='category']").click(function(){
-			        let cate = $(this).val();
-			        $.ajax({
-			            url: "getData.do", // 데이터를 가져올 서버의 경로
-			            type: "post",
-			            data: { category: cate }, // 클릭한 카테고리 값을 서버로 전달
-			            dataType: 'json',
-			            success: function(data){
-			               
-			            },
-			            error: function(data){
-			                alert('Error');
-			            }
-			        });
-			    });
-					
-				});
-			});
-		</script>
-		 -->
 		<!-- 카테고리 끝 -->
 		
 		<!-- 목록 시작 -->
@@ -128,6 +106,7 @@
 			<hr size="1" noshade width="80%" align="right">
 		</div>
 		</c:forEach>
+		<div class="page-button">${page}</div>
 		</c:if>
 		<!-- 목록 끝 -->
 	</div>
