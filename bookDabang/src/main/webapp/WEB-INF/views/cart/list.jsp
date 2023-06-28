@@ -14,36 +14,43 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/cart.js"></script>
 	<script type="text/javascript">
-	$(document).ready(function(){
-		var total = 0;
-		let btn_status = false;
-		$('#check_all').click(function(){
-			if(btn_status == false){
-				$('.book-check').prop('checked', true);
-				btn_status = true;
-				check();
-			}else{
-			$('.book-check').prop('checked', false);
-				btn_status = false;
-				total = 0;
-				$('#total').text(total);
-			}
-		});//전체 체크, 전체 체크 취소		
-	});
-	function check(){
-		let list = $('.book-check');
-		let total = 0;
-			for(let i=0;i<list.length;i++){
-				if(list[i].checked){
-					total += Number(list[i].value);
+		$(document).ready(function(){
+			var total = 0;
+			let btn_status = false;
+			
+			// 전체 체크, 전체 체크 취소
+			$('#check_all').click(function() {
+				if(btn_status == false) {
+					$('.book-check').prop('checked', true);
+					btn_status = true;
+					check();
+				} else {
+				$('.book-check').prop('checked', false);
+					btn_status = false;
+					total = 0;
+					$('#total').text(total);
 				}
-			}
-		if(total <= 30000 && total != 0){//3만원 이하 구매시 3000원 택배비 추가
-			total += 3000;
+			});	
+		});
+		
+		function check() {
+			let list = $('.book-check');
+			let selected = 0, total = 0, ship = 0;
+			
+			for(let i = 0; i < list.length; i++) { if(list[i].checked) { selected += Number(list[i].value); } }
+			
+			// 3만원 이하 구매시 3000원 택배비 추가
+			if(selected <= 30000 && selected != 0) { ship = 3000; }
+			
+			total = selected + ship;
+			
+			$('#selected').text(selected);
+			$('#ship').text(ship);
+			$('#total').text(total);
+			
+			$('input[name="cart_ship"]').attr('value', ship);
+			$('input[name="total_price"]').attr('value', total);
 		}
-		$('#total').text(total);
-	}
-	
 	</script>
 </head>
 <body>
@@ -70,6 +77,8 @@
 				
 			<c:if test="${!empty list}">
 			<form id="cart_order" action="${pageContext.request.contextPath}/order/orderForm.do" method="post">
+				<input type="hidden" name="cart_ship" value="">
+				<input type="hidden" name="total_price" value="">
 				<div class="cart-table">
 				<ul class="list-group">
 					<li class="list-group-item">
@@ -101,11 +110,23 @@
 				</ul>
 				</div>
 				<div class="book-buy">  
-					<div class="book-buy-list align-center" >
-						  주문금액 | <!-- ${select_price}--><br><br>
-						 <div id="total">0</div>원
-						<input type="submit" value="Buy">
-					</div>
+					<table class="book-buy-list" >
+						<tr>
+							<td class="width_td1">선택금액</td>
+							<td class="width_td2"><span id="selected">0</span>원</td>
+						</tr>
+						<tr>
+							<td>배송비</td>
+							<td><span id="ship">0</span>원</td>
+						</tr>
+						<tr>
+							<td>주문금액</td>
+							<td><span id="total">0</span>원</td>
+						</tr>
+						<tr>
+							<td colspan="2"><input type="submit" value="구매" class="btn btn-outline-secondary"></td>
+						</tr>
+					</table>
 				</div>
 			</form>
 			</c:if>
