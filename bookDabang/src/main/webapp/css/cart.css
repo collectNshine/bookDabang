@@ -44,6 +44,7 @@ ul{ list-style:none; }
 .cart-orderquantity{ width:150px; margin-top:15px; }
 .cart-deletebtn{ width:50px; }
 
-.book-buy{ float:left; width:20%; margin:30px 0 0 30px; background:rgba(108, 117, 125, .1); display:flex; justify-content:center; }
-.book-buy-list{ width:80%; border:none; margin:20px; }
-.buy-btn{ clear:both; }
+.book-buy{ float:left; width:20%; margin:30px 0 0 30px; background:rgba(108, 117, 125, .1); border-radius:20px; display:flex; justify-content:center; }
+.book-buy-list{ clear:both; width:80%; border:none; margin:20px auto; text-align:center; background:white; border-radius:10px; font-weight:bold; }
+.book-buy-list .width_td1{ width:50%; }
+.book-buy-list .width_td2{ width:50%; }

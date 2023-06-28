@@ -1,7 +1,7 @@
 create table orders(
 	order_num number,
 	book_title varchar2(120) not null,
-	order_total varchar2(9) not null,
+	order_total number(9) not null,
 	payment number(1) not null,
 	receive_name varchar2(30) not null,
 	receive_post varchar2(5) not null,
@@ -9,7 +9,7 @@ create table orders(
 	receive_address2 varchar2(90) not null,
 	receive_phone varchar2(15) not null,
 	notice varchar2(4000) not null,
-	reg_date date not null,
+	order_date date default sysdate not null,
 	mem_num number not null,
 	constraint order_pk primary key (order_num),
 	constraint order_fk foreign key (mem_num) references member (mem_num)
