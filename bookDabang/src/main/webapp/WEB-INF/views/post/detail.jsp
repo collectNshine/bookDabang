@@ -137,6 +137,21 @@
 				 };
 				</script>
 				</c:if>
+				<%-- 로그인한 회원번호와 작성자 회원번호가 일치하지 않지만 관리자일 경우 삭제 가능--%>
+				<c:if test="${user_num != post.mem_num && user_auth == 9}">
+				<input type="button" value="삭제" id="delete_btn">
+				<script type="text/javascript">
+				 let delete_btn = document.getElementById('delete_btn');
+				 //이벤트 연결
+				 delete_btn.onclick=function(){
+					 let choice = confirm('삭제하시겠습니까?');
+					 if(choice){
+						 //히스토리를 지우면서 이동
+						 location.replace('adminDelete.do?post_num=${post.post_num}');
+					 }
+				 };
+				</script>
+				</c:if>
 			</li>
 		</ul>
 		<br>

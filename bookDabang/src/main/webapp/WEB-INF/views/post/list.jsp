@@ -58,13 +58,15 @@
   				<ul class="post-thumbnail">
 				<li>
 					<a href="detail.do?post_num=${post.post_num}">
-					<img src="${pageContext.request.contextPath}/upload/${post.thumbnail}" width="150" class="list-thumbnail">
+					<img src="${pageContext.request.contextPath}/upload/${post.thumbnail}" width="150" height="230" class="list-thumbnail">
 					</a>
 				</li>
 				</ul>
 				</div>
+				<div class="card-detail">
     				<h5 class="card-title"><b><a href="detail.do?post_num=${post.post_num}">${post.post_title}</a></b></h5>
     				<p class="card-text"><a href="detail.do?post_num=${post.post_num}">${post.post_content}</a></p>
+    			</div>
     			<div class="card-footer">
     				<small class="footer1"><img class="fav" src="../images/like.png" width="33" height="33">${post.cnt}</small>
        				<small class="footer2"><a href="detail.do?post_num=${post.post_num}"><img class="reply" src="../images/reply.png" width="25" height="25"> ${post.rcnt}</a></small>
