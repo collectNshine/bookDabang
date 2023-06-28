@@ -94,15 +94,17 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		if(pageNum == null) pageNum = "1";
 		String keyfield = request.getParameter("keyfield");
 		String keyword = request.getParameter("keyword");
+		String category = request.getParameter("category");
+		if(category==null) category="";
 		
 		BookDAO bookDao = BookDAO.getInstance();
-		int count = bookDao.getItemCount(keyfield, keyword);
+		int count = bookDao.getItemCount(keyfield, keyword, category);
 		
-		PageUtil page = new PageUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,10,"myPage.do","#admin_book");
+		PageUtil page = new PageUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,10,"myPage.do");
 		
 		List<BookVO> list = null;
 		if(count > 0) {
-			list = bookDao.getBookList(page.getStartRow(), page.getEndRow(), keyfield, keyword);
+			list = bookDao.getBookList(page.getStartRow(), page.getEndRow(), keyfield, keyword, category);
 		}
 		
 		request.setAttribute("count", count);

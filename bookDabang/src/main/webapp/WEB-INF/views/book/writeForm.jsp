@@ -59,7 +59,14 @@
 	<!-- 내용 시작 -->
 	<div class="content-main">
 		<h2 class="align-center"><a href="writeForm.do">도서 등록</a></h2>
-		<form action="write.do" method="post" encType="multipart/form-data" id="write_form">
+		<form action="write.do" method="post" encType="multipart/form-data" class="info_form">
+			<div class="thumbnail-info">
+				<img src="${pageContext.request.contextPath}/images/bk_no_image.png" width="300" class="db-thumbnail">
+				<div id="file_detail">
+					등록된 파일이 없습니다.
+				</div>			
+			</div>
+			<div class="book-info">
 			<ul>
 				<li>
 					<label for="title">도서명</label>
@@ -82,7 +89,7 @@
 					<input type="number" name="stock" id="stock" class="form-control" min="0" max="9999">
 				</li>
 				<li>
-					분류
+					<label for="category">분류</label>
 					<select name="category" id="category" class="form-select" aria-label="Default select example">
 						<option value="문학">문학</option>
 						<option value="경제/경영">경제/경영</option>
@@ -99,7 +106,6 @@
 				<li>
 					<label for="thumbnail" class="form-label">썸네일</label>
 					<input type="file" name="thumbnail" id="thumbnail" class="form-control" accept="image/gif,image/png,image/jpeg">
-					<img src="${pageContext.request.contextPath}/images/bk_no_image.png" width="200" id="show_thumbnail">
 					<script type="text/javascript">
 						$(function(){
 							let new_thumbnail;
@@ -107,13 +113,13 @@
 								new_thumbnail = this.files[0];
 								//새 이미지를 선택 안 했을 경우 (선택하려다 취소)
 								if(!new_thumbnail){ 
-									$('#show_thumbnail').attr('src','${pageContext.request.contextPath}/images/bk_no_image.png');
+									$('.db-thumbnail').attr('src','${pageContext.request.contextPath}/images/bk_no_image.png');
 									return;
 								}
 								//파일 용량이 지정한 범위를 넘을 경우
 								if(new_thumbnail.size > 1024*1024){
 									alert(Math.round(new_thumbnail.size/1024) + 'kbytes(1024kbytes까지만 업로드 가능)');
-									$('#show_thumbnail').attr('src','${pageContext.request.contextPath}/images/bk_no_image.png');
+									$('.db-thumbnail').attr('src','${pageContext.request.contextPath}/images/bk_no_image.png');
 									$(this).val(''); //선택한 파일 정보 지우기
 									return;
 								}
@@ -121,7 +127,7 @@
 								let reader = new FileReader();
 								reader.readAsDataURL(new_thumbnail);
 								reader.onload=function(){
-									$('#show_thumbnail').attr('src',reader.result);
+									$('.db-thumbnail').attr('src',reader.result);
 								};
 							});//end of change
 						});
@@ -132,7 +138,8 @@
 					<textarea rows="5" cols="60" name="content" id="content" class="form-control"></textarea>
 				</li>
 			</ul>
-			<div class="align-center">
+			</div>
+			<div class="button-info">
 				<input type="button" value="목록" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do'">
 				<input type="submit" value="등록" class="btn btn-primary">
 			</div>

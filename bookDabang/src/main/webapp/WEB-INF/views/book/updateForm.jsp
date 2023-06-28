@@ -66,14 +66,15 @@
 	<!-- 내용 시작 -->
 	<div class="content-main">
 		<h2 class="align-center"><a href="updateForm.do?bk_num=${book.bk_num}">도서 수정</a></h2>
-		<form action="update.do" method="post" encType="multipart/form-data" id="update_form">
+		<form action="update.do" method="post" encType="multipart/form-data" class="info_form">
+			<input type="hidden" name="bk_num" value="${book.bk_num}">
 			<div class="thumbnail-info">
-				<input type="hidden" name="bk_num" value="${book.bk_num}">
-				<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" width="200" id="db_thumbnail">
+				<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" width="300" class="db-thumbnail">
 				<div id="file_detail">
 					(${book.thumbnail})파일이 등록되어 있습니다.
 				</div>
 			</div>
+			<div class="book-info">
 			<ul>
 				<li>
 					<label for="title">도서명</label>
@@ -96,7 +97,7 @@
 					<input type="number" name="stock" id="stock" class="form-control" min="0" max="9999" value="${book.stock}">
 				</li>
 				<li>
-					분류
+					<label for="category">분류</label>
 					<select name="category" id="category" class="form-select">
 						<option value="문학" <c:if test="${book.category=='문학'}">selected</c:if>>문학</option>
 						<option value="경제/경영" <c:if test="${book.category=='경제/경영'}">selected</c:if>>경제/경영</option>
@@ -118,20 +119,20 @@
 						$(function(){
 							//이미지 미리 보기
 							//1.처음 화면에 보여지는 기존 DB 이미지 저장
-							let photo_path = $('#db_thumbnail').attr('src');
+							let photo_path = $('.db-thumbnail').attr('src');
 							//2.새로 선택한 이미지 저장
 							let new_thumbnail;
 							$('#thumbnail').change(function(){
 								new_thumbnail = this.files[0];
 								//새 이미지를 선택 안 했을 경우 (선택하려다 취소)
 								if(!new_thumbnail){ 
-									$('#db_thumbnail').attr('src',photo_path);
+									$('.db-thumbnail').attr('src',photo_path);
 									return;
 								}
 								//파일 용량이 지정한 범위를 넘을 경우
 								if(new_thumbnail.size > 1024*1024){
 									alert(Math.round(new_thumbnail.size/1024) + 'kbytes(1024kbytes까지만 업로드 가능)');
-									$('#db_thumbnail').attr('src',photo_path);
+									$('.db-thumbnail').attr('src',photo_path);
 									$(this).val(''); //선택한 파일 정보 지우기
 									return;
 								}
@@ -139,7 +140,7 @@
 								let reader = new FileReader();
 								reader.readAsDataURL(new_thumbnail);
 								reader.onload=function(){
-									$('#db_thumbnail').attr('src',reader.result);
+									$('.db-thumbnail').attr('src',reader.result);
 									$('#file_detail').empty();
 								};
 								
@@ -179,7 +180,8 @@
 					<textarea rows="10" cols="60" name="content" id="content" class="form-control">${book.content}</textarea>
 				</li>
 			</ul>
-			<div class="align-center">
+			</div>
+			<div class="button-info">
 				<input type="button" value="목록" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do'">
 				<input type="submit" value="수정" class="btn btn-primary">
 				<input type="button" value="삭제" id="delete_btn" class="btn btn-danger">

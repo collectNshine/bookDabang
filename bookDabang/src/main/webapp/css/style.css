@@ -32,6 +32,11 @@ a:hover{
 	padding:10px 20px;
 	clear:both;
 }
+.page-button{
+	text-align:center;
+	clear:both;
+	width:100%;
+}
 
 /* 공통 메시지
 ------------------*/
