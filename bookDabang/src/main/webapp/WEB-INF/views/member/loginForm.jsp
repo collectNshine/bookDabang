@@ -1,9 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%String ctx = request.getContextPath();
+response.setHeader("Pragma-directive", "no-cache");
+response.setHeader("Cache-directive", "no-cache");
+response.setHeader("Pragma", "no-cache");
+response.setHeader("Cache-Control", "no-cache");
+response.setDateHeader("Expires",0);
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=medium-dpi" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Cache-Control" content="no-cache" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Imagetoolbar" content="no" />
+
 <title>로그인</title>
 <style>
 #logo{
@@ -32,7 +45,7 @@
 		});	
 	});
 	//로그인 실패 
-</script>		
+</script>	
 </head>
 <body>
 	<div>
@@ -57,16 +70,5 @@
 		<a href="myIdSearchForm.do">아이디 찾기</a>
 		<a href="joinForm.do">회원가입</a>
 	</div>
-	<div>
-		<img id="captchaImg" src="${pageContext.request.contextPath}/member/captchaImg.do"/><!-- 이거 안된다. -->
-	</div>
-	<div id="catpcha"></div>
-
-        <div id="audiocatpch" style="display: none;"></div>
-        <input id="reLoad" type="button" value="새로고침" />
-        <input id="soundOn" type="button" value="음성듣기" />
-        <br />
-        <input type="text" id="answer" name="answer" value="" />
-        <input type="button" id="frmSubmit" value="확인" />
 	</body>
 </html>
