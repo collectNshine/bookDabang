@@ -98,7 +98,7 @@ public class CartDAO {
 		return list;
 	}
 	
-	// 주문번호별 장바구니 목록 
+	// 주문번호별 장바구니 목록
 		public List<CartVO> getListCartByCartNum(String[] cart_num) throws Exception {
 			Connection conn = null;
 			PreparedStatement pstmt = null;
