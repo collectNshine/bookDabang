@@ -245,6 +245,7 @@ import kr.util.StringUtil;
 			PreparedStatement pstmt = null;
 			PreparedStatement pstmt2 = null;
 			PreparedStatement pstmt3 = null;
+			PreparedStatement pstmt4 = null;
 			String sql = null;
 			try {
 				//커넥션 풀로부터 커넥션을 할당
@@ -264,11 +265,17 @@ import kr.util.StringUtil;
 				pstmt2.setInt(1, post_num);
 				pstmt2.executeUpdate();
 				
-				//부모글 삭제
-				sql = "DELETE FROM post WHERE post_num=?";
+				//댓글 삭제
+				sql = "DELETE FROM post_report WHERE post_num=?";
 				pstmt3 = conn.prepareStatement(sql);
 				pstmt3.setInt(1, post_num);
 				pstmt3.executeUpdate();
+				
+				//부모글 삭제
+				sql = "DELETE FROM post WHERE post_num=?";
+				pstmt4 = conn.prepareStatement(sql);
+				pstmt4.setInt(1, post_num);
+				pstmt4.executeUpdate();
 				
 				//예외 발생 없이 정상적으로 SQL문 실행 시 커밋
 				conn.commit();
