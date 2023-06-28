@@ -80,7 +80,7 @@
 					<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" width="150" class="list-thumbnail">
 					</a>
 				</li>
-			</ul>
+			</ul> 
 			<ul class="list-text">
 				<li>
 					<div class="list-title">

@@ -14,7 +14,7 @@ public class StringUtil {
 
 
 	/*
-	 * HTML를 허용하지 않으면서 줄바꿈
+	 * HTML를 허용하지 않으면서 줄바꿈 
 	 */
 	public static String useBrNoHtml(
 			                   String str) {

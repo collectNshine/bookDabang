@@ -20,7 +20,7 @@ public class DeleteBooksAction implements Action{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		Map<String,String> mapAjax = new HashMap<String,String>();
-		
+		 
 		//로그인 여부 체크
 		HttpSession session = request.getSession();
 		Integer user_num = (Integer)session.getAttribute("user_num");

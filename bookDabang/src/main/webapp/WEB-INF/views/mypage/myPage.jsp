@@ -375,7 +375,7 @@ ul.search {
 		});
 		
 		//모두 선택일 때 개별 체크박스 하나 해제 시 모두 선택 해제
-		 $(".chBox").click(function(){
+		 $(".chBox").click(function(){ 
 			  $("#allCheck").prop("checked", false);
 		});
 		

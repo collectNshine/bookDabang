@@ -19,7 +19,7 @@ public class WriteFormAction implements Action{
 
 		Integer user_auth = (Integer)session.getAttribute("user_auth");
 		if(user_auth < 9) { //관리자로 로그인하지 않은 경우
-			return "/WEB-INF/views/common/notice.jsp";
+			return "/WEB-INF/views/common/notice.jsp"; 
 		}
 		
 		//관리자 로그인 O
