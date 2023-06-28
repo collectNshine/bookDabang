@@ -65,7 +65,7 @@
 				</div>
 				<div class="card-detail">
     				<h5 class="card-title"><b><a href="detail.do?post_num=${post.post_num}">${post.post_title}</a></b></h5>
-    				<p class="card-text"><a href="detail.do?post_num=${post.post_num}">${post.post_content}</a></p>
+    				<pre class="card-text"><a href="detail.do?post_num=${post.post_num}">${post.post_content}</a></pre>
     			</div>
     			<div class="card-footer">
     				<small class="footer1"><img class="fav" src="../images/like.png" width="33" height="33">${post.cnt}</small>
