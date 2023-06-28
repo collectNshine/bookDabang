@@ -14,7 +14,7 @@ public class EmailSender {
     // 구글 이메일
     static final String user_email= "bookdabang.manager@gmail.com";
     // 구글 비번
-    static final String user_pw = "jgiunifcfqzpckzb";
+    static final String user_pw = "passwd";
     
     static final String smtp_host = "smtp.gmail.com";
     static final int smtp_port = 465;  // TLS : 587, SSL : 465
