@@ -5,17 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입을 축하드립니다</title>
-<script type="text/javascript">
-//뒤로가기 방지
-</script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
- 	<div>
- 	<h2>welcome.jsp</h2>
- 		<ul>
- 			<li>${user_name}님의 회원가입을 축하드립니다.</li>
- 			<li><input id="main" type="button" value="메인으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'"></li>
- 		</ul>
- 	 </div>
+<div>
+	<div class="card align-middle" style="width:20rem; border-radius:20px;">
+		<div class="card-body">
+			<img id="logo" src="../images/colorlogo.png" width="150" onclick="location.href='../main/main.do'">
+			<div style="text-align:center;">
+				<h3>" ${user_name}님 "</h3>
+					돌아오신 것을 환영합니다.
+				 <p>
+			</div>
+			<input type="button" class="btn btn-lg btn-dark btn-block" value="로그인페이지" onclick="location.href='loginForm.do'">
+			<input id="main" type="button" value="메인으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
+		</div>
+	</div>
+</div>
 </body>
 </html>

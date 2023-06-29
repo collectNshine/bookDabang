@@ -14,6 +14,9 @@
 }
 </style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 <script type="text/javascript">
 //아이디 입력값 검증
 $(document).ready(function() {
@@ -64,6 +67,10 @@ $(document).ready(function() {
 	//비밀번호 일치 확인 
 	$('#passwd_btn').click(function(){
 		click_check = true;
+		if($('#passwd').val().trim() == ""){
+			$('#guide').text("비밀번호를 입력하세요.").css("color","#F00");
+			return false;
+		}
 		//비밀번호와 비밀번호 확인값 일치 확인
 		if($('#passwd').val()!=$('#passwd2').val()){
 			$('#guide').text("비밀번호와 비밀번호 확인이 불일치합니다.").css("color","#F00");
@@ -71,7 +78,7 @@ $(document).ready(function() {
 			$('#passwd2').val('');
 			return false;
 		}else{
-			$('#guide').text("비밀번호와 비밀번호 확인이 일치합니다.")
+			$('#guide').text("비밀번호와 비밀번호 확인이 일치합니다.").css("color","#000");
 		}
 	});
 	
@@ -141,72 +148,78 @@ $(document).ready(function() {
 		}
 	});
 });
-		
 </script>
 </head>
-<body>
-	<div>
-		<img id="logo" src="../images/임시_로고.png" width="130" onclick="location.href='../main/main.do'">
+<body cellpadding="0" cellspacing="0" marginleft="0" margintop="0" width="100%" height="100%" align="center">
+	<div class="card align-middle" style="width:20rem; border-radius:20px;">
+		<div class="card-title" style="margin-top:30px;">
+		<img id="logo" src="../images/colorlogo.png" width="150" onclick="location.href='../main/main.do'">
+		<h4 class="card-title text-center" style="color:#113366;" >회원가입</h4>
+		</div>
+		<div class="card-body">
 		<form id="join_Form" action="join.do" method="post">
 			<div>
 				<ul>
 					<li>
-						<input class="check" id="id" name="id" type="text" placeholder="아이디">
+						<input class="check form-control" id="id" name="id" type="text" placeholder="아이디">
 					</li>
 					<li>
-						<input class="check" id="passwd" name="passwd" type="password" placeholder="비밀번호">
+						<input class="check form-control" id="passwd" name="passwd" type="password" placeholder="비밀번호">
 					</li>	
 					<li>
-						<input class="check" id="passwd2" name="passwd2" type="password" placeholder="비밀번호 확인">
-						<input id="passwd_btn" type="button" value="확인">
+						<input class="check form-control" id="passwd2" name="passwd2" type="password" placeholder="비밀번호 확인">
+						<input id="passwd_btn" class="btn btn-lg btn-light btn-block" type="button" value="비밀번호 확인">
 					</li>
 					<li>
-						<input class="check" id="phone" name="phone" type="text" placeholder="전화번호">
+						<input class="check form-control" id="phone" name="phone" type="text" placeholder="전화번호">
 					</li>
 					<li id="guide"></li>
 					<li>
-						<input class="check" id="name" name="name" type="text" placeholder="이름">
+						<input class="check form-control" id="name" name="name" type="text" placeholder="이름">
 					</li>
 					<li>
 						<label>생일</label>
-						<input class="check" id="birthday" name="birthday" type="date" placeholder ="생일">
+						<input class="check form-control" id="birthday" name="birthday" type="date" placeholder ="생일">
 					</li>
 					<li>
-						<input class="check" id="zipcode" name="zipcode" type="text" placeholder="우편번호">
+						<input class="check form-control" id="zipcode" name="zipcode" type="text" placeholder="우편번호">
 					</li>
 					<li>
-						<input type="button" value="주소찾기" onclick="execDaumPostcode()">
+						<input type="button" class="btn btn-lg btn-light btn-block" value="주소찾기" onclick="execDaumPostcode()">
 					</li>
 					<li>
-						<input class="check" id="address1" name="address1" type="text" placeholder="주소">
+						<input class="check form-control" id="address1" name="address1" type="text" placeholder="주소">
 					</li>
 					<li>
-						<input class="check" id="address2" name="address2" type="text" placeholder="상세주소">
+						<input class="check form-control" id="address2" name="address2" type="text" placeholder="상세주소">
 					</li>
 					<li>
-						<label>성별</label>
+					<label class="btn btn-lg btn-light btn-block">
+						성별
 						<input  id="sex1" name="sex" type="checkbox" value="1" checked>남자
 						<input  id="sex2" name="sex" type="checkbox" value="2">여자
+					</label>
 					<li>
 					<li>
-						<input class="check" id="email" name="email" type="email" placeholder="이메일">
+						<input class="check form-control" id="email" name="email" type="email" placeholder="이메일">
 					</li>
 					<li id="guide2"></li>
 					<li>
-						<input  id="email_btn" type="button" value="이메일주소로 인증번호발송">
+						<input  id="email_btn" class="btn btn-lg btn-dark btn-block" type="button" value="인증번호 발송">
 					</li>
 				</ul>	
-			</div>
-			<div id="type_num" >
-				<ul >
-					<li>
-						<input id="auth" name="auth" type="text" placeholder="인증번호">
-					</li>
-					<li>
-						<input id="all_submit" type="submit" value="가입하기">
-					</li>
-
-				</ul>
+				<div id="type_num" >
+					<ul >
+						<li>
+							<input id="auth" class="form-control"name="auth" type="text" placeholder="인증번호">
+						</li>
+						<li>
+							<input id="all_submit" class="btn btn-lg btn-dark btn-block" type="submit" value="가입하기">
+						</li>
+	
+					</ul>
+				</div>
+				</div>
 			</div>
 			<!-- 우편번호 검색 시작 -->
 	<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
