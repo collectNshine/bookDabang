@@ -36,7 +36,7 @@ public class UserOrderAction implements Action {
 		
 		String book_title;
 		if(cartList.size() == 1) { book_title = cartList.get(0).getBookVO().getTitle(); }
-		else { book_title = cartList.get(0).getBookVO().getTitle() + " 外 " + (cartList.size() - 1) + "건"; }
+		else { book_title = cartList.get(0).getBookVO().getTitle() + " 외 " + (cartList.size() - 1) + "건"; }
 		
 		// 개별 상품 정보 담기
 		List<OrderDetailVO> detailList = new ArrayList<OrderDetailVO>();
@@ -75,6 +75,7 @@ public class UserOrderAction implements Action {
 		
 		OrderDAO orderDao = OrderDAO.getInstance();
 		orderDao.insertOrder(order, detailList);
+		orderDao.deleteCartByNum(cart_nums);
 		
 		// refresh 정보를 응답 header에 추가
 		response.addHeader("Refresh", "2;url=../main/main.do");

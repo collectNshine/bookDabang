@@ -54,7 +54,7 @@ public class OrderDAO {
 			pstmt2.executeUpdate();
 			
 			// 주문 상세 정보 저장
-			sql = "INSERT INTO zorder_detail (detail_num, bk_num, book_title, book_price, book_total, order_quantity, order_num) VALUES (zorder_detail_seq.nextval, ?, ?, ?, ?, ?, ?)";
+			sql = "INSERT INTO order_detail (detail_num, bk_num, book_title, book_price, book_total, order_quantity, order_num) VALUES (order_detail_seq.nextval, ?, ?, ?, ?, ?, ?)";
 			pstmt3 = conn.prepareStatement(sql);
 			
 			for(int i = 0; i < detailList.size(); i++) {
@@ -86,24 +86,70 @@ public class OrderDAO {
 			}
 			
 			pstmt4.executeBatch();
-			
-			// 장바구니에서 주문 상품 삭제
-			sql = "DELETE FROM cart WHERE mem_num=?";
-			pstmt5 = conn.prepareStatement(sql);
-			pstmt5.setInt(1, order.getMem_num());
-			pstmt5.executeUpdate();
-			
 			conn.commit();
 		} catch(Exception e) {
 			// 하나라도 SQL문이 실패 → 여러 개의 SQL문을 사용하기 때문에 필수!!
 			conn.rollback();
 			throw new Exception(e);
 		} finally {
-			DBUtil.executeClose(null, pstmt5, null);
 			DBUtil.executeClose(null, pstmt4, null);
 			DBUtil.executeClose(null, pstmt3, null);
 			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
 	}
+	
+	// 장바구니에서 구매내역 삭제
+	public void deleteCartByNum(String[] cart_nums) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			sql = "DELETE FROM cart WHERE cart_num IN(" + String.join(",", cart_nums) + ")";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.executeUpdate();
+		} catch(Exception e) { throw new Exception(e); }
+		finally { DBUtil.executeClose(null, pstmt, conn); }
+	}
+	
+	// 관리자&사용자 : 주문 상세
+	public OrderVO getOrder(int order_num) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		OrderVO order = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			sql = "SELECT * FROM orders WHERE order_num=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, order_num);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				order = new OrderVO();
+			}
+		} catch(Exception e) { throw new Exception(e); }
+		finally { DBUtil.executeClose(rs, pstmt, conn); }
+		
+		return order;
+	}
+	
+	// 관리자&사용자 : 주문 수정
+	
+	/* 관리자 */
+	// 전체 주문&검색 주문 개수
+	// 전체 주문&검색 주문 목록
+	
+	/* 사용자 */
+	// 전체 주문&검색 주문 개수
+	// 주문 취소
 }

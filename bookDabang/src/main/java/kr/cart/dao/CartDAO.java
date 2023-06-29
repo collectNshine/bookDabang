@@ -117,6 +117,7 @@ public class CartDAO {
 				list = new ArrayList<CartVO>();
 				while(rs.next()) {
 					CartVO cart = new CartVO();
+					cart.setCart_num(rs.getInt("cart_num"));
 					cart.setBk_num(rs.getInt("bk_num"));
 					cart.setOrder_quantity(rs.getInt("order_quantity"));
 					cart.setMem_num(rs.getInt("mem_num"));
