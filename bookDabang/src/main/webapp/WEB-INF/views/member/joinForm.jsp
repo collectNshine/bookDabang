@@ -73,7 +73,7 @@ $(document).ready(function() {
 	});
 	 //이름 입력값 검증
 	$("#name").blur(function(){
-		if(!/^[ㄱ-ㅎㅏ-ㅣ가-힇ㆍ ᆢ].{2,20}$/.test($("#name").val())){
+		if(!/^[ㄱ-ㅎㅏ-ㅣ가-힇a-zA-Z].{1,20}$/.test($("#name").val())){
 			 $('#guide').text("이름을 다시 입력해주세요.").css('color','#F00');
 	            $("#name").val('');
 	            return false;
@@ -192,12 +192,17 @@ $(document).ready(function() {
 		
 		input = $('#auth').val().trim();
 		if(rannum !== input || rannum == ''){
-			$('#guide2').text('다시 입력 바랍니다.').css('color','#F00');
+			$('#guide2').text('잘못된 접근입니다.').css('color','#F00');
 			return false ;
 		}
 		if(email != $('#email').val().trim()){ //인증 후 이메일 주소 바꾸기 불가능.
 			$('#guide2').text('잘못된 접근입니다.').css('color','#F00');
 			return false ;
+		}
+		if($('#auth').val().length > 15){
+			 $('#guide2').text("인증번호를 다시 입력 해주세요.").css('color','#F00');
+	            $('#auth').val('');
+	            return false;
 		}
 	});
 });
@@ -298,7 +303,7 @@ $(document).ready(function() {
 						</li>
 						<li>
 							<div class="padding2">
-								<input id="all_submit" type="submit" value="가입하기">
+								<input id="all_submit" class="form-control" type="submit" value="가입하기">
 							</div>
 						</li>
 					</ul>
