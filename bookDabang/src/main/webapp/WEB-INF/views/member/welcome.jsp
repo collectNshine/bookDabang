@@ -15,7 +15,7 @@
 			<img id="logo" src="../images/colorlogo.png" width="150" onclick="location.href='../main/main.do'">
 			<div style="text-align:center;">
 				<h3>" ${user_name}님 "</h3>
-					돌아오신 것을 환영합니다.
+					가입을 축하드립니다.
 				 <p>
 			</div>
 			<input type="button" class="btn btn-lg btn-dark btn-block" value="로그인페이지" onclick="location.href='loginForm.do'">
