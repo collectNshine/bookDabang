@@ -13,11 +13,11 @@ $(function(){
 			dataType:'json',
 			success:function(param){
 				if(param.result == 'logout'){
-					alert('로그인 후 좋아요를 눌러주세요');
+					alert('로그인 후 등록 가능합니다.');
 				}else if(param.result == 'success'){
 					displayLike(param,click_btn);
 				}else{
-					alert('좋아요 표시 오류 발생');
+					alert('등록 표시 오류 발생');
 				}
 			},
 			error:function(){
@@ -52,11 +52,11 @@ $(function(){
 			dataType:'json',
 			success:function(param){
 				if(param.result == 'logout'){
-					alert('로그인 후 좋아요를 눌러주세요');
+					alert('로그인 후 등록 가능합니다.');
 				}else if(param.result == 'success'){
 					displayDislike(param,click_btn);
 				}else{
-					alert('좋아요 표시 오류 발생');
+					alert('등록 오류 발생');
 				}
 			},
 			error:function(){
