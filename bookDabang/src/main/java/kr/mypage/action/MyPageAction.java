@@ -74,7 +74,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		
 		MyPageDAO postdao = MyPageDAO.getInstance();
 		int mp_count = postdao.getMyPostCount(mp_keyfield, mp_keyword);
-		PageUtil mp_page = new PageUtil(mp_keyfield,mp_keyword,Integer.parseInt(mp_pageNum),mp_count,10,10,"myPage.do");
+		PageUtil mp_page = new PageUtil(mp_keyfield,mp_keyword,Integer.parseInt(mp_pageNum),mp_count,10,10,"myPage.do","#post");
 		
 		List<PostVO> mp_list = null;
 		if(mp_count > 0) {

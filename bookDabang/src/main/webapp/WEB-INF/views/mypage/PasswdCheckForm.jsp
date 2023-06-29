@@ -12,6 +12,8 @@ input[type="password"], input[type="email"] {
     width: 500px;
     height: 30px;
 };
+
+
 </style>
 </head>
 <body>
@@ -30,7 +32,7 @@ input[type="password"], input[type="email"] {
 		<p class="align-center">개인정보 변경을 위해 비밀번호를 입력해주세요.</p>
 		</div>
 		<form id="passwdcheck_form" action="PasswdCheck.do" method="post" style="border:none">
-			<div class="result-display" style="border:none;">
+			<div class="result-display" style="border:none; height:50px">
 				<div class="align-center" style="display:flex;"> 
 					<input type="password" name="passwd" id="passwd" maxlength="12" placeholder="비밀번호를 입력해주세요." style="margin-right: 10px;">
 					<%-- <input type="button" value="확인" onclick="location.href='${pageContext.request.contextPath}/mypage/modifyUserForm.do'"> --%>
