@@ -265,7 +265,7 @@ import kr.util.StringUtil;
 				pstmt2.setInt(1, post_num);
 				pstmt2.executeUpdate();
 				
-				//댓글 삭제
+				//신고 삭제
 				sql = "DELETE FROM post_report WHERE post_num=?";
 				pstmt3 = conn.prepareStatement(sql);
 				pstmt3.setInt(1, post_num);
@@ -284,6 +284,7 @@ import kr.util.StringUtil;
 				conn.rollback();
 				throw new Exception(e);
 			}finally {
+				DBUtil.executeClose(null, pstmt4, null);
 				DBUtil.executeClose(null, pstmt3, null);
 				DBUtil.executeClose(null, pstmt2, null);
 				DBUtil.executeClose(null, pstmt, conn);
