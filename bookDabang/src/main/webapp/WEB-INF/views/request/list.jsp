@@ -76,14 +76,12 @@
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>
 				<td>${request.req_author}</td>
 				<td>${request.req_publisher}</td>
-				<c:choose>
-					<c:when test="${request.req_modifydate!=null}">
+					<c:if test="${!empty request.req_modifydate}">
 						<td>${request.req_modifydate}</td>
-					</c:when>
-					<c:otherwise>
+					</c:if>
+					<c:if test="${empty request.req_modifydate}">
 						<td>${request.req_date}</td>
-					</c:otherwise>
-				</c:choose>
+					</c:if>
 				<td>
 					<c:if test="${request.clicked != 'clicked'}">
 						<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
@@ -101,9 +99,9 @@
 	</div>
 	<!-- 신청목록리스트 끝 -->
 	<div class="list-space align-right">
-		<button type"button"><img src="${pageContext.request.contextPath}/images/req_write" onclick="location.href='writeForm.do'"></button>
+		<input class="req_writebtn" type="button" onclick="location.href='writeForm.do'">
 		<!-- <input type="button" value="글쓰기" id="wbutton" onclick="location.href='writeForm.do'"  -->
-			<c:if test="${empty user_num}">disabled="disabled"</c:if>>
+			<c:if test="${empty user_num}">disabled="disabled"</c:if>
 	</div>
 	</div>
 </div>
