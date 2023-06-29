@@ -4,17 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기</title>
-
-<style>
-#type_num{
-	display:none;
-}
-#logo{
-	cursor: pointer;
-}
-</style>
+<title>책다방 : 아이디 찾기</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/member.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script type="text/javascript">
 $(document).ready(function(){
 	
@@ -77,31 +70,38 @@ $(document).ready(function(){
 			return false ;
 		}
 	});
+	
+	$('input').keydown(function(){
+		$('#guide1').text('');
+		$('#guide2').text('');
+	});
 });
 </script>
 </head>
-<body>
-	<div>
-		<img id="logo" src="../images/임시_로고.png" width="130" onclick="location.href='../main/main.do'">
-		<h3>아이디 찾기:이메일로 본인인증하기</h3>
-		<form id="email_form" method="post" action="showMyId.do">
-			<div>
-			
-				<ul>
-					<li><input id="name" name="name"type="text" placeholder="이름"></li>
-					<li><input id="email" name="email" type="email" placeholder="이메일"></li>
-					<li id="guide1"></li>
-					<li><input id="email_btn" type="button" value="인증번호 보내기"></li>
-				</ul>
+<body cellpadding="0" cellspacing="0" marginleft="0" margintop="0" width="100%" height="100%" align="center" >
+	<div class="card align-middle" style="width:20rem; border-radius:20px;">
+		
+		<form id="email_form" class="form-signin" method="post" action="showMyId.do">
+			<div class="card-title" style="margin-top:30px;">
+				<img src="../images/colorlogo.png" width="150">
+				<h4 class="card-title text-center" style="color:#113366;" >아이디 찾기</h4>
+				<p  class="card-title text-center"> 이메일로 인증하기</p>
 			</div>
-			<p>
-			<div id="type_num">
-				
+			<div class="card-body">
 				<ul>
-					<li><input id="auth" type="text" placeholder="인증번호"></li>
-					<li id="guide2"></li>
-					<li><input id="all_btn" type="submit" value="인증하기" ></li>
+					<li><input class="form-control" id="name" name="name"type="text" placeholder="이름"></li>
+					<li><input class="form-control" id="email" name="email" type="email" placeholder="이메일"></li>
+					<li id="guide1"></li>
+					<li><input id="email_btn" class="btn btn-lg btn-dark btn-block" type="button" value="인증번호 보내기"></li>
 				</ul>
+				<p>
+				<div id="type_num">
+					<ul>
+						<li><input class="form-control" id="auth" type="text" placeholder="인증번호"></li>
+						<li id="guide2"></li>
+						<li><input id="btn-Yes" class="btn btn-lg btn-dark btn-block" type="submit" value="인증하기" ></li>
+					</ul>
+				</div>
 			</div>
 		</form>
 	</div>
