@@ -3,7 +3,7 @@ $(function(){
 	let count;
 	let rowCount;
 	
-	//좋아요 등록(및 삭제) 이벤트 처리
+	//좋아요 등록(및 삭제) 이벤트 처리 
 	$(document).on('click','.output_like',function(){
 		let click_btn = $(this);
 		$.ajax({

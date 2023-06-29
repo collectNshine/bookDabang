@@ -17,7 +17,7 @@ import kr.util.StringUtil;
 
 
 public class BookDAO {
-		//싱글턴 패턴 
+		//싱글턴 패턴
 		private static BookDAO instance = new BookDAO();
 		public static BookDAO getInstance() {
 			return instance;
