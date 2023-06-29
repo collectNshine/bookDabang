@@ -35,7 +35,7 @@
 				$('input[name="receive_post"]').val($('#post_info').val());
 				$('input[name="receive_address1"]').val($('#address1_info').val());
 				$('input[name="receive_address2"]').val($('#address1_info').val());
-				$('input[name="receive_phone"]').val($('#address1_info').val());
+				$('input[name="receive_phone"]').val($('#phone_info').val());
 				$('input[name="email"]').val($('#email_info').val());
 			});
 			
