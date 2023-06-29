@@ -19,6 +19,10 @@ ul.search {
     margin: 0 auto;
     display: flex;
 }
+element.style {
+    display: flex;
+    margin-left: 250px;
+}
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
@@ -34,7 +38,7 @@ ul.search {
 	<div class="mypage-div">
 	<!-- 프로필 사진 시작 --> 
 		<ul>
-			<li style="display:flex;">
+			<li style="display:flex;  margin-left: 250px;">
 				<c:if test="${empty user_photo}">
 					<div>
 						<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
@@ -48,7 +52,7 @@ ul.search {
 				<c:if test="${!empty user_photo}">
 					<img src="${pageContext.request.contextPath}/upload/${user_photo}" 
 						 width="200" height="200" class="my-photo">
-					<div style="display:flex;justify-content: space-around;flex-direction: column; margin-left:20px;">	 
+					<div style="display:flex;justify-content: space-around;flex-direction: column; margin-left:25px;">	 
 						 <h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_name}</b>님의 책다방</h4>
 						 <input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
 					 </div>
@@ -61,18 +65,18 @@ ul.search {
 		<!-- 사용자 마이페이지 메뉴 시작 -->
 		<c:if test="${!empty user_num && user_auth == 1}">
 		<ul class="tabWrap" style="border-color:#b3b3b3">
-			<li data-tab="book_mark" style="cursor: pointer;" class="on"><a href="#book_mark">책갈피</a></li>
-			<li data-tab="post" style="cursor: pointer;"><a href="#post">작성글</a></li>
-			<li data-tab="order" style="cursor: pointer;"><a href="#order">주문목록</a></li>
+			<li data-tab="book_mark" style="cursor: pointer;" class="on"><a href="myPage.do#book_mark">책갈피</a></li>
+			<li data-tab="post" style="cursor: pointer;"><a href="myPage.do#post">작성글</a></li>
+			<li data-tab="order" style="cursor: pointer;"><a href="myPage.do#order">주문목록</a></li>
 		</ul>
 		
 			
 		<!-- 사용자 [1. 책갈피] 시작 -->
 		<div id="book_mark" class="tab_contents on">
 			<div class="content-main container">
-			<br><h2><a href="myPage.do">나의 책갈피</a></h2><br>
+			<br><h2><a href="myPage.do#book_mark">나의 책갈피</a></h2><br>
 			<!-- 검색창 시작 : get방식 -->
-			<form id="bm_search_form" action="myPage.do" method="get" class="d-flex" role="search" >
+			<form id="bm_search_form" action="myPage.do#book_mark" method="get" class="d-flex" role="search" >
 				<select name="bm_keyfield" class="form-select">
 					<option value="1" <c:if test="${param.bm_keyfield==1}">selected</c:if>>도서명</option>
 					<option value="2" <c:if test="${param.bm_keyfield==2}">selected</c:if>>저자명</option>
@@ -126,7 +130,7 @@ ul.search {
 		<div class="content-main container">
 		<br><h2>나의 작성글</h2><br>
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form2-1" action="myPagePost.do" method="get" class="d-flex" role="search" style="border:none;">
+			<form id="search_form2-1" action="myPagePost.do#post" method="get" class="d-flex" role="search" style="border:none;">
 				<ul class="search">
 					<li>
 						<select name="mp_keyfield" class="form-select">
@@ -202,7 +206,7 @@ ul.search {
 		<div class="content-main container">
 		<br><h2><a href="myPage.do">주문목록</a></h2><br>
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form3-1" action="myPagePost.do" method="get" class="d-flex">
+			<form id="search_form3-1" action="myPage.do#order" method="get" class="d-flex">
 				<ul class="search">
 					<li>
 						<select name="keyfield" class="form-select">
@@ -276,7 +280,7 @@ ul.search {
 		<!-- 관리자 마이페이지 메뉴 시작 -->
 		<c:if test="${!empty user_num && user_auth == 9}">
 		<ul class="tabWrap" style="border-color:#b3b3b3">
-			<li data-tab="admin_book" style="cursor: pointer;" class="on"><a href="#admin_book">도서관리</a></li>
+			<li data-tab="admin_book" style="cursor: pointer;" class="on"><a href="myPage.do#admin_book">도서관리</a></li>
 			<li data-tab="admin_order" style="cursor: pointer;"><a href="myPage.do#admin_order">주문관리</a></li>
 			<li data-tab="admin_member" style="cursor: pointer;"><a href="myPage.do#admin_member">회원관리</a></li>
 			<li data-tab="admin_report" style="cursor: pointer;"><a href="myPage.do#admin_report">신고내역</a></li>
@@ -413,7 +417,7 @@ ul.search {
 	<!-- [2. 주문 관리] 시작 -->
 		<div id="admin_order" class="tab_contents">
 			<div class="content-main">
-				<h2><a href="myPage.do">주문 관리</a></h2>
+				<h2><a href="myPage.do#admin_order">주문 관리</a></h2>
 					<!-- 검색창 시작 : get방식 -->
 					<form id="search_form2" action="myPage.do#admin_order" method="get" class="d-flex">
 						<ul class="search">
@@ -479,7 +483,7 @@ ul.search {
 		<!-- [3. 회원 관리] 시작 -->
 		<div id="admin_member" class="tab_contents">
 			<div class="content-main">
-				<h2><a href="myPage.do">회원 관리</a></h2>
+				<h2><a href="myPage.do#admin_member">회원 관리</a></h2>
 				
 				<!-- 검색창 시작 : get방식 -->
 				<form id="search_form3" action="myPage.do#admin_member" method="get" class="d-flex">
@@ -546,7 +550,7 @@ ul.search {
 		
 		<!-- [4. 신고 내역] 시작 -->
 		<div id="admin_report" class="tab_contents">
-		<h2><a href="myPage.do">신고 내역</a></h2>
+		<h2><a href="myPage.do#admin_report">신고 내역</a></h2>
 		
 		<!-- 검색창 시작 : get방식 -->
 			<form id="search_form4" action="myPage.do#admin_report" method="get" class="d-flex">
