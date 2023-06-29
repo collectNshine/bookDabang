@@ -549,24 +549,17 @@ element.style {
 		
 		<!-- [4. 신고 내역] 시작 -->
 		<div id="admin_report" class="tab_contents">
-		<h2><a href="myPage.do#admin_report">신고 내역</a></h2>
+		<div class="content-main container">
+		<br><h2><a href="myPage.do#admin_report">신고 내역</a></h2>
 		
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form4" action="myPage.do#admin_report" method="get" class="d-flex">
-				<ul class="search">
-					<li>
-						<select name="repoKeyfield" class="form-select">
-							<option value="1" <c:if test="${param.repoKeyfield==1}">selected</c:if>>신고유형</option>
-							<option value="2" <c:if test="${param.repoKeyfield==2}">selected</c:if>>회원번호</option>
-						</select>
-					</li>
-					<li>
-						<input type="search" size="16" name="repoKeyword" id="repoKeyword" value="${param.repoKeyword}" class="form-control me-2">
-					</li>
-					<li>
-						<input type="submit" value="검색" class="btn btn-outline-success">
-					</li>
-				</ul>
+			<form id="search_form4" action="myPage.do#admin_report" method="get" class="d-flex" role="search">
+				<select name="repoKeyfield" class="form-select" style="width:180px;">
+					<option value="1" <c:if test="${param.repoKeyfield==1}">selected</c:if>>신고유형</option>
+					<option value="2" <c:if test="${param.repoKeyfield==2}">selected</c:if>>회원번호</option>
+				</select>
+				<input type="search" size="16" name="repoKeyword" id="repoKeyword" value="${param.repoKeyword}" class="form-control me-2">
+				<input type="submit" value="검색" class="btn btn-outline-success">
 			</form>
 			<script type="text/javascript">
 				$(function(){
@@ -580,7 +573,7 @@ element.style {
 				});
 			</script> 
 			<!-- 검색창 끝 -->
-			
+			<input type="button" value="선택 삭제" class="btn btn-primary" id="selecdel_btn">
 			<c:if test="${repoCount == 0}">
 				<div class="result-display">
 					신고 내역이 없습니다.
@@ -589,6 +582,7 @@ element.style {
 			<c:if test="${repoCount > 0}">
 			<table class="table table-hover align-center">
 				<tr>
+					<th><input type="checkbox" name="allchk" id="allchk"></th>
 					<th>신고 번호</th>
 					<th>회원 번호</th>
 					<th>신고 유형</th>
@@ -597,12 +591,8 @@ element.style {
 				</tr>
 				<c:forEach var="report" items="${repoList}"> 
 				<tr>
-					<td>
-					<c:if test="${user_auth == 9}">
-					<input class="checkbox" name="checkbox" type="checkbox" value="${report.repo_num}">
-					</c:if>
-					<a href="${pageContext.request.contextPath}/post/detailReport.do?repo_num=${report.repo_num}">${report.repo_num}</a>
-					</td>
+					<td><input type="checkbox" class="chkbox" name="chkbox" value="${report.repo_num}"></td>
+					<td><a href="${pageContext.request.contextPath}/post/detailReport.do?repo_num=${report.repo_num}">${report.repo_num}</a></td>
 					<td>${report.mem_num}</td>
 					<td>${report.repo_category}</td>
 					<td>${report.repo_content}</td>
@@ -610,30 +600,62 @@ element.style {
 				</tr>
 				</c:forEach>
 			</table>
-			<c:if test="${user_auth == 9}">
-			<input id="all_btn" type="button" value="전체 선택">
 			<script type="text/javascript">
-			let all_btn = document.getElementById('all_btn');
-			//이벤트 연결
-			all_btn.onclick=function(){
-				$(":checkbox").attr("checked","checked")
-			};
-			</script>
-			<input id="del_btn" type="button" value="삭제"> 
-			<script type="text/javascript">
-			let del_btn = document.getElementById('del_btn');
-			//이벤트 연결
-			del_btn.onclick=function(){
-				let choice = confirm('삭제하시겠습니까?');
-				if(choice){
-				//location.replace('deleteReport.do?repo_num=${report.repo_num}');
-				//history.go(0);
-				}
-			};
+				//이벤트 연결
+				//모두 선택 체크박스 클릭 이벤트
+				$("#allchk").click(function(){
+			 		var chk = $("#allchk").prop("checked");
+			 		if(chk) {
+			  		$(".chkbox").prop("checked", true);
+			 		} else {
+			  		$(".chkbox").prop("checked", false);
+			 		}
+				});
+		
+				//모두 선택일 때 개별 체크박스 하나 해제 시 모두 선택 해제
+				$(".chkbox").click(function(){ 
+			  		$("#allchk").prop("checked", false);
+				});
+				
+				//선택 삭제
+				$('#selecdel_btn').click(function(){
+					if($('input:checkbox[name=chkbox]:checked').length<1){
+						alert('삭제할 항목을 선택하세요');
+						return false;
+					}
+					let selecdel = new Array();
+					$('input:checkbox[name=chkbox]:checked').each(function(index,item){
+						selecdel.push($(this).val());
+					});
+					$.ajax({
+						url:'deleteSelecReport.do',
+						type:'post',
+						data:{'selecdel':selecdel.toString()},
+						dataType:'json',
+						success:function(param){
+							let choice = confirm("정말 삭제하시겠습니까?");
+					    	if(choice){
+								if(param.result == 'logout'){
+									alert('로그인 후 삭제할 수 있습니다.');
+								}else if(param.result =='success'){
+									alert('신고 내역이 삭제되었습니다.');
+									history.go(0);
+								}else if(param.result == 'wrongAccess'){
+									alert('잘못된 접근입니다.');
+								}else{
+									alert('신고 내역 삭제 중 오류가 발생했습니다.');
+								}
+							}
+					    },
+					    error:function(){
+					    	alert('네트워크 오류 발생');
+					    }
+				   });
+				});
 			</script>
 			</c:if>
 			<div class="align-center">${repoPage}</div>
-		</c:if>
+		</div>
 		</div>
 		<!-- [4. 신고 내역] 끝 -->
 		
