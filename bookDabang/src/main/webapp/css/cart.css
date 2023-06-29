@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Noto+Sans+KR:wght@300&display=swap');
   
-/* 전체 레이아웃 */
+/* 전체 레이아웃 */ 
 *{ font-family:'Noto Sans KR', sans-serif; }
 
 body{ width:80%; margin:0 auto; }
@@ -52,7 +52,6 @@ ul{ list-style:none; }
 
 /* 주문 */
 .orderinfo-form{ width:100%; clear:both; float:left; margin:30px auto; }
-/*.float-left{ float:left; }*/
 .mem-info{ width:50%; float:left; }
 .delivery-info{ width:50%; float:left; }
 .payment-info{ clear:both; width:40%; margin:50px 30px; }
