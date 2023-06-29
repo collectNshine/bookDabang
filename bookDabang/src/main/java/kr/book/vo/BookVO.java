@@ -43,7 +43,7 @@ public class BookVO {
 	}
 	public void setPrice(int price) {
 		this.price = price;
-	}
+	} 
 	public int getStock() {
 		return stock;
 	}
