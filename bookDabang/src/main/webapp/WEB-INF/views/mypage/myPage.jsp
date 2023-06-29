@@ -233,7 +233,7 @@ element.style {
 				});
 			</script> 
 			<!-- 검색창 끝 -->
-			<table>
+			<table class="table table-hover align-center">
 				<tr>
 					<th>NO.</th>
 					<th>주문명</th>
