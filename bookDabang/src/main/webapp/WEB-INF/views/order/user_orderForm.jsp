@@ -173,7 +173,7 @@
 								<li>
 									<div class="input-group">
 										<span class="input-group-text">요청사항</span>
-										<textarea class="form-control info-check" id="notice" aria-label="With textarea"></textarea>
+										<textarea class="form-control info-check" name="notice" id="notice" aria-label="With textarea"></textarea>
 									</div>
 								</li>
 								<li class="select-delivery">
