@@ -10,7 +10,7 @@
 </head>
 <body>
 <div>
-	<div class="card align-middle" style="width:20rem; border-radius:20px;">
+	<div class="card align-middle" style="width:30rem; border-radius:20px;">
 		<div class="card-body">
 			<img id="logo" src="../images/colorlogo.png" width="150" onclick="location.href='../main/main.do'">
 			<div style="text-align:center;">

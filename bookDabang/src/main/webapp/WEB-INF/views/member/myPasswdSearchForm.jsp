@@ -58,31 +58,44 @@ $(document).ready(function(){
 </script>
 </head>
 <body cellpadding="0" cellspacing="0" marginleft="0" margintop="0" width="100%" height="100%" align="center" >
-	<div class="card align-middle" style="width:20rem; border-radius:20px;">
-		
-		<form id="email_form" class="form-signin" method="post" action="showMyId.do">
-			<div class="card-title" style="margin-top:30px;">
-				<img src="../images/colorlogo.png" width="150">
-				<h4 class="card-title text-center" style="color:#113366;" >비밀번호 찾기</h4>
-				<p  class="card-title text-center"> 이메일로 인증하기</p>
-			</div>
-			<div class="card-body">
-				<ul>
-					<li><input class="form-control" id="name" name="name"type="text" placeholder="이름"></li>
-					<li><input class="form-control" id="email" name="email" type="email" placeholder="이메일"></li>
-					<li id="guide1"></li>
-					<li><input id="email_btn" class="btn btn-lg btn-dark btn-block" type="button" value="인증번호 보내기"></li>
-				</ul>
-				<p>
-				<div id="type_num">
-					<ul>
-						<li><input class="form-control" id="auth" type="text" placeholder="인증번호"></li>
-						<li id="guide2"></li>
-						<li><input id="btn-Yes" class="btn btn-lg btn-dark btn-block" type="submit" value="인증하기" ></li>
-					</ul>
+	<div class="card align-middle" style="width:30rem; border-radius:20px;">
+		<div class="card-body" style="padding: 1rem 5rem 7rem 5rem;">
+			<form id="email_form" class="form-signin" method="post" action="showMyId.do">
+				<div class="card-title" style="margin-top:30px;">
+					<img src="../images/colorlogo.png" width="150" onclick="location.href='../main/main.do'">
+					<h4 class="card-title text-center" style="color:#113366;">비밀번호 찾기</h4>
+					<p  class="card-title text-center"> 이메일로 인증하기</p>
 				</div>
-			</div>
-		</form>
+				<div class="card-body" style="padding:20px;">
+					<ul>
+						<li>
+							<div class="padding">
+								<input class="form-control" id="name" name="name"type="text" placeholder="이름">
+							</div>
+						</li>
+						<li>
+							<div class="padding">
+								<input class="form-control" id="email" name="email" type="email" placeholder="이메일">
+							</div>
+						</li>
+						<li id="guide1"></li>
+						<li>
+							<div class="padding">
+								<input id="email_btn" class="btn btn-lg btn-dark btn-block" type="button" value="인증번호 보내기">
+							</div>	
+						</li>
+					</ul>
+					<p>
+					<div id="type_num">
+						<ul>
+							<li><input class="form-control" id="auth" type="text" placeholder="인증번호"></li>
+							<li id="guide2"></li>
+							<li><input id="btn-Yes" class="btn btn-lg btn-dark btn-block" type="submit" value="인증하기" ></li>
+						</ul>
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
 </body>
 </html>

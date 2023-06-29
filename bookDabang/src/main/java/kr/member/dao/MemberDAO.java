@@ -79,6 +79,7 @@ public class MemberDAO {
 					//세션에 담을 내용이 있다면 아래에 추가한다.
 					vo.setName(rs.getString("sname"));
 					vo.setPhoto(rs.getString("sphoto"));
+					vo.setSsleep_date(rs.getDate("ssleep_date"));
 				}
 			}catch(Exception e) {
 				throw new Exception(e);

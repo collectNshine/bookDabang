@@ -23,7 +23,9 @@ public class MemberVO {
 	private Date reg_date;//계정 생성일
 	private Date latest_login;//최근 로그인
 	private int try_login;//로그인 시도 횟수
-
+	//[member_sleep 테이블]
+	private Date ssleep_date;
+	
 	//비밀번호 일치 여부 체크
 	public boolean isCheckedPassword(
 			            String Passwd) {
@@ -170,6 +172,14 @@ public class MemberVO {
 
 	public void setTry_login(int try_login) {
 		this.try_login = try_login;
+	}
+
+	public Date getSsleep_date() {
+		return ssleep_date;
+	}
+
+	public void setSsleep_date(Date ssleep_date) {
+		this.ssleep_date = ssleep_date;
 	}
 
 
