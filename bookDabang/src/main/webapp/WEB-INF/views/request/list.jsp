@@ -99,8 +99,8 @@
 	</div>
 	<!-- 신청목록리스트 끝 -->
 	<div class="list-space align-right">
-		<input class="req_writebtn" type="button" onclick="location.href='writeForm.do'">
-		<!-- <input type="button" value="글쓰기" id="wbutton" onclick="location.href='writeForm.do'"  -->
+		<!-- <input class="req_writebtn" type="button" onclick="location.href='writeForm.do'"> -->
+		<input type="button" value="글쓰기" id="wbutton" onclick="location.href='writeForm.do'"> 
 			<c:if test="${empty user_num}">disabled="disabled"</c:if>
 	</div>
 	</div>
