@@ -113,6 +113,7 @@ public class RequestDAO {
 				request.setReq_publisher(rs.getString("req_publisher"));
 				request.setReq_etc(rs.getString("req_etc"));
 				request.setReq_date(rs.getDate("req_date"));
+				request.setReq_modifydate(rs.getDate("req_modifydate"));
 				request.setReq_state(rs.getInt("req_state"));
 				request.setReq_ip(rs.getString("req_ip"));
 				request.setCnt(rs.getInt("cnt"));
