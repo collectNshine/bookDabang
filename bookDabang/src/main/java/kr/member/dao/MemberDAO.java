@@ -38,10 +38,15 @@ public class MemberDAO {
 				vo.setPasswd(rs.getString("passwd"));
 				vo.setAuth(rs.getInt("auth"));
 				vo.setState(rs.getInt("state"));
-
 				//세션에 담을 내용이 있다면 아래에 추가한다.
 				vo.setName(rs.getString("name"));
 				vo.setPhoto(rs.getString("photo"));
+				//주문폼을 위해 추가 
+				vo.setZipcode(rs.getString("zipcode"));
+				vo.setAddress1(rs.getString("address1"));
+				vo.setAddress2(rs.getString("address2"));
+				vo.setPhone(rs.getString("phone"));
+				vo.setEmail(rs.getString("email"));
 			}
 		}catch(Exception e) {
 			throw new Exception(e);
