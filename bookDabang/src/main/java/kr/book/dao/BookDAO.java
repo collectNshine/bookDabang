@@ -22,7 +22,7 @@ public class BookDAO {
 		public static BookDAO getInstance() {
 			return instance;
 		}
-		private BookDAO() {} 
+		private BookDAO() {}
 		
 		
 		
