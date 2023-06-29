@@ -30,12 +30,11 @@
 			if($('#order_quantity').val() <= 0 || isNaN($('#order_quantity').val())){
 				$('#order_quantity').val('').focus();
 				return;
-			
 			}
 
-			//둘 중 하나만 Number로 형변환
+			//(둘 중 하나만 Number로 형변환)
 			if(Number($('#stock').val()) < $('#order_quantity').val()){
-				alert('선택하신 수량보다 재고가 부족합니다.');
+				alert('최대 허용 주문 수량을 초과하였습니다.');
 				$('#order_quantity').val('');
 				$('#item_total_txt').text('');
 				return;
@@ -49,7 +48,7 @@
 			event.preventDefault();
 			
 			if($('#order_quantity').val() == ''){
-				alert('수량을 입력하세요!');
+				alert('수량 입력 시에만 주문이 가능합니다.');
 				$('#order_quantity').focus();
 				return false;
 			}
@@ -64,12 +63,15 @@
 				dataType:'json',
 				success:function(param){
 					if(param.result == 'logout'){
-						alert('로그인 후 사용하세요');
+						alert('로그인 후 사용하실 수 있습니다.');
+						location.href='../member/loginForm.do';
 					}else if(param.result == 'success'){
-						alert('장바구니에 담았습니다.');
-						//location.href='../cart/list.do';
+						let choice = confirm('장바구니에 상품을 담았습니다. 이동하시겠습니까?');
+						if(choice){
+							location.href='../cart/list.do';
+						}
 					}else if(param.result == 'over_quantity'){
-						alert('기존에 주문한 상품입니다. 개수를 추가하면 재고가 부족합니다.');
+						alert('입력하신 주문 수량이 현 재고 수량을 초과하였습니다. 다시 입력해주세요.');
 					}else{
 						alert('장바구니 담기 오류');
 					}
