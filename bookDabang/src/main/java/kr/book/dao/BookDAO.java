@@ -291,6 +291,13 @@ public class BookDAO {
 			PreparedStatement pstmt1 = null;
 			PreparedStatement pstmt2 = null;
 			PreparedStatement pstmt3 = null;
+			PreparedStatement pstmt4 = null;
+			PreparedStatement pstmt5 = null;
+			PreparedStatement pstmt6 = null;
+			PreparedStatement pstmt7 = null;
+			PreparedStatement pstmt8 = null;
+			PreparedStatement pstmt9 = null;
+			PreparedStatement pstmt10 = null;
 			String sql = null;
 			try {
 				conn = DBUtil.getConnection();
@@ -301,30 +308,73 @@ public class BookDAO {
 				pstmt1 = conn.prepareStatement(sql);
 				pstmt1.setInt(1, bk_num);
 				pstmt1.executeUpdate();
-				
-				//북마크 삭제
-				sql = "DELETE FROM book_mark WHERE bk_num=?";
+
+				//포스트 좋아요 삭제
+				sql = "DELETE FROM post_fav WHERE post_num IN (SELECT post_num FROM post WHERE bk_num=?)";
 				pstmt2 = conn.prepareStatement(sql);
 				pstmt2.setInt(1, bk_num);
 				pstmt2.executeUpdate();
-
-				//포스트 삭제 메서드(포스트,포스트좋아요,포스트신고,포스트댓글)
 				
-				
-				//댓글 삭제 메서드(댓글,댓글좋아요,댓글싫어요)
-				
-				
-				//부모 테이블 삭제
-				sql = "DELETE FROM book_list WHERE bk_num=?";
+				//포스트 댓글 삭제
+				sql = "DELETE FROM post_reply WHERE post_num IN (SELECT post_num FROM post WHERE bk_num=?)";
 				pstmt3 = conn.prepareStatement(sql);
 				pstmt3.setInt(1, bk_num);
 				pstmt3.executeUpdate();
+				
+				//포스트 신고 삭제
+				sql = "DELETE FROM post_report WHERE post_num IN (SELECT post_num FROM post WHERE bk_num=?)";
+				pstmt4 = conn.prepareStatement(sql);
+				pstmt4.setInt(1, bk_num);
+				pstmt4.executeUpdate();
+				
+				//포스트 삭제
+				sql = "DELETE FROM post WHERE bk_num=?";
+				pstmt5 = conn.prepareStatement(sql);
+				pstmt5.setInt(1, bk_num);
+				pstmt5.executeUpdate();
+				
+				//댓글 좋아요 삭제
+				sql = "DELETE FROM review_like WHERE review_num IN (SELECT review_num FROM review WHERE bk_num=?)";
+				pstmt6 = conn.prepareStatement(sql);
+				pstmt6.setInt(1, bk_num);
+				pstmt6.executeUpdate();
+				
+				//댓글 싫어요 삭제
+				sql = "DELETE FROM review_dislike WHERE review_num IN (SELECT review_num FROM review WHERE bk_num=?)";
+				pstmt7 = conn.prepareStatement(sql);
+				pstmt7.setInt(1, bk_num);
+				pstmt7.executeUpdate();
+				
+				//댓글 삭제
+				sql = "DELETE FROM review WHERE bk_num=?";
+				pstmt8 = conn.prepareStatement(sql);
+				pstmt8.setInt(1, bk_num);
+				pstmt8.executeUpdate();
+
+				//북마크 삭제
+				sql = "DELETE FROM book_mark WHERE bk_num=?";
+				pstmt9 = conn.prepareStatement(sql);
+				pstmt9.setInt(1, bk_num);
+				pstmt9.executeUpdate();
+				
+				//부모 테이블 삭제
+				sql = "DELETE FROM book_list WHERE bk_num=?";
+				pstmt10 = conn.prepareStatement(sql);
+				pstmt10.setInt(1, bk_num);
+				pstmt10.executeUpdate();
 				
 				conn.commit();
 			}catch(Exception e) {
 				conn.rollback();
 				throw new Exception(e);
 			}finally {
+				DBUtil.executeClose(null, pstmt10, null);
+				DBUtil.executeClose(null, pstmt9, null);
+				DBUtil.executeClose(null, pstmt8, null);
+				DBUtil.executeClose(null, pstmt7, null);
+				DBUtil.executeClose(null, pstmt6, null);
+				DBUtil.executeClose(null, pstmt5, null);
+				DBUtil.executeClose(null, pstmt4, null);
 				DBUtil.executeClose(null, pstmt3, null);
 				DBUtil.executeClose(null, pstmt2, null);
 				DBUtil.executeClose(null, pstmt1, conn);
