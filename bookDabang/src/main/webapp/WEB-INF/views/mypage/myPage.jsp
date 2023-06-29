@@ -368,10 +368,10 @@ element.style {
 			  $("#allCheck").prop("checked", false);
 		});
 		
-		<%--
+		
 		//선택 삭제 버튼 클릭 이벤트
 		 $("#selectDelete_btn").click(function(){
-		 		if($('input[class='chBox']:checked').length < 1){
+		 		if($("input[class='chBox']:checked").length < 1){
 					alert('하나 이상의 항목을 선택하세요');
 					return false;
 				}
@@ -383,32 +383,31 @@ element.style {
 			   });
 			   
 			   $.ajax({
-				    url:"deleteBooks.do",
-				    type:"post",
-				    data:{checkArr:checkArr},
+				    url:'deleteBooks.do',
+				    type:'post',
+				    data:{'checkArr':checkArr.toString()},
 				    dataType:'json',
-				    success : function(){
+				    success : function(param){
 				    	let choice = confirm("정말 삭제하시겠습니까?");
 				    	if(choice){
 							if(param.result == 'logout'){
 								alert('로그인 후 삭제할 수 있습니다.');
-							}else if(param.result =='success'){
+							}else if(param.result == 'success'){
 								alert('등록된 도서가 삭제되었습니다.');
 								location.href='myPage.do';
-							}else if(param.result == 'wrongAccess'){
-								alert('잘못된 접근입니다.');
 							}else{
 								alert('도서 정보 삭제 중 오류가 발생했습니다.');
 							}
+						}else{
+							return false;
 						}
 				    },
 				    error:function(){
 				    	alert('네트워크 오류 발생');
 				    }
 			   });
-			   
 		 });
-		--%>
+		
 		</script>
 		
 	<!-- [1. 도서 관리] 끝 -->

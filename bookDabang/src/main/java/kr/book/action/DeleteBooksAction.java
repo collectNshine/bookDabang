@@ -1,6 +1,5 @@
 package kr.book.action;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import kr.book.dao.BookDAO;
-import kr.book.vo.ReviewVO;
 import kr.controller.Action;
 
 public class DeleteBooksAction implements Action{
@@ -30,10 +28,9 @@ public class DeleteBooksAction implements Action{
 			//전송된 데이터 인코딩 처리
 			request.setCharacterEncoding("utf-8");
 			//전송된 데이터 반환
-			int bk_num = Integer.parseInt(request.getParameter("bk_num"));
-			ArrayList<Integer> checkArr = new ArrayList<>();
+			String[] checkArr = request.getParameter("checkArr").split(","); 
 			BookDAO dao = BookDAO.getInstance();
-			dao.deleteBook(bk_num);
+			dao.deleteMultipleBooks(checkArr);
 			mapAjax.put("result", "success");
 		}
 		
