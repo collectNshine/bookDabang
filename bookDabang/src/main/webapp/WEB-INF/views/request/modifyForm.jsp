@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>맞춤도서신청 수정</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/request_style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script>
 	$(function(){
@@ -40,24 +41,25 @@
 			<input type="hidden" name="req_num" value="${request.req_num}">
 			<ul>
 				<li>
-					<label for="req_title">책 제목</label>
-					<input type="text" name="req_title" id="req_title" value ="${request.req_title}" maxlength="50">
+					
+					<label for="req_title">책 제목*</label>
+					<input class="req_input" type="text" name="req_title" id="req_title" value ="${request.req_title}" maxlength="50">
 				</li>
 				<li>
-					<label for="req_author">저자</label>
-					<input type="text" name="req_author" id="req_author" value ="${request.req_author}" maxlength="50">
+					<label for="req_author">저자*</label>
+					<input class="req_input" type="text" name="req_author" id="req_author" value ="${request.req_author}" maxlength="50">
 				</li>
 				<li>
-					<label for="req_publisher">출판사</label>
-					<input type="text" name="req_publisher" id="req_publisher" value ="${request.req_publisher}" maxlength="50">
+					<label for="req_publisher">출판사*</label>
+					<input class="req_input" type="text" name="req_publisher" id="req_publisher" value ="${request.req_publisher}" maxlength="50">
 				</li>
 				<li>
 					<label for="req_etc">기타</label>
-					<input type="text" name="req_etc" id="req_etc" value ="${request.req_etc}" maxlength="150">
+					<input class="req_input" type="text" name="req_etc" id="req_etc" value ="${request.req_etc}" maxlength="150">
 				</li>
 			</ul>
 	
-			<div class="align-center">
+			<div class="req_btn">
 				<input type="button" value="취소" onclick="location.href='list.do'">
 				<input type="submit" value="수정" onclick="location.href='modify.do?req_num=${request.req_num}'">
 				
