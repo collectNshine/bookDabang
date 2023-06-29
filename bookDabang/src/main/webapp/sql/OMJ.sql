@@ -17,7 +17,7 @@ END;
 
 -- member_sleep 삭제 전에 member_detail 테이블로 데이터 추가하는 트리거 
 CREATE TRIGGER sleepToDetail
-BEFORE -- DELETE 이벤트가 발생하기 전.
+BEFORE -- UPDATE작업으로 수정.이벤트가 발생하기 전.
 DELETE ON member_sleep
 FOR EACH ROW
 BEGIN

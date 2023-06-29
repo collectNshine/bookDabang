@@ -12,12 +12,15 @@ color:red;
 }
 </style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/request_style.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <div>
 <h1>1:1 문의</h1>
+<input type="button" value="글쓰기" class="btn btn-outline-secondary" onclick="location.href='qnaWriteForm.do'">
 	<table>
 		<tr>
 			<th>순서</th>
@@ -30,7 +33,7 @@ color:red;
 			<td>${qna.qna_num}</td>
 			<c:choose>
 	 			<c:when test="${qna.delflag eq 0}">
-					<td>
+					<td style="text-align:left;">
 						<c:forEach begin="0" end="${qna.depth}" var="nbsp" step="1">
 							&nbsp;&nbsp;&nbsp;&nbsp;
 						</c:forEach>
@@ -41,7 +44,7 @@ color:red;
 					</td>
 				</c:when>
 			<c:otherwise>
-			<td id="deleted">삭제된 게시물입니다.</td>
+			<td id="deleted" style="text-align:left;">삭제된 게시물입니다.</td>
 			</c:otherwise>
 			</c:choose>
 			<td>${qna.name}</td>
@@ -49,8 +52,9 @@ color:red;
 		</tr>
 		</c:forEach>
 	</table>
-	<input type="button" value="글쓰기" onclick="location.href='qnaWriteForm.do'">
+	<div style="text-align:center;" >
 	 ${page}
+	 </div>
 </div>
 </body>
 </html>

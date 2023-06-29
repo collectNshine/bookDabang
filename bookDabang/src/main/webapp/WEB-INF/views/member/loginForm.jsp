@@ -31,30 +31,36 @@
 </script>	
 </head>
 <body cellpadding="0" cellspacing="0" marginleft="0" margintop="0" width="100%" height="100%" align="center" >
-	<div class="card align-middle" style="width:20rem; border-radius:20px;">
+	<div class="card align-middle" style="width:30rem; border-radius:20px;">
 		<div class="card-title" style="margin-top:30px;">
-			<img src="../images/colorlogo.png" width="150">
+			<img src="../images/colorlogo.png" width="150" onclick="location.href='../main/main.do'">
 			<h2 class="card-title text-center" style="color:#113366;" >로그인</h2>
 		</div>
-		<div class="card-body">
+		<div class="card-body" style="padding: 1rem 5rem 7rem 5rem;">
 		<b id="guide"></b>
 		<form id="login_Form" class="form-signin" action="login.do" method="post">
 			<ul>
 				<li>
-					<input class="form-control" id="id" name="id" type="text"  placeholder="아이디" >
+					<div class="padding">
+						<input class="form-control" id="id" name="id" type="text"  placeholder="아이디" >
+					</div>
 				</li>
 				<li>
-					<input class="form-control" id="passwd" name="passwd" type="password" placeholder="비밀번호" >
+					<div class="padding">
+						<input class="form-control" id="passwd" name="passwd" type="password" placeholder="비밀번호" >
+					</div>
 				</li>
 				<li>
-					<input id="btn-Yes" class="btn btn-lg btn-dark btn-block" type="submit" value="로그인" >
+					<div  class="padding2">
+						<input id="btn-Yes" class="btn btn-lg btn-dark btn-block" type="submit" value="로그인" >
+					</div>
 				</li>
 			</ul>	
 		</form>
-		<div class="align-middle" style="display:block;">
-			<a href="myPasswdSearchForm.do">패스워드 찾기</a>
-			<a href="myIdSearchForm.do">아이디 찾기</a>
-			<a href="joinForm.do">회원가입</a>
+		<div class="align-middle" style="display:block; text-align: center;">
+			<a href="myPasswdSearchForm.do"> 패스워드 찾기 </a><b>|</b>
+			<a href="myIdSearchForm.do"> 아이디 찾기 </a><b>|</b>
+			<a href="joinForm.do"> 회원가입 </a>
 		</div>
 		</div>
 		</div>
