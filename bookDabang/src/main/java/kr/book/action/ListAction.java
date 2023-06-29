@@ -14,31 +14,28 @@ public class ListAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
+ 
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		String keyfield = request.getParameter("keyfield");
 		String keyword = request.getParameter("keyword");
 		String category = request.getParameter("category");
+		if(category==null) category="";
 		
 		BookDAO dao = BookDAO.getInstance();
-		int count = dao.getItemCount(keyfield, keyword);
+		int count = dao.getItemCount(keyfield, keyword,category);
 		
-		PageUtil page = new PageUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,10,"list.do");
+		PageUtil page = new PageUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,10,"list.do","&category="+category);
 		
 		List<BookVO> list = null;
-		List<BookVO> list2 = null;
 		if(count > 0) {
-			list = dao.getBookList(page.getStartRow(), page.getEndRow(), keyfield, keyword);
-			list2 = dao.getCategory(page.getStartRow(), page.getEndRow(), category);
+			list = dao.getBookList(page.getStartRow(), page.getEndRow(), keyfield, keyword,category);
 		}
-		
 		
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
-		request.setAttribute("list2", list2);
+		request.setAttribute("category", category);
 		request.setAttribute("page", page.getPage());
-	
 		
 		return "/WEB-INF/views/book/list.jsp";
 	}

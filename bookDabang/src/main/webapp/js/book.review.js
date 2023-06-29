@@ -13,11 +13,11 @@ $(function(){
 			dataType:'json',
 			success:function(param){
 				if(param.result == 'logout'){
-					alert('로그인 후 좋아요를 눌러주세요');
+					alert('로그인 후 등록 가능합니다.');
 				}else if(param.result == 'success'){
 					displayLike(param,click_btn);
 				}else{
-					alert('좋아요 표시 오류 발생');
+					alert('등록 표시 오류 발생');
 				}
 			},
 			error:function(){
@@ -25,6 +25,7 @@ $(function(){
 			}
 		});
 	});
+	
 	
 	//좋아요 표시 (UI 처리)
 	function displayLike(param,click_btn){
@@ -41,7 +42,6 @@ $(function(){
 	}
 	
 	
-	
 	//별로에요 등록(및 삭제) 이벤트 처리
 	$(document).on('click','.output_dislike',function(){
 		let click_btn = $(this);
@@ -52,11 +52,11 @@ $(function(){
 			dataType:'json',
 			success:function(param){
 				if(param.result == 'logout'){
-					alert('로그인 후 좋아요를 눌러주세요');
+					alert('로그인 후 등록 가능합니다.');
 				}else if(param.result == 'success'){
 					displayDislike(param,click_btn);
 				}else{
-					alert('좋아요 표시 오류 발생');
+					alert('등록 오류 발생');
 				}
 			},
 			error:function(){
@@ -64,6 +64,7 @@ $(function(){
 			}
 		});
 	});
+	
 	
 	//별로에요 표시 (UI 처리)
 	function displayDislike(param,click_btn){
@@ -78,17 +79,7 @@ $(function(){
 	click_btn.html(output);
 	click_btn.parent().find('.output_dlcount').text(param.count);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	//댓글 목록
 	function selectList(pageNum){
@@ -296,42 +287,42 @@ $(function(){
 		});
 	});
 	
-		//댓글 수정 버튼 클릭 시 수정 폼 노출
-		$(document).on('click','.modify-btn',function(){
-			//댓글 번호
-			let review_num = $(this).attr('data-renum');
-			//댓글 내용
-			//replace(/A/,'B') : A를 B로 바꿔줌 (g:지정문자열 모두/i:대소문자 무시)
-			let content = $(this).parent().parent().find('p').html().replace(/<br>/gi,'\n');
-			//댓글 수정폼 UI
-			let modifyUI = '<form id="mreview_form">';
-			modifyUI += '<input type="hidden" name="review_num" id="mre_num" value="'+review_num+'">';
-			modifyUI += '<textarea rows="2" cols="130" maxlength="50" name="review_content" id="mreview_content" class="rep-content">'+content+'</textarea>';
-			modifyUI += '<div id="mre_first"><span class="letter-count">50/50</span></div>';
-			modifyUI += '<div class="review-button">'
-			modifyUI += '<input type="submit" value="수정" class="btn btn-outline-primary">';
-			modifyUI += '<input type="button" value="취소" class="re-reset btn btn-outline-secondary">';
-			modifyUI += '</div>';
-			modifyUI += '<hr size="1" noshade width="96%">';
-			modifyUI += '</form>';
-			
-			//이전에 이미 수정하던 댓글이 있을 경우, 
-			//수정버튼을 클릭하면 숨겨져있는 sub-item을 환원하고 수정폼을 초기화함.
-			initModifyForm();
-			
-			//데이터가 표시되어 있는 div를 감춤.
-			$(this).parent().parent().find('p').hide();
-			$(this).parent().parent().find('.review-button').hide();
-			//수정폼을 수정하고자 하는 데이터가 있는 div에 노출.
-			//(부모'들' 중에서 클래스가 item인 부모에 modifyUI를 append시킴으로서)
-			$(this).parents('.item').append(modifyUI);
-			
-			//입력한 글자수 셋팅
-			let inputLength = $('#mreview_content').val().length;
-			let remain = 50 - inputLength;
-			remain += '/50';
-			//문서객체에 반영
-			$('#mre_first .letter-count').text(remain);
+	//댓글 수정 버튼 클릭 시 수정 폼 노출
+	$(document).on('click','.modify-btn',function(){
+		//댓글 번호
+		let review_num = $(this).attr('data-renum');
+		//댓글 내용
+		//replace(/A/,'B') : A를 B로 바꿔줌 (g:지정문자열 모두/i:대소문자 무시)
+		let content = $(this).parent().parent().find('p').html().replace(/<br>/gi,'\n');
+		//댓글 수정폼 UI
+		let modifyUI = '<form id="mreview_form">';
+		modifyUI += '<input type="hidden" name="review_num" id="mre_num" value="'+review_num+'">';
+		modifyUI += '<textarea rows="2" cols="130" maxlength="50" name="review_content" id="mreview_content" class="rep-content">'+content+'</textarea>';
+		modifyUI += '<div id="mre_first"><span class="letter-count">50/50</span></div>';
+		modifyUI += '<div class="review-button">'
+		modifyUI += '<input type="submit" value="수정" class="btn btn-outline-primary">';
+		modifyUI += '<input type="button" value="취소" class="re-reset btn btn-outline-secondary">';
+		modifyUI += '</div>';
+		modifyUI += '<hr size="1" noshade width="96%">';
+		modifyUI += '</form>';
+		
+		//이전에 이미 수정하던 댓글이 있을 경우, 
+		//수정버튼을 클릭하면 숨겨져있는 sub-item을 환원하고 수정폼을 초기화함.
+		initModifyForm();
+		
+		//데이터가 표시되어 있는 div를 감춤.
+		$(this).parent().parent().find('p').hide();
+		$(this).parent().parent().find('.review-button').hide();
+		//수정폼을 수정하고자 하는 데이터가 있는 div에 노출.
+		//(부모'들' 중에서 클래스가 item인 부모에 modifyUI를 append시킴으로서)
+		$(this).parents('.item').append(modifyUI);
+		
+		//입력한 글자수 셋팅
+		let inputLength = $('#mreview_content').val().length;
+		let remain = 50 - inputLength;
+		remain += '/50';
+		//문서객체에 반영
+		$('#mre_first .letter-count').text(remain);
 	});
 	
 	

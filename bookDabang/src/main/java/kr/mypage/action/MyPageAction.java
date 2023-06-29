@@ -14,6 +14,7 @@ import kr.member.vo.MemberVO;
 import kr.mypage.dao.MyPageDAO;
 import kr.post.dao.PostDAO;
 import kr.post.vo.PostReportVO;
+import kr.post.vo.PostVO;
 import kr.request.dao.RequestDAO;
 import kr.request.vo.RequestVO;
 import kr.util.PageUtil;
@@ -66,43 +67,41 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		
 		
 		/*-- [사용자]작성글 시작 --*/
-		/*
-		String PostpageNum = request.getParameter("pageNum");
-		if(PostpageNum == null) PostpageNum = "1";
-		String Postkeyfield = request.getParameter("keyfield");
-		String Postkeyword = request.getParameter("keyword");
+		String mp_pageNum = request.getParameter("mp_pageNum");
+		if(mp_pageNum == null) mp_pageNum = "1";
+		String mp_keyfield = request.getParameter("mp_keyfield");
+		String mp_keyword = request.getParameter("mp_keyword");
 		
 		MyPageDAO postdao = MyPageDAO.getInstance();
-		int post_count = postdao.getMyPostCount(Postkeyfield, Postkeyword);
-		PageUtil post_page = new PageUtil(Postkeyfield,Postkeyword,Integer.parseInt(PostpageNum),post_count,10,10,"myPage.do");
+		int mp_count = postdao.getMyPostCount(mp_keyfield, mp_keyword);
+		PageUtil mp_page = new PageUtil(mp_keyfield,mp_keyword,Integer.parseInt(mp_pageNum),mp_count,10,10,"myPage.do");
 		
-		List<PostVO> postlist = null;
-		if(post_count > 0) {
-			postlist = postdao.getListMyPost(post_page.getStartRow(), post_page.getEndRow(), Postkeyfield, Postkeyword, user_num);
+		List<PostVO> mp_list = null;
+		if(mp_count > 0) {
+			mp_list = postdao.getListMyPost(mp_page.getStartRow(), mp_page.getEndRow(), mp_keyfield, mp_keyword, user_num);
 		}
-		request.setAttribute("postCount", post_count);
-		request.setAttribute("postList", postlist);
-		request.setAttribute("postPage", post_page.getPage());
-		*/
+		request.setAttribute("mp_count", mp_count);
+		request.setAttribute("mp_list", mp_list);
+		request.setAttribute("mp_page", mp_page.getPage());
 		/*-- [사용자]작성글 끝 --*/
 		
 		
-		
-		
-		/*---[관리자]도서 관리 시작---*/
+		/*---[관리자]도서 관리 시작---*/ 
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		String keyfield = request.getParameter("keyfield");
 		String keyword = request.getParameter("keyword");
+		String category = request.getParameter("category");
+		if(category==null) category="";
 		
 		BookDAO bookDao = BookDAO.getInstance();
-		int count = bookDao.getItemCount(keyfield, keyword);
+		int count = bookDao.getItemCount(keyfield, keyword, category);
 		
 		PageUtil page = new PageUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,10,"myPage.do");
 		
 		List<BookVO> list = null;
 		if(count > 0) {
-			list = bookDao.getBookList(page.getStartRow(), page.getEndRow(), keyfield, keyword);
+			list = bookDao.getBookList(page.getStartRow(), page.getEndRow(), keyfield, keyword, category);
 		}
 		
 		request.setAttribute("count", count);
@@ -110,34 +109,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		request.setAttribute("page", page.getPage());
 		/*---[관리자]도서 관리 끝---*/
 		
-		
-		
-		
-		/*---[관리자]도서 신청 시작---*/
-		String req_PageNum = request.getParameter("req_PageNum");
-		
-		RequestDAO req_dao = RequestDAO.getInstance();
-		RequestVO reqvo = new RequestVO();
-		
-		if(req_PageNum == null) req_PageNum = "1";
-		String req_Keyfield = request.getParameter("req_Keyfield");
-		String req_Keyword = request.getParameter("req_Keyword");
-		
-		int req_Count = req_dao.getRequestCount(req_Keyfield, req_Keyword);
-		PageUtil req_Page = new PageUtil(req_Keyfield,req_Keyword,Integer.parseInt(req_PageNum),req_Count,10,10,"myPage.do#admin_request");
-		
-		List<RequestVO> req_list = null;
-		if(req_Count > 0) {
-			req_list = req_dao.getListRequest(req_Page.getStartRow(), req_Page.getEndRow(), req_Keyfield, req_Keyword,user_num);
-		}
-		
-		request.setAttribute("req_Count", req_Count);
-		request.setAttribute("req_list", req_list);
-		request.setAttribute("req_Page", req_Page.getPage());
-		/*---[관리자]도서 신청 끝---*/
-		
-		
-		
+	
 		/*---[관리자]회원 관리 시작---*/
 		String adminMemberpageNum = request.getParameter("adminMemberpageNum");
 		if(adminMemberpageNum == null) adminMemberpageNum = "1";
@@ -149,7 +121,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		int adminMemberCount = adminMemberDao.getMemberCountByAdmin(adminMemberKeyfield, adminMemberKeyword);
 		
 		//페이지 처리
-		PageUtil adminMemberPage = new PageUtil(adminMemberKeyfield,adminMemberKeyword,Integer.parseInt(adminMemberpageNum),adminMemberCount,10,10,"myPage.do#admin_member");
+		PageUtil adminMemberPage = new PageUtil(adminMemberKeyfield,adminMemberKeyword,Integer.parseInt(pageNum),adminMemberCount,10,10,"myPage.do","#admin_member");
 		List<MemberVO> adminMemberList = null;
 		if(adminMemberCount > 0) {
 			adminMemberList = dao.getListMemberByAdmin(adminMemberPage.getStartRow(), adminMemberPage.getEndRow(), adminMemberKeyfield, adminMemberKeyword);
@@ -173,7 +145,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		PostDAO postDao = PostDAO.getInstance();
 		int repoCount = postDao.getReportCount(repoKeyfield, repoKeyword);
 									//keyfield, keyword, currentPage, count, rowCount, pageCount, 요청URL
-		PageUtil repoPage = new PageUtil(repoKeyfield, repoKeyword, Integer.parseInt(repoPageNum), repoCount, 10, 10, "myPage.do#admin_report");
+		PageUtil repoPage = new PageUtil(repoKeyfield, repoKeyword, Integer.parseInt(pageNum), repoCount, 10, 10, "myPage.do","#admin_report");
 		
 		List<PostReportVO> repoList = null;
 		if(repoCount > 0) {
@@ -184,6 +156,29 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		request.setAttribute("repoList", repoList);
 		request.setAttribute("repoPage", repoPage.getPage());
 		/*---[관리자]신고 관리 끝---*/
+		
+		/*---[관리자]도서 신청 시작---*/
+		String req_PageNum = request.getParameter("req_PageNum");
+		
+		RequestDAO req_dao = RequestDAO.getInstance();
+		RequestVO reqvo = new RequestVO();
+		
+		if(req_PageNum == null) req_PageNum = "1";
+		String req_Keyfield = request.getParameter("req_Keyfield");
+		String req_Keyword = request.getParameter("req_Keyword");
+		
+		int req_Count = req_dao.getRequestCount(req_Keyfield, req_Keyword);
+		PageUtil req_Page = new PageUtil(req_Keyfield,req_Keyword,Integer.parseInt(pageNum),req_Count,10,10,"myPage.do","#admin_request");
+		
+		List<RequestVO> req_list = null;
+		if(req_Count > 0) {
+			req_list = req_dao.getListRequest(req_Page.getStartRow(), req_Page.getEndRow(), req_Keyfield, req_Keyword,user_num);
+		}
+		
+		request.setAttribute("req_Count", req_Count);
+		request.setAttribute("req_list", req_list);
+		request.setAttribute("req_Page", req_Page.getPage());
+		/*---[관리자]도서 신청 끝---*/
 		
 		
 		request.setAttribute("member", vo);

@@ -136,17 +136,18 @@ ul.search {
 		<!-- 사용자 [2. 작성글] 시작 -->
 	<div id="post" class="tab_contents">
 		<div class="content-main container">
+		<br><h2>나의 작성글</h2><br>
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form" action="myPagePost.do" method="get" class="d-flex">
+			<form id="mp_search_form" action="myPagePost.do" method="get" class="d-flex" role="search" style="border:none;">
 				<ul class="search">
 					<li>
-						<select name="keyfield" class="form-select">
-							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>게시글 번호</option>
-							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>게시글 내용</option>
+						<select name="mp_keyfield" class="form-select">
+							<option value="1" <c:if test="${param.mp_keyfield==1}">selected</c:if>>제목</option>
+							<option value="2" <c:if test="${param.mp_keyfield==2}">selected</c:if>>내용</option>
 						</select>
 					</li>
 					<li>
-						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" class="form-control me-2">
+						<input type="search" size="16" name="mp_keyword" id="mp_keyword" value="${param.mp_keyword}" class="form-control me-2">
 					</li>
 					<li>
 						<input type="submit" value="검색" class="btn btn-outline-success">
@@ -166,41 +167,39 @@ ul.search {
 			})
 			--%>
 				$(function(){
-					$('#search_form').submit(function(){
-						if($('#keyword').val().trim() == ''){
+					$('#mp_search_form').submit(function(){
+						if($('#mp_keyword').val().trim() == ''){
 							alert('검색어를 입력하세요');
-							$('#keyword').val('').focus();
+							$('#mp_keyword').val('').focus();
 							return false;
 						}
 					});
 				});
 			</script> 
 			<!-- 검색창 끝 -->	
-		<c:if test="${count == 0}">
+		<c:if test="${mp_count == 0}">
 			<div class="result-display">
 				표시할 작성글이 없습니다.
 			</div>		
 		</c:if>
 		
-		<c:if test="${count > 0}">
+		<c:if test="${mp_count > 0}">
 		<table class="table table-hover align-center">
 			<tr>
-				<th>NO.</th>
 				<th>제목</th>
 				<th>내용</th>
 				<th>등록일</th>
 			</tr>
-			<c:forEach var="post" items="${postlist}">
+			<c:forEach var="mp" items="${mp_list}">
 			<tr>
-				<td>${post.post_num}</td>
-				<td>${post.post_title}</td>
-				<td>${post.post_content}</td>
-				<td>${post.post_date}</td>
+				<td><a href="${pageContext.request.contextPath}/post/detail.do?post_num=${mp.post_num}">${mp.post_title}</a></td>
+				<td><a href="${pageContext.request.contextPath}/post/detail.do?post_num=${mp.post_num}">${mp.post_content}</a></td>
+				<td>${mp.post_date}</td>
 			</tr>
 			</c:forEach>		
 		</table>
 		</c:if>
-		<div class="align-center">${page}</div>
+		<div class="align-center">${mp_page}</div>
 		<%-- 
 		</c:if>
 		--%>
@@ -288,38 +287,20 @@ ul.search {
 		<c:if test="${!empty user_num && user_auth == 9}">
 		<ul class="tabWrap">
 			<li data-tab="admin_book" style="cursor: pointer;" class="on"><a href="#admin_book">도서관리</a></li>
-			<li data-tab="admin_order" style="cursor: pointer;"><a href="#admin_order">주문관리</a></li>
-			<li data-tab="admin_member" style="cursor: pointer;"><a href="#admin_member">회원관리</a></li>
-			<li data-tab="admin_report" style="cursor: pointer;"><a href="#admin_report">신고내역</a></li>
-			<li data-tab="admin_request" style="cursor: pointer;"><a href="#admin_request">도서신청</a></li>
+			<li data-tab="admin_order" style="cursor: pointer;"><a href="myPage.do#admin_order">주문관리</a></li>
+			<li data-tab="admin_member" style="cursor: pointer;"><a href="myPage.do#admin_member">회원관리</a></li>
+			<li data-tab="admin_report" style="cursor: pointer;"><a href="myPage.do#admin_report">신고내역</a></li>
+			<li data-tab="admin_request" style="cursor: pointer;"><a href="myPage.do#admin_request">도서신청</a></li>
 		</ul>
 		
-		<%-- 
-		<script type="text/javascript">
-		$(function() {
-			 $(".tabWrap").tabs({
-			        select: function(event, ui) {                   
-			        window.location.replace(ui.tab.hash);
-			   		//위 두줄을 추가를 하면 새로고침을 해도 선택된 탭에서 계속 유지가 된다.
-			     	}
-			 });
-		});
-		
-		$(document).ready(function(e){
-			var ink = document.location.href;
-			var tab = link.split('/').pop();
-			$('a[href$='+tab+']').trigger("click");
-			e.preventDefault(); /// 기본 동작을 막을 때(새로고침)
-		});
-		</script>  
-		--%>
+	
 		
 		<!-- [1. 도서 관리] 시작 -->
 		<div id="admin_book" class="tab_contents on">
 			<div class="content-main container">
 			<br><h2><a href="myPage.do">도서 관리</a></h2>
 			<!-- 검색창 시작 : get방식 -->
-			<form id="search_form" action="myPage.do#admin_book" method="get"  class="d-flex" role="search" >
+			<form id="search_form" action="myPage.do#admin_book" method="get"  class="d-flex" role="search">
 				<select name="keyfield" class="form-select">
 					<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>도서명</option>
 					<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자명</option>
@@ -340,9 +321,9 @@ ul.search {
 			</script><br>
 			<!-- 검색창 끝 -->
 		<div class="list-space align-right">
+			<input type="button" value="선택 삭제" class="btn btn-primary" id="selectDelete_btn">
 			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'" class="btn btn-primary">
 		</div>
-		
 		<c:if test="${count == 0}">
 			<div class="result-display">
 				표시할 상품이 없습니다.
@@ -353,34 +334,93 @@ ul.search {
 			<table class="table table-hover align-center">
 			<thead>
 				<tr>
+					<th><input type="checkbox" name="allCheck" id="allCheck"></th>
 					<th>도서번호</th>
 					<th>도서명</th>
 					<th>저자명</th>
 					<th>출판사</th>
 					<th>재고</th>
-					<th>분류</th>
 					<th>등록일</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="book" items="${list}">
 				<tr>
+					<td><input type="checkbox" class="chBox" name="chBox" value="${book.bk_num}"></td>
 					<td>${book.bk_num}</td>
 					<td><a href="${pageContext.request.contextPath}/book/updateForm.do?bk_num=${book.bk_num}">${book.title}</a></td>
 					<td>${book.author}</td>
 					<td>${book.publisher}</td>
 					<td><fmt:formatNumber value="${book.stock}"/></td>
-					<td>${book.category}</td>
 					<td>${book.reg_date}</td>
 				</tr>
 				</c:forEach>
 			</tbody>
 			</table>
-			<div class="align-center">${page}</div>
+			<div class="page-button">${page}</div>
 		</c:if>
 		</div>
 		</div>
 	</div>
+		<script type="text/javascript">
+		//모두 선택 체크박스 클릭 이벤트
+		$("#allCheck").click(function(){
+			 var chk = $("#allCheck").prop("checked");
+			 if(chk) {
+			  $(".chBox").prop("checked", true);
+			 } else {
+			  $(".chBox").prop("checked", false);
+			 }
+		});
+		
+		//모두 선택일 때 개별 체크박스 하나 해제 시 모두 선택 해제
+		 $(".chBox").click(function(){ 
+			  $("#allCheck").prop("checked", false);
+		});
+		
+		<%--
+		//선택 삭제 버튼 클릭 이벤트
+		 $("#selectDelete_btn").click(function(){
+		 		if($('input[class='chBox']:checked').length < 1){
+					alert('하나 이상의 항목을 선택하세요');
+					return false;
+				}
+				
+			   let checkArr = new Array();
+			   
+			   $("input[class='chBox']:checked").each(function(index,item){
+			    	checkArr.push($(this).val());
+			   });
+			   
+			   $.ajax({
+				    url:"deleteBooks.do",
+				    type:"post",
+				    data:{checkArr:checkArr},
+				    dataType:'json',
+				    success : function(){
+				    	let choice = confirm("정말 삭제하시겠습니까?");
+				    	if(choice){
+							if(param.result == 'logout'){
+								alert('로그인 후 삭제할 수 있습니다.');
+							}else if(param.result =='success'){
+								alert('등록된 도서가 삭제되었습니다.');
+								location.href='myPage.do';
+							}else if(param.result == 'wrongAccess'){
+								alert('잘못된 접근입니다.');
+							}else{
+								alert('도서 정보 삭제 중 오류가 발생했습니다.');
+							}
+						}
+				    },
+				    error:function(){
+				    	alert('네트워크 오류 발생');
+				    }
+			   });
+			   
+		 });
+		--%>
+		</script>
+		
 	<!-- [1. 도서 관리] 끝 -->
 	
 	
@@ -520,24 +560,17 @@ ul.search {
 		
 		<!-- [4. 신고 내역] 시작 -->
 		<div id="admin_report" class="tab_contents">
-		<h2><a href="myPage.do">신고 내역</a></h2>
+		<div class="content-main container">
+		<br><h2><a href="myPage.do">신고 내역</a></h2>
 		
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form4" action="myPage.do#admin_report" method="get" class="d-flex">
-				<ul class="search">
-					<li>
-						<select name="repoKeyfield" class="form-select">
-							<option value="1" <c:if test="${param.repoKeyfield==1}">selected</c:if>>신고유형</option>
-							<option value="2" <c:if test="${param.repoKeyfield==2}">selected</c:if>>회원번호</option>
-						</select>
-					</li>
-					<li>
-						<input type="search" size="16" name="repoKeyword" id="repoKeyword" value="${param.repoKeyword}">
-					</li>
-					<li>
-						<input type="submit" value="검색" class="btn btn-outline-success">
-					</li>
-				</ul>
+			<form id="search_form4" action="myPage.do#admin_report" method="get" class="d-flex" role="search">
+				<select name="repoKeyfield" class="form-select" style="width:180px;">
+					<option value="1" <c:if test="${param.repoKeyfield==1}">selected</c:if>>신고유형</option>
+					<option value="2" <c:if test="${param.repoKeyfield==2}">selected</c:if>>회원번호</option>
+				</select>
+				<input type="search" size="16" name="repoKeyword" id="repoKeyword" value="${param.repoKeyword}" class="form-control me-2">
+				<input type="submit" value="검색" class="btn btn-outline-success">
 			</form>
 			<script type="text/javascript">
 				$(function(){
@@ -560,6 +593,7 @@ ul.search {
 			<c:if test="${repoCount > 0}">
 			<table class="table table-hover align-center">
 				<tr>
+					<th><input type="checkbox" name="allchk" id="allchk"></th>
 					<th>신고 번호</th>
 					<th>회원 번호</th>
 					<th>신고 유형</th>
@@ -568,12 +602,8 @@ ul.search {
 				</tr>
 				<c:forEach var="report" items="${repoList}"> 
 				<tr>
-					<td>
-					<c:if test="${user_auth == 9}">
-					<input class="checkbox" name="checkbox" type="checkbox" value="${report.repo_num}">
-					</c:if>
-					<a href="${pageContext.request.contextPath}/post/detailReport.do?repo_num=${report.repo_num}">${report.repo_num}</a>
-					</td>
+					<td><input type="checkbox" class="chkbox" name="chkbox" value="${report.repo_num}"></td>
+					<td><a href="${pageContext.request.contextPath}/post/detailReport.do?repo_num=${report.repo_num}">${report.repo_num}</a></td>
 					<td>${report.mem_num}</td>
 					<td>${report.repo_category}</td>
 					<td>${report.repo_content}</td>
@@ -581,33 +611,81 @@ ul.search {
 				</tr>
 				</c:forEach>
 			</table>
-			<c:if test="${user_auth == 9}">
-			<input id="all_btn" type="button" value="전체 선택">
+			<input type="button" value="선택 삭제" class="btn btn-primary" id="selecdel_btn">
 			<script type="text/javascript">
-			let all_btn = document.getElementById('all_btn');
-			//이벤트 연결
-			all_btn.onclick=function(){
-				$(":checkbox").attr("checked","checked")
-			};
-			</script>
-			<input id="del_btn" type="button" value="삭제"> 
-			<script type="text/javascript">
+				let all_btn = document.getElementById('all_btn');
+				//이벤트 연결
+				//모두 선택 체크박스 클릭 이벤트
+				$("#allchk").click(function(){
+			 		var chk = $("#allchk").prop("checked");
+			 		if(chk) {
+			  		$(".chkbox").prop("checked", true);
+			 		} else {
+			  		$(".chkbox").prop("checked", false);
+			 		}
+				});
+		
+				//모두 선택일 때 개별 체크박스 하나 해제 시 모두 선택 해제
+				 $(".chkbox").click(function(){ 
+			  	$("#allchk").prop("checked", false);
+				});
+				//선택 삭제
+				<%--
+				$('#selecdel_btn').click(function(){
+				if($('input[class='chkbox']:checked').length < 1){
+					alert('삭제할 항목을 선택해주세요.');
+					return false;
+				}
+				let chkArr = new Array();
+				$('input[class='chkbox']:checked').each(function(index,item){
+					chkArr.push($(this).val());
+				});
+				$.ajax({
+					url:'deleteReport.do',
+					type:'post',
+					data:{chkArr:chkArr},
+					dataType:'json',
+					success:function(param){
+						let choice = confirn("정말 삭제하시겠습니까?");
+						if(choice){
+						if(param.result == 'logout'){
+							alert('로그인 후 삭제할 수 있습니다.');
+						} else if(param.result == 'success'){
+							alert('해당 신고가 삭제되었습니다.');
+							location.href='myPage.do';
+						} else if(param.result == 'wrongAccess'){
+							alert('잘못된 접근입니다.');
+						}else{
+							alert('신고 삭제 중 오류가 발생했습니다.');
+						}
+						}
+					},
+					error:function(){
+						alert('네트워크 오류 발생')
+					}
+				});
+			});
+
 			let del_btn = document.getElementById('del_btn');
 			//이벤트 연결
 			del_btn.onclick=function(){
+				if($('input:checkbox[name="checkbox"]:checked').length == 0){
+					alert('삭제할 항목을 선택해주세요.');
+					return;
+				}
 				let choice = confirm('삭제하시겠습니까?');
 				if(choice){
 				//location.replace('deleteReport.do?repo_num=${report.repo_num}');
 				//history.go(0);
 				}
 			};
+			--%>
 			</script>
 			</c:if>
 			<div class="align-center">${repoPage}</div>
-		</c:if>
+		</div>
 		</div>
 		<!-- [4. 신고 내역] 끝 -->
-		
 		
 		<!-- [5. 도서 신청] 시작 -->
 		<div id="admin_request" class="tab_contents">

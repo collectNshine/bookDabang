@@ -1,4 +1,4 @@
-package kr.cart.dao; 
+package kr.cart.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -98,6 +98,61 @@ public class CartDAO {
 		return list;
 	}
 	
+	// 주문번호별 장바구니 목록
+		public List<CartVO> getListCartByCartNum(String[] cart_num) throws Exception {
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<CartVO> list = null;
+			String sql = null;
+			
+			try {
+				conn = DBUtil.getConnection();
+				
+				sql = "SELECT * FROM book_list b JOIN cart c ON b.bk_num=c.bk_num JOIN member_detail m ON c.mem_num=m.mem_num WHERE c.cart_num IN(" + String.join(",", cart_num) + ") ORDER BY b.bk_num ASC";
+				
+				pstmt = conn.prepareStatement(sql);
+				
+				rs = pstmt.executeQuery();
+				list = new ArrayList<CartVO>();
+				while(rs.next()) {
+					CartVO cart = new CartVO();
+					cart.setBk_num(rs.getInt("bk_num"));
+					cart.setOrder_quantity(rs.getInt("order_quantity"));
+					cart.setMem_num(rs.getInt("mem_num"));
+					
+					// 도서 정보를 담기 위해 BookVO 객체 생성
+					BookVO book = new BookVO();
+					book.setTitle(rs.getString("title"));
+					book.setPrice(rs.getInt("price"));
+					book.setStock(rs.getInt("stock"));
+					book.setThumbnail(rs.getString("thumbnail"));
+					
+					// BookVO를 CartVO에 저장
+					cart.setBookVO(book);
+					
+					// 회원 정보를 담기 위해 MemberVO 객체 생성
+					MemberVO member = new MemberVO();
+					member.setName(rs.getString("name"));
+					member.setAddress1(rs.getString("address1"));
+					member.setAddress2(rs.getString("address2"));
+					member.setZipcode(rs.getString("zipcode"));
+					member.setPhone(rs.getString("phone"));
+					member.setEmail(rs.getString("email"));
+					
+					// MemberVO를 CartVO에 저장
+					cart.setMemberVO(member);
+					
+					cart.setSub_total(cart.getOrder_quantity() * book.getPrice());
+					
+					list.add(cart);
+				}
+			} catch(Exception e) { throw new Exception(e); }
+			finally { DBUtil.executeClose(rs, pstmt, conn); }
+			
+			return list;
+		}
+	
 	// 장바구니 상세
 	public CartVO getCart(CartVO cart) throws Exception {
 		Connection conn = null;
@@ -186,6 +241,26 @@ public class CartDAO {
 			pstmt.executeUpdate();
 		} catch(Exception e) { throw new Exception(e); }
 		finally { DBUtil.executeClose(null, pstmt, conn); }
+	}
+	
+	// 전체 삭제
+	public void deleteAllCart(int mem_num) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			sql = "DELETE FROM cart WHERE mem_num=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+			
+			pstmt.executeUpdate();
+		} catch(Exception e) { throw new Exception(e); }
+		finally { DBUtil.executeClose(null, pstmt, conn); }
+		
 	}
 	
 	// 회원번호(mem_num)별 총 구매 금액

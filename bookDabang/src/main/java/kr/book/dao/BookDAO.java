@@ -15,8 +15,9 @@ import kr.util.DBUtil;
 import kr.util.DurationFromNow;
 import kr.util.StringUtil;
 
+
 public class BookDAO {
-		//싱글턴 패턴 
+		//싱글턴 패턴
 		private static BookDAO instance = new BookDAO();
 		public static BookDAO getInstance() {
 			return instance;
@@ -60,28 +61,40 @@ public class BookDAO {
 		
 		
 		//전체 도서 개수 & 검색 도서 개수
-		public int getItemCount(String keyfield, String keyword)throws Exception{
+		public int getItemCount(String keyfield, String keyword, String category) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			String sql = null;
 			String sub_sql = "";
 			int count = 0;
+			int cnt = 0;
 			try {
 				//커넥션 풀로부터 커넥션을 할당받음
 				conn = DBUtil.getConnection();
 				//sub_sql문 작성
-				if(keyword!=null && !"".equals(keyword)) {
-					if(keyfield.equals("1")) sub_sql += "WHERE title LIKE ?";
-					if(keyfield.equals("2")) sub_sql += "WHERE author LIKE ?";
+				
+				if(category!=null && !"".equals(category)) {
+					sub_sql += "WHERE category = ?";
+				}else {
+					sub_sql += "WHERE category IS NOT NULL";
 				}
+				
+				if(keyword!=null && !"".equals(keyword)) {
+					if(keyfield.equals("1")) sub_sql += " AND title LIKE ?";
+					if(keyfield.equals("2")) sub_sql += " AND author LIKE ?";
+				}
+				
 				//SQL문 작성
 				sql = "SELECT COUNT(*) FROM book_list " + sub_sql;
 				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
 				//?에 데이터 바인딩
+				if(category!=null && !"".equals(category)) {
+					pstmt.setString(++cnt, category);
+				}
 				if(keyword!=null && !"".equals(keyword)) {
-					pstmt.setString(1, "%"+keyword+"%");
+					pstmt.setString(++cnt, "%"+keyword+"%");
 				}
 				//SQL문 실행
 				rs = pstmt.executeQuery();
@@ -100,7 +113,7 @@ public class BookDAO {
 		
 		//전체 도서 목록 & 검색 도서 목록
 		public List<BookVO> getBookList(int start, int end, String keyfield,
-										String keyword) throws Exception{
+										String keyword, String category) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -112,18 +125,27 @@ public class BookDAO {
 				//커넥션 풀로부터 커넥션을 할당받음
 				conn = DBUtil.getConnection();
 				//sub_sql문 작성
+				if(category!=null && !"".equals(category)) {
+					sub_sql += "WHERE category = ?";
+				}else {
+					sub_sql += "WHERE category IS NOT NULL";
+				}
+				
 				if(keyword!=null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "WHERE title LIKE ?";
-				if(keyfield.equals("2")) sub_sql += "WHERE author LIKE ?";
+					if(keyfield.equals("1")) sub_sql += " AND title LIKE ?";
+					if(keyfield.equals("2")) sub_sql += " AND author LIKE ?";
 				}
 				//SQL문 작성	
 				sql = "SELECT * FROM (SELECT a.*, rownum rnum "
 						  		   + "FROM (SELECT * FROM book_list "
-						  		   			+sub_sql+" ORDER BY bk_num DESC)a) "
+						  		   			+sub_sql+" ORDER BY reg_date DESC)a) "
 						  		   + "WHERE rnum>=? AND rnum<=?";
 				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
 				//?에 데이터 바인딩
+				if(category!=null && !"".equals(category)) {
+					pstmt.setString(++cnt, category);
+				}
 				if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(++cnt, "%"+keyword+"%");
 				}
@@ -143,54 +165,6 @@ public class BookDAO {
 				book.setCategory(rs.getString("category"));
 				book.setThumbnail(rs.getString("thumbnail"));
 				book.setContent(StringUtil.useNoHtml(rs.getString("content")));
-				book.setReg_date(rs.getDate("reg_date"));
-				
-				list.add(book);
-			}
-			}catch(Exception e) {
-				throw new Exception(e);
-			}finally {
-				DBUtil.executeClose(rs, pstmt, conn);
-			}
-			
-			return list;
-		}
-
-		
-		//카테고리 별 도서 목록
-		public List<BookVO> getCategory(int start, int end, String category) throws Exception{
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			List<BookVO> list = null;
-			String sql = null;
-			try {
-				//커넥션 풀로부터 커넥션을 할당받음
-				conn = DBUtil.getConnection();
-				//SQL문 작성	
-				sql = "SELECT * FROM (SELECT a.*, rownum rnum "
-						  		   + "FROM (SELECT * FROM book_list WHERE category=? ORDER BY bk_num DESC)a) "
-						  		   + "WHERE rnum>=? AND rnum<=?";
-				//PreparedStatement 객체 생성
-				pstmt = conn.prepareStatement(sql);
-				//?에 데이터 바인딩
-				pstmt.setString(1, category);
-				pstmt.setInt(2, start);
-				pstmt.setInt(3, end);
-				//SQL문 실행
-				rs = pstmt.executeQuery();
-				list = new ArrayList<BookVO>();
-				while(rs.next()) {
-				BookVO book = new BookVO();
-				book.setBk_num(rs.getInt("bk_num"));
-				book.setTitle(rs.getString("title"));
-				book.setAuthor(rs.getString("author"));
-				book.setPublisher(rs.getString("publisher"));
-				book.setPrice(rs.getInt("price"));
-				book.setStock(rs.getInt("stock"));
-				book.setCategory(rs.getString("category"));
-				book.setThumbnail(rs.getString("thumbnail"));
-				book.setContent(rs.getString("content"));
 				book.setReg_date(rs.getDate("reg_date"));
 				
 				list.add(book);
@@ -314,48 +288,100 @@ public class BookDAO {
 		//도서 삭제 (관리자)
 		public void deleteBook(int bk_num) throws Exception{
 			Connection conn = null;
-			PreparedStatement pstmt = null;
-//			PreparedStatement pstmt1 = null;
+			PreparedStatement pstmt1 = null;
 			PreparedStatement pstmt2 = null;
+			PreparedStatement pstmt3 = null;
+			PreparedStatement pstmt4 = null;
+			PreparedStatement pstmt5 = null;
+			PreparedStatement pstmt6 = null;
+			PreparedStatement pstmt7 = null;
+			PreparedStatement pstmt8 = null;
+			PreparedStatement pstmt9 = null;
+			PreparedStatement pstmt10 = null;
 			String sql = null;
 			try {
 				conn = DBUtil.getConnection();
 				conn.setAutoCommit(false);
 				
 				//장바구니에 담겨있는 상품 삭제
-//				sql = "DELETE FROM cart WHERE bk_num=?";
-//				pstmt1 = conn.prepareStatement(sql);
-//				pstmt1.setInt(1, bk_num);
-//				pstmt1.executeUpdate();
-				
-				//북마크 삭제
-				sql = "DELETE FROM book_mark WHERE bk_num=?";
+				sql = "DELETE FROM cart WHERE bk_num=?";
+				pstmt1 = conn.prepareStatement(sql);
+				pstmt1.setInt(1, bk_num);
+				pstmt1.executeUpdate();
+
+				//포스트 좋아요 삭제
+				sql = "DELETE FROM post_fav WHERE post_num IN (SELECT post_num FROM post WHERE bk_num=?)";
 				pstmt2 = conn.prepareStatement(sql);
 				pstmt2.setInt(1, bk_num);
 				pstmt2.executeUpdate();
-
-				//포스트 삭제 메서드(포스트,포스트좋아요,포스트신고,포스트댓글,포스트댓글신고)
 				
-				//리뷰 삭제 메서드(리뷰,리뷰좋아요,리뷰싫어요)
+				//포스트 댓글 삭제
+				sql = "DELETE FROM post_reply WHERE post_num IN (SELECT post_num FROM post WHERE bk_num=?)";
+				pstmt3 = conn.prepareStatement(sql);
+				pstmt3.setInt(1, bk_num);
+				pstmt3.executeUpdate();
+				
+				//포스트 신고 삭제
+				sql = "DELETE FROM post_report WHERE post_num IN (SELECT post_num FROM post WHERE bk_num=?)";
+				pstmt4 = conn.prepareStatement(sql);
+				pstmt4.setInt(1, bk_num);
+				pstmt4.executeUpdate();
+				
+				//포스트 삭제
+				sql = "DELETE FROM post WHERE bk_num=?";
+				pstmt5 = conn.prepareStatement(sql);
+				pstmt5.setInt(1, bk_num);
+				pstmt5.executeUpdate();
+				
+				//댓글 좋아요 삭제
+				sql = "DELETE FROM review_like WHERE review_num IN (SELECT review_num FROM review WHERE bk_num=?)";
+				pstmt6 = conn.prepareStatement(sql);
+				pstmt6.setInt(1, bk_num);
+				pstmt6.executeUpdate();
+				
+				//댓글 싫어요 삭제
+				sql = "DELETE FROM review_dislike WHERE review_num IN (SELECT review_num FROM review WHERE bk_num=?)";
+				pstmt7 = conn.prepareStatement(sql);
+				pstmt7.setInt(1, bk_num);
+				pstmt7.executeUpdate();
+				
+				//댓글 삭제
+				sql = "DELETE FROM review WHERE bk_num=?";
+				pstmt8 = conn.prepareStatement(sql);
+				pstmt8.setInt(1, bk_num);
+				pstmt8.executeUpdate();
+
+				//북마크 삭제
+				sql = "DELETE FROM book_mark WHERE bk_num=?";
+				pstmt9 = conn.prepareStatement(sql);
+				pstmt9.setInt(1, bk_num);
+				pstmt9.executeUpdate();
 				
 				//부모 테이블 삭제
 				sql = "DELETE FROM book_list WHERE bk_num=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, bk_num);
-				pstmt.executeUpdate();
+				pstmt10 = conn.prepareStatement(sql);
+				pstmt10.setInt(1, bk_num);
+				pstmt10.executeUpdate();
 				
 				conn.commit();
 			}catch(Exception e) {
 				conn.rollback();
 				throw new Exception(e);
 			}finally {
+				DBUtil.executeClose(null, pstmt10, null);
+				DBUtil.executeClose(null, pstmt9, null);
+				DBUtil.executeClose(null, pstmt8, null);
+				DBUtil.executeClose(null, pstmt7, null);
+				DBUtil.executeClose(null, pstmt6, null);
+				DBUtil.executeClose(null, pstmt5, null);
+				DBUtil.executeClose(null, pstmt4, null);
+				DBUtil.executeClose(null, pstmt3, null);
 				DBUtil.executeClose(null, pstmt2, null);
-//				DBUtil.executeClose(null, pstmt1, null);
-				DBUtil.executeClose(null, pstmt, conn);
+				DBUtil.executeClose(null, pstmt1, conn);
 			}
 		}
 		
-		
+	
 		
 		
 		
