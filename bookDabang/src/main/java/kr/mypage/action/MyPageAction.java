@@ -52,7 +52,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		BookDAO bm_dao = BookDAO.getInstance();
 		int bm_count = bm_dao.selectUserMarkCount(bm_keyfield, bm_keyword, user_num);
 		
-		PageUtil bm_page = new PageUtil(bm_keyfield,bm_keyword,Integer.parseInt(bm_pageNum),bm_count,10,10,"myPage.do");
+		PageUtil bm_page = new PageUtil(bm_keyfield,bm_keyword,Integer.parseInt(bm_pageNum),bm_count,10,10,"myPage.do","#book_mark");
 		
 		List<BookMarkVO> bm_list = null;
 		if(bm_count > 0) {
@@ -97,7 +97,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		BookDAO bookDao = BookDAO.getInstance();
 		int count = bookDao.getItemCount(keyfield, keyword, category);
 		
-		PageUtil page = new PageUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,10,"myPage.do");
+		PageUtil page = new PageUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,10,"myPage.do","#admin_book");
 		
 		List<BookVO> list = null;
 		if(count > 0) {
