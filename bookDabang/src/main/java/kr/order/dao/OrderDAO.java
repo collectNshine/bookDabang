@@ -3,6 +3,7 @@ package kr.order.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import kr.order.vo.OrderDetailVO;
@@ -117,6 +118,72 @@ public class OrderDAO {
 		finally { DBUtil.executeClose(null, pstmt, conn); }
 	}
 	
+	// 개별 상품 목록
+	public List<OrderDetailVO> getListOrderDetail(int order_num) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<OrderDetailVO> list = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			sql = "SELECT * FROM order_detail WHERE order_num=? ORDER BY bk_num DESC";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, order_num);
+			
+			rs = pstmt.executeQuery();
+			list = new ArrayList<OrderDetailVO>();
+			while(rs.next()) {
+				OrderDetailVO detail = new OrderDetailVO();
+				detail.setBk_num(rs.getInt("bk_num"));
+				detail.setBook_title(rs.getString("book_name"));
+				detail.setBook_price(rs.getInt("book_price"));
+				detail.setBook_total(rs.getInt("book_total"));
+				detail.setOrder_quantity(rs.getInt("order_quantity"));
+				detail.setOrder_num(rs.getInt("order_num"));
+				
+				list.add(detail);
+			}
+		} catch(Exception e) { throw new Exception(e); }
+		finally { DBUtil.executeClose(rs, pstmt, conn); }
+		
+		return list;
+	}
+	
+	// 주문 삭제(삭제시 재고 원상 복귀 X, 주문 취소일 경우 재고 원상 복귀 O)
+	public void deleteOrder(int order_num) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			sql = "DELETE FROM order_detail WHERE order_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, order_num);
+			pstmt.executeUpdate();
+			
+			sql = "DELETE FROM orders WHERE order_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, order_num);
+			pstmt2.executeUpdate();
+			
+			conn.commit();
+		} catch(Exception e) {
+			conn.rollback();
+			throw new Exception(e);
+		} finally {
+			DBUtil.executeClose(null, pstmt2, null);
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	
 	// 관리자&사용자 : 주문 상세
 	public OrderVO getOrder(int order_num) throws Exception {
 		Connection conn = null;
@@ -136,6 +203,19 @@ public class OrderDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				order = new OrderVO();
+				order.setOrder_num(rs.getInt("order_num"));
+				order.setBook_title(rs.getString("book_title"));
+				order.setOrder_total(rs.getInt("order_total"));
+				order.setPayment(rs.getInt("payment"));
+				order.setStatus(rs.getInt("status"));
+				order.setReceive_name(rs.getString("receive_name"));
+				order.setReceive_post(rs.getString("receive_post"));
+				order.setReceive_address1(rs.getString("receive_address1"));
+				order.setReceive_address2(rs.getString("receive_address2"));
+				order.setReceive_phone(rs.getString("receive_phone"));
+				order.setNotice(rs.getString("notice"));
+				order.setOrder_date(rs.getDate("order_date"));
+				order.setMem_num(rs.getInt("mem_num"));
 			}
 		} catch(Exception e) { throw new Exception(e); }
 		finally { DBUtil.executeClose(rs, pstmt, conn); }
@@ -144,12 +224,289 @@ public class OrderDAO {
 	}
 	
 	// 관리자&사용자 : 주문 수정
+	public void updateOrder(OrderVO order) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			OrderVO db_order = getOrder(order.getOrder_num());	// DB에 저장된 정보
+			
+			if(order.getStatus() == 1 && db_order.getStatus() == 1) { sub_sql += "receive_name=?, receive_post=?, receive_address1=?, receive_address2=?, receive_phone=?, notice=?, "; }
+			
+			sql = "UPDATE orders SET status=?, "+ sub_sql + "modify_date=SYSDATE WHERE order_num=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(++cnt, order.getStatus());
+			if(order.getStatus() == 1 && db_order.getStatus() == 1) {
+				pstmt.setString(++cnt, order.getReceive_name());
+				pstmt.setString(++cnt, order.getReceive_post());
+				pstmt.setString(++cnt, order.getReceive_address1());
+				pstmt.setString(++cnt, order.getReceive_address2());
+				pstmt.setString(++cnt, order.getReceive_phone());
+				pstmt.setString(++cnt, order.getNotice());
+			}
+			pstmt.setInt(++cnt, order.getOrder_num());	
+			pstmt.executeUpdate();
+			
+			// 주문 취소일 경우만 상품개수 조정
+			if(order.getStatus() == 5) {
+				// 주문정보에 해당하는 상품정보 구하기
+				List<OrderDetailVO> detailList = getListOrderDetail(order.getOrder_num());
+				
+				sql = "UPDATE book_list SET quantity = quantity + ? WHERE bk_num=?";
+				pstmt2 = conn.prepareStatement(sql);
+				for(int i = 0; i < detailList.size(); i++) {
+					OrderDetailVO detail = detailList.get(i);
+					pstmt2.setInt(1, detail.getOrder_quantity());
+					pstmt2.setInt(2, detail.getBk_num());
+					pstmt2.addBatch();
+					
+					// 계속 추가하면 outOfMemory 발생, 1000개 단위로 executeBatch()
+					if(i % 1000 == 0) { pstmt2.executeBatch(); }
+				}
+				pstmt2.executeBatch();
+			}
+			
+			conn.commit();
+		} catch(Exception e) {
+			conn.rollback();
+			throw new Exception(e);
+		} finally {
+			DBUtil.executeClose(null, pstmt2, null);
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	
 	/* 관리자 */
 	// 전체 주문&검색 주문 개수
+	public int getOrderCount(String keyfield, String keyword) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String sub_sql = "";
+		int count = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			if(keyword != null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "WHERE order_num=?";
+				else if(keyfield.equals("2")) sub_sql += "WHERE id LIKE ?";
+				else if(keyfield.equals("3")) sub_sql += "WHERE book_name LIKE ?";
+			}
+			
+			sql = "SELECT COUNT(*) FROM orders o JOIN member m ON o.mem_num = m.mem_num " + sub_sql;
+			
+			pstmt = conn.prepareStatement(sql);
+			if(keyword != null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) { pstmt.setString(1, keyword); }
+				else { pstmt.setString(1, "%" + keyword + "%"); }
+			}
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) { count = rs.getInt(1); }
+		} catch(Exception e) { throw new Exception(e); }
+		finally { DBUtil.executeClose(rs, pstmt, conn); }
+		
+		return count;
+	}
+	
 	// 전체 주문&검색 주문 목록
+	public List<OrderVO> getListOrder(int start, int end, String keyfield, String keyword) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<OrderVO> list = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			if(keyword != null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "WHERE order_num=?";
+				else if(keyfield.equals("2")) sub_sql += "WHERE id LIKE ?";
+				else if(keyfield.equals("3")) sub_sql += "WHERE item_name LIKE ?";
+			}
+			
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM orders o JOIN member m ON o.mem_num = m.mem_num " + sub_sql + " ORDER BY order_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			if(keyword != null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) { pstmt.setString(++cnt, keyword); }
+				else { pstmt.setString(++cnt, "%" + keyword + "%"); }
+			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
+			
+			rs = pstmt.executeQuery();
+			list = new ArrayList<OrderVO>();
+			while(rs.next()) {
+				OrderVO order = new OrderVO();
+				order.setOrder_num(rs.getInt("order_num"));
+				order.setBook_title(rs.getString("book_title"));
+				order.setOrder_total(rs.getInt("order_total"));
+				order.setPayment(rs.getInt("payment"));
+				order.setStatus(rs.getInt("status"));
+				order.setReceive_name(rs.getString("receive_name"));
+				order.setReceive_post(rs.getString("receive_post"));
+				order.setReceive_address1(rs.getString("receive_address1"));
+				order.setReceive_address2(rs.getString("receive_address2"));
+				order.setReceive_phone(rs.getString("receive_phone"));
+				order.setNotice(rs.getString("notice"));
+				order.setOrder_date(rs.getDate("order_date"));
+				order.setMem_num(rs.getInt("mem_num"));
+				order.setId(rs.getString("id"));
+				
+				list.add(order);
+			}
+		} catch(Exception e) { throw new Exception(e); }
+		finally { DBUtil.executeClose(rs, pstmt, conn); }
+		
+		return list;
+	}
 	
 	/* 사용자 */
 	// 전체 주문&검색 주문 개수
+	public int getOrderCountByMem_num(String keyfield, String keyword, int mem_num) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String sub_sql = "";
+		int count = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			if(keyword != null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "AND order_num=?";
+				else if(keyfield.equals("2")) sub_sql += "AND book_title LIKE ?";
+			}
+			
+			sql = "SELECT COUNT(*) FROM orders WHERE mem_num=? " + sub_sql;
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+			if(keyword != null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) { pstmt.setString(2, keyword); }
+				else if(keyfield.equals("2")) { pstmt.setString(2, "%" + keyword + "%"); }
+			}
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) { count = rs.getInt(1); }
+		} catch(Exception e) { throw new Exception(e); }
+		finally { DBUtil.executeClose(rs, pstmt, conn); }
+		
+		return count;
+	}
+	
+	// 사용자 : 전체 주문/검색 주문 목록
+	public List<OrderVO> getListOrderByMem_num(int start, int end, String keyfield, String keyword, int mem_num) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<OrderVO> list = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			if(keyword != null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "AND order_num=?";
+				else if(keyfield.equals("2")) sub_sql += "AND book_title LIKE ?";
+			}
+			
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM orders WHERE mem_num=? " + sub_sql + " ORDER BY order_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(++cnt, mem_num);
+			if(keyword != null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) { pstmt.setString(++cnt, keyword); }
+				else if(keyfield.equals("2")) { pstmt.setString(++cnt, "%" + keyword + "%"); }
+			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
+			
+			rs = pstmt.executeQuery();
+			list = new ArrayList<OrderVO>();
+			while(rs.next()) {
+				OrderVO order = new OrderVO();
+				order.setOrder_num(rs.getInt("order_num"));
+				order.setBook_title(rs.getString("book_title"));
+				order.setOrder_total(rs.getInt("order_total"));
+				order.setPayment(rs.getInt("payment"));
+				order.setStatus(rs.getInt("status"));
+				order.setReceive_name(rs.getString("receive_name"));
+				order.setReceive_post(rs.getString("receive_post"));
+				order.setReceive_address1(rs.getString("receive_address1"));
+				order.setReceive_address2(rs.getString("receive_address2"));
+				order.setReceive_phone(rs.getString("receive_phone"));
+				order.setNotice(rs.getString("notice"));
+				order.setOrder_date(rs.getDate("order_date"));
+				order.setMem_num(rs.getInt("mem_num"));
+				
+				list.add(order);
+			}
+		} catch(Exception e) { throw new Exception(e); }
+		finally { DBUtil.executeClose(rs, pstmt, conn); }
+		
+		return list;
+	}
+	
 	// 주문 취소
+	public void updateOrderCancel(int order_num) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			sql="UPDATE orders SET status = 5, modify_date = SYSDATE WHERE order_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, order_num);
+			pstmt.executeUpdate();
+			
+			// 주문번호에 해당하는 상품정보 구하기
+			List<OrderDetailVO> detailList = getListOrderDetail(order_num);
+			// 주문취소로 주문상품의 재고수 환원
+			sql = "UPDATE book_list SET stock = stock + ? WHERE bk_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			// 주문개수가 1개 이상일 가능성이 존재하기 떄문에 for문으로 반복
+			for(int i = 0; i < detailList.size(); i++) {
+				OrderDetailVO detail = detailList.get(i);
+				pstmt2.setInt(1, detail.getOrder_quantity());
+				pstmt2.setInt(2, detail.getBk_num());
+				pstmt2.addBatch();
+				
+				// 계속 추가하면 outOfMemory 발생, 1000개 단위로 executeBatch()
+				if(i % 1000 == 0) { pstmt2.executeBatch(); }
+			}
+			pstmt2.executeBatch();
+			
+			// 모든 SQL문이 성공하면
+			conn.commit();
+		} catch(Exception e) {
+			// SQL문이 하나라도 실패하면
+			conn.rollback();
+			throw new Exception(e);
+		} finally {
+			DBUtil.executeClose(null, pstmt2, null);
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 }

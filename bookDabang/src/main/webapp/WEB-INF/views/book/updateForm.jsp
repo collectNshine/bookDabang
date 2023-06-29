@@ -17,7 +17,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		$('#update_form').submit(function(){
+		$('.info_form').submit(function(){
 			if($('#title').val().trim()==''){
 				alert('도서명을 입력하세요!');
 				$('#name').val('').focus();
