@@ -452,7 +452,7 @@ element.style {
 					</c:if>
 					
 					<c:if test="${count > 0}">
-				<table>
+				<table class="table table-hover align-center">
 					<tr>
 						<th>주문번호</th>
 						<th>도서명</th>
