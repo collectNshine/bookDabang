@@ -204,18 +204,17 @@ element.style {
 		<!-- 사용자 [3. 주문목록] 시작 -->
 		<div id="order" class="tab_contents">
 		<div class="content-main container">
-		<br><h2><a href="myPage.do">주문목록</a></h2><br>
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form3-1" action="myPage.do#order" method="get" class="d-flex">
+			<form id="search_form" action="myPagePost.do" method="get" class="d-flex">
 				<ul class="search">
 					<li>
-						<select name="keyfield" class="form-select">
-							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>주문번호</option>
-							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>주문명</option>
+						<select name="user_orderkeyfield" class="form-select">
+							<option value="1" <c:if test="${param.user_orderkeyfield==1}">selected</c:if>>제목</option>
+							<option value="2" <c:if test="${param.user_orderkeyfield==2}">selected</c:if>>내용</option>
 						</select>
 					</li>
 					<li>
-						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" class="form-control me-2">
+						<input type="search" size="16" name="user_orderkeyword" id="keyword" value="${param.user_orderkeyword}" class="form-control me-2">
 					</li>
 					<li>
 						<input type="submit" value="검색" class="btn btn-outline-success">
@@ -234,19 +233,19 @@ element.style {
 				});
 			</script> 
 			<!-- 검색창 끝 -->
-			<table>
+			<table class="table table-hover align-center">
 				<tr>
 					<th>NO.</th>
 					<th>주문명</th>
 					<th>가격</th>
 					<th>주문일</th>
 				</tr>
-				<c:forEach var="order" items="${order}"> 
+				<c:forEach var="order" items="${orderList}"> 
 				<tr>
 					<td>${order.order_num}</td>
 					<td>${order.book_title}</td>
 					<td>${order.order_total}</td>
-					<td>${order.reg_date}</td>
+					<td>${order.order_date}</td>
 				</tr>
 				</c:forEach>
 			</table>
@@ -416,18 +415,18 @@ element.style {
 	<!-- [2. 주문 관리] 시작 -->
 		<div id="admin_order" class="tab_contents">
 			<div class="content-main">
-				<h2><a href="myPage.do#admin_order">주문 관리</a></h2>
+				<h2><a href="myPage.do">주문 관리</a></h2>
 					<!-- 검색창 시작 : get방식 -->
 					<form id="search_form2" action="myPage.do#admin_order" method="get" class="d-flex">
 						<ul class="search">
 							<li>
-								<select name="keyfield" class="form-select">
-								<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>주문번호</option>
-								<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>도서명</option>
+								<select name="adminOrderkeyfield" class="form-select">
+								<option value="1" <c:if test="${param.adminOrderkeyfield==1}">selected</c:if>>주문번호</option>
+								<option value="2" <c:if test="${param.adminOrderkeyfield==2}">selected</c:if>>도서명</option>
 							</select>
 							</li>
 							<li>
-								<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" class="form-control me-2">
+								<input type="search" size="16" name="adminOrderkeyword" id="keyword" value="${param.adminOrderkeyword}" class="form-control me-2">
 							</li>
 							<li>
 								<input type="submit" value="검색" class="btn btn-outline-success">
@@ -453,7 +452,7 @@ element.style {
 					</c:if>
 					
 					<c:if test="${count > 0}">
-				<table>
+				<table class="table table-hover align-center">
 					<tr>
 						<th>주문번호</th>
 						<th>도서명</th>
@@ -462,18 +461,19 @@ element.style {
 						<th>총 주문 금액</th>
 						<th>주문 날짜</th>
 					</tr>
-					<c:forEach var="admin_order" items="${order}"> 
+					<c:forEach var="admin_order" items="${adminOrderlist}"> 
 					<tr>
-						<td>${admin_order.post_num}</td>
-						<td>${admin_order.post_title}</td>
-						<td>${admin_order.post_content}</td>
-						<td>${admin_order.post_date}</td>
-						<td>${admin_order.post_date}</td>
-						<td>${admin_order.post_date}</td>
+						<td>${admin_order.order_num}</td>
+						<td>${admin_order.book_title}</td>
+						<td>${admin_order.id}</td>
+						<td>${admin_order.status}</td>
+						<td>${admin_order.order_total}</td>
+						<td>${admin_order.order_date}</td>
 					</tr>
 					</c:forEach>
 				</table>
 				</c:if>
+				<div class="align-center">${adminOrderpage}</div>
 			</div>
 		</div>
 		<!-- [2. 주문 관리] 끝 -->
