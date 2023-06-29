@@ -14,6 +14,7 @@ import kr.member.vo.MemberVO;
 import kr.mypage.dao.MyPageDAO;
 import kr.post.dao.PostDAO;
 import kr.post.vo.PostReportVO;
+import kr.post.vo.PostVO;
 import kr.request.dao.RequestDAO;
 import kr.request.vo.RequestVO;
 import kr.util.PageUtil;
@@ -66,27 +67,23 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		
 		
 		/*-- [사용자]작성글 시작 --*/
-		/*
-		String PostpageNum = request.getParameter("pageNum");
-		if(PostpageNum == null) PostpageNum = "1";
-		String Postkeyfield = request.getParameter("keyfield");
-		String Postkeyword = request.getParameter("keyword");
+		String mp_pageNum = request.getParameter("mp_pageNum");
+		if(mp_pageNum == null) mp_pageNum = "1";
+		String mp_keyfield = request.getParameter("mp_keyfield");
+		String mp_keyword = request.getParameter("mp_keyword");
 		
 		MyPageDAO postdao = MyPageDAO.getInstance();
-		int post_count = postdao.getMyPostCount(Postkeyfield, Postkeyword);
-		PageUtil post_page = new PageUtil(Postkeyfield,Postkeyword,Integer.parseInt(PostpageNum),post_count,10,10,"myPage.do");
+		int mp_count = postdao.getMyPostCount(mp_keyfield, mp_keyword);
+		PageUtil mp_page = new PageUtil(mp_keyfield,mp_keyword,Integer.parseInt(mp_pageNum),mp_count,10,10,"myPage.do");
 		
-		List<PostVO> postlist = null;
-		if(post_count > 0) {
-			postlist = postdao.getListMyPost(post_page.getStartRow(), post_page.getEndRow(), Postkeyfield, Postkeyword, user_num);
+		List<PostVO> mp_list = null;
+		if(mp_count > 0) {
+			mp_list = postdao.getListMyPost(mp_page.getStartRow(), mp_page.getEndRow(), mp_keyfield, mp_keyword, user_num);
 		}
-		request.setAttribute("postCount", post_count);
-		request.setAttribute("postList", postlist);
-		request.setAttribute("postPage", post_page.getPage());
-		*/
+		request.setAttribute("mp_count", mp_count);
+		request.setAttribute("mp_list", mp_list);
+		request.setAttribute("mp_page", mp_page.getPage());
 		/*-- [사용자]작성글 끝 --*/
-		
-		
 		
 		
 		/*---[관리자]도서 관리 시작---*/ 
