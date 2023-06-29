@@ -19,6 +19,11 @@ ul.search {
     margin: 0 auto;
     display: flex;
 }
+element.style {
+    display: flex;
+    margin-left: 250px;
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
@@ -27,18 +32,18 @@ ul.search {
 <body> 
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<hr size="1" noshade="noshade" width="100%">
+	<hr size="1" noshade="noshade" width="100%" style="border: solid 2px #black;">
 		<h2 class="align-center">마이페이지</h2>
-	<hr size="1" noshade="noshade" width="100%">
+	<hr size="1" noshade="noshade" width="100%" style="border: solid 2px #black;">
 	<div class="mypage-div">
 	<!-- 프로필 사진 시작 --> 
 		<ul>
-			<li style="display:flex;">
+			<li style="display:flex;  margin-left: 250px;">
 				<c:if test="${empty user_photo}">
 					<div>
 						<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
 					</div>
-					<div>
+					<div style="margin-left:20px;">
 						<h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_name}</b>님의 책다방</h4>
 						<input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
 					</div>
@@ -47,7 +52,7 @@ ul.search {
 				<c:if test="${!empty user_photo}">
 					<img src="${pageContext.request.contextPath}/upload/${user_photo}" 
 						 width="200" height="200" class="my-photo">
-					<div style="display:flex;justify-content: space-around;flex-direction: column;">	 
+					<div style="display:flex;justify-content: space-around;flex-direction: column; margin-left:25px;">	 
 						 <h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_name}</b>님의 책다방</h4>
 						 <input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
 					 </div>
@@ -59,33 +64,19 @@ ul.search {
 				
 		<!-- 사용자 마이페이지 메뉴 시작 -->
 		<c:if test="${!empty user_num && user_auth == 1}">
-		<ul class="tabWrap">
-			<li data-tab="book_mark" style="cursor: pointer;" class="on"><a href="#book_mark">책갈피</a></li>
-			<li data-tab="post" style="cursor: pointer;"><a href="#post">작성글</a></li>
-			<li data-tab="order" style="cursor: pointer;"><a href="#order">주문목록</a></li>
+		<ul class="tabWrap" style="border-color:#b3b3b3">
+			<li data-tab="book_mark" style="cursor: pointer;" class="on"><a href="myPage.do#book_mark">책갈피</a></li>
+			<li data-tab="post" style="cursor: pointer;"><a href="myPage.do#post">작성글</a></li>
+			<li data-tab="order" style="cursor: pointer;"><a href="myPage.do#order">주문목록</a></li>
 		</ul>
 		
-		<%-- 
-		<script type="text/javascript">
-		$('.tabWrap a').click(function(e){
-			e.preventDefault();
-	        
-			const target = $(this).data('target');
-
-			$(this).addClass('on').siblings('a').removeClass('on');
-
-			$(target).addClass('on').siblings('.con').removeClass('on');
-		}) 
-
-		</script> 
-		--%>
-		
+			
 		<!-- 사용자 [1. 책갈피] 시작 -->
 		<div id="book_mark" class="tab_contents on">
 			<div class="content-main container">
-			<br><h2><a href="myPage.do">나의 책갈피</a></h2><br>
+			<br><h2><a href="myPage.do#book_mark">나의 책갈피</a></h2><br>
 			<!-- 검색창 시작 : get방식 -->
-			<form id="bm_search_form" action="myPage.do" method="get" class="d-flex" role="search" >
+			<form id="bm_search_form" action="myPage.do#book_mark" method="get" class="d-flex" role="search" >
 				<select name="bm_keyfield" class="form-select">
 					<option value="1" <c:if test="${param.bm_keyfield==1}">selected</c:if>>도서명</option>
 					<option value="2" <c:if test="${param.bm_keyfield==2}">selected</c:if>>저자명</option>
@@ -133,12 +124,13 @@ ul.search {
 		<!-- [1. 책갈피] 끝 -->
 		
 		
-		<!-- 사용자 [2. 작성글] 시작 -->
+		
+	<!-- 사용자 [2. 작성글] 시작 -->
 	<div id="post" class="tab_contents">
 		<div class="content-main container">
 		<br><h2>나의 작성글</h2><br>
 		<!-- 검색창 시작 : get방식 -->
-			<form id="mp_search_form" action="myPagePost.do" method="get" class="d-flex" role="search" style="border:none;">
+			<form id="search_form2-1" action="myPagePost.do#post" method="get" class="d-flex" role="search" style="border:none;">
 				<ul class="search">
 					<li>
 						<select name="mp_keyfield" class="form-select">
@@ -208,6 +200,7 @@ ul.search {
 		<!-- [2. 작성글] 끝 -->
 		
 		
+		
 		<!-- 사용자 [3. 주문목록] 시작 -->
 		<div id="order" class="tab_contents">
 		<div class="content-main container">
@@ -215,13 +208,13 @@ ul.search {
 			<form id="search_form" action="myPagePost.do" method="get" class="d-flex">
 				<ul class="search">
 					<li>
-						<select name="keyfield" class="form-select">
-							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
-							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>내용</option>
+						<select name="user_orderkeyfield" class="form-select">
+							<option value="1" <c:if test="${param.user_orderkeyfield==1}">selected</c:if>>제목</option>
+							<option value="2" <c:if test="${param.user_orderkeyfield==2}">selected</c:if>>내용</option>
 						</select>
 					</li>
 					<li>
-						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" class="form-control me-2">
+						<input type="search" size="16" name="user_orderkeyword" id="keyword" value="${param.user_orderkeyword}" class="form-control me-2">
 					</li>
 					<li>
 						<input type="submit" value="검색" class="btn btn-outline-success">
@@ -240,19 +233,19 @@ ul.search {
 				});
 			</script> 
 			<!-- 검색창 끝 -->
-			<table>
+			<table class="table table-hover align-center">
 				<tr>
 					<th>NO.</th>
 					<th>주문명</th>
 					<th>가격</th>
 					<th>주문일</th>
 				</tr>
-				<c:forEach var="order" items="${order}"> 
+				<c:forEach var="order" items="${orderList}"> 
 				<tr>
 					<td>${order.order_num}</td>
 					<td>${order.book_title}</td>
 					<td>${order.order_total}</td>
-					<td>${order.reg_date}</td>
+					<td>${order.order_date}</td>
 				</tr>
 				</c:forEach>
 			</table>
@@ -285,8 +278,8 @@ ul.search {
 		
 		<!-- 관리자 마이페이지 메뉴 시작 -->
 		<c:if test="${!empty user_num && user_auth == 9}">
-		<ul class="tabWrap">
-			<li data-tab="admin_book" style="cursor: pointer;" class="on"><a href="#admin_book">도서관리</a></li>
+		<ul class="tabWrap" style="border-color:#b3b3b3">
+			<li data-tab="admin_book" style="cursor: pointer;" class="on"><a href="myPage.do#admin_book">도서관리</a></li>
 			<li data-tab="admin_order" style="cursor: pointer;"><a href="myPage.do#admin_order">주문관리</a></li>
 			<li data-tab="admin_member" style="cursor: pointer;"><a href="myPage.do#admin_member">회원관리</a></li>
 			<li data-tab="admin_report" style="cursor: pointer;"><a href="myPage.do#admin_report">신고내역</a></li>
@@ -332,7 +325,6 @@ ul.search {
 		
 		<c:if test="${count > 0}">
 			<table class="table table-hover align-center">
-			<thead>
 				<tr>
 					<th><input type="checkbox" name="allCheck" id="allCheck"></th>
 					<th>도서번호</th>
@@ -342,8 +334,6 @@ ul.search {
 					<th>재고</th>
 					<th>등록일</th>
 				</tr>
-			</thead>
-			<tbody>
 				<c:forEach var="book" items="${list}">
 				<tr>
 					<td><input type="checkbox" class="chBox" name="chBox" value="${book.bk_num}"></td>
@@ -355,7 +345,6 @@ ul.search {
 					<td>${book.reg_date}</td>
 				</tr>
 				</c:forEach>
-			</tbody>
 			</table>
 			<div class="page-button">${page}</div>
 		</c:if>
@@ -378,10 +367,10 @@ ul.search {
 			  $("#allCheck").prop("checked", false);
 		});
 		
-		<%--
+		
 		//선택 삭제 버튼 클릭 이벤트
 		 $("#selectDelete_btn").click(function(){
-		 		if($('input[class='chBox']:checked').length < 1){
+		 		if($("input[class='chBox']:checked").length < 1){
 					alert('하나 이상의 항목을 선택하세요');
 					return false;
 				}
@@ -393,32 +382,31 @@ ul.search {
 			   });
 			   
 			   $.ajax({
-				    url:"deleteBooks.do",
-				    type:"post",
-				    data:{checkArr:checkArr},
+				    url:'deleteBooks.do',
+				    type:'post',
+				    data:{'checkArr':checkArr.toString()},
 				    dataType:'json',
-				    success : function(){
+				    success : function(param){
 				    	let choice = confirm("정말 삭제하시겠습니까?");
 				    	if(choice){
 							if(param.result == 'logout'){
 								alert('로그인 후 삭제할 수 있습니다.');
-							}else if(param.result =='success'){
+							}else if(param.result == 'success'){
 								alert('등록된 도서가 삭제되었습니다.');
 								location.href='myPage.do';
-							}else if(param.result == 'wrongAccess'){
-								alert('잘못된 접근입니다.');
 							}else{
 								alert('도서 정보 삭제 중 오류가 발생했습니다.');
 							}
+						}else{
+							return false;
 						}
 				    },
 				    error:function(){
 				    	alert('네트워크 오류 발생');
 				    }
 			   });
-			   
 		 });
-		--%>
+		
 		</script>
 		
 	<!-- [1. 도서 관리] 끝 -->
@@ -432,13 +420,13 @@ ul.search {
 					<form id="search_form2" action="myPage.do#admin_order" method="get" class="d-flex">
 						<ul class="search">
 							<li>
-								<select name="keyfield" class="form-select">
-								<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>주문번호</option>
-								<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>도서명</option>
+								<select name="adminOrderkeyfield" class="form-select">
+								<option value="1" <c:if test="${param.adminOrderkeyfield==1}">selected</c:if>>주문번호</option>
+								<option value="2" <c:if test="${param.adminOrderkeyfield==2}">selected</c:if>>도서명</option>
 							</select>
 							</li>
 							<li>
-								<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" class="form-control me-2">
+								<input type="search" size="16" name="adminOrderkeyword" id="keyword" value="${param.adminOrderkeyword}" class="form-control me-2">
 							</li>
 							<li>
 								<input type="submit" value="검색" class="btn btn-outline-success">
@@ -464,7 +452,7 @@ ul.search {
 					</c:if>
 					
 					<c:if test="${count > 0}">
-				<table>
+				<table class="table table-hover align-center">
 					<tr>
 						<th>주문번호</th>
 						<th>도서명</th>
@@ -473,18 +461,19 @@ ul.search {
 						<th>총 주문 금액</th>
 						<th>주문 날짜</th>
 					</tr>
-					<c:forEach var="admin_order" items="${order}"> 
+					<c:forEach var="admin_order" items="${adminOrderlist}"> 
 					<tr>
-						<td>${admin_order.post_num}</td>
-						<td>${admin_order.post_title}</td>
-						<td>${admin_order.post_content}</td>
-						<td>${admin_order.post_date}</td>
-						<td>${admin_order.post_date}</td>
-						<td>${admin_order.post_date}</td>
+						<td>${admin_order.order_num}</td>
+						<td>${admin_order.book_title}</td>
+						<td>${admin_order.id}</td>
+						<td>${admin_order.status}</td>
+						<td>${admin_order.order_total}</td>
+						<td>${admin_order.order_date}</td>
 					</tr>
 					</c:forEach>
 				</table>
 				</c:if>
+				<div class="align-center">${adminOrderpage}</div>
 			</div>
 		</div>
 		<!-- [2. 주문 관리] 끝 -->
@@ -493,7 +482,7 @@ ul.search {
 		<!-- [3. 회원 관리] 시작 -->
 		<div id="admin_member" class="tab_contents">
 			<div class="content-main">
-				<h2><a href="myPage.do">회원 관리</a></h2>
+				<h2><a href="myPage.do#admin_member">회원 관리</a></h2>
 				
 				<!-- 검색창 시작 : get방식 -->
 				<form id="search_form3" action="myPage.do#admin_member" method="get" class="d-flex">
@@ -505,7 +494,7 @@ ul.search {
 							</select>
 						</li>
 						<li>
-							<input type="search" size="16" name="adminMemberKeyword" id="adminMemberKeyword" value="${param.adminMemberKeyword}">
+							<input type="search" size="16" name="adminMemberKeyword" id="adminMemberKeyword" value="${param.adminMemberKeyword}" class="form-control me-2">
 						</li>
 						<li>
 							<input type="submit" value="검색" class="btn btn-outline-success">
@@ -560,17 +549,24 @@ ul.search {
 		
 		<!-- [4. 신고 내역] 시작 -->
 		<div id="admin_report" class="tab_contents">
-		<div class="content-main container">
-		<br><h2><a href="myPage.do">신고 내역</a></h2>
+		<h2><a href="myPage.do#admin_report">신고 내역</a></h2>
 		
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form4" action="myPage.do#admin_report" method="get" class="d-flex" role="search">
-				<select name="repoKeyfield" class="form-select" style="width:180px;">
-					<option value="1" <c:if test="${param.repoKeyfield==1}">selected</c:if>>신고유형</option>
-					<option value="2" <c:if test="${param.repoKeyfield==2}">selected</c:if>>회원번호</option>
-				</select>
-				<input type="search" size="16" name="repoKeyword" id="repoKeyword" value="${param.repoKeyword}" class="form-control me-2">
-				<input type="submit" value="검색" class="btn btn-outline-success">
+			<form id="search_form4" action="myPage.do#admin_report" method="get" class="d-flex">
+				<ul class="search">
+					<li>
+						<select name="repoKeyfield" class="form-select">
+							<option value="1" <c:if test="${param.repoKeyfield==1}">selected</c:if>>신고유형</option>
+							<option value="2" <c:if test="${param.repoKeyfield==2}">selected</c:if>>회원번호</option>
+						</select>
+					</li>
+					<li>
+						<input type="search" size="16" name="repoKeyword" id="repoKeyword" value="${param.repoKeyword}" class="form-control me-2">
+					</li>
+					<li>
+						<input type="submit" value="검색" class="btn btn-outline-success">
+					</li>
+				</ul>
 			</form>
 			<script type="text/javascript">
 				$(function(){
@@ -593,7 +589,6 @@ ul.search {
 			<c:if test="${repoCount > 0}">
 			<table class="table table-hover align-center">
 				<tr>
-					<th><input type="checkbox" name="allchk" id="allchk"></th>
 					<th>신고 번호</th>
 					<th>회원 번호</th>
 					<th>신고 유형</th>
@@ -602,8 +597,12 @@ ul.search {
 				</tr>
 				<c:forEach var="report" items="${repoList}"> 
 				<tr>
-					<td><input type="checkbox" class="chkbox" name="chkbox" value="${report.repo_num}"></td>
-					<td><a href="${pageContext.request.contextPath}/post/detailReport.do?repo_num=${report.repo_num}">${report.repo_num}</a></td>
+					<td>
+					<c:if test="${user_auth == 9}">
+					<input class="checkbox" name="checkbox" type="checkbox" value="${report.repo_num}">
+					</c:if>
+					<a href="${pageContext.request.contextPath}/post/detailReport.do?repo_num=${report.repo_num}">${report.repo_num}</a>
+					</td>
 					<td>${report.mem_num}</td>
 					<td>${report.repo_category}</td>
 					<td>${report.repo_content}</td>
@@ -611,87 +610,39 @@ ul.search {
 				</tr>
 				</c:forEach>
 			</table>
-			<input type="button" value="선택 삭제" class="btn btn-primary" id="selecdel_btn">
+			<c:if test="${user_auth == 9}">
+			<input id="all_btn" type="button" value="전체 선택">
 			<script type="text/javascript">
-				let all_btn = document.getElementById('all_btn');
-				//이벤트 연결
-				//모두 선택 체크박스 클릭 이벤트
-				$("#allchk").click(function(){
-			 		var chk = $("#allchk").prop("checked");
-			 		if(chk) {
-			  		$(".chkbox").prop("checked", true);
-			 		} else {
-			  		$(".chkbox").prop("checked", false);
-			 		}
-				});
-		
-				//모두 선택일 때 개별 체크박스 하나 해제 시 모두 선택 해제
-				 $(".chkbox").click(function(){ 
-			  	$("#allchk").prop("checked", false);
-				});
-				//선택 삭제
-				<%--
-				$('#selecdel_btn').click(function(){
-				if($('input[class='chkbox']:checked').length < 1){
-					alert('삭제할 항목을 선택해주세요.');
-					return false;
-				}
-				let chkArr = new Array();
-				$('input[class='chkbox']:checked').each(function(index,item){
-					chkArr.push($(this).val());
-				});
-				$.ajax({
-					url:'deleteReport.do',
-					type:'post',
-					data:{chkArr:chkArr},
-					dataType:'json',
-					success:function(param){
-						let choice = confirn("정말 삭제하시겠습니까?");
-						if(choice){
-						if(param.result == 'logout'){
-							alert('로그인 후 삭제할 수 있습니다.');
-						} else if(param.result == 'success'){
-							alert('해당 신고가 삭제되었습니다.');
-							location.href='myPage.do';
-						} else if(param.result == 'wrongAccess'){
-							alert('잘못된 접근입니다.');
-						}else{
-							alert('신고 삭제 중 오류가 발생했습니다.');
-						}
-						}
-					},
-					error:function(){
-						alert('네트워크 오류 발생')
-					}
-				});
-			});
-
+			let all_btn = document.getElementById('all_btn');
+			//이벤트 연결
+			all_btn.onclick=function(){
+				$(":checkbox").attr("checked","checked")
+			};
+			</script>
+			<input id="del_btn" type="button" value="삭제"> 
+			<script type="text/javascript">
 			let del_btn = document.getElementById('del_btn');
 			//이벤트 연결
 			del_btn.onclick=function(){
-				if($('input:checkbox[name="checkbox"]:checked').length == 0){
-					alert('삭제할 항목을 선택해주세요.');
-					return;
-				}
 				let choice = confirm('삭제하시겠습니까?');
 				if(choice){
 				//location.replace('deleteReport.do?repo_num=${report.repo_num}');
 				//history.go(0);
 				}
 			};
-			--%>
 			</script>
 			</c:if>
 			<div class="align-center">${repoPage}</div>
-		</div>
+		</c:if>
 		</div>
 		<!-- [4. 신고 내역] 끝 -->
+		
 		
 		<!-- [5. 도서 신청] 시작 -->
 		<div id="admin_request" class="tab_contents">
 			<div class="content-main container">
 			<h2>도서신청</h2>
-			<form id="search_form5" action="myPage.do#admin_request" method="get">
+			<form id="search_form5" action="myPage.do#admin_request" method="get" class="d-flex">
 				<ul class="search">
 					<li>
 						<select name="req_Keyfield" class="form-select">
@@ -701,7 +652,7 @@ ul.search {
 						</select>
 					</li>
 					<li>
-						<input type="search" size="16" name="req_Keyword" id="req_Keyword" value="${param.req_Keyword}">
+						<input type="search" size="16" name="req_Keyword" id="req_Keyword" value="${param.req_Keyword}" class="form-control me-2">
 					</li>
 					<li>
 						<input type="submit" value="조회" class="btn btn-outline-success">
@@ -733,7 +684,6 @@ ul.search {
 		
 		<c:if test="${req_Count > 0}">
 			<table class="table table-hover align-center">
-			<thead>
 				<tr>
 					<th>확인</th>
 					<th>진행상태</th>
@@ -743,7 +693,6 @@ ul.search {
 					<th>신청일</th>
 					<th>추천수</th>
 				</tr>
-			</thead>
 			<tbody>
 				<c:forEach var="request" items="${req_list}">
 			<tr>
@@ -774,7 +723,6 @@ ul.search {
 				</td>							
 			</tr>
 			</c:forEach>
-			</tbody>
 			</table>
 			<input type="button" value="추가 완료" id="reqstate_done" class="align-left">
 			<!-- </form> -->
@@ -805,7 +753,6 @@ ul.search {
 						}
 					});
 				});
-				
 			</script>
 			<div class="align-center">${req_Page}</div>
 		</c:if>

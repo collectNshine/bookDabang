@@ -13,7 +13,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript"> 
 	$(function(){
-		$('#write_form').submit(function(){
+		$('.info_form').submit(function(){
 			if($('#title').val().trim()==''){
 				alert('도서명을 입력하세요!');
 				$('#name').val('').focus();
@@ -128,6 +128,7 @@
 								reader.readAsDataURL(new_thumbnail);
 								reader.onload=function(){
 									$('.db-thumbnail').attr('src',reader.result);
+									$('#file_detail').empty();
 								};
 							});//end of change
 						});

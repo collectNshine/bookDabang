@@ -7,6 +7,7 @@ public class OrderVO {
 	private String book_title;
 	private int order_total;
 	private int payment;
+	private int status;
 	private String receive_name;
 	private String receive_post;
 	private String receive_address1;
@@ -14,7 +15,9 @@ public class OrderVO {
 	private String receive_phone;
 	private String notice;
 	private Date order_date;
+	private Date modify_date;
 	private int mem_num;
+	private String id;
 	
 	// Getters and Setters
 	public int getOrder_num() { return order_num; }
@@ -28,6 +31,9 @@ public class OrderVO {
 	
 	public int getPayment() { return payment; }
 	public void setPayment(int payment) { this.payment = payment; }
+	
+	public int getStatus() { return status; }
+	public void setStatus(int status) { this.status = status; }
 	
 	public String getReceive_name() { return receive_name; }
 	public void setReceive_name(String receive_name) { this.receive_name = receive_name; }
@@ -50,6 +56,12 @@ public class OrderVO {
 	public Date getOrder_date() { return order_date; }
 	public void setOrder_date(Date order_date) { this.order_date = order_date; }
 	
+	public Date getModify_date() { return modify_date; }
+	public void setModify_date(Date modify_date) { this.modify_date = modify_date; }
+	
 	public int getMem_num() { return mem_num; }
 	public void setMem_num(int mem_num) { this.mem_num = mem_num; }
+	
+	public String getId() { return id; }
+	public void setId(String id) { this.id = id; }
 }
