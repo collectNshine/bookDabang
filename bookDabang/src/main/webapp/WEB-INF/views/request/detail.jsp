@@ -83,7 +83,7 @@
 			</div>
 		 	<!-- 좋아요 버튼 끝 -->
 		 
-		 	<div class="detail_modifybtn">
+		 	<div class="req_btn">
 		 		<c:if test="${user_num == request.mem_num}">
 			 	<input type="button" value="목록" onclick="location.href='list.do'">
 			 	<input type="button" value="수정" onclick="location.href='modifyForm.do?req_num=${request.req_num}'">

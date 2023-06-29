@@ -19,7 +19,6 @@ a:hover{ text-decoration:none; color:#6C6C6C; }
 #main_menu{ overflow:hidden; padding-top:15px; }
 .menu-category li{ height:60px; font-size:20px; margin:50px 20px 30px 20px; text-align:center; font-weight:bold; float:left; }
 .menu-detail{ width:120px; height:20px; padding:0 5px 0 5px; text-align:center; display:inline-block; }
-/*.menu-login li{ float:right; padding-right:10px; }*/
 ul{ list-style:none; }
 
 /* 공통 정렬 */
@@ -50,3 +49,10 @@ ul{ list-style:none; }
 .book-buy-list{ clear:both; width:80%; border:none; margin:20px auto; text-align:center; background:white; border-radius:10px; font-weight:bold; }
 .book-buy-list .width_td1{ width:50%; }
 .book-buy-list .width_td2{ width:50%; }
+
+/* 주문 */
+.orderinfo-form{ width:100%; clear:both; float:left; margin:30px auto; }
+/*.float-left{ float:left; }*/
+.mem-info{ width:50%; float:left; }
+.delivery-info{ width:50%; float:left; }
+.payment-info{ clear:both; width:40%; margin:50px 30px; }

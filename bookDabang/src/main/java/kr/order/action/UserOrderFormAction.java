@@ -11,6 +11,8 @@ import kr.book.vo.BookVO;
 import kr.cart.dao.CartDAO;
 import kr.cart.vo.CartVO;
 import kr.controller.Action;
+import kr.member.vo.MemberVO;
+import kr.mypage.dao.MyPageDAO;
 
 public class UserOrderFormAction implements Action {
 	@Override
@@ -42,14 +44,19 @@ public class UserOrderFormAction implements Action {
 		for(CartVO cart : cartList) {
 			BookVO book = bookDao.getBook(cart.getBk_num());
 			
-			if(book.getStock() < cart.getOrder_quantity()) {
+			if(book.getStock() < cart.getOrder_quantity() || book.getStock() <= 0) {
 				request.setAttribute("notice_msg", "[ " + book.getTitle() + " ] 재고수량 부족으로 주문 불가");
 				request.setAttribute("notice_url", request.getContextPath() + "/cart/list.do");
 				return "/WEB-INF/views/common/alert_singleView.jsp";
 			}
 		}
 		
+		MyPageDAO myDao = MyPageDAO.getInstance();
+		MemberVO myVo = myDao.getMember(user_num);
+
+		request.setAttribute("member", myVo);
 		request.setAttribute("list", cartList);
+		request.setAttribute("cart_nums", cart_nums);
 		request.setAttribute("total_price", total_price);
 		
 		return "/WEB-INF/views/order/user_orderForm.jsp";
