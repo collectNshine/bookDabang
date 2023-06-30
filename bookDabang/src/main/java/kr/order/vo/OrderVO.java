@@ -1,4 +1,4 @@
-package kr.order.vo;
+package kr.order.vo; 
 
 import java.sql.Date;
 
