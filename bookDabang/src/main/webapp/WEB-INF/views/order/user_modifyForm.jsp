@@ -132,7 +132,7 @@
 											};
 										</script>
 										</c:if>
-										<input type="button" value="주문목록" onclick="location.href='orderList.do'" class="btn btn-outline-secondary btn-sm">
+										<input type="button" value="주문목록" onclick="${pageContext.request.contextPath}/mypage/myPage.do#admin_order" class="btn btn-outline-secondary btn-sm">
 									</div>
 								</li>
 							</ul>
