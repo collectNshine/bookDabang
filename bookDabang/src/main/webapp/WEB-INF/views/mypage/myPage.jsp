@@ -714,9 +714,15 @@ ul.search li {
 			</script> 
 			<!-- 검색창 끝 -->
 		<!-- <form id="request_admin"> -->
-		<div class="list-space align-right">
-			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'">
-		</div>
+
+		<div class="list-space">
+			<input type="button" value="추가 완료" class="btn btn-outline-secondary" id="reqstate_done" style="float:left;">
+			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'" class="btn btn-outline-secondary" style="float:right;">
+		</div><br>
+			
+			
+	<%-- 		<input type="button" value="추가 완료" id="reqstate_done" class="align-left">
+	 --%>
 		
 		<c:if test="${req_Count == 0 }">
 		<div class="result-display">
@@ -727,7 +733,7 @@ ul.search li {
 		<c:if test="${req_Count > 0}">
 			<table class="table table-hover align-center">
 				<tr>
-					<th>확인</th>
+					<th></th>
 					<th>진행상태</th>
 					<th>제목</th>
 					<th>저자</th>
@@ -766,7 +772,7 @@ ul.search li {
 			</tr>
 			</c:forEach>
 			</table>
-			<input type="button" value="추가 완료" id="reqstate_done" class="align-left">
+			
 			<!-- </form> -->
 			<script type="text/javascript">
 				$('#reqstate_done').click(function(){
@@ -786,6 +792,7 @@ ul.search li {
 						success:function(param){
 							if(param.result == 'success'){
 								alert('추가되었습니다.');
+								history.go(0);
 							}else{
 								alert('오류발생');
 							}
