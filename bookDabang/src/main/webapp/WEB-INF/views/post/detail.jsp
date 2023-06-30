@@ -117,7 +117,7 @@
 			<li>
 				<%-- 좋아요 --%>
 				<%-- html은 속성태그 추가X (예외)'data-' 형태로만 추가 가능--%>
-				<img id="output_fav" data-num="${post.post_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
+				<img id="output_fav" data-num="${post.post_num}" src="${pageContext.request.contextPath}/images/fav01.png" width="50">
 				좋아요
 				<span id="output_fcount"></span>
 			</li>
