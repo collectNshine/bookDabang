@@ -46,18 +46,32 @@
 				<h4><b>결제정보</b></h4>
 				<table class="table table-hover align-center">
 					<tr>
-						<td class="table-left">
+						<th>결제수단</th>
+						<th>주문금액</th>
+						<th>배송상태</th>
+					</tr>
+					<tr>
+						<td>
 							<c:if test="${order.payment == 1}"><b>무통장입금</b></c:if>
 							<c:if test="${order.payment == 2}"><b>카드결제</b></c:if>
 						</td>
-						<td class="table-right"><b>${order.order_total}</b></td>
+						<td><b>${order.order_total}</b></td>
+						<td>
+							<c:if test="${order.status == 1}"><b>배송대기</b></c:if>
+							<c:if test="${order.status == 2}"><b>배송준비중</b></c:if>
+							<c:if test="${order.status == 3}"><b>배송중</b></c:if>
+							<c:if test="${order.status == 4}"><b>배송완료</b></c:if>
+							<c:if test="${order.status == 5}"><b>주문취소</b></c:if>
+						</td>
 					</tr>
 				</table>
 				</div>
 			</div>
 			
 			<div class="order-detail">
-				<form id="order_modify" action="orderModify.do" method="post">
+				<form id="order_modify" action="userModify.do" method="post">
+					<input type="hidden" name="order_num" value="${order.order_num}">
+					<input type="hidden" name="status" value="${order.status}">
 					<div class="delivery-info">
 							<ul>
 								<li>
