@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"> --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <!-- header 시작 -->
 <div id="main_logo">
 	<div id="logo">
 		<a href="${pageContext.request.contextPath}/main/main.do">
-		<img src="${pageContext.request.contextPath}/images/reallogo.png" width="220"></a>
+		<img src="${pageContext.request.contextPath}/images/reallogo.png" width="190"></a>
 	</div>
    <div id="main_menu">
       <ul class="menu-category">
@@ -37,11 +37,11 @@
 	         </c:if>
 	         <c:if test="${empty user_photo}">
 	         <li>
-	            <a href="${pageContext.request.contextPath}/mypage/myPage.do"><img src="${pageContext.request.contextPath}/images/face.png" width="25" height="25" class="my-photo" style="margin-right:18px;"></a>
+	            <a href="${pageContext.request.contextPath}/mypage/myPage.do"><img src="${pageContext.request.contextPath}/images/face.png" width="25" height="25" class="my-photo" style="margin-right:15px;"></a>
 	         </li>
 	         </c:if>
 	     <li>
-	         <a href="${pageContext.request.contextPath}/cart/list.do"><img src="${pageContext.request.contextPath}/images/new_cart.png" width="25" height="25" style="margin-right:18px;"></a>
+	         <a href="${pageContext.request.contextPath}/cart/list.do"><img src="${pageContext.request.contextPath}/images/new_cart.png" width="25" height="25" style="margin-right:15px;"></a>
 	     </li>
 	     <li>
 	         <input class="loginbtn" type="button" value="Logout" onclick="location.href='${pageContext.request.contextPath}/member/logout.do'" style="margin-right:18px;">
@@ -50,7 +50,7 @@
 
          <c:if test="${empty user_num}"> <%--로그아웃 상태 --%>
          <li>
-            <input class="loginbtn" type="button" value="Login" onclick="location.href='${pageContext.request.contextPath}/member/loginForm.do'" style="margin-left:45px;">
+            <input class="loginbtn" type="button" value="Login" onclick="location.href='${pageContext.request.contextPath}/member/loginForm.do'" style="margin-left:20px;">
          </li>
          </c:if>
       </ul>
