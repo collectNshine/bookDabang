@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>공지사항 글 수정</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
@@ -14,14 +15,13 @@
 <!-- include summernote css/js -->
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-
 <script type="text/javascript">
 $(document).ready(function(){
 	$('#summernote').summernote({
         placeholder: '글을 입력해주세요.',
         tabsize: 2,
         height: 300,
-        width:1000,
+        width:700,
         codeviewFilter: false,
         codeviewIframeFilter: true
       });
@@ -52,21 +52,34 @@ $(document).ready(function(){
 	});
 });
 </script>
+<style type="text/css">
+#noti_title{
+width:700px
+}
+</style>
 </head>
 <body>
+<div class="page-main">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<c:if test="${user_auth == 9 }">
-		<form id="edit_Form" action="noticeEdit.do" method="post">
-			<ul>
-				<li>
-					<input id="noti_num" name="noti_num" type="hidden" value="${dto.qna_num}" >
-					<input id="noti_title" name="noti_title" type="text" value="${dto.qna_title}" maxlength="50">
-				</li>
-				<li id="guide"></li>
-				<li><textarea id="summernote" name="noti_content" placeholder="내용">${dto.qna_content}</textarea></li>
-				<li><input type="submit" value="수정하기"></li>
-			</ul>
-		</form>
-	</c:if>
+	<div class="content-main">
+		<c:if test="${user_auth == 9 }">
+			<form id="edit_Form" action="noticeEdit.do" method="post">
+				<ul>
+					<li>
+						<div>
+							<input id="noti_num" name="noti_num" type="hidden" value="${dto.qna_num}"  >
+						</div>
+						<div>
+							<input id="noti_title" class="form-control" name="noti_title" type="text" value="${dto.qna_title}" placeholder="제목을 입력해주세요." maxlength="50">
+						</div>
+					</li>
+					<li id="guide"></li>
+					<li><textarea id="summernote" name="noti_content" placeholder="내용">${dto.qna_content}</textarea></li>
+					<li><input type="submit" class="btn btn-outline-secondary" value="수정하기"></li>
+				</ul>
+			</form>
+		</c:if>
+	</div>
+</div>
 </body>
 </html>
