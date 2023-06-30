@@ -105,9 +105,16 @@
 								</li>
 								<li>
 									<div class="input-group">
+										<c:if test="${order.status != 5}">
 										<div class="input-group-text">
-											<span class="input-group-text" id="inputGroup-sizing-default">배송상태</span>
-											<input class="form-check-input mt-0 payment" name="payment" value="1" type="radio" aria-label="Radio button for following text input">
+										<input class="form-check-input mt-0" type="radio" name="status" value="1" aria-label="Radio button for following text input" <c:if test="${order.status == 1}">checked</c:if>>
+										</div>
+										<input type="text" class="form-control" aria-label="Text input with radio button" value="배송대기">
+										</c:if>
+									</div>
+									
+									<div class="input-group">
+										<div class="input-group-text">
 											<c:if test="${order.status != 5}">
 											<input type="radio" name="status" class="form-check-input mt-0 payment" aria-label="Radio button for following text input" id="status1" value="1" <c:if test="${order.status == 1}">checked</c:if>>배송대기
 											<input type="radio" name="status" class="form-check-input mt-0 payment" aria-label="Radio button for following text input" id="status2" value="2" <c:if test="${order.status == 2}">checked</c:if>>배송준비중
