@@ -1,21 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>책다방:공지사항</title>
+<meta charset="utf-8">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/request_style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/book_style.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<title>도서신청</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/request_style.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/request.fav.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#list_search_form').submit(function(event){
@@ -74,7 +72,6 @@
 		});
 	});
 </script> 
-
 <style>
 #list #left{
 width:20%;
@@ -90,16 +87,16 @@ float:right;
 padding:2rem;
 }
 </style>
-
 </head>
 <body>
-<div class="page-main">	
-	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<div class="content-main">
+<div class="page-main">
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+<div class="content-main">
+	<hr size="1" noshade width="100%">
 	<div id="list">
-		<div id="left">
-		<h2>공지 사항</h2>
-		<p>
+			<div id="left">
+			<h2>공지 사항</h2>
+			<p>
 			<ul>
 				<li><b>QnA</b></li>   
 				<li><a href="noticeList.do" >전체질문</a></li>
@@ -108,13 +105,15 @@ padding:2rem;
 				</c:forEach>
 			</ul>
 		</div>
+	<!--목록 끝 -->
+	<!-- 테이블 시작 -->
 	<div id="right">
 		<div id="search" style="text-align:center;">
 		<p id="guide"></p>
-			<form id="list_search_form" action="noticeList.do" method="post" class="d-flex" role="search" >
+			<form id="list_search_form" action="noticeList.do" method="post" class="d-flex" role="search" style="border:none;">
 				<input name="noti_category" type="hidden" value="${noti_category}">
 				
-					<select name="keyfield" class="form-select">
+					<select name="keyfield" class="form-select" style="width:100px;">
 						<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
 						<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>내용</option>
 					</select>
@@ -124,8 +123,8 @@ padding:2rem;
 		</div>
 	
 	<c:if test="${count > 0}">
-		<table>
-			<tr>
+		<table class="table table-hover">
+			<tr class="table-light align-center">
 				<th></th>
 				<th>카테고리</th>
 				<th>제목</th>
@@ -173,8 +172,8 @@ padding:2rem;
 		<!-- 관리자 글쓰기, 삭제 끝 -->
 		<div class="align-center">${page}</div>
 		</div>
-</div>
-</div>
-</div>
+	</div>
+	</div>
+	</div>	
 </body>
 </html>

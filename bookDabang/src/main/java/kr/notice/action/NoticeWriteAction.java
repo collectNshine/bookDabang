@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 import kr.controller.Action;
 import kr.notice.dao.NoticeDAO;
 import kr.notice.vo.NoticeVO;
+import kr.util.PageUtil;
+import kr.util.StringUtil;
 
 public class NoticeWriteAction implements Action{
 	@Override
@@ -26,7 +28,7 @@ public class NoticeWriteAction implements Action{
 		
 		NoticeVO vo = new NoticeVO();
 		
-		vo.setNoti_title(request.getParameter("noti_title"));
+		vo.setNoti_title(StringUtil.useBrNoHtml(request.getParameter("noti_title")));
 		vo.setNoti_content(request.getParameter("noti_content"));
 		vo.setNoti_category(Integer.parseInt(request.getParameter("noti_category")));
 		vo.setMem_num(user_num);

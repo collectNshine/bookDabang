@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import kr.controller.Action;
 import kr.notice.dao.NoticeDAO;
 import kr.notice.vo.NoticeVO;
+import kr.util.StringUtil;
 
 public class NoticeEditAction implements Action{
 	@Override
@@ -27,7 +28,7 @@ public class NoticeEditAction implements Action{
 		NoticeVO vo = new NoticeVO();
 		vo.setNoti_num(Integer.parseInt(request.getParameter("noti_num")));
 		vo.setNoti_category(Integer.parseInt(request.getParameter("noti_category")));
-		vo.setNoti_title(request.getParameter("noti_title"));
+		vo.setNoti_title( StringUtil.useBrNoHtml(request.getParameter("noti_title")));
 		vo.setNoti_content(request.getParameter("noti_content"));
 	
 		dao.updateNotice(vo);
