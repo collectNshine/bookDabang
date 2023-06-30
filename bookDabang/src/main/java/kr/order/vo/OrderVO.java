@@ -13,6 +13,7 @@ public class OrderVO {
 	private String receive_address1;
 	private String receive_address2;
 	private String receive_phone;
+	private String email;
 	private String notice;
 	private Date order_date;
 	private Date modify_date;
@@ -49,6 +50,9 @@ public class OrderVO {
 	
 	public String getReceive_phone() { return receive_phone; }
 	public void setReceive_phone(String receive_phone) { this.receive_phone = receive_phone; }
+	
+	public String getEmail() { return email; }
+	public void setEmail(String email) { this.email = email; }
 	
 	public String getNotice() { return notice; }
 	public void setNotice(String notice) { this.notice = notice; }

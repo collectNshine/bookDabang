@@ -23,7 +23,6 @@ public class OrderDAO {
 		PreparedStatement pstmt2 = null;
 		PreparedStatement pstmt3 = null;
 		PreparedStatement pstmt4 = null;
-		PreparedStatement pstmt5 = null;
 		ResultSet rs = null;
 		String sql = null;
 		int order_num = 0;
@@ -39,7 +38,7 @@ public class OrderDAO {
 			if(rs.next()) { order_num = rs.getInt(1); }
 			
 			// 주문 정보 저장
-			sql = "INSERT INTO orders (order_num, book_title, order_total, payment, receive_name, receive_post, receive_address1, receive_address2, receive_phone, notice, mem_num) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			sql = "INSERT INTO orders (order_num, book_title, order_total, payment, receive_name, receive_post, receive_address1, receive_address2, receive_phone, email, notice, mem_num) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, order_num);
 			pstmt2.setString(2, order.getBook_title());
@@ -50,12 +49,13 @@ public class OrderDAO {
 			pstmt2.setString(7, order.getReceive_address1());
 			pstmt2.setString(8, order.getReceive_address2());
 			pstmt2.setString(9, order.getReceive_phone());
-			pstmt2.setString(10, order.getNotice());
-			pstmt2.setInt(11, order.getMem_num());
+			pstmt2.setString(10, order.getEmail());
+			pstmt2.setString(11, order.getNotice());
+			pstmt2.setInt(12, order.getMem_num());
 			pstmt2.executeUpdate();
 			
 			// 주문 상세 정보 저장
-			sql = "INSERT INTO order_detail (detail_num, bk_num, book_title, book_price, book_total, order_quantity, order_num) VALUES (order_detail_seq.nextval, ?, ?, ?, ?, ?, ?)";
+			sql = "INSERT INTO order_detail (detail_num, bk_num, book_title, book_price, book_total, book_author, book_publisher, thumbnail, order_quantity, order_num) VALUES (order_detail_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt3 = conn.prepareStatement(sql);
 			
 			for(int i = 0; i < detailList.size(); i++) {
@@ -64,8 +64,11 @@ public class OrderDAO {
 				pstmt3.setString(2, orderDetail.getBook_title());
 				pstmt3.setInt(3, orderDetail.getBook_price());
 				pstmt3.setInt(4, orderDetail.getBook_total());
-				pstmt3.setInt(5, orderDetail.getOrder_quantity());
-				pstmt3.setInt(6, order_num);
+				pstmt3.setString(5, orderDetail.getBook_author());
+				pstmt3.setString(6, orderDetail.getBook_publisher());
+				pstmt3.setString(7, orderDetail.getThumbnail());
+				pstmt3.setInt(8, orderDetail.getOrder_quantity());
+				pstmt3.setInt(9, order_num);
 				pstmt3.addBatch();
 				
 				if(i % 1000 == 0) { pstmt3.executeBatch(); }
@@ -139,9 +142,12 @@ public class OrderDAO {
 			while(rs.next()) {
 				OrderDetailVO detail = new OrderDetailVO();
 				detail.setBk_num(rs.getInt("bk_num"));
-				detail.setBook_title(rs.getString("book_name"));
+				detail.setBook_title(rs.getString("book_title"));
 				detail.setBook_price(rs.getInt("book_price"));
 				detail.setBook_total(rs.getInt("book_total"));
+				detail.setBook_author(rs.getString("book_author"));
+				detail.setBook_publisher(rs.getString("book_publisher"));
+				detail.setThumbnail(rs.getString("thumbnail"));
 				detail.setOrder_quantity(rs.getInt("order_quantity"));
 				detail.setOrder_num(rs.getInt("order_num"));
 				
@@ -213,6 +219,7 @@ public class OrderDAO {
 				order.setReceive_address1(rs.getString("receive_address1"));
 				order.setReceive_address2(rs.getString("receive_address2"));
 				order.setReceive_phone(rs.getString("receive_phone"));
+				order.setEmail(rs.getString("email"));
 				order.setNotice(rs.getString("notice"));
 				order.setOrder_date(rs.getDate("order_date"));
 				order.setMem_num(rs.getInt("mem_num"));
@@ -238,7 +245,7 @@ public class OrderDAO {
 			
 			OrderVO db_order = getOrder(order.getOrder_num());	// DB에 저장된 정보
 			
-			if(order.getStatus() == 1 && db_order.getStatus() == 1) { sub_sql += "receive_name=?, receive_post=?, receive_address1=?, receive_address2=?, receive_phone=?, notice=?, "; }
+			if(order.getStatus() == 1 && db_order.getStatus() == 1) { sub_sql += "receive_name=?, receive_post=?, receive_address1=?, receive_address2=?, receive_phone=?, email=?, notice=?, "; }
 			
 			sql = "UPDATE orders SET status=?, "+ sub_sql + "modify_date=SYSDATE WHERE order_num=?";
 			
@@ -250,6 +257,7 @@ public class OrderDAO {
 				pstmt.setString(++cnt, order.getReceive_address1());
 				pstmt.setString(++cnt, order.getReceive_address2());
 				pstmt.setString(++cnt, order.getReceive_phone());
+				pstmt.setString(++cnt, order.getEmail());
 				pstmt.setString(++cnt, order.getNotice());
 			}
 			pstmt.setInt(++cnt, order.getOrder_num());	
@@ -362,6 +370,7 @@ public class OrderDAO {
 				order.setReceive_address1(rs.getString("receive_address1"));
 				order.setReceive_address2(rs.getString("receive_address2"));
 				order.setReceive_phone(rs.getString("receive_phone"));
+				order.setEmail(rs.getString("email"));
 				order.setNotice(rs.getString("notice"));
 				order.setOrder_date(rs.getDate("order_date"));
 				order.setMem_num(rs.getInt("mem_num"));
@@ -453,6 +462,7 @@ public class OrderDAO {
 				order.setReceive_address1(rs.getString("receive_address1"));
 				order.setReceive_address2(rs.getString("receive_address2"));
 				order.setReceive_phone(rs.getString("receive_phone"));
+				order.setEmail(rs.getString("email"));
 				order.setNotice(rs.getString("notice"));
 				order.setOrder_date(rs.getDate("order_date"));
 				order.setMem_num(rs.getInt("mem_num"));
