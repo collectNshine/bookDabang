@@ -22,7 +22,7 @@ ul.search {
 element.style {
 	width: 100%;
     display: flex;
-    margin-left: 250px;
+    margin-left: 500px;
 }
 form {
     width: 600px;
@@ -76,7 +76,7 @@ ul.search li {
 	<div class="mypage-div">
 	<!-- 프로필 사진 시작 --> 
 		<ul>
-			<li style="display:flex;  margin-left: 250px;">
+			<li style="display:flex;  margin-left: 500px;">
 				<c:if test="${empty user_photo}">
 					<div>
 						<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
@@ -92,7 +92,7 @@ ul.search li {
 						 width="200" height="200" class="my-photo">
 					<div style="display:flex;justify-content: space-around;flex-direction: column; margin-left:25px;">	 
 						 <h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_name}</b>님의 책다방</h4>
-						 <input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
+						 <input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'" class="btn btn-outline-secondary">
 					 </div>
 				</c:if>
 			</li>		
@@ -213,7 +213,7 @@ ul.search li {
 		<div class="content-main container">
 		<br><h2><a href="myPage.do#post">나의 작성글</a></h2><br>
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form2-1" action="myPagePost.do#post" method="get" class="d-flex" role="search" style="border:none;">
+			<form id="search_form2-1" action="myPagePost.do#post" method="get" class="d-flex" role="search">
 				<select name="mp_keyfield" class="form-select">
 					<option value="1" <c:if test="${param.mp_keyfield==1}">selected</c:if>>제목</option>
 					<option value="2" <c:if test="${param.mp_keyfield==2}">selected</c:if>>내용</option>
@@ -323,6 +323,7 @@ ul.search li {
 			</div>
 		</div>
 		<!-- [3. 주문목록] 끝 -->
+		
 		<script type="text/javascript">
 			$(function(){
 				let hash = window.location.hash;
@@ -485,7 +486,7 @@ ul.search li {
 	
 	<!-- [2. 주문 관리] 시작 -->
 		<div id="admin_order" class="tab_contents">
-			<div class="content-main">
+			<div class="content-main container">>
 				<h2><a href="myPage.do#admin_order">주문 관리</a></h2>
 					<!-- 검색창 시작 : get방식 -->
 					<form id="search_form2" action="myPage.do#admin_order" method="get" class="d-flex">
@@ -543,7 +544,7 @@ ul.search li {
 		
 		<!-- [3. 회원 관리] 시작 -->
 		<div id="admin_member" class="tab_contents">
-			<div class="content-main">
+			<div class="content-main container">
 				<h2><a href="myPage.do#admin_member">회원 관리</a></h2>
 				
 				<!-- 검색창 시작 : get방식 -->
@@ -604,7 +605,8 @@ ul.search li {
 		
 		<!-- [4. 신고 내역] 시작 -->
 		<div id="admin_report" class="tab_contents">
-		<h2><a href="myPage.do#admin_report">신고 내역</a></h2>
+		<div class="content-main container">
+		<br><h2><a href="myPage.do#admin_report">신고 내역</a></h2>
 		
 		<!-- 검색창 시작 : get방식 -->
 			<form id="search_form4" action="myPage.do#admin_report" method="get" class="d-flex">
@@ -684,6 +686,7 @@ ul.search li {
 			<div class="align-center">${repoPage}</div>
 		</c:if>
 		</div>
+		</div>
 		<!-- [4. 신고 내역] 끝 -->
 		
 		
@@ -714,15 +717,9 @@ ul.search li {
 			</script> 
 			<!-- 검색창 끝 -->
 		<!-- <form id="request_admin"> -->
-
-		<div class="list-space">
-			<input type="button" value="추가 완료" class="btn btn-outline-secondary" id="reqstate_done" style="float:left;">
-			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'" class="btn btn-outline-secondary" style="float:right;">
-		</div><br>
-			
-			
-	<%-- 		<input type="button" value="추가 완료" id="reqstate_done" class="align-left">
-	 --%>
+		<div class="list-space align-right">
+			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'">
+		</div>
 		
 		<c:if test="${req_Count == 0 }">
 		<div class="result-display">
@@ -733,7 +730,7 @@ ul.search li {
 		<c:if test="${req_Count > 0}">
 			<table class="table table-hover align-center">
 				<tr>
-					<th></th>
+					<th>확인</th>
 					<th>진행상태</th>
 					<th>제목</th>
 					<th>저자</th>
@@ -752,7 +749,7 @@ ul.search li {
 					
 				</td> 
 				<td>
-				<c:if test="${request.req_state == 0}"><button class="readybtn">준비중</button></c:if>
+				<c:if test="${request.req_state == 0}"><button>준비중</button></c:if>
 				<c:if test="${request.req_state == 1}"><button>추가완료</button></c:if>
 				</td>			               
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>
@@ -772,7 +769,7 @@ ul.search li {
 			</tr>
 			</c:forEach>
 			</table>
-			
+			<input type="button" value="추가 완료" id="reqstate_done" class="align-left">
 			<!-- </form> -->
 			<script type="text/javascript">
 				$('#reqstate_done').click(function(){
@@ -792,7 +789,6 @@ ul.search li {
 						success:function(param){
 							if(param.result == 'success'){
 								alert('추가되었습니다.');
-								history.go(0);
 							}else{
 								alert('오류발생');
 							}

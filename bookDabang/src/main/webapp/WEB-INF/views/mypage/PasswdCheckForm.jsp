@@ -6,7 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>정보 수정 전 비번 확인</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/book_style.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <style>
 input[type="password"], input[type="email"] {
     width: 500px;
@@ -28,15 +32,15 @@ input[type="password"], input[type="email"] {
 		</p>
 		<div style="font-size:17px;">
 		<h3 class="align-center">비밀번호 확인</h3>
-		<hr size="1" noshade="noshade" width="700px;">
+		<hr size="1" noshade="noshade" width="100%">
 		<p class="align-center">개인정보 변경을 위해 비밀번호를 입력해주세요.</p>
 		</div>
 		<form id="passwdcheck_form" action="PasswdCheck.do" method="post" style="border:none">
 			<div class="result-display" style="border:none; height:50px">
 				<div class="align-center" style="display:flex;"> 
-					<input type="password" name="passwd" id="passwd" maxlength="12" placeholder="비밀번호를 입력해주세요." style="margin-right: 10px;">
+					<input type="password" name="passwd" id="passwd" maxlength="12" placeholder="비밀번호를 입력해주세요." style="margin-right: 10px; height:40px;" class="form-control">
 					<%-- <input type="button" value="확인" onclick="location.href='${pageContext.request.contextPath}/mypage/modifyUserForm.do'"> --%>
-					<input type="button" value="확인" onclick="chkPW()"> 
+					<input type="button" value="확인" onclick="chkPW()" class="btn btn-outline-secondary"> 
 				</div>
 			</div>
 		</form>
