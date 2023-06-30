@@ -304,19 +304,19 @@ ul.search li {
 				});
 			</script> 
 			<!-- 검색창 끝 -->
-			<table>
+			<table class="table table-hover align-center">
 				<tr>
 					<th>NO.</th>
 					<th>주문명</th>
 					<th>가격</th>
 					<th>주문일</th>
 				</tr>
-				<c:forEach var="order" items="${order}"> 
+				<c:forEach var="order" items="${orderList}">
 				<tr>
-					<td>${order.order_num}</td>
+					<td><a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">${order.order_num}</a></td>
 					<td>${order.book_title}</td>
 					<td>${order.order_total}</td>
-					<td>${order.reg_date}</td>
+					<td>${order.order_date}</td>
 				</tr>
 				</c:forEach>
 			</table>
@@ -515,7 +515,7 @@ ul.search li {
 					</c:if>
 					
 					<c:if test="${count > 0}">
-				<table>
+				<table class="table table-hover align-center">
 					<tr>
 						<th>주문번호</th>
 						<th>도서명</th>
@@ -524,14 +524,14 @@ ul.search li {
 						<th>총 주문 금액</th>
 						<th>주문 날짜</th>
 					</tr>
-					<c:forEach var="admin_order" items="${order}"> 
+					<c:forEach var="admin_order" items="${adminOrderlist}"> 
 					<tr>
-						<td>${admin_order.post_num}</td>
-						<td>${admin_order.post_title}</td>
-						<td>${admin_order.post_content}</td>
-						<td>${admin_order.post_date}</td>
-						<td>${admin_order.post_date}</td>
-						<td>${admin_order.post_date}</td>
+						<td>${admin_order.order_num}</td>
+						<td>${admin_order.book_title}</td>
+						<td>${admin_order.id}</td>
+						<td>${admin_order.status}</td>
+						<td>${admin_order.order_total}</td>
+						<td>${admin_order.order_date}</td>
 					</tr>
 					</c:forEach>
 				</table>
