@@ -66,10 +66,18 @@ h2{
 .intro_btn_inner > div > img{
 	width:500px;
 	height: 600px;
-	flex-grow:1;	
+	flex-grow:1;
+	-webkit-filter: grayscale(0);
+	filter: grayscale(0);
+	-webkit-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
 }
 .intro_btn_inner{
 	border-style:none;
+}
+.intro_btn_inner:hover{
+	-webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
 }
  .intro_btn_inner > div{
  	display:flex;
@@ -90,11 +98,12 @@ h2{
 }
 .intro_btn_inner > div > span:last-child{
 	margin-top:500px;
-	margin-left:230px;
+	/* margin-left:220px; */
 	border: 0.5px solid white;
 	border-spacing:10px;
 	border-collapse:separate;
 	font-size:20px;
+	width:100px;
 }
 
 /*req list*/

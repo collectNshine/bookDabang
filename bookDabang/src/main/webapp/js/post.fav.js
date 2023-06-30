@@ -42,9 +42,9 @@ $(function(){
 		let output;
 		if(param.status == 'noFav'){
 			//js파일은 el 사용X - html경로인식 방법 사용
-			output = '../images/fav01.gif'; 
+			output = '../images/fav01.png'; 
 		}else{
-			output = '../images/fav02.gif';
+			output = '../images/fav02.png';
 		}
 		//문서 객체 설정
 		$('#output_fav').attr('src', output);
