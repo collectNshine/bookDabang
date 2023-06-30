@@ -26,7 +26,7 @@ $(document).ready(function() {
 	var rannum = "";
 	var input = "";
 	var email = "";
-	
+
     $("#id").blur(function(){
         if (!/^[A-Za-z0-9]{5,20}$/.test($('#id').val())) {
             $('#guide').text("아이디는 5~20자의 영어대소문자와 숫자로 구성되어야 합니다.").css('color','#F00');
@@ -63,6 +63,59 @@ $(document).ready(function() {
 	            return false;
 		}
 	});
+ 	 //전화번호 입력값 검증
+	$("#phone").blur(function(){
+		if(!/^[0-9].{9,11}$/.test($("#phone").val())){
+			 $('#guide').text("전화번호는 숫자만 입력해주세요.").css('color','#F00');
+	            $("#phone").val('');
+	            return false;
+		}
+	});
+	 //이름 입력값 검증
+	$("#name").blur(function(){
+		if(!/^[ㄱ-ㅎㅏ-ㅣ가-힇a-zA-Z].{1,20}$/.test($("#name").val())){
+			 $('#guide').text("이름을 다시 입력해주세요.").css('color','#F00');
+	            $("#name").val('');
+	            return false;
+		}
+	});
+	 //우편번호 입력값 검증
+	$("#zipcode").blur(function(){
+		if(!/^[0-9].{4,5}$/.test($("#zipcode").val())){
+			 $('#guide').text("우편번호를 다시 입력해주세요.").css('color','#F00');
+	            $("#zipcode").val('');
+	            return false;
+		}
+	});
+	 //주소 입력값 검증
+	$("#address1").blur(function(){
+		if(!/^[ㄱ-힇a-zA-Z0-9].{3,30}$/.test($("#address1").val())){
+			 $('#guide').text("주소를 다시 입력해주세요.").css('color','#F00');
+	            $("#address1").val('');
+	            return false;
+		}
+	});
+	 //상세주소 입력값 검증
+	$("#address2").blur(function(){
+		if(!/^[ㄱ-힇a-zA-Z0-9].{3,30}$/.test($("#address2").val())){
+			 $('#guide').text("상세주소를 다시 입력해주세요.").css('color','#F00');
+	            $("#address2").val('');
+	            return false;
+		}
+	});
+	 //이메일 입력값 검증
+	$("#email").blur(function(){
+		if(!/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i.test($("#email").val())){
+			 $('#guide').text("이메일을 다시 입력해주세요.").css('color','#F00');
+	            $("#email").val('');
+	            return false;
+		}
+		if($('#email').val().length > 30){
+			 $('#guide').text("이메일을 다시 입력해주세요.").css('color','#F00');
+	            $("#email").val('');
+	            return false;
+		}
+	});
 	
 	//비밀번호 일치 확인 
 	$('#passwd_btn').click(function(){
@@ -81,6 +134,7 @@ $(document).ready(function() {
 			$('#guide').text("비밀번호와 비밀번호 확인이 일치합니다.").css("color","#000");
 		}
 	});
+	
 	
 	//체크박스 하나만 선택하게 만들기 
 	$('input[type="checkbox"]').click(function(){
@@ -106,7 +160,6 @@ $(document).ready(function() {
 				   return false;
 			   }
 		}
-		
 		// 비밀번호 확인버튼 눌렀는지 확인
 		if(click_check == false){
 			$('#guide').text("비밀번호 확인 버튼을 눌러주세요.").css("color","#F00");
@@ -139,84 +192,120 @@ $(document).ready(function() {
 		
 		input = $('#auth').val().trim();
 		if(rannum !== input || rannum == ''){
-			$('#guide2').text('다시 입력 바랍니다.').css('color','#F00');
+			$('#guide2').text('잘못된 접근입니다.').css('color','#F00');
 			return false ;
 		}
 		if(email != $('#email').val().trim()){ //인증 후 이메일 주소 바꾸기 불가능.
 			$('#guide2').text('잘못된 접근입니다.').css('color','#F00');
 			return false ;
 		}
+		if($('#auth').val().length > 15){
+			 $('#guide2').text("인증번호를 다시 입력 해주세요.").css('color','#F00');
+	            $('#auth').val('');
+	            return false;
+		}
 	});
 });
 </script>
 </head>
 <body cellpadding="0" cellspacing="0" marginleft="0" margintop="0" width="100%" height="100%" align="center">
-	<div class="card align-middle" style="width:20rem; border-radius:20px;">
+	<div class="card align-middle" style="width:30rem; border-radius:20px;">
 		<div class="card-title" style="margin-top:30px;">
 		<img id="logo" src="../images/colorlogo.png" width="150" onclick="location.href='../main/main.do'">
 		<h4 class="card-title text-center" style="color:#113366;" >회원가입</h4>
 		</div>
-		<div class="card-body">
+		<div class="card-body" style="padding:2rem 5rem 5rem 5rem;">
 		<form id="join_Form" action="join.do" method="post">
 			<div>
 				<ul>
 					<li>
-						<input class="check form-control" id="id" name="id" type="text" placeholder="아이디">
+						<div class="padding">
+							<input class="check form-control" id="id" name="id" type="text" placeholder="아이디">
+						</div>
 					</li>
 					<li>
-						<input class="check form-control" id="passwd" name="passwd" type="password" placeholder="비밀번호">
+						<div class="padding">
+							<input class="check form-control" id="passwd" name="passwd" type="password" placeholder="비밀번호">
+						</div>
 					</li>	
 					<li>
-						<input class="check form-control" id="passwd2" name="passwd2" type="password" placeholder="비밀번호 확인">
-						<input id="passwd_btn" class="btn btn-lg btn-light btn-block" type="button" value="비밀번호 확인">
-					</li>
-					<li>
-						<input class="check form-control" id="phone" name="phone" type="text" placeholder="전화번호">
+						<div class="padding">
+							<input class="check form-control" id="passwd2" name="passwd2" type="password" placeholder="비밀번호 확인">
+						</div>
+						<div class="padding2">
+							<input id="passwd_btn" class="btn btn-lg btn-light btn-block" type="button" value="비밀번호 확인">
+						</div>
 					</li>
 					<li id="guide"></li>
 					<li>
-						<input class="check form-control" id="name" name="name" type="text" placeholder="이름">
+						<div class="padding">
+							<input class="check form-control" id="phone" name="phone" type="text" placeholder="전화번호">
+						<div class="padding">
 					</li>
 					<li>
-						<label>생일</label>
-						<input class="check form-control" id="birthday" name="birthday" type="date" placeholder ="생일">
+						<div class="padding">
+							<input class="check form-control" id="name" name="name" type="text" placeholder="이름">
+						</div>
 					</li>
 					<li>
-						<input class="check form-control" id="zipcode" name="zipcode" type="text" placeholder="우편번호">
+						<div class="padding">
+							<label>생일</label>
+							<input class="check form-control" id="birthday" name="birthday" type="date" placeholder ="생일">
+						</div>
 					</li>
 					<li>
-						<input type="button" class="btn btn-lg btn-light btn-block" value="주소찾기" onclick="execDaumPostcode()">
+						<div class="padding">
+							<input class="check form-control" id="zipcode" name="zipcode" type="text" placeholder="우편번호">
+						</div>
 					</li>
 					<li>
-						<input class="check form-control" id="address1" name="address1" type="text" placeholder="주소">
+						<div class="padding2">
+							<input type="button" class="btn btn-lg btn-light btn-block" value="주소찾기" onclick="execDaumPostcode()">
+						</div>
 					</li>
 					<li>
-						<input class="check form-control" id="address2" name="address2" type="text" placeholder="상세주소">
+						<div class="padding">
+							<input class="check form-control" id="address1" name="address1" type="text" placeholder="주소">
+						</div>
 					</li>
 					<li>
-					<label class="btn btn-lg btn-light btn-block">
-						성별
-						<input  id="sex1" name="sex" type="checkbox" value="1" checked>남자
-						<input  id="sex2" name="sex" type="checkbox" value="2">여자
-					</label>
+						<div class="padding">
+							<input class="check form-control" id="address2" name="address2" type="text" placeholder="상세주소">
+						</div>
+					</li>
+					<li>
+						<div class="padding">
+							<label class="btn btn-lg btn-light btn-block">
+								성별
+								<input  id="sex1" name="sex" type="checkbox" value="1" checked>남자
+								<input  id="sex2" name="sex" type="checkbox" value="2">여자
+							</label>
+						</div>
 					<li>
 					<li>
-						<input class="check form-control" id="email" name="email" type="email" placeholder="이메일">
+						<div class="padding">
+							<input class="check form-control" id="email" name="email" type="email" placeholder="이메일">
+						</div>
 					</li>
 					<li id="guide2"></li>
 					<li>
-						<input  id="email_btn" class="btn btn-lg btn-dark btn-block" type="button" value="인증번호 발송">
+						<div class="padding">
+							<input  id="email_btn" class="btn btn-lg btn-dark btn-block" type="button" value="인증번호 발송">
+						</div>
 					</li>
 				</ul>	
 				<div id="type_num" >
 					<ul >
 						<li>
-							<input id="auth" class="form-control"name="auth" type="text" placeholder="인증번호">
+							<div class="padding">
+								<input id="auth" class="form-control"name="auth" type="text" placeholder="인증번호">
+							</div>
 						</li>
 						<li>
-							<input id="all_submit" class="btn btn-lg btn-dark btn-block" type="submit" value="가입하기">
+							<div class="padding2">
+								<input id="all_submit" class="form-control" type="submit" value="가입하기">
+							</div>
 						</li>
-	
 					</ul>
 				</div>
 				</div>

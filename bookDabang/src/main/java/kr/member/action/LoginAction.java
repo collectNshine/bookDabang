@@ -39,6 +39,7 @@ public class LoginAction implements Action{
 		}
 		
 		if(check && vo.getState()==0) {//(활성계정 로그인 성공 & 활성계정)
+			
 			dao.updateLatestLoginDate(id);
 			//DB에서 받아온 정보를 세션에 넣는다.
 			HttpSession session = request.getSession();
@@ -48,7 +49,7 @@ public class LoginAction implements Action{
 			session.setAttribute("user_state", vo.getState());
 			session.setAttribute("user_name", vo.getName());
 			session.setAttribute("user_photo", vo.getPhoto());
-
+			
 			return "redirect:/main/main.do";
 		}
 		
@@ -64,8 +65,9 @@ public class LoginAction implements Action{
 			session.setAttribute("user_state",db_vo.getState());
 			session.setAttribute("user_name",db_vo.getName());
 			session.setAttribute("user_photo",db_vo.getPhoto());
-
-			return "redirect:/member/sleepMember.do";
+			session.setAttribute("sleep_date",db_vo.getSsleep_date());
+			
+			return "/WEB-INF/views/member/sleepMember.jsp";
 		}
 		
 		//삭제 계정은 로그인폼으로 이동한다.

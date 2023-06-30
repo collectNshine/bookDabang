@@ -47,21 +47,24 @@ $(document).ready(function(){
 	});
 	
 });
-
 </script>
 </head>
 <body>
+<div class="page-main"> 
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<form id="write_Form" action="qnaWrite.do" method="post">
-		<ul>
-			<li>
-			<input type="hidden" nam="qna_num" value="${qna_num}">
-			<input id="qna_title" name="qna_title" type="text" placeholder="제목" maxlength="50">
-			</li>
-			<li id="guide"></li>
-			<li><textarea id="summernote" name="qna_content" placeholder="내용" ></textarea></li>
-			<li><input type="submit" value="글쓰기"></li>
-		</ul>
-	</form>
+	<div class="content-main">
+		<form id="write_Form" action="qnaWrite.do" method="post">
+			<ul>
+				<li>
+				<input type="hidden" nam="qna_num" value="${qna_num}">
+				<input id="qna_title" name="qna_title" type="text" placeholder="제목" maxlength="50">
+				</li>
+				<li id="guide"></li>
+				<li><textarea id="summernote" name="qna_content" placeholder="내용" ></textarea></li>
+				<li><input type="submit" value="글쓰기"></li>
+			</ul>
+		</form>
+	</div>
+</div>
 </body>
 </html>

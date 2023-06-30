@@ -50,7 +50,7 @@
 
 		<!-- 카테고리 시작 -->
 		<div class="list-group">
-		  <a href="list.do" class="list-group-item list-group-item-action <c:if test="${empty param.category}">active</c:if>" aria-current="true">전체</a>
+		  <a href="list.do" class="list-group-item list-group-item-action <c:if test="${empty param.category}">active</c:if>" aria-current="true"><b>전체</b></a>
 		  <a href="list.do?category=문학" class="list-group-item list-group-item-action <c:if test="${param.category == '문학'}">active</c:if>">문학</a>
 		  <a href="list.do?category=경제/경영" class="list-group-item list-group-item-action <c:if test="${param.category == '경제/경영'}">active</c:if>">경제/경영</a>
 		  <a href="list.do?category=인문" class="list-group-item list-group-item-action <c:if test="${param.category == '인문'}">active</c:if>">인문</a>
