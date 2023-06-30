@@ -78,7 +78,7 @@
 			<ul>
 				<li>
 					<label for="title">도서명</label>
-					<input type="text" name="title" id="title" class="form-control" maxlength="60" value="${book.title}">
+					<input type="text" name="title" id="title" class="form-control" maxlength="40" value="${book.title}">
 				</li>
 				<li>
 					<label for="author">저자명</label>
@@ -98,7 +98,7 @@
 				</li>
 				<li>
 					<label for="category">분류</label>
-					<select name="category" id="category" class="form-select" style="width:150px;">
+					<select name="category" id="category" class="form-select">
 						<option value="문학" <c:if test="${book.category=='문학'}">selected</c:if>>문학</option>
 						<option value="경제/경영" <c:if test="${book.category=='경제/경영'}">selected</c:if>>경제/경영</option>
 						<option value="인문" <c:if test="${book.category=='인문'}">selected</c:if>>인문</option>
@@ -146,6 +146,32 @@
 								
 								
 							});//end of change
+							
+							<%--  파일 삭제 처리 
+							$('#update_form').submit(function(){
+								let choice = confirm('수정하시겠습니까?');
+									$.ajax({
+										url:'deleteFile.do',
+										type:'post',
+										data:{bk_num:${book.bk_num}},
+										dataType:'json',
+										success:function(param){
+											if(param.result == 'logout'){
+												alert('로그인 후 사용 가능합니다.');
+											}else if(param.result = 'success'){
+												$('#file_detail').hide();
+											}else if(param.result = 'wrongAccess'){
+												alert('잘못된 접속입니다.');
+											}else{
+												alert('파일 삭제 오류 발생');
+											}
+										},
+										error:function(){
+											alert('네트워크 오류 발생');
+										}
+									});
+								
+							});//end of click --%>
 						});
 					</script>
 				</li>

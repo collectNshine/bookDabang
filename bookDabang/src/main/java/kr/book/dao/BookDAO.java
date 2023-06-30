@@ -522,23 +522,6 @@ public class BookDAO {
 		}
 		
 		
-		//책갈피 다중 해제 (마이페이지)
-		 public void deleteMultipleMarks(String[] checkBrArr) throws Exception{
-			 Connection conn = null;
-			 PreparedStatement pstmt = null;
-			 String sql = null;
-			 try {
-				conn = DBUtil.getConnection();
-				sql = "DELETE FROM book_mark WHERE mark_num IN(" + String.join(",", checkBrArr) +")";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.executeUpdate();
-			 }catch(Exception e) {
-				throw new Exception(e);
-			 }finally {
-				DBUtil.executeClose(null, pstmt, conn);
-			 }
-		 }
-		
 		//책갈피 여부 확인 (내가 이 책을 책갈피 등록해놨는지 확인 용)
 		public BookMarkVO selectMark(BookMarkVO markVO) throws Exception{
 			Connection conn = null;

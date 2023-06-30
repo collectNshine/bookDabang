@@ -124,9 +124,6 @@ form#search_form{
 form#search_form4{
 	border:none;
 }
-textarea{
-	resize:none;
-}
 ul.search{
 	width:340px;
 	list-style:none;

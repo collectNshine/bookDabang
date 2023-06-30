@@ -41,13 +41,11 @@ $(function(){
 	function showmeFav(param,click_btn){
 		let output;
 		if(param.status=='noFav'){
-			output = '../images/fav01.png';
+			output = '../images/fav01.gif';
 		}else if(param.status=='yesFav'){
-			output = '../images/fav02.png';
+			output = '../images/fav02.gif';
 		}
 		click_btn.attr('src',output);
 		click_btn.parent().find('.output-fcount').text(param.count);
 	}
 });
-
-

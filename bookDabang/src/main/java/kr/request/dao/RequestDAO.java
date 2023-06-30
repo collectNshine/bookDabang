@@ -172,15 +172,14 @@ public class RequestDAO {
 	  
 		  try {
 			 conn = DBUtil.getConnection(); 
-			 sql = "UPDATE book_request SET req_id=?,req_title=?,req_author=?,req_publisher=?,req_etc=?,req_modifydate=SYSDATE WHERE req_num=?";
+			 sql = "UPDATE book_request SET req_title=?,req_author=?,req_publisher=?,req_etc=?,req_modifydate=SYSDATE WHERE req_num=?";
 			 
 			 pstmt= conn.prepareStatement(sql); 
-			 pstmt.setString(1,request.getId());
-			 pstmt.setString(2,request.getReq_title());
-			 pstmt.setString(3,request.getReq_author());
-			 pstmt.setString(4,request.getReq_publisher()); 
-			 pstmt.setString(5,request.getReq_etc()); 
-			 pstmt.setInt(6,request.getReq_num());
+			 pstmt.setString(1,request.getReq_title());
+			 pstmt.setString(2,request.getReq_author());
+			 pstmt.setString(3,request.getReq_publisher()); 
+			 pstmt.setString(4,request.getReq_etc()); 
+			 pstmt.setInt(5,request.getReq_num());
 			  
 			 pstmt.executeUpdate();
 	  
