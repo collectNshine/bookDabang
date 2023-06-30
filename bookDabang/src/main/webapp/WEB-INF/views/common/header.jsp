@@ -25,7 +25,7 @@
          <li><b>|</b></li>
          <li class="menu-detail"><a href="${pageContext.request.contextPath}/chat/list.do">담소마당</a></li>
          <li><b>|</b></li>
-         <li class="menu-detail"><a href="${pageContext.request.contextPath}/request/list.do">맞춤도서 신청</a></li>
+         <li class="menu-detail"><a href="${pageContext.request.contextPath}/request/list.do">도서신청</a></li>
          <li><b>|</b></li>
          <li class="menu-detail"><a href="${pageContext.request.contextPath}/notice/noticeList.do">다방안내</a></li>
          <c:if test="${!empty user_num}">   <%--로그인 상태 --%>
