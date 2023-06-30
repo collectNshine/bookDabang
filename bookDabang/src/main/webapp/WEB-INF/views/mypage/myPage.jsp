@@ -526,7 +526,7 @@ ul.search li {
 					</tr>
 					<c:forEach var="admin_order" items="${adminOrderlist}"> 
 					<tr>
-						<td>${admin_order.order_num}</td>
+						<td><a href="adminModifyForm.do?order_num=${order.order_num}">${order.order_num}</a></td>
 						<td>${admin_order.book_title}</td>
 						<td>${admin_order.id}</td>
 						<td>${admin_order.status}</td>
