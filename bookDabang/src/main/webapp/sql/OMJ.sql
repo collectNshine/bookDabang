@@ -41,6 +41,7 @@ create sequence member_seq;
 create table member_detail(--0 활성계좌 정보
 mem_num number,
 name varchar2(30) not null,
+salt varchar2(128) not null,
 passwd varchar2(64) not null,--*)8~16자 영문 대 소문자, 숫자, 특수문자
 sex number(1) not null,-- 1 남성, 2여성
 birthday date not null,
@@ -62,6 +63,7 @@ constraint member_detail_fk foreign key (mem_num)
 create table member_sleep(--1 휴면계정 정보
 mem_num number,
 sname varchar2(30) not null,
+ssalt varchar2(128) not null,
 spasswd varchar2(64) not null,--*)8~16자 영문 대 소문자, 숫자, 특수문자
 ssex number(1) not null,-- 1 남성, 2여성
 sbirthday date not null,
@@ -94,6 +96,7 @@ constraint notice_board_fk foreign key (mem_num)
 
 create sequence notice_seq;
 
+------아래 삭제 ------
 create table notice_reply (-- 공지 댓글
 re_num number,
 re_content varchar2(150) not null,
@@ -114,6 +117,8 @@ constraint noti_reply2_fk
 );
 
 create sequence notice_reply_seq;
+
+
 
 create table qna_board (--1:1 게시판
 qna_num number, --글번호

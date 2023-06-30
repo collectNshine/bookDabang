@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import kr.controller.Action;
 import kr.member.dao.MemberDAO;
 import kr.member.vo.MemberVO;
+import kr.util.Encrypt;
 
 public class JoinAction implements Action {
 
@@ -20,12 +21,17 @@ public class JoinAction implements Action {
 
 		String id = request.getParameter("id");
 		String passwd = request.getParameter("passwd");
-		//서버단에서 입력값 확인
-
+		
+		//salt 생성
+		String salt = Encrypt.getSalt();
+		//비밀번호 + salt 해싱 처리한 패스워드 
+		String saltpassword = Encrypt.getEncrypt(passwd, salt);
+		
 		//자바빈에 개인정보 담기 
 		vo.setId(id);
 		vo.setName(request.getParameter("name"));
-		vo.setPasswd(passwd);
+		vo.setSalt(salt); //솔트 
+		vo.setPasswd(saltpassword); //비밀번호 + salt 해싱 처리한 패스워드 
 		vo.setSex(Integer.parseInt(request.getParameter("sex")));
 		vo.setBirthday(request.getParameter("birthday"));
 		vo.setPhone(request.getParameter("phone"));

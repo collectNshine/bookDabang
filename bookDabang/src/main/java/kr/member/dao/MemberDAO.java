@@ -35,6 +35,7 @@ public class MemberDAO {
 				vo = new MemberVO();
 				vo.setMem_num(rs.getInt("mem_num"));
 				vo.setId(rs.getString("id"));
+				vo.setSalt(rs.getString("salt"));
 				vo.setPasswd(rs.getString("passwd"));
 				vo.setAuth(rs.getInt("auth"));
 				vo.setState(rs.getInt("state"));
@@ -72,6 +73,7 @@ public class MemberDAO {
 					vo = new MemberVO();
 					vo.setMem_num(rs.getInt("mem_num"));
 					vo.setId(rs.getString("id"));
+					vo.setSalt(rs.getString("ssalt"));
 					vo.setPasswd(rs.getString("spasswd"));
 					vo.setAuth(rs.getInt("auth"));
 					vo.setState(rs.getInt("state"));
@@ -118,20 +120,21 @@ public class MemberDAO {
 			pstmt2.executeUpdate();
 
 			//member_테이블에 데이터를 입력한다. 
-			sql = "INSERT INTO member_detail (mem_num,name,passwd,"
+			sql = "INSERT INTO member_detail (mem_num,name,salt,passwd,"
 					+ "sex,birthday,phone,zipcode,address1,address2,email,reg_date) "
-					+ "VALUES (?,?,?,?,TO_DATE(?,'YYYY-MM-DD'),?,?,?,?,?,SYSDATE)";
+					+ "VALUES (?,?,?,?,?,TO_DATE(?,'YYYY-MM-DD'),?,?,?,?,?,SYSDATE)";
 			pstmt3 = conn.prepareStatement(sql);
 			pstmt3.setInt(1,mem_seq);
 			pstmt3.setString(2,vo.getName());
-			pstmt3.setString(3,vo.getPasswd());
-			pstmt3.setInt(4, vo.getSex());
-			pstmt3.setString(5, vo.getBirthday());
-			pstmt3.setString(6, vo.getPhone());
-			pstmt3.setString(7, vo.getZipcode());
-			pstmt3.setString(8, vo.getAddress1());
-			pstmt3.setString(9, vo.getAddress2());
-			pstmt3.setString(10, vo.getEmail());
+			pstmt3.setString(3, vo.getSalt());
+			pstmt3.setString(4,vo.getPasswd());
+			pstmt3.setInt(5, vo.getSex());
+			pstmt3.setString(6, vo.getBirthday());
+			pstmt3.setString(7, vo.getPhone());
+			pstmt3.setString(8, vo.getZipcode());
+			pstmt3.setString(9, vo.getAddress1());
+			pstmt3.setString(10, vo.getAddress2());
+			pstmt3.setString(11, vo.getEmail());
 			pstmt3.executeUpdate();
 
 			conn.commit();

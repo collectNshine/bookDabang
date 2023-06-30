@@ -245,7 +245,7 @@ $(document).ready(function() {
 						</li>
 						<li>
 							<div class="padding2">
-								<input id="all_submit" type="submit" value="가입하기">
+								<input id="all_submit" class="btn btn-lg btn-dark btn-block"  type="submit" value="가입하기">
 							</div>
 						</li>
 					</ul>
