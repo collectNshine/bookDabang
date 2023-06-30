@@ -34,5 +34,5 @@ create table order_detail(
 	constraint order_detail_pk primary key (detail_num),
 	constraint order_detail_fk foreign key (order_num) references orders (order_num)
 );
-
+ 
 create sequence order_detail_seq;
