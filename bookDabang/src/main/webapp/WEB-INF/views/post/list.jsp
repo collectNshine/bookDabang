@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,14 +65,25 @@
 				</div>
 				<div class="card-detail">
     				<h5 class="card-title"><b><a href="detail.do?post_num=${post.post_num}">${post.post_title}</a></b></h5>
-    				<pre class="card-text"><a href="detail.do?post_num=${post.post_num}">${post.post_content}</a></pre>
+    				<p class="card-text"><a href="detail.do?post_num=${post.post_num}">${post.post_content}</a></p>
     			</div>
+    			<%--
+<script type="text/javascript">
+  $('.card-text').each(function(){
+    var length = 10; //글자수
+    $(this).each(function(){
+      if($(this).text().length >= length){
+        $(this).text($(this).text().substr(0,length)+'...');
+      }
+    });
+  });
+</script>
+ --%>
     			<div class="card-footer">
-    				<small class="footer1"><img class="fav" src="../images/like.png" width="33" height="33">${post.cnt}</small>
-       				<small class="footer2"><a href="detail.do?post_num=${post.post_num}"><img class="reply" src="../images/reply.png" width="25" height="25"> ${post.rcnt}</a></small>
+    				<a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${post.bk_num}" class="btn btn-primary" style="color:white; margin-top: 8px;">도서 상세 보러가기</a>
+    				<small class="footer1"><img class="fav" src="../images/fav02.png" width="50" height="50" style="margin-right: -8px; margin-left: 5px;">${post.cnt}</small>
+       				<small class="footer2"><a href="detail.do?post_num=${post.post_num}"><img class="reply" src="../images/reply.png" width="25" height="25" style="margin-right: 5px;">${post.rcnt}</a></small>
       			</div>
-      			<br>
-    			<a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${post.bk_num}" class="btn btn-primary" style="color:white;">도서 상세 보러가기</a>
   				</div>
 				</div>
 			</div>

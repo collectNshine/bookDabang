@@ -80,8 +80,9 @@ import kr.util.StringUtil;
 				while(rs.next()) {
 					PostVO post = new PostVO();
 					post.setPost_num(rs.getInt("post_num"));
-					post.setPost_title(rs.getString("post_title"));
-					post.setPost_content(rs.getString("post_content"));
+					//서평 제목과 내용에 말줄임표 사용
+					post.setPost_title(StringUtil.shortWords(30, rs.getString("post_title")));
+					post.setPost_content(StringUtil.shortWords(65, rs.getString("post_content")));
 					//날짜 -> 1분전, 1시간전, 1일전 형식의 문자열로 변환
 					post.setPost_date(DurationFromNow.getTimeDiffLabel(rs.getString("post_date")));
 					if(rs.getString("post_modifydate") != null) {
