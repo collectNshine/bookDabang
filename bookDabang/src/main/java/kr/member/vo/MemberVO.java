@@ -2,6 +2,8 @@ package kr.member.vo;
 
 import java.sql.Date;
 
+import kr.util.Encrypt;
+
 public class MemberVO {
 	//[member 테이블]
 	private int mem_num; //유저 고유 번호 
@@ -11,6 +13,7 @@ public class MemberVO {
 	//											 1 휴면계정(bmember_sleep),
 	//[member_detail 테이블]						 2 가입이력은 있으나 DB에 남아있지 않는 계정(X)  
 	private String name; //이름
+	private String salt;//salt
 	private String passwd;//비밀번호
 	private int sex;//성별
 	private String birthday;//생일
@@ -30,7 +33,9 @@ public class MemberVO {
 	public boolean isCheckedPassword(
 			            String Passwd) {
 		//회원 등급 :  0 탈퇴회원, 1 일반회원, 9 관리자회원 
-		if(auth > 0 && passwd.equals(Passwd)) {
+		//db에서 받아온 salt와 이용자가 입력한 pw를 해싱 한 값과 DB에 저장된 값을 비교한다. 
+		String tmpPasswd = Encrypt.getEncrypt(Passwd, salt);
+		if(auth > 0 && passwd.equals(tmpPasswd)) {
 			return true;
 		}
 		return false;
@@ -180,6 +185,14 @@ public class MemberVO {
 
 	public void setSsleep_date(Date ssleep_date) {
 		this.ssleep_date = ssleep_date;
+	}
+
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
 	}
 
 

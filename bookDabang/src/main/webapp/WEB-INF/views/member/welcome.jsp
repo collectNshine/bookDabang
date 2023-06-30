@@ -19,7 +19,7 @@
 				 <p>
 			</div>
 			<input type="button" class="btn btn-lg btn-dark btn-block" value="로그인페이지" onclick="location.href='loginForm.do'">
-			<input id="main" type="button" value="메인으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
+			<input id="main" type="button" class="btn btn-lg btn-dark btn-block" value="메인으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 		</div>
 	</div>
 </div>
