@@ -752,7 +752,7 @@ ul.search li {
 					
 				</td> 
 				<td>
-				<c:if test="${request.req_state == 0}"><button>준비중</button></c:if>
+				<c:if test="${request.req_state == 0}"><button class="readybtn">준비중</button></c:if>
 				<c:if test="${request.req_state == 1}"><button>추가완료</button></c:if>
 				</td>			               
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>

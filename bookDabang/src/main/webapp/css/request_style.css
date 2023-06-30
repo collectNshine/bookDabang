@@ -171,6 +171,11 @@ article ul{
 	margin-top:50px;
 	margin-bottom:20px;
 }
+.readybtn{
+	background-color:white;
+	border-color:rgb(207, 207, 212);
+	width:80px;
+}
 
 
 /*req modify*/
