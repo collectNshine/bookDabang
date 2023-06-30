@@ -60,7 +60,7 @@ public class UserOrderAction implements Action {
 			orderDetail.setBook_publisher(book.getPublisher());
 			orderDetail.setThumbnail(book.getThumbnail());
 			orderDetail.setOrder_quantity(cart.getOrder_quantity());
-			orderDetail.setBook_total(cart.getSub_total());
+			orderDetail.setBook_total(cart.getSub_total()); 
 			
 			detailList.add(orderDetail);
 		}
