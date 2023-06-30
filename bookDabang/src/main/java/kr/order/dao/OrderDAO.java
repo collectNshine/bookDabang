@@ -469,7 +469,7 @@ public class OrderDAO {
 				order.setMem_num(rs.getInt("mem_num"));
 				
 				list.add(order);
-			}
+			} 
 		} catch(Exception e) { throw new Exception(e); }
 		finally { DBUtil.executeClose(rs, pstmt, conn); }
 		
