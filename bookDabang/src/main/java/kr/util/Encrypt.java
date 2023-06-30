@@ -7,7 +7,7 @@ import java.security.SecureRandom;
 
 public class Encrypt {
 	//salt 값을 얻을 수 있는 메소드 
-	public String getSalt() {
+	public static String getSalt() {
 		SecureRandom r = new SecureRandom();
 		byte[] salt  = new byte[20];
 		
@@ -22,7 +22,7 @@ public class Encrypt {
 	}
 	
 	//암호화 메서드
-	public String getEncrypt(String password,String salt) {
+	public static String getEncrypt(String password,String salt) {
 		String result = "";
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-512"); // SHA-512도 64비트의 해시값을 리턴한다.
