@@ -37,20 +37,20 @@
 	         </c:if>
 	         <c:if test="${empty user_photo}">
 	         <li>
-	            <a href="${pageContext.request.contextPath}/mypage/myPage.do"><img src="${pageContext.request.contextPath}/images/face.png" width="25" height="25" class="my-photo" style="margin-right:20px;"></a>
+	            <a href="${pageContext.request.contextPath}/mypage/myPage.do"><img src="${pageContext.request.contextPath}/images/face.png" width="25" height="25" class="my-photo" style="margin-right:18px;"></a>
 	         </li>
 	         </c:if>
 	     <li>
-	         <a href="${pageContext.request.contextPath}/cart/list.do"><img src="${pageContext.request.contextPath}/images/new_cart.png" width="25" height="25" style="margin-right:20px;"></a>
+	         <a href="${pageContext.request.contextPath}/cart/list.do"><img src="${pageContext.request.contextPath}/images/new_cart.png" width="25" height="25" style="margin-right:18px;"></a>
 	     </li>
 	     <li>
-	         <input class="loginbtn" type="button" value="Logout" onclick="location.href='${pageContext.request.contextPath}/member/logout.do'" style="margin-right:20px;">
+	         <input class="loginbtn" type="button" value="Logout" onclick="location.href='${pageContext.request.contextPath}/member/logout.do'" style="margin-right:18px;">
 	     </li>
 	     </c:if>
 
          <c:if test="${empty user_num}"> <%--로그아웃 상태 --%>
          <li>
-            <input class="loginbtn" type="button" value="Login" onclick="location.href='${pageContext.request.contextPath}/member/loginForm.do'" style="margin-left:50px;">
+            <input class="loginbtn" type="button" value="Login" onclick="location.href='${pageContext.request.contextPath}/member/loginForm.do'" style="margin-left:45px;">
          </li>
          </c:if>
       </ul>
