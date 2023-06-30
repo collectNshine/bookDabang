@@ -1,4 +1,4 @@
-package kr.order.vo;
+package kr.order.vo; 
 
 public class OrderDetailVO {
 	private int detail_num, bk_num, book_price, book_total, order_quantity, order_num;
