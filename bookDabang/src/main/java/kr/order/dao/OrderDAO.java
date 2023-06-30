@@ -9,6 +9,7 @@ import java.util.List;
 import kr.order.vo.OrderDetailVO;
 import kr.order.vo.OrderVO;
 import kr.util.DBUtil;
+import kr.util.StringUtil;
 
 public class OrderDAO {
 	// Singleton Pattern
@@ -142,11 +143,11 @@ public class OrderDAO {
 			while(rs.next()) {
 				OrderDetailVO detail = new OrderDetailVO();
 				detail.setBk_num(rs.getInt("bk_num"));
-				detail.setBook_title(rs.getString("book_title"));
+				detail.setBook_title(StringUtil.useNoHtml(rs.getString("book_title")));
 				detail.setBook_price(rs.getInt("book_price"));
 				detail.setBook_total(rs.getInt("book_total"));
-				detail.setBook_author(rs.getString("book_author"));
-				detail.setBook_publisher(rs.getString("book_publisher"));
+				detail.setBook_author(StringUtil.useNoHtml(rs.getString("book_author")));
+				detail.setBook_publisher(StringUtil.useNoHtml(rs.getString("book_publisher")));
 				detail.setThumbnail(rs.getString("thumbnail"));
 				detail.setOrder_quantity(rs.getInt("order_quantity"));
 				detail.setOrder_num(rs.getInt("order_num"));
@@ -210,17 +211,17 @@ public class OrderDAO {
 			if(rs.next()) {
 				order = new OrderVO();
 				order.setOrder_num(rs.getInt("order_num"));
-				order.setBook_title(rs.getString("book_title"));
+				order.setBook_title(StringUtil.useNoHtml(rs.getString("book_title")));
 				order.setOrder_total(rs.getInt("order_total"));
 				order.setPayment(rs.getInt("payment"));
 				order.setStatus(rs.getInt("status"));
 				order.setReceive_name(rs.getString("receive_name"));
 				order.setReceive_post(rs.getString("receive_post"));
-				order.setReceive_address1(rs.getString("receive_address1"));
-				order.setReceive_address2(rs.getString("receive_address2"));
+				order.setReceive_address1(StringUtil.useNoHtml(rs.getString("receive_address1")));
+				order.setReceive_address2(StringUtil.useNoHtml(rs.getString("receive_address2")));
 				order.setReceive_phone(rs.getString("receive_phone"));
 				order.setEmail(rs.getString("email"));
-				order.setNotice(rs.getString("notice"));
+				order.setNotice(StringUtil.useNoHtml(rs.getString("notice")));
 				order.setOrder_date(rs.getDate("order_date"));
 				order.setMem_num(rs.getInt("mem_num"));
 			}
@@ -361,7 +362,7 @@ public class OrderDAO {
 			while(rs.next()) {
 				OrderVO order = new OrderVO();
 				order.setOrder_num(rs.getInt("order_num"));
-				order.setBook_title(rs.getString("book_title"));
+				order.setBook_title(StringUtil.useNoHtml(rs.getString("book_title")));
 				order.setOrder_total(rs.getInt("order_total"));
 				order.setPayment(rs.getInt("payment"));
 				order.setStatus(rs.getInt("status"));
@@ -371,7 +372,7 @@ public class OrderDAO {
 				order.setReceive_address2(rs.getString("receive_address2"));
 				order.setReceive_phone(rs.getString("receive_phone"));
 				order.setEmail(rs.getString("email"));
-				order.setNotice(rs.getString("notice"));
+				order.setNotice(StringUtil.useNoHtml(rs.getString("notice")));
 				order.setOrder_date(rs.getDate("order_date"));
 				order.setMem_num(rs.getInt("mem_num"));
 				order.setId(rs.getString("id"));
@@ -453,7 +454,7 @@ public class OrderDAO {
 			while(rs.next()) {
 				OrderVO order = new OrderVO();
 				order.setOrder_num(rs.getInt("order_num"));
-				order.setBook_title(rs.getString("book_title"));
+				order.setBook_title(StringUtil.useNoHtml(rs.getString("book_title")));
 				order.setOrder_total(rs.getInt("order_total"));
 				order.setPayment(rs.getInt("payment"));
 				order.setStatus(rs.getInt("status"));
@@ -463,7 +464,7 @@ public class OrderDAO {
 				order.setReceive_address2(rs.getString("receive_address2"));
 				order.setReceive_phone(rs.getString("receive_phone"));
 				order.setEmail(rs.getString("email"));
-				order.setNotice(rs.getString("notice"));
+				order.setNotice(StringUtil.useNoHtml(rs.getString("notice")));
 				order.setOrder_date(rs.getDate("order_date"));
 				order.setMem_num(rs.getInt("mem_num"));
 				
