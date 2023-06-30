@@ -20,22 +20,26 @@
 	$(function(){ 
 		//수량 이벤트 연결
 		$('#order_quantity').on('keyup mouseup',function(){
-			//수량 2개 이상 입력 시 총 합계 금액이 보여지게 처리
+			//총 주문 금액 처리
 			let total = $('#price').val() * $('#order_quantity').val();
-			$('#item_total_txt').text('총 주문 금액 : ' + total.toLocaleString() + '원');
-			if($('#order_quantity').val() < 2){ 
-				$('#item_total_txt').text('');
+			if(total < 30000){
+				total = total + 3000;
+				$('#ship_price').text('3,000원');
+				$('#item_total_txt').text(total.toLocaleString()+"원");
+			}else if(total >= 30000){
+				$('#ship_price').text('무료');
+				$('#item_total_txt').text(total.toLocaleString()+"원");
 			}
+			
 			//음수&문자 입력 방지
 			if($('#order_quantity').val() <= 0 || isNaN($('#order_quantity').val())){
 				$('#order_quantity').val('').focus();
 				return;
-			
 			}
 
-			//둘 중 하나만 Number로 형변환
+			//(둘 중 하나만 Number로 형변환)
 			if(Number($('#stock').val()) < $('#order_quantity').val()){
-				alert('선택하신 수량보다 재고가 부족합니다.');
+				alert('최대 허용 주문 수량을 초과하였습니다.');
 				$('#order_quantity').val('');
 				$('#item_total_txt').text('');
 				return;
@@ -49,12 +53,12 @@
 			event.preventDefault();
 			
 			if($('#order_quantity').val() == ''){
-				alert('수량을 입력하세요!');
+				alert('수량 입력 시에만 주문이 가능합니다.');
 				$('#order_quantity').focus();
 				return false;
 			}
 			
-			//.serialize():데이터를 한꺼번에 읽어옴
+			//데이터를 한꺼번에 읽어옴
 			let form_data = $(this).serialize();
 			
 			$.ajax({
@@ -64,12 +68,15 @@
 				dataType:'json',
 				success:function(param){
 					if(param.result == 'logout'){
-						alert('로그인 후 사용하세요');
+						alert('로그인 후 사용하실 수 있습니다.');
+						location.href='../member/loginForm.do';
 					}else if(param.result == 'success'){
-						alert('장바구니에 담았습니다.');
-						//location.href='../cart/list.do';
+						let choice = confirm('장바구니에 상품을 담았습니다. 이동하시겠습니까?');
+						if(choice){
+							location.href='../cart/list.do';
+						}
 					}else if(param.result == 'over_quantity'){
-						alert('기존에 주문한 상품입니다. 개수를 추가하면 재고가 부족합니다.');
+						alert('입력하신 주문 수량이 현 재고 수량을 초과하였습니다. 다시 입력해주세요.');
 					}else{
 						alert('장바구니 담기 오류');
 					}
@@ -95,72 +102,63 @@
 				<input type="hidden" name="bk_num" value="${book.bk_num}" id="bk_num">
 				<input type="hidden" name="price" value="${book.price}" id="price">
 				<input type="hidden" name="stock" value="${book.stock}" id="stock">
-				<ul>
-					<li>
-						<div class="detail-title">
-							<h3>${book.title}</h3>
-						</div>
-					</li>
-					<li>
-						<div class="detail-author-publisher">
-							${book.author} | ${book.publisher}
-						</div>
-					</li>
-					<li>
-						<div class="detail-category">
-							${book.category}
-						</div>
-					</li>
-					<li> 
-						<%-- 좋아요 --%>
-						<%-- html은 속성태그 추가X (예외)'data-' 형태로만 추가 가능--%>
-						<img id="output_mark" data-num="${book.bk_num}" 
-							 src="${pageContext.request.contextPath}/images/no_mark.png" width="30">
-						책갈피
-					</li>
-					<li>
-						<input type="button" class="btn btn-outline-primary" value="서평 작성" onclick="location.href='${pageContext.request.contextPath}/post/writeForm.do?bk_num=${book.bk_num}'">
-					</li>
-				</ul>
+				<div class="detail-title">
+					<h3>${book.title}</h3>
+				</div>
+				
+				<div class="detail-author-publisher">
+					${book.author} | ${book.publisher}
+				</div>
+				
+				<div class="detail-category">
+					${book.category}
+				</div>
+				
+				<img id="output_mark" data-num="${book.bk_num}" 
+					 src="${pageContext.request.contextPath}/images/no_mark.png" width="30">
+				책갈피
+				
+				<input type="button" class="btn btn-outline-primary" value="서평 작성" onclick="location.href='${pageContext.request.contextPath}/post/writeForm.do?bk_num=${book.bk_num}'">
+				
 				<hr size="3" width="100%">
-				<ul>
-					<li>
-						<div class="detail-price">
-						<b>가격</b> <fmt:formatNumber value="${book.price}"/>원
-						</div>
-					</li>
-					
-					<c:if test="${book.stock > 0}">
-						<li>
-							<b>수량</b> <input type="number" name="order_quantity" min="1" max="${book.stock}" 
-								   autocomplete="off" id="order_quantity" class="quantity-width" value="1">
-						</li>
-					</c:if>
-					<c:if test="${book.stock <= 0}">
-					<li class="align-center">
-						<span class="sold-out">품절</span>
-					</li>
-					</c:if>
-				</ul>
+				
+				<div class="detail-price">
+				<b>가격</b> <fmt:formatNumber value="${book.price}"/>원
+				</div>
+				
+				<div class="detail-ship-price">
+				<b>배송비</b> <span id="ship_price">3,000원</span>
+				</div>
+				
+				<div class="detail-stock">
+				<c:if test="${book.stock > 0}">
+				<b>수량</b> <input type="number" name="order_quantity" min="1" max="${book.stock}" 
+					   autocomplete="off" id="order_quantity" class="quantity-width" value="1">
+				</c:if>
+				<c:if test="${book.stock <= 0}">
+					<span class="sold-out">품절</span>
+				</c:if>
+				</div>	
+				
 				<hr size="1" width="100%">
-				<ul>
-						<li>
-							<span id="item_total_txt"></span>
-						</li>
-						<li>
-							<div class="d-grid gap-2 col-6 mx-auto">
-							<!-- <input type="submit" value="장바구니에 담기"> -->
-							<input type="submit" value="장바구니" class="btn btn-primary">
-							</div>
-						</li>
-				</ul>
+				
+				<div class="total-price">
+				<b>총 주문 금액</b> <span id="item_total_txt"><fmt:formatNumber value="${book.price + 3000}"/>원</span>
+				</div>
+				
+				<div class="d-grid gap-2 col-6 mx-auto">
+				<input type="submit" value="장바구니" class="btn btn-primary">
+				</div>
 			</form>
-		</div>
+		</div> <%--end of item-detail --%>
+		
 		<hr size="1" noshade="noshade" width="100%">
+		
 		<div class="detail-content">
 			<h3>책 소개</h3>
 			${book.content}
 		</div>
+		
 		<hr size="1" noshade="noshade" width="100%">
 		
 		
@@ -194,7 +192,7 @@
 			</form>
 			<hr size="1" noshade="noshade" width="100%">
 			
-				<!-- 댓글 목록 출력 시작 -->
+		<!-- 댓글 목록 출력 시작 -->
 		<div id="output"></div>
 		<div class="paging-button" style="display:none;">
 			<input type="button" value="다음글 보기">
@@ -203,19 +201,10 @@
 			<img src="${pageContext.request.contextPath}/images/loading.gif" width="50" height="50">
 		</div>
 		<!-- 댓글 목록 출력 끝 -->	
-			
-			
-			
-			
 		</div>
-		
-
 		<!-- 댓글 끝 -->
-		
-		
 	</div>
 	<!-- 내용 끝 -->
 </div>
-
 </body>
 </html>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import kr.book.dao.BookDAO;
+import kr.book.vo.ReviewDislikeVO;
 import kr.book.vo.ReviewLikeVO;
 import kr.controller.Action;
 
