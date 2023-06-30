@@ -7,15 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보 수정</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_style.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <style>
 input[type="text"], input[type="password"], input[type="email"] {
     width: 500px;
     height: 40px;
     margin-bottom: 10px;
-    box-shadow: 3px 3px 3px  gray;
 }
 form {
     width: 750px;
@@ -221,18 +222,18 @@ form {
 			</li>
 			<li>
 				<div class="align-center">
-					<input type="button" value="사진 수정" id="photo_btn">
-					<input type="button" value="비밀번호 변경" id="passwd_btn"
+					<input type="button" value="사진 수정" id="photo_btn" class="btn btn-outline-secondary">
+					<input type="button" value="비밀번호 변경" id="passwd_btn" class="btn btn-outline-secondary"
 					onclick="location.href='${pageContext.request.contextPath}/mypage/modifyPasswordForm.do'">
-					<input type="button" value="회원 탈퇴" id="delete_btn"
+					<input type="button" value="회원 탈퇴" id="delete_btn" class="btn btn-outline-secondary"
 					onclick="location.href='${pageContext.request.contextPath}/mypage/deleteUserForm.do'">
 				</div>
 				<div class="align-center" id="photo_choice" style="display:none;">
 					<input type="file" class="align-center" style="padding-left:115px" id="photo" accept="image/gif,image/png,image/jpeg">
 					<br>
-					<input type="button" value="저장" id="photo_submit">
-					<input type="button" value="취소" id="photo_reset">
-					<input type="button" value="삭제" id="photo_delete">
+					<input type="button" value="저장" id="photo_submit" class="btn btn-outline-secondary">
+					<input type="button" value="취소" id="photo_reset" class="btn btn-outline-secondary">
+					<input type="button" value="삭제" id="photo_delete" class="btn btn-outline-secondary">
 					
 					<%--
 					<script type="text/javascript">
@@ -295,39 +296,39 @@ form {
 				<li>
 					<label for="name"><b>필명</b></label>
 					<input type="text" name="name" id="name" 
-						   maxlength="10" value="${member.name}">
+						   maxlength="10" value="${member.name}" class="form-control">
 				</li>
 				<li>
 					<label for="phone"><b>휴대폰번호</b></label>
 					<input type="text" name="phone" id="phone" 
-						   maxlength="15" value="${member.phone}">
+						   maxlength="15" value="${member.phone}" class="form-control">
 				</li>	
 				<li>
 					<label for="email"><b>이메일</b></label>
 					<input type="email" name="email" id="email" 
-						   maxlength="50" value="${member.email}">
+						   maxlength="50" value="${member.email}" class="form-control">
 				</li>
 				<li>
 					<label for="zipcode"><b>우편번호</b></label>
 					<input type="text" name="zipcode" id="zipcode" 
-						   maxlength="5" value="${member.zipcode}" style="width:405px;">
-					<input type="button" value="우편번호 찾기" onclick="execDaumPostcode()">
+						   maxlength="5" value="${member.zipcode}" class="form-control">
+					<input type="button" value="우편번호 찾기" onclick="execDaumPostcode()" class="form-control" style="width:500px;margin-left: 130px;">
 				</li>				
 				<li>
 					<label for="address1"><b>주소</b></label>
 					<input type="text" name="address1" id="address1"
-						   maxlength="30" value="${member.address1}">
+						   maxlength="30" value="${member.address1}" class="form-control">
 				</li>				
 				<li>
 					<label for="address2"><b>상세번호</b></label>
 					<input type="text" name="address2" id="address2"
-						   maxlength="30" value="${member.address2}">
+						   maxlength="30" value="${member.address2}"  class="form-control">
 				</li>				
 			</ul>
 			<div class="align-center"  style="margin-top: 50px;">
-				<input type="submit" value="확인">
+				<input type="submit" value="확인" class="btn btn-outline-secondary">
 				<input type="button" value="홈으로" 
-					   onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
+					   onclick="location.href='${pageContext.request.contextPath}/main/main.do'" class="btn btn-outline-secondary">
 			</div>
 		</form>
 	</div>
