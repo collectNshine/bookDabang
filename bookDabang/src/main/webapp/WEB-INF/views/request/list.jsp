@@ -75,7 +75,7 @@
 				<c:forEach var="request" items="${list}">
 				<tr>
 					<c:if test="${request.req_state == 0}">
-						<td class="align-center"><button>준비중</button></td>
+						<td class="align-center"><button class="readybtn" > 준비중 </button></td>
 					</c:if>
 					<c:if test="${request.req_state == 1}"> 
 						<td class="align-center"><button>추가완료</button></td>
