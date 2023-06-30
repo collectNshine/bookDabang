@@ -3,7 +3,7 @@ $(function(){
 	let count;
 	let rowCount;
 	
-	//좋아요 등록(및 삭제) 이벤트 처리
+	//좋아요 버튼 클릭 이벤트 처리 (등록 및 삭제)
 	$(document).on('click','.output_like',function(){
 		let click_btn = $(this);
 		$.ajax({
@@ -15,9 +15,15 @@ $(function(){
 				if(param.result == 'logout'){
 					alert('로그인 후 등록 가능합니다.');
 				}else if(param.result == 'success'){
+					//좋아요 표시
 					displayLike(param,click_btn);
+					//별로에요가 등록되어 있었다면 해제 후 UI 처리
+					if(param.status_dis){ 
+						let dis_btn = click_btn.parent().find('.output_dislike');
+						displayDislike(param,dis_btn);
+					}
 				}else{
-					alert('등록 표시 오류 발생');
+					alert('등록 오류 발생');
 				}
 			},
 			error:function(){
@@ -29,20 +35,20 @@ $(function(){
 	
 	//좋아요 표시 (UI 처리)
 	function displayLike(param,click_btn){
-	let output;
-	if(param.status == 'noLike'){
-		//js파일은 el 사용X - html경로인식 방법 사용
-		output = '<i class="bi bi-hand-thumbs-up"></i>'; 
-	}else{
-		output = '<i class="bi bi-hand-thumbs-up-fill"></i>';
-	}
-	//문서 객체 설정
-	click_btn.html(output);
-	click_btn.parent().find('.output_lcount').text(param.count);
+		let output;
+		if(param.status == 'noLike'){
+			//js파일은 el 사용X - html경로인식 방법 사용
+			output = '<i class="bi bi-hand-thumbs-up"></i>'; 
+		}else{
+			output = '<i class="bi bi-hand-thumbs-up-fill"></i>';
+		}
+		//문서 객체 설정
+		click_btn.html(output);
+		click_btn.parent().find('.output_lcount').text(param.count);
 	}
 	
 	
-	//별로에요 등록(및 삭제) 이벤트 처리
+	//별로에요 버튼 클릭 이벤트 처리 (등록 및 삭제)
 	$(document).on('click','.output_dislike',function(){
 		let click_btn = $(this);
 		$.ajax({
@@ -54,7 +60,13 @@ $(function(){
 				if(param.result == 'logout'){
 					alert('로그인 후 등록 가능합니다.');
 				}else if(param.result == 'success'){
+					//별로에요 표시
 					displayDislike(param,click_btn);
+					//좋아요가 등록되어 있었다면 해제 후 UI 처리
+					if(param.status){
+						let like_btn = click_btn.parent().find('.output_like');
+						displayLike(param,like_btn);
+					}
 				}else{
 					alert('등록 오류 발생');
 				}
@@ -68,16 +80,16 @@ $(function(){
 	
 	//별로에요 표시 (UI 처리)
 	function displayDislike(param,click_btn){
-	let output;
-	if(param.status == 'noDislike'){
-		//js파일은 el 사용X - html경로인식 방법 사용
-		output = '<i class="bi bi-hand-thumbs-down"></i>'; 
-	}else{
-		output = '<i class="bi bi-hand-thumbs-down-fill"></i>';
-	}
-	//문서 객체 설정
-	click_btn.html(output);
-	click_btn.parent().find('.output_dlcount').text(param.count);
+		let output;
+		if(param.status_dis == 'noDislike'){
+			//js파일은 el 사용X - html경로인식 방법 사용
+			output = '<i class="bi bi-hand-thumbs-down"></i>'; 
+		}else{
+			output = '<i class="bi bi-hand-thumbs-down-fill"></i>';
+		}
+		//문서 객체 설정
+		click_btn.html(output);
+		click_btn.parent().find('.output_dlcount').text(param.count_dis);
 	}
 
 	

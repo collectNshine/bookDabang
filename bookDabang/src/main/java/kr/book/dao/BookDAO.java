@@ -25,7 +25,6 @@ public class BookDAO {
 		private BookDAO() {}
 		
 		
-		
 		/*--------------------도서 관리--------------------*/
 		
 		//도서 등록 (관리자)
@@ -130,7 +129,6 @@ public class BookDAO {
 				}else {
 					sub_sql += "WHERE category IS NOT NULL";
 				}
-				
 				if(keyword!=null && !"".equals(keyword)) {
 					if(keyfield.equals("1")) sub_sql += " AND title LIKE ?";
 					if(keyfield.equals("2")) sub_sql += " AND author LIKE ?";
@@ -147,7 +145,7 @@ public class BookDAO {
 					pstmt.setString(++cnt, category);
 				}
 				if(keyword!=null && !"".equals(keyword)) {
-				pstmt.setString(++cnt, "%"+keyword+"%");
+					pstmt.setString(++cnt, "%"+keyword+"%");
 				}
 				pstmt.setInt(++cnt, start);
 				pstmt.setInt(++cnt, end);
@@ -155,20 +153,20 @@ public class BookDAO {
 				rs = pstmt.executeQuery();
 				list = new ArrayList<BookVO>();
 				while(rs.next()) {
-				BookVO book = new BookVO();
-				book.setBk_num(rs.getInt("bk_num"));
-				book.setTitle(rs.getString("title"));
-				book.setAuthor(rs.getString("author"));
-				book.setPublisher(rs.getString("publisher"));
-				book.setPrice(rs.getInt("price"));
-				book.setStock(rs.getInt("stock"));
-				book.setCategory(rs.getString("category"));
-				book.setThumbnail(rs.getString("thumbnail"));
-				book.setContent(StringUtil.useNoHtml(rs.getString("content")));
-				book.setReg_date(rs.getDate("reg_date"));
-				
-				list.add(book);
-			}
+					BookVO book = new BookVO();
+					book.setBk_num(rs.getInt("bk_num"));
+					book.setTitle(rs.getString("title"));
+					book.setAuthor(rs.getString("author"));
+					book.setPublisher(rs.getString("publisher"));
+					book.setPrice(rs.getInt("price"));
+					book.setStock(rs.getInt("stock"));
+					book.setCategory(rs.getString("category"));
+					book.setThumbnail(rs.getString("thumbnail"));
+					book.setContent(StringUtil.useNoHtml(rs.getString("content")));
+					book.setReg_date(rs.getDate("reg_date"));
+					
+					list.add(book);
+				}
 			}catch(Exception e) {
 				throw new Exception(e);
 			}finally {
@@ -285,7 +283,7 @@ public class BookDAO {
 		}
 
 		
-		//도서 단일 삭제 (관리자)
+		//도서 단일 삭제
 		public void deleteBook(int bk_num) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt1 = null;
@@ -498,7 +496,7 @@ public class BookDAO {
 		}
 		
 		
-		//책갈피 해제
+		//책갈피 단일 해제 (in 도서 상세 페이지)
 		public void deleteMark(int mark_num) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -522,6 +520,24 @@ public class BookDAO {
 		}
 		
 		
+		//책갈피 다중 해제 (in 마이 페이지)
+		public void deleteMultipleMarks(String[] checkBrArr) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				conn = DBUtil.getConnection();
+				sql = "DELETE FROM book_mark WHERE mark_num IN(" + String.join(",", checkBrArr) +")";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+		}
+		
+		 
 		//책갈피 여부 확인 (내가 이 책을 책갈피 등록해놨는지 확인 용)
 		public BookMarkVO selectMark(BookMarkVO markVO) throws Exception{
 			Connection conn = null;
@@ -644,9 +660,7 @@ public class BookDAO {
 		}
 		
 		
-		
-		
-		//회원 별 책갈피 저장 개수 (몇 명의 회원이 이 책을 책갈피에 담았는지 확인 용)
+		//회원 별 책갈피 저장 개수 (한 명의 회원이 몇개의 책갈피를 담았는지 확인)
 		public int selectUserMarkCount(String keyfield, String keyword, int mem_num) throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -686,7 +700,6 @@ public class BookDAO {
 			
 			return count;
 		}
-		
 		
 		
 		
@@ -802,7 +815,6 @@ public class BookDAO {
 		}
 		
 		
-		
 		//댓글 목록 - 최고에요,별로에요 포함
 		public List<ReviewVO> getListLike(int start, int end, int mem_num, int bk_num) throws Exception{
 			Connection conn = null;
@@ -858,9 +870,6 @@ public class BookDAO {
 			
 			return list;
 		}
-		
-		
-		
 		
 		
 		//댓글 삭제
@@ -1195,6 +1204,7 @@ public class BookDAO {
 			}
 			return count;
 		}
+		
 		
 		
 		

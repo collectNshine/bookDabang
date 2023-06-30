@@ -33,7 +33,9 @@ public class UpdateFormAction implements Action {
 		BookDAO dao = BookDAO.getInstance();
 		BookVO book = dao.getBook(bk_num);
 		
-		book.setContent(StringUtil.changeBr(book.getContent()));
+		//StringUtil의 메서드 적용
+		book.setTitle(StringUtil.parseQuot(book.getTitle())); //제목 - 큰따옴표 처리
+		book.setContent(StringUtil.changeBr(book.getContent())); //내용 - <br>태그 처리
 		
 		request.setAttribute("book", book); 
 		

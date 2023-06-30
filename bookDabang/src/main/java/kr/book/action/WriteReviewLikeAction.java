@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import kr.book.dao.BookDAO;
+import kr.book.vo.ReviewDislikeVO;
 import kr.book.vo.ReviewLikeVO;
 import kr.controller.Action;
 
@@ -48,6 +49,19 @@ public class WriteReviewLikeAction implements Action {
 				mapAjax.put("result" , "success");
 				mapAjax.put("status" , "yesLike");
 				mapAjax.put("count" , dao.selectReviewLikeCount(review_num));
+				
+				ReviewDislikeVO dislikeVO = new ReviewDislikeVO();
+				dislikeVO.setReview_num(review_num);
+				dislikeVO.setMem_num(user_num);
+				
+				//별로에요 등록 여부 체크
+				ReviewDislikeVO db_dislike = dao.selectReviewDislike(dislikeVO);
+				if(db_dislike != null) { //별로에요 등록 되어있는 경우
+					//별로에요 삭제 처리
+					dao.deleteReviewDislike(db_dislike.getRev_dislike_num());
+					mapAjax.put("status_dis" , "noDislike");
+					mapAjax.put("count_dis" , dao.selectReviewDislikeCount(review_num));
+				}
 			}
 		}
 		

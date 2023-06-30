@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import kr.book.dao.BookDAO;
-import kr.book.vo.ReviewLikeVO;
+import kr.book.vo.ReviewDislikeVO;
 import kr.controller.Action;
 
 public class GetReviewDislikeAction implements Action {
@@ -31,8 +31,8 @@ public class GetReviewDislikeAction implements Action {
 			mapAjax.put("status", "noDislike");
 			mapAjax.put("count", dao.selectReviewDislikeCount(review_num));
 		}else { //로그인된 경우 - 객체 생성
-			ReviewLikeVO reviewLike = dao.selectReviewLike(new ReviewLikeVO(review_num, user_num));
-			if(reviewLike != null) { //로그인 회원이 해당 글에 좋아요 표시한 경우
+			ReviewDislikeVO reviewDislike = dao.selectReviewDislike(new ReviewDislikeVO(review_num, user_num));
+			if(reviewDislike != null) { //로그인 회원이 해당 글에 좋아요 표시한 경우
 				mapAjax.put("status", "yesDislike");
 				mapAjax.put("count", dao.selectReviewDislikeCount(review_num));
 			}else { //로그인 회원이 해당 글에 좋아요 표시한 경우

@@ -32,9 +32,11 @@
 
 /*--목록--*/
 .book-list{
+	display:table;
+	vertical-align:middle;
 	list-style:none;
 	float:right;
-	width:80%;
+	width:83%;
 }
 .list-photo{ /*썸네일 사진*/
 	float:left;
@@ -52,6 +54,7 @@
 .list-title{ /*도서 정보글 - 제목*/
 	font-weight:bold;
 	font-size:14pt;
+	width:80%;
 }
 .list-author-publisher{ /*도서 정보글 - 작가|출판사*/
 	color:grey;
@@ -117,12 +120,13 @@ textarea.form-control{
 input.form-control{
 	width:310px;
 }
-
+.form-select
 
 /*-------------[도서상세]-------------*/
 .detail{
 	margin:0 auto;
 	width:80%;
+	text-align:center;
 }
 #output_mark{
 	cursor:pointer;
@@ -141,7 +145,7 @@ form#review_form{
 }
 span.review-title{
 	font-size:12pt;
-	line-height:200%;
+	line-height:200%; 
 	margin:20px;
 }
 .user-photo{
@@ -162,8 +166,4 @@ span.review-letter-count{
 }
 .review-button{
 	text-align:right;
-}
-.bi-hand-thumbs-up{
-	font-size: 22px;
-    line-height: 22px;
 }

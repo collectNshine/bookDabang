@@ -11,6 +11,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import kr.book.dao.BookDAO;
 import kr.book.vo.ReviewDislikeVO;
+import kr.book.vo.ReviewLikeVO;
 import kr.controller.Action;
 
 public class WriteReviewDislikeAction implements Action{
@@ -34,20 +35,33 @@ public class WriteReviewDislikeAction implements Action{
 			ReviewDislikeVO dislikeVO = new ReviewDislikeVO();
 			dislikeVO.setReview_num(review_num);
 			dislikeVO.setMem_num(user_num);
-			//좋아요 등록 여부 체크
+			//별로에요 등록 여부 체크
 			ReviewDislikeVO db_dislike = dao.selectReviewDislike(dislikeVO);
-			if(db_dislike != null) { //좋아요 등록 되어있는 경우
-				//좋아요 삭제 처리
+			if(db_dislike != null) { //별로에요 등록 되어있는 경우
+				//별로에요 삭제 처리
 				dao.deleteReviewDislike(db_dislike.getRev_dislike_num());
 				mapAjax.put("result" , "success");
-				mapAjax.put("status" , "noDislike");
-				mapAjax.put("count" , dao.selectReviewDislikeCount(review_num));
-			}else { //좋아요 등록 안 되어있는 경우
-				//좋아요 등록 처리
+				mapAjax.put("status_dis" , "noDislike");
+				mapAjax.put("count_dis" , dao.selectReviewDislikeCount(review_num));
+			}else { //별로에요 등록 안 되어있는 경우
+				//별로에요 등록 처리
 				dao.insertReviewDislike(dislikeVO);
 				mapAjax.put("result" , "success");
-				mapAjax.put("status" , "yesDislike");
-				mapAjax.put("count" , dao.selectReviewDislikeCount(review_num));
+				mapAjax.put("status_dis" , "yesDislike");
+				mapAjax.put("count_dis" , dao.selectReviewDislikeCount(review_num));
+				
+				ReviewLikeVO likeVO = new ReviewLikeVO();
+				likeVO.setReview_num(review_num);
+				likeVO.setMem_num(user_num);
+				
+				//좋아요 등록 여부 체크
+				ReviewLikeVO db_like = dao.selectReviewLike(likeVO);
+				if(db_like != null) { //좋아요 등록 되어있는 경우
+					//좋아요 삭제 처리
+					dao.deleteReviewLike(db_like.getRev_like_num());
+					mapAjax.put("status" , "noLike");
+					mapAjax.put("count" , dao.selectReviewLikeCount(review_num));
+				}
 			}
 		}
 		
