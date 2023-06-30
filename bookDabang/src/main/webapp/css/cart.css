@@ -59,7 +59,7 @@ ul{ list-style:none; }
 .mem-info{ width:50%; float:left; }
 .member-info p{ margin:auto 0; }
 .delivery-info{ width:50%; float:left; }
-.payment-info{ clear:both; width:40%; margin:50px 30px; }
+.payment-info{ clear:both; margin:30px; }
 
 /* [사용자]주문상세 */
 .wrap-detail{ clear:both; margin:50px auto; }
