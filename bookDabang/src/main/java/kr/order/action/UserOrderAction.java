@@ -55,6 +55,10 @@ public class UserOrderAction implements Action {
 			orderDetail.setBk_num(cart.getBk_num());
 			orderDetail.setBook_title(cart.getBookVO().getTitle());
 			orderDetail.setBook_price(cart.getBookVO().getPrice());
+			orderDetail.setBook_author(cart.getBookVO().getAuthor());
+			orderDetail.setBook_publisher(cart.getBookVO().getPublisher());
+			orderDetail.setThumbnail(cart.getBookVO().getThumbnail());
+			orderDetail.setThumbnail(cart.getBookVO().getThumbnail());
 			orderDetail.setOrder_quantity(cart.getOrder_quantity());
 			orderDetail.setBook_total(cart.getSub_total());
 			
@@ -70,6 +74,7 @@ public class UserOrderAction implements Action {
 		order.setReceive_address1(request.getParameter("receive_address1"));
 		order.setReceive_address2(request.getParameter("receive_address2"));
 		order.setReceive_phone(request.getParameter("receive_phone"));
+		order.setEmail(request.getParameter("email"));
 		order.setNotice(request.getParameter("notice"));
 		order.setMem_num(user_num);
 		

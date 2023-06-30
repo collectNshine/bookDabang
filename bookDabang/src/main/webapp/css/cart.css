@@ -12,6 +12,7 @@ a:hover{ text-decoration:none; color:#6C6C6C; }
 /* 페이지 레이아웃 */
 .page-main{ margin:0 auto; min-height:650px; }
 .content-main{ padding:10px 20px; clear:both; }
+textarea{ resize: none; }
 
 /* 메뉴 */
 #main_logo{ float:left; padding-left:10px; text-align:center; }
@@ -27,6 +28,8 @@ ul{ list-style:none; }
 .my-photo{ object-fit:cover; object-position:top; border-radius:50%; }
 
 /* 장바구니 */
+#cart_order{ font-weight:bold; }
+
 .book-choice{ width:75%; float:left; }
 .member-info{ width:65%; height:50px; background:rgba(108, 117, 125, .1); display:flex; align-items:center; margin:10px 0 10px 100px; }
 .member-info img{ width:3%; margin:10px; }
@@ -39,14 +42,14 @@ ul{ list-style:none; }
 .list-group-item li{ float:left; margin-right:20px; height:auto; }
 .cart-check{ width:10px; }
 .cart-bookimg{ width:110px; }
-.cart-booktitle{ width:350px; }
+.cart-booktitle{ width:300px; }
 .cart-bookprice{ width:100px; }
 .cart-orderquantity{ width:150px; margin-top:15px; }
-.cart-deletebtn{ width:50px; }
+.cart-deletebtn{ width:50px; margin:0 auto; }
 .total_price{ width:50px; }
 
-.book-buy{ float:left; width:20%; margin:30px 0 0 30px; background:rgba(108, 117, 125, .1); border-radius:20px; display:flex; justify-content:center; }
-.book-buy-list{ clear:both; width:80%; border:none; margin:20px auto; text-align:center; background:white; border-radius:10px; font-weight:bold; }
+.book-buy{ float:left; width:20%; margin:30px 0 0 30px; background:rgba(108, 117, 125, .1); border-radius:5px; display:flex; justify-content:center; }
+.book-buy-list{ clear:both; width:80%; border:none; margin:20px auto; text-align:center; background:white; border-radius:5px; font-weight:bold; }
 .book-buy-list .width_td1{ width:50%; }
 .book-buy-list .width_td2{ width:50%; }
 
@@ -54,5 +57,23 @@ ul{ list-style:none; }
 .orderinfo-form{ width:100%; clear:both; float:left; margin:30px auto; }
 /*.float-left{ float:left; }*/
 .mem-info{ width:50%; float:left; }
+.member-info p{ margin:auto 0; }
 .delivery-info{ width:50%; float:left; }
 .payment-info{ clear:both; width:40%; margin:50px 30px; }
+
+/* [사용자]주문상세 */
+.wrap-detail{ clear:both; margin:50px auto; }
+
+.book-detail{ width:40%; float:left; margin:0 45px 0 100px; }
+.table-left{ width:50%; }
+.table-right{ width:50%; }
+.title_image{ clear:both; width:50%; float:left; }
+
+.detail-margin{ margin-top:100px; }
+.payment-total{ clear:both; float:left; }
+/* .order-payment{ width:80%;  }
+.order-total{ width:80%; } */
+
+.order-detail{ width:60%; margin:0 auto; }
+.buttons{ clear:both; width:60%; margin:0 auto; }
+#move_li{ margin-top:15px; }
