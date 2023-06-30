@@ -95,21 +95,21 @@
 		<div>
 			<img src="${pageContext.request.contextPath}/images/intro_btn_img1.jpg" onclick="location.href='${pageContext.request.contextPath}/book/list.do'">
 			<span>책, 한조각</span><br>
-			<span>둘러보기</span>
+			<span style="margin-left:200px">둘러보기</span>
 		</div>	
 	</button>
 	<button class="intro_btn_inner" type="button" >
 		<div>
 			<img src="${pageContext.request.contextPath}/images/intro_btn_img2.jpg" onclick="location.href='${pageContext.request.contextPath}/post/list.do'">
 			<span>기록, 두조각</span><br>
-			<span>둘러보기</span>
+			<span style="margin-left:215px">둘러보기</span>
 		</div>
 	</button>
 	<button class="intro_btn_inner" type="button" >
 		<div>
 			<img src="${pageContext.request.contextPath}/images/intro_btn_img3.jpg" onclick="location.href='${pageContext.request.contextPath}/chat/list.do'">
 			<span>이야기, 세조각</span><br>
-			<span>둘러보기</span>
+			<span style="margin-left:220px">둘러보기</span>
 		</div>	
 	</button>
 </div>
