@@ -89,7 +89,6 @@
 			<div class="order-detail">
 				<form id="order_modify" action="adminModify.do" method="post">
 					<input type="hidden" name="order_num" value="${order.order_num}">
-					<input type="hidden" name="status" value="${order.status}">
 					<div class="delivery-info">
 							<ul>
 								<li>
@@ -111,12 +110,12 @@
 										<div class="input-group-text">
 											<input class="form-check-input mt-0" type="radio" name="status" value="3" aria-label="Radio button for following text input" <c:if test="${order.status == 3}">checked</c:if>>
 										</div>
-										<input type="text" class="form-control" aria-label="Text input with radio button" value="배송대기">
+										<input type="text" class="form-control" aria-label="Text input with radio button" value="배송중">
 										
 										<div class="input-group-text">
 											<input class="form-check-input mt-0" type="radio" name="status" value="4" aria-label="Radio button for following text input" <c:if test="${order.status == 4}">checked</c:if>>
 										</div>
-										<input type="text" class="form-control" aria-label="Text input with radio button" value="배송준비중">
+										<input type="text" class="form-control" aria-label="Text input with radio button" value="배송완료">
 										</c:if>
 										<div class="input-group-text">
 											<input class="form-check-input mt-0" type="radio" name="status" value="5" aria-label="Radio button for following text input" <c:if test="${order.status == 5}">checked</c:if>>

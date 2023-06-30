@@ -28,6 +28,7 @@ public class AdminModifyAction implements Action {
 		order.setReceive_address1(request.getParameter("receive_address1"));
 		order.setReceive_address2(request.getParameter("receive_address2"));
 		order.setReceive_phone(request.getParameter("receive_phone"));
+		order.setEmail(request.getParameter("email"));
 		order.setNotice(request.getParameter("notice"));
 		
 		OrderDAO orderDao = OrderDAO.getInstance();
