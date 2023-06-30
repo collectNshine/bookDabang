@@ -177,7 +177,7 @@
 									</div>
 								</li>
 								<li class="select-delivery">
-									<div class="input-group">
+									<div class="input-group" id="move_li">
 										<div class="input-group-text">
 											<input class="form-check-input mt-0" type="radio" id="same_address" aria-label="Radio button for following text input">
 										</div>
