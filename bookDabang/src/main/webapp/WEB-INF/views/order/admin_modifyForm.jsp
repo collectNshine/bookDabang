@@ -95,7 +95,7 @@
 			</div>
 			
 			<div class="order-detail">
-				<form id="order_modify" action="userModify.do" method="post">
+				<form id="order_modify" action="adminModify.do" method="post">
 					<input type="hidden" name="order_num" value="${order.order_num}">
 					<input type="hidden" name="status" value="${order.status}">
 					<div class="delivery-info">
@@ -104,16 +104,35 @@
 									<h4><b>배송정보</b></h4>
 								</li>
 								<li>
-									<div class="input-group">
+									<div class="input-group" id="delivery_info">
 										<c:if test="${order.status != 5}">
 										<div class="input-group-text">
-										<input class="form-check-input mt-0" type="radio" name="status" value="1" aria-label="Radio button for following text input" <c:if test="${order.status == 1}">checked</c:if>>
+											<input class="form-check-input mt-0" type="radio" name="status" value="1" aria-label="Radio button for following text input" <c:if test="${order.status == 1}">checked</c:if>>
 										</div>
 										<input type="text" class="form-control" aria-label="Text input with radio button" value="배송대기">
+										
+										<div class="input-group-text">
+											<input class="form-check-input mt-0" type="radio" name="status" value="2" aria-label="Radio button for following text input" <c:if test="${order.status == 2}">checked</c:if>>
+										</div>
+										<input type="text" class="form-control" aria-label="Text input with radio button" value="배송준비중">
+										
+										<div class="input-group-text">
+											<input class="form-check-input mt-0" type="radio" name="status" value="3" aria-label="Radio button for following text input" <c:if test="${order.status == 3}">checked</c:if>>
+										</div>
+										<input type="text" class="form-control" aria-label="Text input with radio button" value="배송대기">
+										
+										<div class="input-group-text">
+											<input class="form-check-input mt-0" type="radio" name="status" value="4" aria-label="Radio button for following text input" <c:if test="${order.status == 4}">checked</c:if>>
+										</div>
+										<input type="text" class="form-control" aria-label="Text input with radio button" value="배송준비중">
 										</c:if>
+										<div class="input-group-text">
+											<input class="form-check-input mt-0" type="radio" name="status" value="5" aria-label="Radio button for following text input" <c:if test="${order.status == 5}">checked</c:if>>
+										</div>
+										<input type="text" class="form-control" aria-label="Text input with radio button" value="주문취소">
 									</div>
 									
-									<div class="input-group">
+									<%-- <div class="input-group">
 										<div class="input-group-text">
 											<c:if test="${order.status != 5}">
 											<input type="radio" name="status" class="form-check-input mt-0 payment" aria-label="Radio button for following text input" id="status1" value="1" <c:if test="${order.status == 1}">checked</c:if>>배송대기
@@ -123,7 +142,7 @@
 											</c:if>
 											<input type="radio" name="status" class="form-check-input mt-0 payment" aria-label="Radio button for following text input" id="status5" value="5" <c:if test="${order.status == 5}">checked</c:if>>주문취소
 										</div>
-									</div>
+									</div> --%>
 								</li>
 								<li>
 									<div class="input-group mb-3">
@@ -169,18 +188,13 @@
 								</li>
 								<li id="move_li">
 									<div class="buttons">
-										<c:if test="${order.status < 2}">
+										<c:if test="${order.status != 5}">
 										<input type="submit" value="수정" class="btn btn-outline-secondary btn-sm">
-										<input type="button" value="주문취소" id="order_cancel" class="btn btn-outline-secondary btn-sm">
-										<script type="text/javascript">
-											let order_cancel = document.getElementById('order_cancel');
-											order_cancel.onclick = function() {
-												let choice = confirm('주문을 취소하시겠습니까??');
-												if(choice) { location.replace('orderCancel.do?order_num=${order.order_num}'); }
-											};
-										</script>
 										</c:if>
-										<input type="button" value="주문목록" onclick="location.href='orderList.do'" class="btn btn-outline-secondary btn-sm">
+										<c:if test="${order.status == 4 or order.status == 5}">
+										<input type="button" value="삭제" onclick="location.href='deleteOrder.do?order_num=${order.order_num}'" id="order_cancel" class="btn btn-outline-secondary btn-sm">
+										</c:if>
+										<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do'" class="btn btn-outline-secondary btn-sm">
 									</div>
 								</li>
 							</ul>
