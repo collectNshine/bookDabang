@@ -181,26 +181,26 @@
 										<div class="input-group-text">
 											<input class="form-check-input mt-0" type="radio" id="same_address" aria-label="Radio button for following text input">
 										</div>
-  										<input type="text" class="form-control" aria-label="Text input with radio button" value="기존 배송지">
+  										<input type="text" class="form-control" aria-label="Text input with radio button" value="기본 배송지">
 									</div>
 								</li>
 							</ul>
-						</div>	
 							
-						<div class="payment-info">
-							<h4>결제수단</h4>
-							<div class="input-group">
-								<div class="input-group-text">
-									<input class="form-check-input mt-0 payment" name="payment" value="1" type="radio" aria-label="Radio button for following text input">
+							<div class="payment-info">
+								<h4>결제수단</h4>
+								<div class="input-group">
+									<div class="input-group-text">
+										<input class="form-check-input mt-0 payment" name="payment" value="1" type="radio" aria-label="Radio button for following text input">
+									</div>
+	  								<input type="text" class="form-control" aria-label="Text input with radio button" value="무통장입금">
+									<div class="input-group-text">
+										<input class="form-check-input mt-0 payment" name="payment" value="2" type="radio" aria-label="Radio button for following text input">
+									</div>
+	  								<input type="text" class="form-control" aria-label="Text input with radio button" value="카드결제">
 								</div>
-  								<input type="text" class="form-control" aria-label="Text input with radio button" value="무통장입금">
-								<div class="input-group-text">
-									<input class="form-check-input mt-0 payment" name="payment" value="2" type="radio" aria-label="Radio button for following text input">
-								</div>
-  								<input type="text" class="form-control" aria-label="Text input with radio button" value="카드결제">
 							</div>
-						</div>
-				</div>
+						</div>	
+					</div>
 				</div>
 				<div class="book-buy">
 					<table class="book-buy-list" >
