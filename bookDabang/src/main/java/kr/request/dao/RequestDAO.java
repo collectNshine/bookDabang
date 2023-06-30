@@ -1,3 +1,4 @@
+
 package kr.request.dao;
 
 import java.sql.Connection;
@@ -175,6 +176,7 @@ public class RequestDAO {
 			 sql = "UPDATE book_request SET req_title=?,req_author=?,req_publisher=?,req_etc=?,req_modifydate=SYSDATE WHERE req_num=?";
 			 
 			 pstmt= conn.prepareStatement(sql); 
+				/* pstmt.setString(1,request.getId()); */
 			 pstmt.setString(1,request.getReq_title());
 			 pstmt.setString(2,request.getReq_author());
 			 pstmt.setString(3,request.getReq_publisher()); 
