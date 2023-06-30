@@ -55,9 +55,9 @@ public class UserOrderAction implements Action {
 			orderDetail.setBk_num(cart.getBk_num());
 			orderDetail.setBook_title(cart.getBookVO().getTitle());
 			orderDetail.setBook_price(cart.getBookVO().getPrice());
+			orderDetail.setBook_total(Integer.parseInt(request.getParameter("total_price")));
 			orderDetail.setBook_author(cart.getBookVO().getAuthor());
 			orderDetail.setBook_publisher(cart.getBookVO().getPublisher());
-			orderDetail.setThumbnail(cart.getBookVO().getThumbnail());
 			orderDetail.setThumbnail(cart.getBookVO().getThumbnail());
 			orderDetail.setOrder_quantity(cart.getOrder_quantity());
 			orderDetail.setBook_total(cart.getSub_total());
