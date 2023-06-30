@@ -28,14 +28,6 @@
 					}
 				}
 			});
-			
-			let origin_status = ${order.status};
-			$('input[type=radio]').click(function() {
-				if(origin_status == 1 && $('input[type=radio]:checked').val() != 1) {
-					$('input[type=text],textarea').parent().hide();
-				} else { $('input[type=text],textarea').parent().show(); }
-			});
-		});
 	</script>
 </head>
 <body>
@@ -131,18 +123,6 @@
 										</div>
 										<input type="text" class="form-control" aria-label="Text input with radio button" value="주문취소">
 									</div>
-									
-									<%-- <div class="input-group">
-										<div class="input-group-text">
-											<c:if test="${order.status != 5}">
-											<input type="radio" name="status" class="form-check-input mt-0 payment" aria-label="Radio button for following text input" id="status1" value="1" <c:if test="${order.status == 1}">checked</c:if>>배송대기
-											<input type="radio" name="status" class="form-check-input mt-0 payment" aria-label="Radio button for following text input" id="status2" value="2" <c:if test="${order.status == 2}">checked</c:if>>배송준비중
-											<input type="radio" name="status" class="form-check-input mt-0 payment" aria-label="Radio button for following text input" id="status3" value="3" <c:if test="${order.status == 3}">checked</c:if>>배송중
-											<input type="radio" name="status" class="form-check-input mt-0 payment" aria-label="Radio button for following text input" id="status4" value="4" <c:if test="${order.status == 4}">checked</c:if>>배송완료
-											</c:if>
-											<input type="radio" name="status" class="form-check-input mt-0 payment" aria-label="Radio button for following text input" id="status5" value="5" <c:if test="${order.status == 5}">checked</c:if>>주문취소
-										</div>
-									</div> --%>
 								</li>
 								<li>
 									<div class="input-group mb-3">
@@ -194,7 +174,7 @@
 										<c:if test="${order.status == 4 or order.status == 5}">
 										<input type="button" value="삭제" onclick="location.href='deleteOrder.do?order_num=${order.order_num}'" id="order_cancel" class="btn btn-outline-secondary btn-sm">
 										</c:if>
-										<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do'" class="btn btn-outline-secondary btn-sm">
+										<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do#admin_order'" class="btn btn-outline-secondary btn-sm">
 									</div>
 								</li>
 							</ul>
