@@ -1,6 +1,6 @@
 $(function() {
 	let chat_num;
-	let message_socket = new WebSocket("ws://localhost:8080/bookDabang_sh/webSocket");
+	let message_socket = new WebSocket("ws://211.63.89.70:1521/bookDabang/webSocket");
 	
 	message_socket.onopen = function(evt) {
 		console.log('open');
