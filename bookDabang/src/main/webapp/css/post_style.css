@@ -32,7 +32,10 @@ div#profile2{
 	margin-top:-5px; 
 }
 .card-footer{
-	height:50px; 
+	height: 70px;
+    width: 376px;
+    margin-left: -16px;
+    margin-top: 37px;
 }
 .card-detail{
 	height:80px;
@@ -40,6 +43,7 @@ div#profile2{
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
+	margin-top: 35px;
 }
 .card-title{
 	height:40px;
@@ -49,11 +53,6 @@ div#profile2{
 	text-overflow:ellipsis;
 }
 .card-text{
-	height:40px;
-	width:300px;
-	white-space:nowrap;
-	overflow:hidden;
-	text-overflow:ellipsis;
 }
 .post-thumbnail{
 	text-align:center;
@@ -62,9 +61,10 @@ div#profile2{
 }
 .footer2{
 	float: right;
-	margin-top: 4px;
-	margin-right: 10px;
+	margin-top: 13.5px;
+    margin-right: -4px;
 }
 .footer1{
 	float: right;
+	margin-top: 0.5px;
 }
