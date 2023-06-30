@@ -11,6 +11,7 @@ import kr.chat.vo.ChatVO;
 import kr.member.vo.MemberVO;
 import kr.util.DBUtil;
 import kr.util.DurationFromNow;
+import kr.util.StringUtil;
 
 public class ChatDAO {
 	// Singleton Pattern
@@ -135,7 +136,7 @@ public class ChatDAO {
 				ChatVO chat = new ChatVO();
 				chat.setChat_num(rs.getInt("chat_num"));
 				chat.setMem_num(rs.getInt("mem_num"));
-				chat.setChat_title(rs.getString("chat_title"));
+				chat.setChat_title(StringUtil.useNoHtml(rs.getString("chat_title")));
 				chat.setChat_img(rs.getString("chat_img"));
 				chat.setReg_date(rs.getDate("reg_date"));
 				
@@ -292,7 +293,7 @@ public class ChatDAO {
 				message.setMessage_num(rs.getInt("message_num"));
 				message.setChat_num(rs.getInt("chat_num"));
 				message.setMem_num(rs.getInt("mem_num"));
-				message.setChat_content(rs.getString("chat_content"));
+				message.setChat_content(StringUtil.useNoHtml(rs.getString("chat_content")));
 				message.setChat_date(DurationFromNow.getTimeDiffLabel(rs.getString("chat_date")));
 				
 				// 회원 정보를 담기위해 MemberVO 객체 생성
