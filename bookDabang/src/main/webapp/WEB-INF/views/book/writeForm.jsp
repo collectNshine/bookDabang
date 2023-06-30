@@ -70,7 +70,7 @@
 			<ul>
 				<li>
 					<label for="title">도서명</label>
-					<input type="text" name="title" id="title" class="form-control" maxlength="60">
+					<input type="text" name="title" id="title" class="form-control" maxlength="40">
 				</li>
 				<li>
 					<label for="author">저자명</label>
@@ -90,8 +90,8 @@
 				</li>
 				<li>
 					<label for="category">분류</label>
-					<select name="category" id="category" class="form-select" style="width:150px;">
-						<option value="문학" class="select-option">문학</option>
+					<select name="category" id="category" class="form-select" aria-label="Default select example">
+						<option value="문학">문학</option>
 						<option value="경제/경영">경제/경영</option>
 						<option value="인문">인문</option>
 						<option value="예술/대중문화">예술/대중문화</option>	
@@ -136,7 +136,7 @@
 				</li>
 				<li>
 					<label for="content">내용</label>
-					<textarea rows="5" cols="60" name="content" id="content" class="chat-content form-control"></textarea>
+					<textarea rows="5" cols="60" name="content" id="content" class="form-control"></textarea>
 				</li>
 			</ul>
 			</div>

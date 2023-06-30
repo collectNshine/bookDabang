@@ -5,7 +5,7 @@
 <div id="main_logo">
 	<div id="logo">
 		<a href="${pageContext.request.contextPath}/main/main.do">
-		<img src="${pageContext.request.contextPath}/images/logo.PNG" width="150"></a>
+		<img src="${pageContext.request.contextPath}/images/reallogo.png" width="200"></a>
 	</div>
    <div id="main_menu">
       <ul class="menu-category">
@@ -17,7 +17,7 @@
         	 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-bs-toggle="dropdown">
          		모음집
         	 </a>
-        	 <ul class="dropdown-menu">
+        	 <ul class="dropdown-menu" style="width:220px;">
   				<li><a class="dropdown-item" href="${pageContext.request.contextPath}/post/list.do">서평 모음집</a></li>
   				<li><a class="dropdown-item" href="${pageContext.request.contextPath}/book/listFeed.do">한 줄 기록 모음집</a></li>
   			</ul>

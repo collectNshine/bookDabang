@@ -1763,7 +1763,7 @@
                   <supportSize>true</supportSize>
                   <type>12</type>
                 </columnType>
-                <size>200</size>
+                <size>120</size>
                 <notNull>true</notNull>
                 <primaryKey>false</primaryKey>
                 <description></description>
@@ -1773,12 +1773,7 @@
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>author</columnName>
                 <logicalName>저자명</logicalName>
-                <columnType class="net.java.amateras.db.dialect.ColumnType">
-                  <name>VARCHAR2</name>
-                  <logicalName>String</logicalName>
-                  <supportSize>true</supportSize>
-                  <type>12</type>
-                </columnType>
+                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[2]/columnType"/>
                 <size>60</size>
                 <notNull>false</notNull>
                 <primaryKey>false</primaryKey>
@@ -1789,7 +1784,7 @@
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>publisher</columnName>
                 <logicalName>출판사</logicalName>
-                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[2]/columnType"/>
                 <size>60</size>
                 <notNull>true</notNull>
                 <primaryKey>false</primaryKey>
@@ -1827,7 +1822,7 @@
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>category</columnName>
                 <logicalName>분류</logicalName>
-                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[2]/columnType"/>
                 <size>50</size>
                 <notNull>true</notNull>
                 <primaryKey>false</primaryKey>
@@ -1838,7 +1833,7 @@
               <net.java.amateras.db.visual.model.ColumnModel>
                 <columnName>thumbnail</columnName>
                 <logicalName>도서표지URL</logicalName>
-                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[3]/columnType"/>
+                <columnType class="net.java.amateras.db.dialect.ColumnType" reference="../../net.java.amateras.db.visual.model.ColumnModel[2]/columnType"/>
                 <size>150</size>
                 <notNull>true</notNull>
                 <primaryKey>false</primaryKey>

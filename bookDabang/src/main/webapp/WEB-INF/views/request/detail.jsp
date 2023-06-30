@@ -5,12 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
 <title>도서신청 상세페이지</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/request_style.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/request.fav.js"></script>
 
@@ -74,10 +72,10 @@
 			 	<c:forEach var="request" items="${list}">
 			 	<c:choose>
 				 	<c:when test="${request.clicked == 'clicked'}">
-						 <img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav02.png" width="50"> 	
+						<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav02.gif" width="50">
 					</c:when>
 					<c:when test = "${empty request.clicked}"> 
-						<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav01.png" width="50"> 
+						<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav01.gif" width="50">
 					</c:when>
 				</c:choose>
 				<br><span class="output-fcount">${request.cnt}</span>
@@ -85,11 +83,11 @@
 			</div>
 		 	<!-- 좋아요 버튼 끝 -->
 		 
-		 	<div class="align-center">
+		 	<div class="req_btn">
 		 		<c:if test="${user_num == request.mem_num}">
-		 		<button type="button" class="btn btn-outline-secondary" onclick="location.href='list.do'">목록</button>
-		 		<button type="button" class="btn btn-outline-secondary" onclick="location.href='modifyForm.do?req_num=${request.req_num}'">수정</button>
-		 		<button type="button" class="btn btn-outline-secondary" id="delete_btn">삭제</button>
+			 	<input type="button" value="목록" onclick="location.href='list.do'">
+			 	<input type="button" value="수정" onclick="location.href='modifyForm.do?req_num=${request.req_num}'">
+			 	<input type="button" value="삭제" id="delete_btn">
 			 	<script type="text/javascript">
 			 		let delete_btn = document.getElementById('delete_btn');
 			 		delete_btn.onclick=function(){

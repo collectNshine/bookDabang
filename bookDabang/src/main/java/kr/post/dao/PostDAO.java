@@ -762,4 +762,21 @@ import kr.util.StringUtil;
 			}
 		}
 		
+		//신고 선택 삭제
+		 public void selecdelReport(String[] selecdel) throws Exception{
+			 Connection conn = null;
+			 PreparedStatement pstmt = null;
+			 String sql = null;
+			 try {
+				 conn=DBUtil.getConnection();
+				 sql = "DELETE FROM post_report WHERE repo_num IN(" + String.join(",", selecdel) +")";
+				 System.out.println(sql);
+				 pstmt = conn.prepareStatement(sql);
+				 pstmt.executeUpdate();
+			 }catch(Exception e) {
+				 throw new Exception(e);
+			 }finally {
+				 DBUtil.executeClose(null, pstmt, conn);
+			 }
+		 }
 }
