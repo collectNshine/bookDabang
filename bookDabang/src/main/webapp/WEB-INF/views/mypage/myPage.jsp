@@ -314,7 +314,7 @@ ul.search li {
 				<c:forEach var="order" items="${orderList}">
 				<tr>
 					<td><a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">${order.order_num}</a></td>
-					<td>${order.book_title}</td>
+					<td><a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">${order.book_title}</a></td>
 					<td>${order.order_total}</td>
 					<td>${order.order_date}</td>
 				</tr>
@@ -486,7 +486,7 @@ ul.search li {
 	
 	<!-- [2. 주문 관리] 시작 -->
 		<div id="admin_order" class="tab_contents">
-			<div class="content-main container">>
+			<div class="content-main container">
 				<h2><a href="myPage.do#admin_order">주문 관리</a></h2>
 					<!-- 검색창 시작 : get방식 -->
 					<form id="search_form2" action="myPage.do#admin_order" method="get" class="d-flex">
@@ -528,7 +528,7 @@ ul.search li {
 					<c:forEach var="admin_order" items="${adminOrderlist}"> 
 					<tr>
 						<td><a href="${pageContext.request.contextPath}/order/adminModifyForm.do?order_num=${admin_order.order_num}">${admin_order.order_num}</a></td>
-						<td>${admin_order.book_title}</td>
+						<td><a href="${pageContext.request.contextPath}/order/adminModifyForm.do?order_num=${admin_order.order_num}">${admin_order.book_title}</a></td>
 						<td>${admin_order.id}</td>
 						<td>${admin_order.status}</td>
 						<td>${admin_order.order_total}</td>

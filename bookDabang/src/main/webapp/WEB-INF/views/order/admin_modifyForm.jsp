@@ -173,7 +173,7 @@
 										<c:if test="${order.status == 4 or order.status == 5}">
 										<input type="button" value="삭제" onclick="location.href='deleteOrder.do?order_num=${order.order_num}'" id="order_cancel" class="btn btn-outline-secondary btn-sm">
 										</c:if>
-										<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do#admin_order'" class="btn btn-outline-secondary btn-sm">
+										<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do#order'" class="btn btn-outline-secondary btn-sm">
 									</div>
 								</li>
 							</ul>
