@@ -15,6 +15,12 @@ public class ShowMyPwAction implements Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		request.setCharacterEncoding("utf-8");
+		
+		if(request.getMethod()
+				  .toUpperCase().equals("GET")) {
+			return "redirect:/member/loginForm.do";
+		}
+		
 		//이름과 이메일 정보를 받음.
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");

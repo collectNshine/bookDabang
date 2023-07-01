@@ -109,6 +109,7 @@ $(document).ready(function(){
 					<p>
 					<div id="type_num">
 						<ul>
+							<li><input type="hidden"/></li>
 							<li><input class="form-control" id="auth" type="text" placeholder="인증번호"></li>
 							<li id="guide2"></li>
 							<li><input id="btn-Yes" class="btn btn-lg btn-dark btn-block" type="submit" value="인증하기" ></li>

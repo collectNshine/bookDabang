@@ -15,7 +15,12 @@ public class JoinAction implements Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		request.setCharacterEncoding("utf-8");
-
+		
+		if(request.getMethod()
+				  .toUpperCase().equals("GET")) {
+			return "redirect:/member/loginForm.do";
+		}
+		
 		MemberDAO dao = MemberDAO.getInstance();
 		MemberVO vo = new MemberVO();
 

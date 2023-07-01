@@ -15,7 +15,10 @@ public class NoticeWriteAction implements Action{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//인코딩 처리 
 		request.setCharacterEncoding("utf-8");
-		
+		if(request.getMethod()
+				  .toUpperCase().equals("GET")) {
+			return "redirect:/member/loginForm.do";
+		}
 		HttpSession session = request.getSession();
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		Integer user_auth = (Integer)session.getAttribute("user_auth");

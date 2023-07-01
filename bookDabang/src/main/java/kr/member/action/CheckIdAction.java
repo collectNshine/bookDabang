@@ -18,6 +18,10 @@ public class CheckIdAction implements Action{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		//받아온 파라미터 값 인코딩 처리하기 
+		if(request.getMethod()
+				  .toUpperCase().equals("GET")) {
+			return "redirect:/member/loginForm.do";
+		}
 		String id = request.getParameter("id");
 		MemberDAO dao = MemberDAO.getInstance();
 		MemberVO vo = new MemberVO();

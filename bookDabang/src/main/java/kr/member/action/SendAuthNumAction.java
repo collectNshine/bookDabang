@@ -18,6 +18,11 @@ public class SendAuthNumAction implements Action{//회원가입시 이메일 인
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		
+		if(request.getMethod()
+				  .toUpperCase().equals("GET")) {
+			return "redirect:/member/loginForm.do";
+		}
+		
 		String email = request.getParameter("email");
 		Map<String, String> mapAjax = new HashMap<String, String>();
 		
