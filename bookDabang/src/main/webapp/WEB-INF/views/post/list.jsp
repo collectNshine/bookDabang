@@ -58,31 +58,19 @@
   				<ul class="post-thumbnail">
 				<li>
 					<a href="detail.do?post_num=${post.post_num}">
-					<img src="${pageContext.request.contextPath}/upload/${post.thumbnail}" width="150" height="230" class="list-thumbnail">
+					<img src="${pageContext.request.contextPath}/upload/${post.thumbnail}" width="140" height="200" class="list-thumbnail">
 					</a>
 				</li>
 				</ul>
 				</div>
 				<div class="card-detail">
     				<h5 class="card-title"><b><a href="detail.do?post_num=${post.post_num}">${post.post_title}</a></b></h5>
-    				<p class="card-text"><a href="detail.do?post_num=${post.post_num}">${post.post_content}</a></p>
+    				<p class="card-text" style="height: 85px; width: 326px;"><a href="detail.do?post_num=${post.post_num}">${post.post_content}</a></p>
     			</div>
-    			<%--
-<script type="text/javascript">
-  $('.card-text').each(function(){
-    var length = 10; //글자수
-    $(this).each(function(){
-      if($(this).text().length >= length){
-        $(this).text($(this).text().substr(0,length)+'...');
-      }
-    });
-  });
-</script>
- --%>
     			<div class="card-footer">
-    				<a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${post.bk_num}" class="btn btn-primary" style="color:white; margin-top: 8px;">도서 상세 보러가기</a>
-    				<small class="footer1"><img class="fav" src="../images/fav02.png" width="50" height="50" style="margin-right: -8px; margin-left: 5px;">${post.cnt}</small>
-       				<small class="footer2"><a href="detail.do?post_num=${post.post_num}"><img class="reply" src="../images/reply.png" width="25" height="25" style="margin-right: 5px;">${post.rcnt}</a></small>
+    				<a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${post.bk_num}" class="btn btn-primary" style="color:white; margin-top: 6px;width: 137px; height: 33px; font-size: 12px; ba">도서 상세 보러가기</a>
+    				<small class="footer1"><img class="fav" src="../images/fav02.png" width="40" height="40" style="margin-right: -8px; margin-left: 5px;"> ${post.cnt}</small>
+       				<small class="footer2"><a href="detail.do?post_num=${post.post_num}"><img class="reply" src="../images/reply.png" width="20" height="20" style="margin-right: 5px;">${post.rcnt}</a></small>
       			</div>
   				</div>
 				</div>

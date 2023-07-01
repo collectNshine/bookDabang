@@ -45,11 +45,11 @@
 	        			<div id="profile2" style="float:left; margin-left:10px;"><b>${review.name}</b><p>한 줄 기록&nbsp;&nbsp;·&nbsp;${review.review_date}</div>
 	         		</c:if>
 	         		<c:if test="${empty review.photo}">
-	        		 	<div id="profile">
+	        		 	<div id="profile" style="float:left;"> 
 	            			&nbsp;&nbsp;<img src="${pageContext.request.contextPath}/images/face.png" width="50" height="50" class="my-photo">
 	         				<br>
 	         			</div>
-	         			<div id="profile2"><b>${review.name}</b><p>한 줄 기록&nbsp;&nbsp;·&nbsp;${review.review_date}</div>
+	         			<div id="profile2" style="float:left; margin-left:10px;"><b>${review.name}</b><p>한 줄 기록&nbsp;&nbsp;·&nbsp;${review.review_date}</div>
 	         		</c:if>
 	         		</div>
   				<div class="card-body">

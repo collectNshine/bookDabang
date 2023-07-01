@@ -32,18 +32,18 @@ div#profile2{
 	margin-top:-5px; 
 }
 .card-footer{
-	height: 70px;
+	height: 63px;
     width: 376px;
     margin-left: -16px;
-    margin-top: 37px;
+    margin-top: 43px;
 }
 .card-detail{
-	height:80px;
-	width:300px;
+	height:133px;
+	width:326px;
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
-	margin-top: 35px;
+	margin-top: 10px;
 }
 .card-title{
 	height:40px;
@@ -53,6 +53,7 @@ div#profile2{
 	text-overflow:ellipsis;
 }
 .card-text{
+	word-wrap: break-word;
 }
 .post-thumbnail{
 	text-align:center;
@@ -61,10 +62,9 @@ div#profile2{
 }
 .footer2{
 	float: right;
-	margin-top: 13.5px;
+	margin-top: 8px;
     margin-right: -4px;
 }
 .footer1{
 	float: right;
-	margin-top: 0.5px;
 }

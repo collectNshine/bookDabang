@@ -27,23 +27,36 @@ $(function(){
 				
 				$(param.list).each(function(index,item){
 					let output = '<div class="item">';
-					output += '<h4>' + item.name + '</h4>';
-					output += '<div class="sub-item">';
-					output += '<p>' + item.re_content + '</p>';
-					
-					//날짜
-					output += '<span class="modify-date">등록일 : ' + item.re_date + '</span>'
+					//프로필 사진
+					output += '<span class="user-photo" style="float:left;">';
+					if(item.photo){
+						output += '<img src="../upload/' + item.photo + '" width="35" height="35" class="my-photo">';
+					}else{
+						output += '<img src="../images/face.png" width="35" height="35" class="my-photo">';
+					}
+					output += '</span>';
+					//닉네임, 날짜
+					output += '<span class="name-date" style="float:left; margin-left:5px;">';
+					output += '<div class="name">' + item.name + '</div>';
+					if(item.re_modifydate){ //값이 있으면 true, 없으면 false (javascript)
+						output += '<span class="modify-date">' + item.re_modifydate + ' 수정됨</span>';
+					}else{
+						output += '<span class="modify-date">' + item.re_date + '</span>';
+					}
+					output += '</span>';
+					output += '<div class="sub-item" style="clear:both;">';
+					output += '<p class="re-content">' + item.re_content + '</p>';
 					
 					//수정,삭제 버튼
 					//로그인한 회원번호와 작성자의 회원번호 일치 여부 체크
 					if(param.user_num == item.mem_num){
 						//로그인한 회원번호와 작성자 회원번호 일치
-						output += ' <input type="button" data-renum="' + item.re_num + '" value="수정" class="modify-btn">';	
-						output += ' <input type="button" data-renum="' + item.re_num + '" value="삭제" class="delete-btn">';	
+						output += ' <input type="button" data-renum="' + item.re_num + '" value="수정" class="modify-btn btn btn-outline-primary">';	
+						output += ' <input type="button" data-renum="' + item.re_num + '" value="삭제" class="delete-btn btn btn-outline-danger">';
+						output += '</div>';	
 					}
 					
 					output += '<hr size="1" noshade width="100%">'
-					output += '</div>';
 					output += '</div>';
 					
 					//문서 객체에 추가
@@ -148,11 +161,11 @@ $(function(){
 		let modifyUI = '<form id="mre_form">';
 		modifyUI += '<input type="hidden" name="re_num" id="mre_num" value="' + re_num + '">';
 									  	//name: 서버로 전송, id: 자바스크립트 or CSS를 위해 명시
-		modifyUI +=	'<textarea rows="3" cols="50" name="re_content" id="mre_content" class="rep-content">'+ content +'</textarea>';			
-		modifyUI += '<div id="mre_first"><span class="letter-count">300/300</span></div>';
-		modifyUI += '<div id="mre_second" class="align-right">';
-		modifyUI += ' <input type="submit" value="수정">';
-		modifyUI += ' <input type="button" value="취소" class="re-reset">';
+		modifyUI +=	'<textarea rows="3" cols="30" name="re_content" id="mre_content" class="chat-content form-control" style="resize:none;">'+ content +'</textarea>';			
+		modifyUI += '<div id="mre_first"  style="margin-right: 50px;"><span class="letter-count">300/300</span></div>';
+		modifyUI += '<div class="review-button">';
+		modifyUI += ' <input type="submit" value="수정" class="btn btn-outline-primary">';
+		modifyUI += ' <input type="button" value="취소" class="re-reset btn btn-outline-secondary">';
 		modifyUI += '</div>';
 		modifyUI += '<hr size="1" noshade width="96%">';
 		modifyUI += '</form>';
