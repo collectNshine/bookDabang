@@ -60,7 +60,7 @@ $(document).ready(function(){
 <body cellpadding="0" cellspacing="0" marginleft="0" margintop="0" width="100%" height="100%" align="center" >
 	<div class="card align-middle" style="width:30rem; border-radius:20px;">
 		<div class="card-body" style="padding: 1rem 5rem 7rem 5rem;">
-			<form id="email_form" class="form-signin" method="post" action="showMyId.do">
+			<form id="email_form" class="form-signin" method="post" action="showMyPw.do">
 				<div class="card-title" style="margin-top:30px;">
 					<img src="../images/colorlogo.png" width="150" onclick="location.href='../main/main.do'">
 					<h4 class="card-title text-center" style="color:#113366;">비밀번호 찾기</h4>

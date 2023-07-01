@@ -13,6 +13,7 @@ public class MemberVO {
 	//											 1 휴면계정(bmember_sleep),
 	//[member_detail 테이블]						 2 가입이력은 있으나 DB에 남아있지 않는 계정(X)  
 	private String name; //이름
+	private String nickname;//닉네임
 	private String salt;//salt
 	private String passwd;//비밀번호
 	private int sex;//성별
@@ -193,6 +194,14 @@ public class MemberVO {
 
 	public void setSalt(String salt) {
 		this.salt = salt;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 

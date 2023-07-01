@@ -30,6 +30,7 @@ public class JoinAction implements Action {
 		//자바빈에 개인정보 담기 
 		vo.setId(id);
 		vo.setName(request.getParameter("name"));
+		vo.setNickname(request.getParameter("nickname"));
 		vo.setSalt(salt); //솔트 
 		vo.setPasswd(saltpassword); //비밀번호 + salt 해싱 처리한 패스워드 
 		vo.setSex(Integer.parseInt(request.getParameter("sex")));
@@ -52,6 +53,7 @@ public class JoinAction implements Action {
 		session.setAttribute("user_auth", vo1.getAuth());
 		session.setAttribute("user_state", vo1.getState());
 		session.setAttribute("user_name", vo1.getName());
+		session.setAttribute("user_nickname", vo1.getNickname());
 		session.setAttribute("user_photo", vo1.getPhoto());
 
 		return "/WEB-INF/views/member/welcome.jsp";

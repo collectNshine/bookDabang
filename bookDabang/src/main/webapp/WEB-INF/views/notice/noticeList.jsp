@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 
-<title>도서신청</title>
+<title>공지사항</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/request_style.css">
@@ -73,15 +73,10 @@
 	});
 </script> 
 <style>
-#list #left{
-width:20%;
-float:left;
-padding:2rem;
-text-align:center;
-}
-#list #right{
+#right{
 width:80%;
 float:right;
+
 }
 #search{
 padding:2rem;
@@ -91,22 +86,11 @@ padding:2rem;
 <body>
 <div class="page-main">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+
 <div class="content-main">
 	<hr size="1" noshade width="100%">
-	<div id="list">
-			<div id="left">
-			<h2>공지 사항</h2>
-			<p>
-			<ul>
-				<li><b>QnA</b></li>   
-				<li><a href="noticeList.do" >전체질문</a></li>
-				<c:forEach var="noti2" items="${list2}">
-				<li><a href="noticeList.do?noti_category=${noti2.noti_category}">${noti2.noti_category_name}(${noti2.noti_category_count})</a></li>
-				</c:forEach>
-			</ul>
-		</div>
-	<!--목록 끝 -->
-	<!-- 테이블 시작 -->
+	<jsp:include page="/WEB-INF/views/notice/noticeSidebar.jsp"/>
+	<!-- 검색 시작 -->
 	<div id="right">
 		<div id="search" style="text-align:center;">
 		<p id="guide"></p>
@@ -121,13 +105,14 @@ padding:2rem;
 					<input type="submit" value="검색" class="btn btn-outline-success">
 			</form>
 		</div>
-	
+	<!-- 검색 끝 -->
+	<!-- 테이블 시작 -->
 	<c:if test="${count > 0}">
 		<table class="table table-hover">
 			<tr class="table-light align-center">
 				<th></th>
 				<th>카테고리</th>
-				<th>제목</th>
+				<th style="width:50%">제목</th>
 				<th>작성일</th>
 			</tr>
 			
@@ -156,24 +141,29 @@ padding:2rem;
 				<td>${noti.noti_date}</td>
 			</tr>
 			</c:forEach>
+			<div style="text-align:right;">
+				<input type="button" value="글쓰기" onclick="location.href='noticeWriteForm.do'" class="btn btn-outline-secondary">
+			</div>
 		</table>
+		<!-- 테이블 끝 -->
 		</c:if>
 		<c:if test="${count <= 0}">
-			<div>
-				oops! 검색 결과가 없습니다. 
+			<div class="result-display" >
+				표시할 게시글이 없습니다.
 			</div>
 		</c:if>
 		<!-- 관리자 글쓰기, 삭제 시작 -->
 		<c:if test="${user_auth == 9}">
 			<input id="all_btn" type="button" value="전체 선택" class="btn btn-outline-secondary">
 			<input id="del_btn" type="button" value="선택 삭제" class="btn btn-outline-secondary"> 
-			<input type="button" value="글쓰기" onclick="location.href='noticeWriteForm.do'" class="btn btn-outline-secondary">
 		</c:if>
 		<!-- 관리자 글쓰기, 삭제 끝 -->
 		<div class="align-center">${page}</div>
 		</div>
 	</div>
 	</div>
-	</div>	
+	<div style="clear:both;">
+	</div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
