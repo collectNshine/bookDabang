@@ -39,9 +39,8 @@
 			<select class="form-select" name="keyfield"> 
 				<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
 				<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자</option>
-				<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>출판사</option>
 			</select>
-			<input class="form-control me-2" type="search"  size="16" name="keyword" id="keyword" value="${param.keyword}">
+			<input class="form-control me-2" type="search"  size="16" name="keyword" id="keyword" value="${param.keyword}" style="width:20%!important ;">
 			<input class="btn btn-outline-success" type="submit" value="검색">
 	</form>
 	<!-- 검색창 끝 -->
@@ -75,10 +74,10 @@
 				<c:forEach var="request" items="${list}">
 				<tr>
 					<c:if test="${request.req_state == 0}">
-						<td class="align-center"><button class="readybtn" > 준비중 </button></td>
+						<td><p class="reqbtn readybtn" > 준비중 </p></td>
 					</c:if>
 					<c:if test="${request.req_state == 1}"> 
-						<td class="align-center"><button>추가완료</button></td>
+						<td><p class="reqbtn donebtn">추가완료</p></td>
 					</c:if>	                  
 					<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>
 					<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_author}</a></td>

@@ -1,0 +1,102 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Noto+Sans+KR:wght@300&display=swap');
+#carouselExample{
+	height:10%;
+}
+.container{
+		margin-bottom:10%;
+}
+
+.content-main{
+	display: flex !important;
+  	flex-direction: column;
+ 	
+}
+section {
+  	 width:80%;
+}
+
+header, nav, main, aside {
+  /* padding: 20px; */
+  text-align: center;
+}
+nav{
+	float:left;
+	width:20%;
+}
+main{
+	width:35%;
+	float:left;
+	margin-left:15%;
+	margin-bottom:10%;
+}
+aside{
+	float:right;
+	width:20%;
+}
+.book-list  {
+ display:flex !important;
+}
+.book-list {
+	display:flex;
+}
+.list-text{
+	padding-left:0;
+	margin-right:5%;
+}
+.ranking{
+      		border: 1px solid #e3e3e3;
+      		border-bottom-left-radius:30%;
+      		border-top-right-radius:30%;
+      		background-color:#e3e3e3;
+      		display:inline-block;
+      		width:30px;
+      		height:30px;
+      	}
+* {
+  box-sizing: border-box;
+}
+.bestseller{
+  		clear:both;
+        display:block;
+        display:flex !important;
+        width:100%;
+        margin:0;
+        text-align:center;
+        margin-left:10%;
+   
+}
+.title{
+	text-align:center;
+}
+.fighting {
+	clear:both;
+	color:black;
+	text-align:center;  
+	display:block;  
+	/* height:50%; */
+ 
+}
+.figntingtext{
+	padding: 20px;
+	border:1px solid #e3e3e3;
+	border-width: 80%;
+	background-color:#e3e3e3;
+	border-radius:3%;
+	color:black;
+	text-align:center;    
+	width:120%;      
+	margin-top:10%; 
+	/* height:130%; */  
+	display:block;  
+}
+p{
+	font-size: 20px;
+	
+}
+.besteller p {
+	clear:both;
+	margin-right:10%;
+	margin-top:30%;
+}
+        

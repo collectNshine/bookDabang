@@ -91,11 +91,30 @@ public class RequestDAO {
 			if(keyword != null && !"".equals(keyword)) {
 				if(keyfield.equals("1"))sub_sql += "WHERE r.req_title LIKE '%' || ? || '%'";
 				if(keyfield.equals("2"))sub_sql += "WHERE r.req_author LIKE '%' || ? || '%'";
-				if(keyfield.equals("3"))sub_sql += "WHERE r.req_publisher LIKE '%' || ? || '%'";
 			}
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM "
-					+ "(SELECT * FROM book_request r JOIN member m USING(mem_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num) f USING(req_num) LEFT OUTER JOIN (select 'clicked' clicked, req_num from book_request_fav WHERE mem_num=?) USING(req_num) " + sub_sql + " ORDER BY req_num DESC)a) "
-							+ "WHERE rnum>=? AND rnum<=?";
+			
+			/*
+			 * sql = "SELECT * FROM " + "(" +
+			 * "SELECT a.*, rownum rnum, NVL2(req_modifydate,req_modifydate,req_date) FROM "
+			 * + "(" + "SELECT * FROM book_request r JOIN member m USING(mem_num) " +
+			 * "LEFT OUTER JOIN (SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num) f USING(req_num) "
+			 * +
+			 * "LEFT OUTER JOIN (SELECT 'clicked' clicked, req_num from book_request_fav WHERE mem_num=?) USING(req_num) "
+			 * + "+ sub_sql + ORDER BY req_num DESC" + ")a" + ") " +
+			 * "WHERE rnum>=? AND rnum<=? ORDER BY cnt DESC NULLS LAST, NVL2(req_modifydate,req_modifydate,req_date) DESC"
+			 * ;
+			 */
+			
+			  sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM " +
+			  "(SELECT * FROM book_request r JOIN member m USING(mem_num) LEFT OUTER JOIN "
+			  +
+			  "(SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num) f USING(req_num) LEFT OUTER JOIN "
+			  +
+			  "(select 'clicked' clicked, req_num from book_request_fav WHERE mem_num=?) USING(req_num) "
+			  + sub_sql + " ORDER BY req_num DESC)a) " +
+			  "WHERE rnum>=? AND rnum<=?  ORDER BY cnt DESC NULLS LAST, clicked DESC";
+			 
+			 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(++cnt, mem_num);
 			if(keyword != null && !"".equals(keyword)) {
@@ -119,6 +138,7 @@ public class RequestDAO {
 				request.setReq_ip(rs.getString("req_ip"));
 				request.setCnt(rs.getInt("cnt"));
 				request.setClicked(rs.getString("clicked"));
+				request.setId(rs.getString("id"));
 				
 				list.add(request);
 			}

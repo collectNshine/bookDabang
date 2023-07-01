@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import kr.book.vo.BookMarkVO;
@@ -1295,4 +1296,50 @@ public class BookDAO {
 			return list;
 		}	
 		
+		
+		
+		public List<BookVO> getmainlist() throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			List<BookVO> list = null;
+			String sql = null;
+			
+			try {
+				conn = DBUtil.getConnection();
+				sql = "SELECT * FROM book_list a JOIN book_mark b ON a.bk_num = b.bk_num ORDER BY mark_num DESC";
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				list = new ArrayList<BookVO>();
+				while(rs.next()) {
+					BookVO book = new BookVO();
+					book.setAuthor(rs.getString("author"));
+					book.setBk_num(rs.getInt("bk_num"));
+					book.setPrice(rs.getInt("price"));
+					book.setPublisher(rs.getString("publisher"));
+					book.setThumbnail(rs.getString("thumbnail"));
+					book.setTitle(rs.getString("title"));
+					book.setMark_num(rs.getInt("mark_num"));
+					list.add(book);
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			
+			
+			
+			return list;
+			
+		}
+		
+		
+		/*
+		 * //오늘의 문구 public static final List<String> todayQuotes = Arrays.asList(
+		 * "오늘은 좋은 하루!", "긍정적으로 생각해 보세요.", "열심히 일해봅시다!" // 나머지 문구들... );
+		 * 
+		 * public static void main(String[] args) { ArrayList list = new ArrayList() }
+		 */
+	   
 }

@@ -15,6 +15,13 @@ public class ListAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		Integer user_num = (Integer)session.getAttribute("user_num");
+		if(user_num == null) {
+			user_num = 0;
+			return "redirect:/member/loginForm.do";
+		}
+		
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		
@@ -28,9 +35,7 @@ public class ListAction implements Action{
 		List<RequestVO> list = null;
 		
 		if(count > 0 ) { 
-			HttpSession session = request.getSession();
-			Integer user_num = (Integer)session.getAttribute("user_num");
-			if(user_num == null) user_num = 0;
+			/* if(user_num == null) user_num = 0; */
 			list = dao.getListRequest(page.getStartRow(),page.getEndRow(),keyfield,keyword,user_num); 
 		}
 		

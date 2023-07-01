@@ -43,6 +43,8 @@
 			<li><input type="hidden" value="${request.mem_num}"></li>
 			<li><input type="hidden" value="${request.clicked}"></li>
 			<li><input type="hidden" value="${request.cnt}"></li>
+
+			
 		</ul>
 		<div class="detail_main">
 			<ul>
@@ -90,6 +92,7 @@
 		 		<c:if test="${user_num == request.mem_num}">
 		 		<button type="button" class="btn btn-outline-secondary" onclick="location.href='modifyForm.do?req_num=${request.req_num}'">수정</button>
 		 		<button type="button" class="btn btn-outline-secondary" id="delete_btn">삭제</button>
+			 	</c:if>
 			 	<script type="text/javascript">
 			 		let delete_btn = document.getElementById('delete_btn');
 			 		delete_btn.onclick=function(){
@@ -99,7 +102,7 @@
 			 			}
 			 		};
 			 	</script>
-			 	</c:if>
+			 	
 		 	</div>
 		 </div>
 		</footer>

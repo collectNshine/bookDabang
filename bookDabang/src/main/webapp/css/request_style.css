@@ -3,7 +3,9 @@
 
 
 /*----------공통*/
-
+.page-main{
+	clear:both!important;
+}
 /*검색창*/
 .form-select{
 	margin:5px 10px 0;
@@ -13,13 +15,18 @@
 #search_form{
 	margin-bottom:30px;
 	border:none;
-	width:50%;
+	text-align:center;
 	
 }
 
 #search_form>*{
 	display:flex;
 }
+
+.form-control me-2{
+	margin-left:0;
+}
+
 
 h2{
 	font-weight:bold;
@@ -52,7 +59,11 @@ h2{
 	font-size:20px; 
 	text-align: center;
 }
-
+.intromain > img{
+	margin-top:5%;
+	height:800px;
+	width:100%;
+}
 
 .intro_logo{
 	text-align:center;
@@ -67,17 +78,23 @@ h2{
 	width:500px;
 	height: 600px;
 	flex-grow:1;
-	-webkit-filter: grayscale(0);
+	/* -webkit-filter: grayscale(0);
 	filter: grayscale(0);
 	-webkit-transition: .5s ease-in-out;
-	transition: .5s ease-in-out;
+	transition: .5s ease-in-out; */
 }
 .intro_btn_inner{
 	border-style:none;
+	
+	 width: 100%;
+ 	 height: 100%;
+ 	 text-align: center;
+  	position: relative;
+  	z-index: 1;
 }
 .intro_btn_inner:hover{
-	-webkit-filter: grayscale(100%);
-	filter: grayscale(100%);
+	/* -webkit-filter: grayscale(100%);
+	filter: grayscale(100%); */
 }
  .intro_btn_inner > div{
  	display:flex;
@@ -182,16 +199,37 @@ article ul{
 }
 .readybtn{
 	background-color:white;
-	border-color:rgb(207, 207, 212);
+	border:1px solid gray;
 	width:80px;
+	height:30px;
+	margin-left:25%;
+	margin-bottom:0;
 }
+.donebtn{
+	background-color:gray;
+	border:1px solid black;
+	width:80px;
+	height:30px;
+	margin-left:25%;
+	margin-bottom:0;
+	color:white;
+}
+.reqbtn{
+	text-align:center;
+}
+/* .reqbtn:active, req_btn:focus{
+	outline:none !important; 
+	box-shadow:none !important;
+} */
 
 
 /*req modify*/
+
 form{
 	margin-top:30px;
 	border:none;
-	width:100%;
+	width:100% !important;
+	margin-right:0 !important;
 }
 .col-sm-10{
 	border-style: none;
@@ -199,10 +237,59 @@ form{
 #modify_form > ul >li {
 	
 	display:flex;
-	flex-wrap:wrap;
+	flex-wrap:wrap; 
 }
 
 #modify_form > ul >li >label {
-	margin-left:50px;
+	margin:10px;
+	
+	/* margin-left:10%; */
 }
+#modify_form{
+	margin-left:0;
+	margin-top:50px; 
+	text-align:center;
+}
+
+#write_form > ul >li {
+	
+	display:flex;
+	flex-wrap:wrap; 
+}
+
+#write_form > ul >li >label {
+	margin:10px;
+	
+	/* margin-left:10%; */
+}
+#write_form{
+	margin-left:0;
+	margin-top:50px; 
+	text-align:center;
+}
+.form-control{
+	width:60%!important;
+	margin-left:10%;
+}
+.reqformbtn {
+	margin-top:100px;
+	text-align:center;
+	
+}
+
+.reqformbtn > button{
+	margin-top:1%;
+	margin-right:10px;
+}
+
+
+
+
+
+
+
+
+
+
+
 

@@ -21,6 +21,13 @@ public class ModifyFormAction implements Action{
 	  int req_num = Integer.parseInt(request1.getParameter("req_num"));
 	  RequestDAO dao = RequestDAO.getInstance();
 	  RequestVO request = dao.getRequest(req_num);
+	  //로그인한 user_num이랑 글쓴 mem_num 일치여부 체크
+	  if(user_num!=request.getMem_num()) {
+		  return "/WEB-INF/views/common/notice.jsp";
+	  }
+	  
+	  
+	  
 	  
 	  request1.setAttribute("request", request);
 	  

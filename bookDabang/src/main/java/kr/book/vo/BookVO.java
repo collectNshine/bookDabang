@@ -13,7 +13,14 @@ public class BookVO {
 	private String thumbnail;
 	private String content;
 	private Date reg_date;
+	private int mark_num;
 	
+	public int getMark_num() {
+		return mark_num;
+	}
+	public void setMark_num(int mark_num) {
+		this.mark_num = mark_num;
+	}
 	public int getBk_num() {
 		return bk_num;
 	}

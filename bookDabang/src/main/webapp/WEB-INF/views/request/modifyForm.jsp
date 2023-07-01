@@ -41,7 +41,7 @@
 	<div class="content-main">
 		<h2>도서 신청 수정</h2>
 		
-		<form id="modify_form" action="modify.do" method="post" >
+		<form id="modify_form" action="modify.do" method="post" style="border:none;">
 			<input type="hidden" name="req_num" value="${request.req_num}">
 			<%-- <input type="hidden" name="id" value="${request.id}"> --%>
 			<ul>
@@ -53,27 +53,27 @@
 				</li>  --%>
 				<li>
 					<label for="req_title">책 제목*</label>
-					<input class="form-control" type="text" name="req_title" id="req_title" value ="${request.req_title}" placeholder="Default input" aria-label="default input example">
+					<input class="form-control" type="text" name="req_title" id="req_title" value ="${request.req_title}" placeholder="Default input" aria-label="default input example" maxlength="40">
 					
 				</li>
 				<li>
 					<label for="req_author">저자*</label>
-					<input class="form-control" type="text" name="req_author" id="req_author" value ="${request.req_author}" placeholder="Default input" aria-label="default input example">
+					<input class="form-control" type="text" name="req_author" id="req_author" value ="${request.req_author}" placeholder="Default input" aria-label="default input example" maxlength="20">
 				
 				</li>
 				<li>
 					<label for="req_publisher">출판사*</label>
-					<input class="form-control" type="text" name="req_publisher" id="req_publisher" value ="${request.req_publisher}" placeholder="Default input" aria-label="default input example">
+					<input class="form-control" type="text" name="req_publisher" id="req_publisher" value ="${request.req_publisher}" placeholder="Default input" aria-label="default input example" maxlength="20">
 					
 				</li>
 				<li>
 					<label for="req_etc">기타</label>
-					<input class="form-control" type="text" name="req_etc" id="req_etc" value ="${request.req_etc}" placeholder="Default input" aria-label="default input example">
+					<input class="form-control" type="text" name="req_etc" id="req_etc" value ="${request.req_etc}" placeholder="Default input" aria-label="default input example"maxlength="50">
 					
 				</li>
 			</ul>
 	
-			<div class="align-center">
+			<div class="reqformbtn">
 				<button type="button" class="btn btn-outline-secondary" onclick="location.href='list.do'">취소</button>
 				<button type="submit" class="btn btn-outline-secondary" onclick="location.href='modify.do?req_num=${request.req_num}'">수정</button>
 			</div>

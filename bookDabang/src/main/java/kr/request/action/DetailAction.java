@@ -26,7 +26,6 @@ public class DetailAction implements Action{
 		
 		RequestDAO dao = RequestDAO.getInstance();
 		RequestVO request = dao.getRequest(req_num);
-		request.setMem_num(user_num);
 		
 		List<RequestVO> list = null;
 		list = dao.getFavRequest(user_num, req_num);
