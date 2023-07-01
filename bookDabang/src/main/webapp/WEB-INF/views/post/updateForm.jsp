@@ -5,25 +5,13 @@
 <head>
 <meta charset="UTF-8">
 <title>서평 수정</title>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<!-- include summernote css/js -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#summernote').summernote({
-       	 placeholder: '내용을 입력해주세요.',
-       	 tabsize: 2,
-        height: 1200,
-       	 width: 900,
-        	codeviewFilter: false,
-        	codeviewIframeFilter: true
-     	 });
 		//이벤트 연결
 		$('#update_form').submit(function(){
 			if($('#post_title').val().trim() == ''){
@@ -51,12 +39,12 @@
 		<form id="update_form" action="update.do" method="post" enctype="multipart/form-data" style="width:1024px; height:1500px;">
 		<input type="hidden" name="post_num" value="${post.post_num}">
 			<div class="list-space align-right">
-				<input type="submit" value="서평 등록" style="width:100px; height:30px; margin-right:20px; background-color:black; color:white;">
+				<input type="submit" value="서평 등록" style="width:100px; height:30px; margin-right:20px; background-color:#053B44; color:white;">
 			</div>	
 			<p>
 			<hr>
-			<div>
-				<img src="../images/attachfile.png" width="15" height="15">
+			<div style="margin-left: 40px;">
+				<img src="../images/attachfile.png" width="25" height="25" style="margin-right: 10px; margin-bottom: 3px;">
 				<input type="file" name="post_photo" id="post_photo" accept="image/gif, image/png, image/jpeg">
 				<c:if test="${!empty post.post_photo}">
 					<div id="file_detail">
@@ -97,11 +85,11 @@
 			<hr>
 			<ul>
 				<li>
-					<input type="text" name="post_title" id="post_title" maxlength="50" value="${post.post_title}" style="width:800px; height:40px;">
+					<input class="chat-content form-control" type="text" name="post_title" id="post_title" maxlength="50" value="${post.post_title}" style="width:930px; height:40px;">
 					<hr>
 				</li>
 				<li>
-					<textarea rows="300" cols="75" name="post_content" id="summernote" maxlength="50">${post.post_content}</textarea>
+					<textarea class="chat-content form-control" rows="300" cols="75" name="post_content" id="summernote" style="width:930px; height:1230px; resize:none;">${post.post_content}</textarea>
 				</li>
 			</ul>
 		</form>

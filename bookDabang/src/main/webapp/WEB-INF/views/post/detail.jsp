@@ -31,7 +31,7 @@
     	<div class="modal-content">
       	<div class="modal-header">
         	<h5 class="modal-title" id="exampleModalLabel"><b>신고</b></h5>
-        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        	<button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="location.href='${pageContext.request.contextPath}/post/detail.do?post_num=${post.post_num}'">
           	<span aria-hidden="true">&times;</span>
         	</button>
       	</div>
@@ -70,7 +70,7 @@
                                  <label class="form-check-label" for="inlineRadio6" style="width:47px">기타</label>
                            </div>
                            <div>
-                           <textarea name="repo_content" id="repo_content" placeholder="*상세 사유를 입력하세요." style="width:230px; height: 68px; margin-top: 10px;"></textarea>
+                           <textarea class="chat-content form-control" name="repo_content" id="repo_content" placeholder="*상세 사유를 입력하세요." style="width:230px; height: 68px; margin-top: 10px; resize:none;"></textarea>
                            </div>
                       </fieldset>
                      </dd>       
@@ -114,19 +114,19 @@
 		</p>
 		<hr size="1" noshade="noshade" width="100%">
 		<ul class="detail-sub">
-			<li>
+			<li style="margin-left: 480px;">
 				<%-- 좋아요 --%>
 				<%-- html은 속성태그 추가X (예외)'data-' 형태로만 추가 가능--%>
 				<img id="output_fav" data-num="${post.post_num}" src="${pageContext.request.contextPath}/images/fav01.png" width="50">
 				좋아요
 				<span id="output_fcount"></span>
 			</li>
-			<li>
+			<li style="margin-left: 550px;">
 				<br>
 				<%-- 로그인한 회원번호와 작성자 회원번호가 일치해야 수정/삭제 가능 --%>
 				<c:if test="${user_num == post.mem_num}">
-				<input type="button" value="수정" onclick="location.href='updateForm.do?post_num=${post.post_num}'">
-				<input type="button" value="삭제" id="delete_btn">
+				<input class="modify-btn btn btn-outline-primary" type="button" value="수정" onclick="location.href='updateForm.do?post_num=${post.post_num}'">
+				<input class="delete-btn btn btn-outline-danger" type="button" value="삭제" id="delete_btn">
 				<script type="text/javascript">
 				 let delete_btn = document.getElementById('delete_btn');
 				 //이벤트 연결
@@ -159,7 +159,6 @@
 		<br>
 		<hr>
 		<span>댓글</span>
-	</div>
 		<!-- 댓글 시작 -->
 		<!-- 댓글 목록 출력 시작 -->
 		<div id="output"></div>
@@ -174,18 +173,18 @@
 			<span class="re-title">댓글 달기</span>
 			<form id="re_form">
 				<input type="hidden" name="post_num" value="${post.post_num}" id="post_num">
-				<textarea rows="3" cols="50" name="re_content" id="re_content" class="rep-content"
+				<textarea rows="3" cols="50" name="re_content" id="re_content" class="chat-content form-control" style="resize: none;" maxlength="300" 
 				<c:if test="${empty user_num}">disabled="disabled"</c:if>
 				><c:if test="${empty user_num}">로그인해야 작성할 수 있습니다.</c:if></textarea>
+				<input type="submit" class="btn btn-dark" value="등록" style="float: right">
 				<c:if test="${!empty user_num}"> <!-- 로그인 여부 체크 -->
 				<div id="re_first">
 					<span class="letter-count">300/300</span>
 				</div>
-				<div id="re_second" class="align-right">
-					<input type="submit" value="전송">
-				</div>
+
 				</c:if>
 			</form>
+		</div>
 		</div>		
 		<!-- 댓글 끝 -->
 	<!-- 내용 끝 -->
