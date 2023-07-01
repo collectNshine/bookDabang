@@ -39,89 +39,13 @@
 			<h3><b>주문 상세정보</b></h3>
 			<hr size="1" noshade width="100%">
 			<div class="wrap-detail">
-			<div class="book-detail">
-				<h4><b>도서정보</b></h4>
-				<c:forEach var="detail" items="${detailList}">
-				<table class="table table-hover align-center">
-					<tr>
-						<td class="table-left"><h5><b>${detail.book_title}</b></h5></td>
-						<td class="table-right"><b>${detail.bk_num}</b></td>
-					</tr>
-					<tr>
-						<td rowspan="3"><img src="${pageContext.request.contextPath}/upload/${detail.thumbnail}" width="25%"></td>
-						<td><h5><b>${detail.book_author}</b></h5></td>
-					</tr>
-					<tr>
-						<td><h5><b>${detail.book_publisher}</b></h5></td>
-					</tr>
-					<tr>
-						<td><h5><b>${order.order_date}</b></h5></td>
-					</tr>
-				</table>
-				</c:forEach>
-				
-				<div class="detail-margin">
-				<h4><b>결제정보</b></h4>
-				<table class="table table-hover align-center">
-					<tr>
-						<th>결제수단</th>
-						<th>주문금액</th>
-						<th>배송상태</th>
-					</tr>
-					<tr>
-						<td>
-							<c:if test="${order.payment == 1}"><b>무통장입금</b></c:if>
-							<c:if test="${order.payment == 2}"><b>카드결제</b></c:if>
-						</td>
-						<td><b>${order.order_total}</b></td>
-						<td>
-							<c:if test="${order.status == 1}"><b>배송대기</b></c:if>
-							<c:if test="${order.status == 2}"><b>배송준비중</b></c:if>
-							<c:if test="${order.status == 3}"><b>배송중</b></c:if>
-							<c:if test="${order.status == 4}"><b>배송완료</b></c:if>
-							<c:if test="${order.status == 5}"><b>주문취소</b></c:if>
-						</td>
-					</tr>
-				</table>
-				</div>
-			</div>
-			
-			<div class="order-detail">
 				<form id="order_modify" action="adminModify.do" method="post">
 					<input type="hidden" name="order_num" value="${order.order_num}">
-					<div class="delivery-info">
+					<div class="orderdetail_left">
+						<div class="delivery-modify">
 							<ul>
 								<li>
 									<h4><b>배송정보</b></h4>
-								</li>
-								<li>
-									<div class="input-group" id="delivery_info">
-										<c:if test="${order.status != 5}">
-										<div class="input-group-text">
-											<input class="form-check-input mt-0" type="radio" name="status" value="1" aria-label="Radio button for following text input" <c:if test="${order.status == 1}">checked</c:if>>
-										</div>
-										<input type="text" class="form-control" aria-label="Text input with radio button" value="배송대기">
-										
-										<div class="input-group-text">
-											<input class="form-check-input mt-0" type="radio" name="status" value="2" aria-label="Radio button for following text input" <c:if test="${order.status == 2}">checked</c:if>>
-										</div>
-										<input type="text" class="form-control" aria-label="Text input with radio button" value="배송준비중">
-										
-										<div class="input-group-text">
-											<input class="form-check-input mt-0" type="radio" name="status" value="3" aria-label="Radio button for following text input" <c:if test="${order.status == 3}">checked</c:if>>
-										</div>
-										<input type="text" class="form-control" aria-label="Text input with radio button" value="배송중">
-										
-										<div class="input-group-text">
-											<input class="form-check-input mt-0" type="radio" name="status" value="4" aria-label="Radio button for following text input" <c:if test="${order.status == 4}">checked</c:if>>
-										</div>
-										<input type="text" class="form-control" aria-label="Text input with radio button" value="배송완료">
-										</c:if>
-										<div class="input-group-text">
-											<input class="form-check-input mt-0" type="radio" name="status" value="5" aria-label="Radio button for following text input" <c:if test="${order.status == 5}">checked</c:if>>
-										</div>
-										<input type="text" class="form-control" aria-label="Text input with radio button" value="주문취소">
-									</div>
 								</li>
 								<li>
 									<div class="input-group mb-3">
@@ -165,21 +89,100 @@
 										<textarea class="form-control info-check" name="notice" readonly id="notice" aria-label="With textarea">${order.notice}</textarea>
 									</div>
 								</li>
-								<li id="move_li">
-									<div class="buttons">
-										<c:if test="${order.status != 5}">
-										<input type="submit" value="수정" class="btn btn-outline-secondary btn-sm">
-										</c:if>
-										<c:if test="${order.status == 4 or order.status == 5}">
-										<input type="button" value="삭제" onclick="location.href='deleteOrder.do?order_num=${order.order_num}'" id="order_cancel" class="btn btn-outline-secondary btn-sm">
-										</c:if>
-										<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do#order'" class="btn btn-outline-secondary btn-sm">
-									</div>
-								</li>
 							</ul>
 						</div>
+					</div>
+					
+					<div class="orderdetail_right">
+						<div class="book-detail">
+							<h4><b>주문정보</b></h4>
+							<table class="table align-center">
+								<tr>
+									<td  class="table-left"><h5><b>주문명</b></h5></td>
+									<td><b>${order.book_title}</b></td>
+								</tr>
+								<tr>
+									<td><h5><b>주문금액</b></h5></td>
+									<td><b><fmt:formatNumber value="${order.order_total}"/>원</b></td>
+								</tr>
+								<tr>
+									<td><h5><b>결제일</b></h5></td>
+									<td><b>${order.order_date}</b></td>
+								</tr>
+								<tr>
+									<td><h5><b>주문수정일</b></h5></td>
+									<td><b>${order.modify_date}</b></td>
+								</tr>
+								<tr>
+									<td><h5><b>결제수단</b></h5></td>
+									<td>
+										<b>
+											<c:if test="${order.payment == 1}"><b>무통장입금</b></c:if>
+											<c:if test="${order.payment == 2}"><b>카드결제</b></c:if>
+										</b>
+									</td>
+								</tr>
+								<tr>
+									<td><h5><b>주문상태</b></h5></td>
+									<td>
+										<b>
+											<c:if test="${order.status == 1}"><b>배송대기</b></c:if>
+											<c:if test="${order.status == 2}"><b>배송준비중</b></c:if>
+											<c:if test="${order.status == 3}"><b>배송중</b></c:if>
+											<c:if test="${order.status == 4}"><b>배송완료</b></c:if>
+											<c:if test="${order.status == 5}"><b>주문취소</b></c:if>
+										</b>
+									</td>
+								</tr>
+							</table>
+							
+							<div class="delivery-status">
+								<h4><b>주문상태</b></h4>
+								<c:if test="${order.status != 5}">
+								<div class="input-group">
+									<div class="input-group-text">
+										<input class="form-check-input mt-0" type="radio" name="status" value="1" aria-label="Radio button for following text input" <c:if test="${order.status == 1}">checked</c:if>>
+									</div>
+									<input type="text" class="form-control" value="배송대기" readonly="readonly" aria-label="Text input with radio button">
+								
+									<div class="input-group-text">
+										<input class="form-check-input mt-0" type="radio" name="status" value="2" aria-label="Radio button for following text input" <c:if test="${order.status == 2}">checked</c:if>>
+									</div>
+									<input type="text" class="form-control" value="배송준비중" readonly="readonly" aria-label="Text input with radio button">
+								</div>
+								
+								<div class="input-group">
+									<div class="input-group-text">
+										<input class="form-check-input mt-0" type="radio" name="status" value="3" aria-label="Radio button for following text input" <c:if test="${order.status == 3}">checked</c:if>>
+									</div>
+									<input type="text" class="form-control" value="배송중" readonly="readonly" aria-label="Text input with radio button">
+								
+									<div class="input-group-text">
+										<input class="form-check-input mt-0" type="radio" name="status" value="4" aria-label="Radio button for following text input" <c:if test="${order.status == 4}">checked</c:if>>
+									</div>
+									<input type="text" class="form-control" value="배송완료" readonly="readonly" aria-label="Text input with radio button">
+								</div>
+								</c:if>
+								<div class="input-group">
+									<div class="input-group-text">
+										<input class="form-check-input mt-0" type="radio" name="status" value="5" aria-label="Radio button for following text input" <c:if test="${order.status == 5}">checked</c:if>>
+									</div>
+									<input type="text" class="form-control" value="주문취소" readonly="readonly" aria-label="Text input with radio button">
+								</div>
+							</div>
+							
+							<div class="buttons">
+								<c:if test="${order.status != 5}">
+								<input type="submit" value="수정" class="btn btn-success btn-sm">
+								</c:if>
+								<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do#admin_order'" class="btn btn-outline-secondary btn-sm">
+								<c:if test="${order.status == 4 || order.status == 5}">
+								<input type="button" value="삭제" onclick="location.href='deleteOrder.do?order_num=${order.order_num}'" id="order_cancel" class="btn btn-outline-secondary btn-sm">
+								</c:if>
+							</div>
+						</div>
+					</div>
 				</form>
-			</div>
 			</div>
 		</div>
 		<!-- 내용 E -->

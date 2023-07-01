@@ -26,6 +26,8 @@ public class OrderDAO {
 		PreparedStatement pstmt4 = null;
 		ResultSet rs = null;
 		String sql = null;
+		String sub_sql = "";
+		String sub_sql2 = "";
 		int order_num = 0;
 		
 		try {
@@ -39,7 +41,11 @@ public class OrderDAO {
 			if(rs.next()) { order_num = rs.getInt(1); }
 			
 			// 주문 정보 저장
-			sql = "INSERT INTO orders (order_num, book_title, order_total, payment, receive_name, receive_post, receive_address1, receive_address2, receive_phone, email, notice, mem_num) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			if(order.getNotice() != null && !"".equals(order.getNotice())) {
+				sub_sql += ", notice";
+				sub_sql2 += ", ?";
+			}
+			sql = "INSERT INTO orders (order_num, book_title, order_total, payment, receive_name, receive_post, receive_address1, receive_address2, receive_phone, email, mem_num" + sub_sql + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?" + sub_sql2 + ")";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, order_num);
 			pstmt2.setString(2, order.getBook_title());
@@ -51,8 +57,8 @@ public class OrderDAO {
 			pstmt2.setString(8, order.getReceive_address2());
 			pstmt2.setString(9, order.getReceive_phone());
 			pstmt2.setString(10, order.getEmail());
-			pstmt2.setString(11, order.getNotice());
-			pstmt2.setInt(12, order.getMem_num());
+			pstmt2.setInt(11, order.getMem_num());
+			if(order.getNotice() != null && !"".equals(order.getNotice())) { pstmt2.setString(12, order.getNotice()); }
 			pstmt2.executeUpdate();
 			
 			// 주문 상세 정보 저장
@@ -223,6 +229,7 @@ public class OrderDAO {
 				order.setEmail(rs.getString("email"));
 				order.setNotice(StringUtil.useNoHtml(rs.getString("notice")));
 				order.setOrder_date(rs.getDate("order_date"));
+				order.setModify_date(rs.getDate("modify_date"));
 				order.setMem_num(rs.getInt("mem_num"));
 			}
 		} catch(Exception e) { throw new Exception(e); }
@@ -307,8 +314,13 @@ public class OrderDAO {
 			conn = DBUtil.getConnection();
 			
 			if(keyword != null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "WHERE order_num=?";
-				else if(keyfield.equals("2")) sub_sql += "WHERE id LIKE ?";
+				if(keyfield.equals("1")) {
+					if(keyword.equals("배송대기")) sub_sql += "WHERE status = 1";
+					else if(keyword.equals("배송준비중")) sub_sql += "WHERE status = 2";
+					else if(keyword.equals("배송중")) sub_sql += "WHERE status = 3";
+					else if(keyword.equals("배송완료")) sub_sql += "WHERE status = 4";
+					else if(keyword.equals("주문취소")) sub_sql += "WHERE status = 5";
+				}else if(keyfield.equals("2")) sub_sql += "WHERE id LIKE ?";
 				else if(keyfield.equals("3")) sub_sql += "WHERE book_name LIKE ?";
 			}
 			
@@ -316,8 +328,7 @@ public class OrderDAO {
 			
 			pstmt = conn.prepareStatement(sql);
 			if(keyword != null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) { pstmt.setString(1, keyword); }
-				else { pstmt.setString(1, "%" + keyword + "%"); }
+				if(!keyfield.equals("1")) { pstmt.setString(1, "%" + keyword + "%"); }
 			}
 			
 			rs = pstmt.executeQuery();
@@ -342,17 +353,21 @@ public class OrderDAO {
 			conn = DBUtil.getConnection();
 			
 			if(keyword != null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "WHERE order_num=?";
-				else if(keyfield.equals("2")) sub_sql += "WHERE id LIKE ?";
-				else if(keyfield.equals("3")) sub_sql += "WHERE item_name LIKE ?";
+				if(keyfield.equals("1")) {
+					if(keyword.equals("배송대기")) sub_sql += "WHERE status = 1";
+					else if(keyword.equals("배송준비중")) sub_sql += "WHERE status = 2";
+					else if(keyword.equals("배송중")) sub_sql += "WHERE status = 3";
+					else if(keyword.equals("배송완료")) sub_sql += "WHERE status = 4";
+					else if(keyword.equals("주문취소")) sub_sql += "WHERE status = 5";
+				}else if(keyfield.equals("2")) sub_sql += "WHERE id LIKE ?";
+				else if(keyfield.equals("3")) sub_sql += "WHERE book_name LIKE ?";
 			}
 			
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM orders o JOIN member m ON o.mem_num = m.mem_num " + sub_sql + " ORDER BY order_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
 			
 			pstmt = conn.prepareStatement(sql);
 			if(keyword != null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) { pstmt.setString(++cnt, keyword); }
-				else { pstmt.setString(++cnt, "%" + keyword + "%"); }
+				if(!keyfield.equals("1")) { pstmt.setString(++cnt, "%" + keyword + "%"); }
 			}
 			pstmt.setInt(++cnt, start);
 			pstmt.setInt(++cnt, end);
@@ -399,8 +414,13 @@ public class OrderDAO {
 			conn = DBUtil.getConnection();
 			
 			if(keyword != null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "AND order_num=?";
-				else if(keyfield.equals("2")) sub_sql += "AND book_title LIKE ?";
+				if(keyfield.equals("1")) {
+					if(keyword.equals("배송대기")) sub_sql += "AND status = 1";
+					else if(keyword.equals("배송준비중")) sub_sql += "AND status = 2";
+					else if(keyword.equals("배송중")) sub_sql += "AND status = 3";
+					else if(keyword.equals("배송완료")) sub_sql += "AND status = 4";
+					else if(keyword.equals("주문취소")) sub_sql += "AND status = 5";
+				} else if(keyfield.equals("2")) sub_sql += "AND book_title LIKE ?";
 			}
 			
 			sql = "SELECT COUNT(*) FROM orders WHERE mem_num=? " + sub_sql;
@@ -408,8 +428,8 @@ public class OrderDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mem_num);
 			if(keyword != null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) { pstmt.setString(2, keyword); }
-				else if(keyfield.equals("2")) { pstmt.setString(2, "%" + keyword + "%"); }
+				if(keyfield.equals("2")) { pstmt.setString(2, "%" + keyword + "%"); }
+				//else if(keyfield.equals("2")) { pstmt.setString(2, "%" + keyword + "%"); }
 			}
 			
 			rs = pstmt.executeQuery();
@@ -434,8 +454,13 @@ public class OrderDAO {
 			conn = DBUtil.getConnection();
 			
 			if(keyword != null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "AND order_num=?";
-				else if(keyfield.equals("2")) sub_sql += "AND book_title LIKE ?";
+				if(keyfield.equals("1")) {
+					if(keyword.equals("배송대기")) sub_sql += "AND status = 1";
+					else if(keyword.equals("배송준비중")) sub_sql += "AND status = 2";
+					else if(keyword.equals("배송중")) sub_sql += "AND status = 3";
+					else if(keyword.equals("배송완료")) sub_sql += "AND status = 4";
+					else if(keyword.equals("주문취소")) sub_sql += "AND status = 5";
+				} else if(keyfield.equals("2")) sub_sql += "AND book_title LIKE ?";
 			}
 			
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM orders WHERE mem_num=? " + sub_sql + " ORDER BY order_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
@@ -443,8 +468,7 @@ public class OrderDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(++cnt, mem_num);
 			if(keyword != null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) { pstmt.setString(++cnt, keyword); }
-				else if(keyfield.equals("2")) { pstmt.setString(++cnt, "%" + keyword + "%"); }
+				if(keyfield.equals("2")) { pstmt.setString(++cnt, "%" + keyword + "%"); }
 			}
 			pstmt.setInt(++cnt, start);
 			pstmt.setInt(++cnt, end);

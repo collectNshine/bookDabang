@@ -15,6 +15,7 @@ import kr.controller.Action;
 import kr.order.dao.OrderDAO;
 import kr.order.vo.OrderDetailVO;
 import kr.order.vo.OrderVO;
+import kr.util.StringUtil;
 
 public class UserOrderAction implements Action {
 	@Override
@@ -69,13 +70,13 @@ public class UserOrderAction implements Action {
 		order.setBook_title(book_title);
 		order.setOrder_total(Integer.parseInt(request.getParameter("total_price")));
 		order.setPayment(Integer.parseInt(request.getParameter("payment")));
-		order.setReceive_name(request.getParameter("receive_name"));
-		order.setReceive_post(request.getParameter("receive_post"));
-		order.setReceive_address1(request.getParameter("receive_address1"));
-		order.setReceive_address2(request.getParameter("receive_address2"));
-		order.setReceive_phone(request.getParameter("receive_phone"));
+		order.setReceive_name(StringUtil.useNoHtml(request.getParameter("receive_name")));
+		order.setReceive_post(StringUtil.useNoHtml(request.getParameter("receive_post")));
+		order.setReceive_address1(StringUtil.useNoHtml(request.getParameter("receive_address1")));
+		order.setReceive_address2(StringUtil.useNoHtml(request.getParameter("receive_address2")));
+		order.setReceive_phone(StringUtil.useNoHtml(request.getParameter("receive_phone")));
 		order.setEmail(request.getParameter("email"));
-		order.setNotice(request.getParameter("notice"));
+		order.setNotice(StringUtil.useNoHtml(request.getParameter("notice")));
 		order.setMem_num(user_num);
 		
 		OrderDAO orderDao = OrderDAO.getInstance();
@@ -83,10 +84,10 @@ public class UserOrderAction implements Action {
 		orderDao.deleteCartByNum(cart_nums);
 		
 		// refresh 정보를 응답 header에 추가
-		response.addHeader("Refresh", "2;url=../main/main.do");
+		response.addHeader("Refresh", "2;url=../mypage/myPage.do#order");
 		
 		request.setAttribute("accessMsg", "주문 완료!!");
-		request.setAttribute("accessUrl", request.getContextPath() + "/main/main.do");
+		request.setAttribute("accessUrl", request.getContextPath() + "/mypage/myPage.do#order");
 		
 		return "/WEB-INF/views/common/notice.jsp";
 	}

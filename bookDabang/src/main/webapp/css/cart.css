@@ -13,6 +13,8 @@ a:hover{ text-decoration:none; color:#6C6C6C; }
 .page-main{ margin:0 auto; min-height:650px; }
 .content-main{ padding:10px 20px; clear:both; }
 textarea{ resize: none; }
+#cart_order{ width:100%; margin:0 auto; border:none; padding:0; }
+#order_modify{ width:100%; margin:0 auto; border:none; padding:0; }
 
 /* 메뉴 */
 #main_logo{ float:left; text-align:center; }
@@ -35,10 +37,12 @@ ul{ list-style:none; }
 .book-choice{ width:75%; float:left; }
 .member-info{ width:65%; height:50px; background:rgba(108, 117, 125, .1); display:flex; align-items:center; margin:10px 0 10px 100px; }
 .member-info img{ width:3%; margin:10px; }
+.member-info h5{ margin:10px; }
 .cartlist-empty{ width:65%; margin-left:100px; text-align:center; }
 .check-all{ margin:30px 0 0 100px; }
 .delete-all{ margin:30px 0 0 100px; }
 .cart-table{ width:65%; margin:30px 0 0 100px; float:left; }
+.order-table{ width:90%; margin:30px 5%; float:left; }
 
 .list-group-item ul{ display:flex; align-items:center; flex-wrap:wrap; }
 .list-group-item li{ float:left; margin-right:20px; height:auto; }
@@ -50,26 +54,40 @@ ul{ list-style:none; }
 .cart-deletebtn{ width:50px; margin:0 auto; }
 .total_price{ width:50px; }
 
-.book-buy{ float:left; width:20%; margin:30px 0 0 30px; background:rgba(108, 117, 125, .1); border-radius:5px; display:flex; justify-content:center; }
-.book-buy-list{ clear:both; width:80%; border:none; margin:20px auto; text-align:center; background:white; border-radius:5px; font-weight:bold; }
-.book-buy-list .width_td1{ width:50%; }
-.book-buy-list .width_td2{ width:50%; }
+.goto-buy{ float:left; width:20%; margin:30px 0 0 30px; display:flex; justify-content:center; }
+.goto-buy-list{ clear:both; width:100%; font-weight:bold; }
+.goto-btn{ width:300px; }
 
 /* 주문 */
-.orderinfo-form{ width:100%; clear:both; float:left; margin:30px auto; }
-/*.float-left{ float:left; }*/
-.mem-info{ width:50%; float:left; }
+.orderinfo-left{ width:50%; clear:both; float:left; margin:0 auto; }
+.book-info{ float:left; width:90%; margin:0 5%; }
+.book-info td{ vertical-align:middle; }
+.mem-info{ clear:both; float:left; width:90%; margin-top:0 5%; }
 .member-info p{ margin:auto 0; }
-.delivery-info{ width:50%; float:left; }
-.payment-info{ clear:both; margin:30px; }
+
+.orderinfo-right{ width:50%; float:left; margin:0 auto; }
+.delivery-info{ float:left; width:90%; margin-top:5%; margin-bottom:5%; }
+.error{ color:red; margin-top:10px; }
+
+.payment-info{ width:90%; margin:5%; clear:both; }
+.end-buy{ width:90%; margin:5%; text-align:center; }
+.endbuy{ width:100%; }
 
 /* [사용자]주문상세 */
-.wrap-detail{ clear:both; margin:50px auto; }
+.wrap-detail{ clear:both; margin:0 5%; width:90%; }
 
-.book-detail{ width:40%; float:left; margin:0 45px 0 100px; }
+.orderdetail_left{ width:50%; clear:both; float:left; margin:0 auto; }
+.book-detail{ width:90%; float:left; margin:0 5%; }
+
+.orderdetail_right{ width:50%; float:left; margin:0 auto; }
+.user-delivery{ width:90%; margin:0 5%; }
+.delivery-status{ margin:3% 0; }
+
 .table-left{ width:50%; }
 .table-right{ width:50%; }
 .title_image{ clear:both; width:50%; float:left; }
+
+.delivery-modify{ width:90%; float:left; margin:0 5%; }
 
 .detail-margin{ margin-top:100px; }
 .payment-total{ clear:both; float:left; }
@@ -77,7 +95,8 @@ ul{ list-style:none; }
 .order-total{ width:80%; } */
 
 .order-detail{ width:60%; margin:0 auto; }
-.buttons{ clear:both; width:60%; margin:0 auto; }
+.buttons{ width:90%; margin:0 120px; }
+.buttons input{ width:100px; }
 #move_li{ margin-top:15px; }
 
 #delivery_info{ margin-bottom:15px; }

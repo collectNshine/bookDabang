@@ -1,8 +1,16 @@
 @charset "UTF-8";
 
+/* 검색창 */
+.start{ text-align:center; margin:50px 0; }
+.form-select{ margin:5px 10px 0; padding:.375rem 2.25rem .375rem 2rem; width:120px; }
+#list_search_form{ margin-bottom:30px; border:none; }
+
 /* 담소마당(chat) */
 .chat-left{ width:35%; float:left;}
+.left-content{ width:90%; margin:0 5%; }
+
 .chat-right{ width:65%; float:right; padding:10px; justify-content:center; }
+.right-content{ width:90%; margin:0 5%; }
 
 .form-select{ width:30%; float:left; }
 .searchForm{ width:70%; }
@@ -18,12 +26,12 @@
 #write_form{ border:none; width:600px; margin:auto; }
 #out_chat{ margin-left:10px; }
 
-.chatRoom{ width:700px; margin:auto; }
+.chatRoom{ float:right; width:80%; margin-left:10%; }
 #chatTitle{ font-weight:bold; font-size:1.5em; margin-left:10px; width:80%; }
 .chat-photo{ object-fit:cover; object-position:top; border-radius:50%; }
 
 .top-bar{
-	background:rgba(108, 117, 125, .1); width:100%; height:50px; margin:10px 0;
+	background:rgba(234, 208, 117, .3); width:100%; height:50px; margin:10px 0;
 	display: flex; align-items: center; border-radius: 10px 10px 0 0;
 }
 .chatAlign-right{ clear:both; text-align:right; width:20%; margin:0 10px; }
@@ -34,22 +42,23 @@
 .chat-message-group .chat-thumb{ float: left; width: 10%; }
 .chat-message-group .chat-messages{ float: left; width: 90%; margin-bottom: 20px; }
 .chat-message-group .message{
-	float: left; padding: 10px; background:rgba(108, 117, 125, .1);
+	float: left; padding: 10px; background:rgba(5, 59, 68, .1);
 	font-size: 13px; border-radius: 5px; margin-bottom: 3px;
 }
 .chat-messages .from{ float: left; display: block; width: 100%; text-align: left; font-size: 11px; }
 
 .writer-user{ margin-right:10px; }
 .writer-user .chat-messages{ float: right; width: 100%; }
-.writer-user .chat-messages .message{ float: right; background: #6c757d; color: #FFF; }
+.writer-user .chat-messages .message{ float: right; background:rgba(5, 59, 68, .9); color: #FFF; }
 .writer-user .chat-messages .from{ float: left; display: block; width: 100%; text-align: right; }
 
 .bottom{ margin:0 auto; }
-.chat-input{ width:100%; }
+.chat-input{ width:100%; background:rgba(234, 208, 117, .3); border-radius: 0 0 10px 10px; }
 .chat-input textarea{ width:700px; border: none; resize: none; margin-right:10px; }
 .write-chat{ border:none; margin:20px auto; display:flex; align-items:center; }
+.chat-submit{ color:white; }
 
 /* 스크롤바 */
 .scrollBar::-webkit-scrollbar { width:10px;  /* 스크롤바의 너비 */ }
-.scrollBar::-webkit-scrollbar-thumb { height:30%; /* 스크롤바의 길이 */ background:#6c757d; /* 스크롤바의 색상 */ border-radius: 10px; }
-.scrollBar::-webkit-scrollbar-track { background:rgba(108, 117, 125, .1);  /*스크롤바 뒷 배경 색상*/ }
+.scrollBar::-webkit-scrollbar-thumb { height:30%; /* 스크롤바의 길이 */ background:rgba(5, 59, 68, .9); /* 스크롤바의 색상 */ border-radius: 10px; }
+.scrollBar::-webkit-scrollbar-track { background:rgba(5, 59, 68, .1);  /*스크롤바 뒷 배경 색상*/ }
