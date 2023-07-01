@@ -16,8 +16,6 @@ input[type="password"], input[type="email"] {
     width: 500px;
     height: 30px;
 };
-
-
 </style>
 </head>
 <body>
@@ -39,8 +37,7 @@ input[type="password"], input[type="email"] {
 			<div class="result-display" style="border:none; height:50px">
 				<div class="align-center" style="display:flex;"> 
 					<input type="password" name="passwd" id="passwd" maxlength="12" placeholder="비밀번호를 입력해주세요." style="margin-right: 10px; height:40px;" class="form-control">
-					<%-- <input type="button" value="확인" onclick="location.href='${pageContext.request.contextPath}/mypage/modifyUserForm.do'"> --%>
-					<input type="button" value="확인" onclick="chkPW()" class="btn btn-outline-secondary"> 
+					<input type="submit" value="확인" class="btn btn-outline-secondary"> 
 				</div>
 			</div>
 		</form>
@@ -49,59 +46,16 @@ input[type="password"], input[type="email"] {
 	
 </div>
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
-
-function chkPW(){
-
-	 var pw = $('#passwd').val();
-	 var pw2 = '1234';
-	 
-	 var num = pw.search(/[0-9]/g);
-	 var eng = pw.search(/[a-z]/ig);
-	 var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-
-	 if(pw.length < 3 || pw.length > 20){
-
-	  alert("3자리 ~ 20자리 이내로 입력해주세요.");
-	  return false;
-	 }else if(pw.search(/\s/) != -1){
-	  alert("비밀번호는 공백 없이 입력해주세요.");
-	  return false;
-	 }else if(pw != pw2){
-	  	alert("비밀번호 확인이 불일치합니다.");
-	  	$('#passwd').val('').focus();
-		$('#passwd').val('');
-		return false;
-	 }else {
-		alert("확인이 완료되었습니다."); 
-		window.location.replace('${pageContext.request.contextPath}/mypage/modifyUserForm.do')
-	    return true;
-	 }
-	}
-
-/*
-		 $(function(){
-				$('#passwdcheck_form').submit(function(){
-					if($('#passwd').val().trim()==''){
-						alert('비밀번호를 입력하세요');
-						$('#passwd').val('').focus();
-						return false;
-					}
-					
-					//비밀번호 확인 일치 여부 체크
-					if($('#passwd').val()!=$(passwd).val()){
-						alert('비밀번호 확인이 불일치합니다.');
-						$('#passwd').val('').focus();
-						$('#passwd').val('');
-						return false;
-					}
-					
-				});//end of submit
-			}); 
-					*/	
-				
-		
-</script> 
+	$(function(){
+		$('#passwdcheck_form').submit(function(){
+			if($('#passwd').val().trim()==''){
+				alert('비밀번호를 입력하세요');
+				$('#passwd').val('').focus();
+				return false;
+			}
+		});
+	});
+</script>
 </body>
 </html>

@@ -30,6 +30,31 @@ form {
     width: 200px;
     height: 200px;
 }
+.mypage-div {
+    width: 100%;
+    float: left;
+    padding: 5px;
+}
+.form-control{
+    display: block;
+    width: 160%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    background-clip: padding-box;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: var(--bs-border-radius);
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+element.style {
+}
 </style>
 <script type="text/javascript">
 	$(function(){
@@ -118,6 +143,7 @@ form {
 		
 		
 		//취소 버튼 이벤트 연결
+		/*
 		$('#photo_reset').click(function(){
 			//초기 이미지 표시
 			$('.my-photo').attr('src',photo_path);
@@ -127,6 +153,7 @@ form {
 			$('#passwd_btn').show(); //비밀번호 변경 버튼 다시 보이게
 			$('#delete_btn').show(); //회원탈퇴 버튼 다시 보이게
 		});
+		*/
 		
 		
 	
@@ -207,7 +234,7 @@ form {
 			<h2>정보수정</h2>
 		</div>
 	<hr size="1" noshade="noshade" width="100%">
-	<div class="mypage-div">
+	<div class="mypage-div" style="width:100%">
 	<!-- 프로필 사진 시작 -->
 		<ul class="profile">
 			<li>
@@ -232,7 +259,6 @@ form {
 					<input type="file" class="align-center" style="padding-left:115px" id="photo" accept="image/gif,image/png,image/jpeg">
 					<br>
 					<input type="button" value="저장" id="photo_submit" class="btn btn-outline-secondary">
-					<input type="button" value="취소" id="photo_reset" class="btn btn-outline-secondary">
 					<input type="button" value="삭제" id="photo_delete" class="btn btn-outline-secondary">
 					
 					<%--
@@ -294,35 +320,44 @@ form {
 		<form id="modify_form" action="modifyUser.do" method="post" style="border:none">
 			<ul style= "width: 1200px; height:300px;">
 				<li>
-					<label for="name"><b>필명</b></label>
+					<label for="name"><b>이름</b></label>
 					<input type="text" name="name" id="name" 
-						   maxlength="10" value="${member.name}" class="form-control">
+						   maxlength="10" value="${member.name}" class="form-control" style="width:400px;">
 				</li>
+				
+				<%--
+				<li>
+					<label for="nickname"><b>닉네임</b></label>
+					<input type="text" name="nickname" id="nickname" 
+						   maxlength="10" value="${member.nickname}" class="form-control" style="width:400px;">
+				</li>
+				 --%>
+				
 				<li>
 					<label for="phone"><b>휴대폰번호</b></label>
 					<input type="text" name="phone" id="phone" 
-						   maxlength="15" value="${member.phone}" class="form-control">
+						   maxlength="15" value="${member.phone}" class="form-control" style="width:400px;">
 				</li>	
 				<li>
 					<label for="email"><b>이메일</b></label>
 					<input type="email" name="email" id="email" 
-						   maxlength="50" value="${member.email}" class="form-control">
+						   maxlength="50" value="${member.email}" class="form-control" style="width:400px;">
 				</li>
 				<li>
 					<label for="zipcode"><b>우편번호</b></label>
 					<input type="text" name="zipcode" id="zipcode" 
-						   maxlength="5" value="${member.zipcode}" class="form-control">
-					<input type="button" value="우편번호 찾기" onclick="execDaumPostcode()" class="form-control" style="width:500px;margin-left: 130px;">
+						   maxlength="5" value="${member.zipcode}" class="form-control" style="width:400px;">
+					<input type="button" value="우편번호 찾기" onclick="execDaumPostcode()" class="form-control" style="width:400px;margin-left: 130px;">
 				</li>				
 				<li>
 					<label for="address1"><b>주소</b></label>
 					<input type="text" name="address1" id="address1"
-						   maxlength="30" value="${member.address1}" class="form-control">
+						   maxlength="30" value="${member.address1}" class="form-control" style="width:400px;">
 				</li>				
 				<li>
-					<label for="address2"><b>상세번호</b></label>
+					<label for="address2"><b>상세주소</b></label>
 					<input type="text" name="address2" id="address2"
-						   maxlength="30" value="${member.address2}"  class="form-control">
+						   maxlength="30" value="${member.address2}"  class="form-control" style="width:400px;">
 				</li>				
 			</ul>
 			<div class="align-center"  style="margin-top: 50px;">
