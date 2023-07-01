@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <style>
     .footer{
+    background-color:white;
     font-size: 10pt;
     }
     .footer_box{
@@ -17,6 +18,7 @@
     }
     </style>
 <div class="footer">
+	<hr size="1px" width="100%" noshade>
     <div class="footer_info">
         <div class="footer_box">
             <h5>(주)북다방</h5>

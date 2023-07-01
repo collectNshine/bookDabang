@@ -12,10 +12,15 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 </head>
+<style>
+body{
+	width:100%; !important;
+}
+</style>
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<!-- 내용 시작 -->
+	<!-- 내용 시작 --><%-- 
 	<div class="content-main">
 		<!-- Carousel 시작 -->
 	  	<div class="container">
@@ -52,15 +57,8 @@
 	  		</div>	
 	  	</div>	
 	</div>
-	<!-- Carousel 끝 -->
-	
-	
-	
-	
-	
-	
-	<!-- 내용 끝 -->
-	<%-- <jsp:include page="/WEB-INF/views/common/footer.jsp"/>--%>
+	<!-- Carousel 끝 -->--%>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </div>
 </body>
 </html>
