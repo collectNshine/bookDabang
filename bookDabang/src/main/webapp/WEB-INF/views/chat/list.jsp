@@ -13,7 +13,17 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/chat.js"></script>
-	
+	<script type="text/javascript">
+		$(function() {
+			$('#search_form').submit(function() {
+				if($('keyword').val().trim() == '') {
+					alert('검색어를 입력하세요');
+					$('#keyword').val('').focus();
+					return false;
+				}
+			});
+		});
+	</script>
 </head>
 <body>
 	<div class="page-main">
@@ -22,21 +32,14 @@
 		<hr size="1" noshade width="100%">
 		<div class="content-main">
 			<div class="chat-left">
+				<div class="left-content">
 				<!-- 검색창 S -->
-				<form id="search_form" action="list.do" method="get">
-					<ul class="search">
-						<li>
-							<select name="keyfield" class="form-select">
-								<option value="1" <c:if test="${param.keyfield == 1}">SELECTED</c:if>>제목</option>
-							</select>
-						</li>
-						<li>
-							<div class="searchForm input-group mb-3">
-  								<input type="search" size="16" class="form-control" name="keyword" id="keyword" value="${param.keyword}">
-								<input type="submit" value="검색" class="btn btn-outline-secondary">
-							</div>
-						</li>
-					</ul>
+				<form id="list_search_form" action="list.do" method="get" class="d-flex" role="search">
+					<select name="keyfield" class="form-select">
+						<option value="1" <c:if test="${param.keyfield == 1}">SELECTED</c:if>>제목</option>
+					</select>
+					<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" class="form-control me-2">
+					<input type="submit" value="검색" class="btn btn-outline-success">
 				</form>
 				<!-- 검색창 E -->
 				<div class="list-space align-right">
@@ -78,8 +81,10 @@
 				</ul>
 				<div class="align-center">${page}</div>
 				</c:if>
+				</div>
 			</div>
 			<div class="chat-right">
+				<div class="right-content">
 				<%-- 채팅생성 div --%>
 				<div class="make-chat" style="display:none;">
 					<div class="make-chat-content"></div>
@@ -93,7 +98,7 @@
 				<div class="chatRoom" style="display:none;">
 					<div class="top-bar">
 						<div id="chatTitle"></div>
-						<div class="chatAlign-right"><input type="button" value="close" id="out_chat2" class="btn btn-outline-secondary btn-sm"></div>
+						<div class="chatAlign-right"><input type="button" value="close" id="out_chat2" class="btn btn-outline-warning btn-sm"></div>
 					</div>
 					<div class="bottom">
 						<div class="chat-list scrollBar" style="overflow-y:scroll; height:500px;"></div>
@@ -103,10 +108,11 @@
 						<div class="chat-input">
 							<form class="write-chat">
 								<textarea rows="2" cols="75" name="chat_content" class="chat-content form-control" placeholder="내용을 입력하세요" style="width:80%"></textarea>
-								<input type="submit" value="send" class="chat-submit btn btn-outline-secondary" style="width:15%">
+								<input type="submit" value="send" class="chat-submit btn btn-warning" style="width:15%">
 							</form>
 						</div>
 					</div>
+				</div>
 				</div>
 			</div>
 		</div>

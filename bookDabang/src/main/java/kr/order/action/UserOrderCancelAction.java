@@ -31,7 +31,7 @@ public class UserOrderCancelAction implements Action {
 		dao.updateOrderCancel(order_num);
 		
 		request.setAttribute("notice_msg", "주문취소 완료");
-		request.setAttribute("notice_url", request.getContextPath() + "/order/orderModifyForm.do?order_num=" + order_num);
+		request.setAttribute("notice_url", request.getContextPath() + "/mypage/myPage.do#order");
 		
 		return "/WEB-INF/views/common/alert_singleView.jsp";
 	}

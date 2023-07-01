@@ -10,6 +10,7 @@ import kr.book.vo.BookVO;
 import kr.cart.vo.CartVO;
 import kr.member.vo.MemberVO;
 import kr.util.DBUtil;
+import kr.util.StringUtil;
 
 public class CartDAO {
 	// Singleton Pattern
@@ -124,7 +125,7 @@ public class CartDAO {
 					
 					// 도서 정보를 담기 위해 BookVO 객체 생성
 					BookVO book = new BookVO();
-					book.setTitle(rs.getString("title"));
+					book.setTitle(StringUtil.shortWords(20, rs.getString("title")));
 					book.setPrice(rs.getInt("price"));
 					book.setStock(rs.getInt("stock"));
 					book.setThumbnail(rs.getString("thumbnail"));

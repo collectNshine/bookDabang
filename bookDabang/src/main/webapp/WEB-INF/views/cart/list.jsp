@@ -15,7 +15,7 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/cart.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			var total = 0, selected = 0;
+			var total = 0, selected = 0, ship = 0;
 			let btn_status = false;
 			
 			// 전체 체크, 전체 체크 취소
@@ -28,6 +28,7 @@
 					$('.book-check').prop('checked', false);
 					btn_status = false;
 					$('#selected').text(selected);
+					$('#ship').text(ship);
 					$('#total').text(total);
 				}
 			});
@@ -35,6 +36,15 @@
 			// 전체선택 후 개별선택 중 하나를 해제하면 전체선택 체크박스가 비활성화되도록
 			$('.book-check').click(function() {
 				$('#check_all').prop('checked', false);
+			});
+			
+			$('#cart_order').submit(function(){
+				let cnt = $('input[name=selectBook]:checked').length;
+				
+				if(cnt < 1) {
+					alert('구매할 도서를 선택하세요.');
+					return false
+				}
 			});
 		});
 		
@@ -55,9 +65,9 @@
 			
 			total = selected + ship;
 			
-			$('#selected').text(selected);
-			$('#ship').text(ship);
-			$('#total').text(total);
+			$('#selected').text(selected.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+			$('#ship').text(ship.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+			$('#total').text(total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','));
 			
 			$('input[name="cart_ship"]').attr('value', ship);
 			$('input[name="total_price"]').attr('value', total);
@@ -71,12 +81,12 @@
 		<!-- 내용 S -->
 		<div class="content-main">
 			<hr size="1" noshade width="100%">
-			<h3>장바구니</h3>
+			<h3><b>장바구니</b></h3>
 			<%-- 구매할 도서 선택 및 삭제 --%>
 			<div class="member-info">
 				<c:forEach var="cart" items="${list}" begin="0" end="0">
 				<img src="${pageContext.request.contextPath}/images/gpsIcon.png">
-				<h5>${cart.memberVO.name} (${cart.memberVO.address1} ${cart.memberVO.address2})</h5>
+				<h5>${cart.memberVO.address1} ${cart.memberVO.address2}</h5>
 				</c:forEach>
 			</div>
 			<c:if test="${empty list}">
@@ -94,40 +104,46 @@
 				<input type="hidden" name="cart_nums" value="" id="cart_nums">
 				<div><input type="button" value="전체삭제" class="delete-all btn btn-outline-secondary" onclick="location.href='deleteAllCart.do'"></div>
 				<div class="cart-table">
-				<ul class="list-group">
-					<li class="list-group-item">
-						<ul>
-							<li><div class="cart-check"><input type="checkbox" id="check_all" class="form-check-input me-1"></div></li>
-							<li><div class="cart-bookimg">도서사진</div></li>
-							<li><div class="cart-booktitle">도서명</div></li>
-							<li><div class="cart-bookprice">가격</div></li>
-							<li><div class="cart-orderquantity input-group mb-3">수량	</div></li>
-						</ul>
-					</li>
-					<c:forEach var="cart" items="${list}">
-					<li class="list-group-item">
-						<ul class="cart-booklist">
-							<li><div class="cart-check"><input type="checkbox" name="selectBook" class="book-check" value="${cart.bookVO.price * cart.order_quantity}" onClick="check()" data-value="${cart.cart_num}"></div></li>
-							<li><div class="cart-bookimg"><img src="${pageContext.request.contextPath}/upload/${cart.bookVO.thumbnail}" width="100" height="100"></div></li>
-							<li><div class="cart-booktitle">${cart.bookVO.title}</div></li>
-							<li><div id="cart-bookprice" class="cart-bookprice">${cart.bookVO.price}</div></li>
-							<li>
-								<div class="cart-orderquantity input-group mb-3">
-									<input type="number" class="form-control" name="order_quantity" min="1" max="${cart.bookVO.stock}" autocomplete="off" value="${cart.order_quantity}">
-									<input type="button" value="변경" class="cart-modify btn btn-outline-secondary" data-cartnum="${cart.cart_num}" data-bknum="${cart.bk_num}">
-								</div>
-							</li>
-							<li><div class="cart-deletebtn"><input type="button" value="삭제" class="cart-del btn btn-outline-secondary" data-cartnum="${cart.cart_num}"></div></li>
-						</ul>
-					</li>
-					</c:forEach>
-				</ul>
+					<ul class="list-group">
+						<li class="list-group-item">
+							<ul>
+								<li><div class="cart-check"><input type="checkbox" id="check_all" class="form-check-input me-1"></div></li>
+								<li><div class="cart-bookimg">도서사진</div></li>
+								<li><div class="cart-booktitle">도서명</div></li>
+								<li><div class="cart-bookprice">가격</div></li>
+								<li><div class="cart-orderquantity input-group mb-3">수량	</div></li>
+							</ul>
+						</li>
+						<c:forEach var="cart" items="${list}">
+						<li class="list-group-item">
+							<ul class="cart-booklist">
+								<li><div class="cart-check"><input type="checkbox" name="selectBook" class="book-check" value="${cart.bookVO.price * cart.order_quantity}" onClick="check()" data-value="${cart.cart_num}"></div></li>
+								<li>
+									<div class="cart-bookimg">
+										<a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${cart.bk_num}">
+										<img src="${pageContext.request.contextPath}/upload/${cart.bookVO.thumbnail}" width="100" height="100">
+										</a>
+									</div>
+								</li>
+								<li><div class="cart-booktitle">${cart.bookVO.title}</div></li>
+								<li><div id="cart-bookprice" class="cart-bookprice"><fmt:formatNumber value="${cart.bookVO.price}"/></div></li>
+								<li>
+									<div class="cart-orderquantity input-group mb-3">
+										<input type="number" class="form-control" name="order_quantity" min="1" max="${cart.bookVO.stock}" autocomplete="off" value="${cart.order_quantity}">
+										<input type="button" value="변경" class="cart-modify btn btn-outline-secondary" data-cartnum="${cart.cart_num}" data-bknum="${cart.bk_num}">
+									</div>
+								</li>
+								<li><div class="cart-deletebtn"><input type="button" value="삭제" class="cart-del btn btn-outline-secondary" data-cartnum="${cart.cart_num}"></div></li>
+							</ul>
+						</li>
+						</c:forEach>
+					</ul>
 				</div>
-				<div class="book-buy">  
-					<table class="book-buy-list" >
+				<div class="goto-buy">
+					<table class="table table-borderless goto-buy-list">
 						<tr>
-							<td class="width_td1">선택금액</td>
-							<td class="width_td2"><span id="selected">0</span>원</td>
+							<td>선택금액</td>
+							<td><span id="selected">0</span>원</td>
 						</tr>
 						<tr>
 							<td>배송비</td>
@@ -138,7 +154,7 @@
 							<td><span id="total">0</span>원</td>
 						</tr>
 						<tr>
-							<td colspan="2"><input type="submit" value="구매" class="btn btn-outline-secondary"></td>
+							<td colspan="2"><input type="submit" value="구매" class="goto-btn btn btn-success btn-lg"></td>
 						</tr>
 					</table>
 				</div>

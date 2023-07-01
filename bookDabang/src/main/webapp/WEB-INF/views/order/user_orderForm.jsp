@@ -14,20 +14,111 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">
 		$(function() {
-			// 유효성 체크
+			$(".error").hide();
+			/* 정규식 */
+			let kNe = RegExp(/^[ㄱ-힇a-zA-Z0-9]{1,10}$/);
+			let justNumP = RegExp(/^[0-9]{9,11}$/);
+			let justNumZ = RegExp(/^[0-9]{4,5}$/);
+			let forAddress = RegExp(/^[ㄱ-힇a-zA-Z0-9\,\~\@\#\&\*\(\)\-\_\=\+\s]{1,30}$/);
+			
+			/* 유효성 체크 */
 			$('#cart_order').submit(function() {
-				if($('.info-check').val().trim() == '') {
-					alert('주문정보를 입력하세요');
-					$('.info-check').val('').focus();
-					return false;
-				}
+				// 이름
+				let name = $('#receive_name').val();
+				let nameLen = name.length;
 				
-				let payment = $('.payment');
-				if($(':radio[name="payment"]:checked').length < 1){
-				    alert('카테고리를 선택해주세요');                        
-				    payment.focus();
-				    event.preventDefault();
-				}
+				if(nameLen < 1) {
+					$("#errMsg_01").show();
+					$("#errMsg_01").text("받을사람을 입력하세요.");
+					return false;
+				} else { $("#errMsg_01").hide(); }
+				
+				if(!kNe.test(name)) {
+					$("#errMsg_01").show();
+					$("#errMsg_01").text("한글과 영어만 입력가능합니다.");
+					return false;
+				} else { $("#errMsg_01").hide(); }
+				
+				// 우편번호
+				let zipcode = $('#zipcode').val();
+				let zipLen = zipcode.length;
+				
+				if(zipLen < 1) {
+					$("#errMsg_02").show();
+					$("#errMsg_02").text("우편번호를 입력하세요.");
+					return false;
+				} else { $("#errMsg_02").hide(); }
+				
+				if(!justNumZ.test(zipcode)) {
+					$("#errMsg_02").show();
+					$("#errMsg_02").text("숫자만 입력가능합니다.");
+					return false;
+				} else { $("#errMsg_02").hide(); }
+				
+				// 주소
+				let address1 = $('#address1').val();
+				let add1Len = address1.length;
+				
+				if(add1Len < 1) {
+					$("#errMsg_03").show();
+					$("#errMsg_03").text("주소를 입력하세요.");
+					return false;
+				} else { $("#errMsg_03").hide(); }
+				
+				/* if(!forAddress.test(address1)) {
+					$("#errMsg_03").show();
+					$("#errMsg_03").text("잘못된 형식입니다.");
+					return false;
+				} else { $("#errMsg_03").hide(); } */
+				
+				// 상세주소
+				let address2 = $('#address2').val();
+				let add2Len = address2.length;
+				
+				if(add2Len < 1) {
+					$("#errMsg_04").show();
+					$("#errMsg_04").text("주소를 입력하세요.");
+					return false;
+				} else { $("#errMsg_04").hide(); }
+				
+				/* if(!forAddress.test(address2)) {
+					$("#errMsg_04").show();
+					$("#errMsg_04").text("잘못된 형식입니다.");
+					return false;
+				} else { $("#errMsg_04").hide(); } */
+				
+				// 전화번호
+				let phone = $('#phone').val();
+				let phoneLen = phone.length;
+				
+				if(phoneLen < 1) {
+					$("#errMsg_05").show();
+					$("#errMsg_05").text("주소를 입력하세요.");
+					return false;
+				} else { $("#errMsg_05").hide(); }
+				
+				if(!justNumP.test(phone)) {
+					$("#errMsg_05").show();
+					$("#errMsg_05").text("숫자만 입력가능합니다.");
+					return false;
+				} else { $("#errMsg_05").hide(); }
+				
+				// 이메일
+				let email = $('#email').val();
+				let emailLen = email.length;
+				
+				if(emailLen < 1) {
+					$("#errMsg_06").show();
+					$("#errMsg_06").text("이메일을 입력하세요.");
+					return false;
+				} else { $("#errMsg_06").hide(); }
+				
+				// 결제 방식
+				if($(':radio[name=payment]:checked').length < 1){
+					$("#errMsg_07").show();
+					$("#errMsg_07").text("결제방식을 입력하세요.");
+					return false;
+				} else { $("#errMsg_07").hide(); }
 			});
 			
 			$('#same_address').click(function() {
@@ -37,6 +128,15 @@
 				$('input[name="receive_address2"]').val($('#address1_info').val());
 				$('input[name="receive_phone"]').val($('#phone_info').val());
 				$('input[name="email"]').val($('#email_info').val());
+			});
+			
+			$('#new_address').click(function() {
+				$('input[name="receive_name"]').val('');
+				$('input[name="receive_post"]').val('');
+				$('input[name="receive_address1"]').val('');
+				$('input[name="receive_address2"]').val('');
+				$('input[name="receive_phone"]').val('');
+				$('input[name="email"]').val('');
 			});
 			
 			numbers();
@@ -58,161 +158,178 @@
 		<!-- 내용 S -->
 		<div class="content-main">
 			<hr size="1" noshade width="100%">
-			<h3>도서구매</h3>
+			<h3><b>도서구매</b></h3>
 			<%-- 구매할 도서 선택 및 삭제 --%>
 			<form id="cart_order" action="order.do" method="post">
 				<input type="hidden" name="total_price" value="${total_price}">
 				<input type="hidden" name="cart_nums" value="">
-				<div class="cart-table">
-					<ul class="list-group">
-						<li class="list-group-item">
-							<ul>
-								<li><div class="cart-bookimg">도서사진</div></li>
-								<li><div class="cart-booktitle">도서명</div></li>
-								<li><div class="cart-bookprice">가격</div></li>
-								<li><div class="cart-orderquantity input-group mb-3">수량	</div></li>
-								<li><div class="total_price">총액</div></li>
-							</ul>
-						</li>
-						<c:forEach var="cart" items="${list}">
-						<input type="hidden" name="cart_num" value="${cart.cart_num}" class="cart-number">
-						<li class="list-group-item">
-							<ul class="cart-booklist">
-								<li><div class="cart-bookimg"><img src="${pageContext.request.contextPath}/upload/${cart.bookVO.thumbnail}" width="100" height="100"></div></li>
-								<li><div class="cart-booktitle">${cart.bookVO.title}</div></li>
-								<li><div id="cart-bookprice" class="cart-bookprice">${cart.bookVO.price}</div></li>
-								<li><div class="cart-orderquantity input-group mb-3">${cart.order_quantity}</div></li>
-								<li><div class="total_price">${cart.sub_total}</div></li>
-							</ul>
-						</li>
-						</c:forEach>
-					</ul>
-					<div class="orderinfo-form">
+				<div class="order-table">
+					<div class="orderinfo-left">
+						<div class="book-info">
+							<h4><b>주문도서</b></h4>
+								<table class="table table-borderless">
+									<tr>
+										<th>도서사진</th>
+										<th>도서명</th>
+										<th>가격</th>
+										<th>수량</th>
+										<th>도서별 합계</th>
+									</tr>
+									<c:forEach var="cart" items="${list}">
+									<input type="hidden" name="cart_num" value="${cart.cart_num}" class="cart-number">
+									<tr>
+										<td>
+											<a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${cart.bk_num}">
+												<img src="${pageContext.request.contextPath}/upload/${cart.bookVO.thumbnail}" width="100" height="100">
+											</a>
+										</td>
+										<td>${cart.bookVO.title}</td>
+										<td><fmt:formatNumber value="${cart.bookVO.price}"/>원</td>
+										<td>${cart.order_quantity}</td>
+										<td><fmt:formatNumber value="${cart.sub_total}"/>원</td>
+									</tr>
+									</c:forEach>
+								</table>
+							</div>
 						<div class="mem-info">
 							<ul>
-								<li><h4>주문정보</h4></li>
+								<li><h4><b>주문자정보</b></h4></li>
 								<li>
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="inputGroup-sizing-default">주문자</span>
-										<input type="text" class="form-control" id="name_info" value="${member.name}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<input type="text" class="form-control" id="name_info" value="${member.name}" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 									</div>
 								</li>
 								<li>
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="inputGroup-sizing-default">우편번호</span>
-										<input type="text" class="form-control" id="post_info" value="${member.zipcode}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<input type="text" class="form-control" id="post_info" value="${member.zipcode}" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 									</div>
 								</li>
 								<li>
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="inputGroup-sizing-default">주소</span>
-										<input type="text" class="form-control" id="address1_info" value="${member.address1}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<input type="text" class="form-control" id="address1_info" value="${member.address1}" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 									</div>
 								</li>
 								<li>
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="inputGroup-sizing-default">상세주소</span>
-										<input type="text" class="form-control" id="address2_info" value="${member.address2}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<input type="text" class="form-control" id="address2_info" value="${member.address2}" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 									</div>
 								</li>
 								<li>
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="inputGroup-sizing-default">전화번호</span>
-										<input type="text" class="form-control" id="phone_info" value="${member.phone}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<input type="text" class="form-control" id="phone_info" value="${member.phone}" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 									</div>
 								</li>
 								<li>
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="inputGroup-sizing-default">이메일</span>
-										<input type="text" class="form-control" id="email_info" value="${member.email}" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<input type="text" class="form-control" id="email_info" value="${member.email}" readonly aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 									</div>
 								</li>
 							</ul>
-						</div>	
+						</div>
+					</div>
+					<div class="orderinfo-right">
 						<div class="delivery-info">
 							<ul>
 								<li>
-									<h4>배송정보</h4>
+									<h4><b>배송정보</b></h4>
 								</li>
 								<li>
 									<div class="input-group mb-3">
-										<span class="input-group-text" id="inputGroup-sizing-default">주문자</span>
-										<input type="text" class="form-control info-check" value="" name="receive_name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<span class="input-group-text" id="inputGroup-sizing-default">받을사람</span>
+										<input type="text" class="form-control info-check" value="" id="receive_name" name="receive_name" maxlength="30" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<span class="error" id="errMsg_01"></span>
 									</div>
 								</li>
 								<li>
 									<div class="input-group mb-3">
-										<input type="text" class="form-control info-check" id="zipcode" value="" name="receive_post" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<input type="text" class="form-control info-check" id="zipcode" value="" name="receive_post" maxlength="5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
 										<button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick="execDaumPostcode()">우편번호</button>
+										<span class="error" id="errMsg_02"></span>
 									</div>
 								</li>
 								<li>
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="inputGroup-sizing-default">주소</span>
-										<input type="text" class="form-control info-check" id="address1" value="" name="receive_address1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<input type="text" class="form-control info-check" id="address1" value="" name="receive_address1" maxlength="90" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<span class="error" id="errMsg_03"></span>
 									</div>
 								</li>
 								<li>
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="inputGroup-sizing-default">상세주소</span>
-										<input type="text" class="form-control info-check" id="address2" value="" name="receive_address2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<input type="text" class="form-control info-check" id="address2" value="" name="receive_address2" maxlength="90" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<span class="error" id="errMsg_04"></span>
 									</div>
 								</li>
 								<li>
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="inputGroup-sizing-default">전화번호</span>
-										<input type="text" class="form-control info-check" id="phone" value="" name="receive_phone" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<input type="text" class="form-control info-check" id="phone" value="" name="receive_phone" maxlength="15" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<span class="error" id="errMsg_05"></span>
 									</div>
 								</li>
 								<li>
 									<div class="input-group mb-3">
 										<span class="input-group-text" id="inputGroup-sizing-default">이메일</span>
-										<input type="text" class="form-control info-check" id="email" value="" name="email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<input type="email" class="form-control info-check" id="email" value="" name="email" maxlength="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+										<span class="error" id="errMsg_06"></span>
 									</div>
 								</li>
 								<li>
 									<div class="input-group">
 										<span class="input-group-text">요청사항</span>
-										<textarea class="form-control info-check" name="notice" id="notice" aria-label="With textarea"></textarea>
+										<textarea class="form-control info-check" name="notice" id="notice" maxlength="4000" aria-label="With textarea"></textarea>
 									</div>
 								</li>
 								<li class="select-delivery">
 									<div class="input-group" id="move_li">
 										<div class="input-group-text">
-											<input class="form-check-input mt-0" type="radio" id="same_address" aria-label="Radio button for following text input">
+											<input class="form-check-input mt-0" type="radio" id="same_address" name="addressCoice" aria-label="Radio button for following text input">
 										</div>
   										<input type="text" class="form-control" aria-label="Text input with radio button" value="기본 배송지">
+  										<div class="input-group-text">
+									<input class="form-check-input mt-0 payment" type="radio" id="new_address" name="addressCoice" checked="checked" aria-label="Radio button for following text input">
+								</div>
+	  							<input type="text" class="form-control" aria-label="Text input with radio button" value="신규 배송지">
 									</div>
 								</li>
 							</ul>
-							
-							<div class="payment-info">
-								<h4>결제수단</h4>
-								<div class="input-group">
-									<div class="input-group-text">
-										<input class="form-check-input mt-0 payment" name="payment" value="1" type="radio" aria-label="Radio button for following text input">
-									</div>
-	  								<input type="text" class="form-control" aria-label="Text input with radio button" value="무통장입금">
-									<div class="input-group-text">
-										<input class="form-check-input mt-0 payment" name="payment" value="2" type="radio" aria-label="Radio button for following text input">
-									</div>
-	  								<input type="text" class="form-control" aria-label="Text input with radio button" value="카드결제">
+						</div>
+						<div class="payment-info">
+							<h4><b>결제수단</b></h4>
+							<div class="input-group">
+								<div class="input-group-text">
+									<input class="form-check-input mt-0 payment" name="payment" value="1" type="radio" aria-label="Radio button for following text input">
 								</div>
+	  							<input type="text" class="form-control" aria-label="Text input with radio button" value="무통장입금">
+								<div class="input-group-text">
+									<input class="form-check-input mt-0 payment" name="payment" value="2" type="radio" aria-label="Radio button for following text input">
+								</div>
+	  							<input type="text" class="form-control" aria-label="Text input with radio button" value="카드결제">
+	  							<span class="error" id="errMsg_07"></span>
 							</div>
-						</div>	
+						</div>
+						<div class="end-buy">
+							<table class="table table-borderless">
+								<tr>
+									<td><h4><b>주문금액</b></h4></td>
+									<td><h4><b><fmt:formatNumber value="${total_price}"/>원</b></h4></td>
+								</tr>
+								<tr>
+									<td colspan="2"><input type="submit" value="구매" class="endbuy btn btn-success btn-lg"></td>
+								</tr>
+							</table>
+						</div>
 					</div>
+					
 				</div>
-				<div class="book-buy">
-					<table class="book-buy-list" >
-						<tr>
-							<td>주문금액</td>
-							<td><fmt:formatNumber value="${total_price}"/>원</td>
-						</tr>
-						<tr>
-							<td colspan="2"><input type="submit" value="구매" class="btn btn-outline-secondary"></td>
-						</tr>
-					</table>
-				</div>
+				
 			</form>
 		</div>
 		<!-- 내용 E -->

@@ -11,6 +11,109 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		$(".error").hide();
+		/* 정규식 */
+		let kNe = RegExp(/^[ㄱ-힇a-zA-Z0-9]{1,10}$/);
+		let justNumP = RegExp(/^[0-9]{9,11}$/);
+		let justNumZ = RegExp(/^[0-9]{4,5}$/);
+		let forAddress = RegExp(/^[ㄱ-힇a-zA-Z0-9\,\~\@\#\&\*\(\)\-\_\=\+\s]{1,30}$/);
+		
+		/* 유효성 체크 */
+		$('#cart_order').submit(function() {
+			// 이름
+			let name = $('#receive_name').val();
+			let nameLen = name.length;
+			
+			if(nameLen < 1) {
+				$("#errMsg_01").show();
+				$("#errMsg_01").text("받을사람을 입력하세요.");
+				return false;
+			} else { $("#errMsg_01").hide(); }
+			
+			if(!kNe.test(name)) {
+				$("#errMsg_01").show();
+				$("#errMsg_01").text("한글과 영어만 입력가능합니다.");
+				return false;
+			} else { $("#errMsg_01").hide(); }
+			
+			// 우편번호
+			let zipcode = $('#zipcode').val();
+			let zipLen = zipcode.length;
+			
+			if(zipLen < 1) {
+				$("#errMsg_02").show();
+				$("#errMsg_02").text("우편번호를 입력하세요.");
+				return false;
+			} else { $("#errMsg_02").hide(); }
+			
+			if(!justNumZ.test(zipcode)) {
+				$("#errMsg_02").show();
+				$("#errMsg_02").text("숫자만 입력가능합니다.");
+				return false;
+			} else { $("#errMsg_02").hide(); }
+			
+			// 주소
+			let address1 = $('#address1').val();
+			let add1Len = address1.length;
+			
+			if(add1Len < 1) {
+				$("#errMsg_03").show();
+				$("#errMsg_03").text("주소를 입력하세요.");
+				return false;
+			} else { $("#errMsg_03").hide(); }
+			
+			/* if(!forAddress.test(address1)) {
+				$("#errMsg_03").show();
+				$("#errMsg_03").text("한글과 영어만 입력가능합니다.");
+				return false;
+			} else { $("#errMsg_03").hide(); } */
+			
+			// 상세주소
+			let address2 = $('#address2').val();
+			let add2Len = address2.length;
+			
+			if(add2Len < 1) {
+				$("#errMsg_04").show();
+				$("#errMsg_04").text("주소를 입력하세요.");
+				return false;
+			} else { $("#errMsg_04").hide(); }
+			
+			/* if(!forAddress.test(address2)) {
+				$("#errMsg_04").show();
+				$("#errMsg_04").text("한글과 영어만 입력가능합니다.");
+				return false;
+			} else { $("#errMsg_04").hide(); } */
+			
+			// 전화번호
+			let phone = $('#phone').val();
+			let phoneLen = phone.length;
+			
+			if(phoneLen < 1) {
+				$("#errMsg_05").show();
+				$("#errMsg_05").text("주소를 입력하세요.");
+				return false;
+			} else { $("#errMsg_05").hide(); }
+			
+			if(!justNumP.test(phone)) {
+				$("#errMsg_05").show();
+				$("#errMsg_05").text("숫자만 입력가능합니다.");
+				return false;
+			} else { $("#errMsg_05").hide(); }
+			
+			// 이메일
+			let email = $('#email').val();
+			let emailLen = email.length;
+			
+			if(emailLen < 1) {
+				$("#errMsg_06").show();
+				$("#errMsg_06").text("이메일을 입력하세요.");
+				return false;
+			} else { $("#errMsg_06").hide(); }
+		});
+	});
+	</script>
 </head>
 <body>
 	<div class="page-main">
@@ -21,124 +124,134 @@
 			<h3><b>주문 상세정보</b></h3>
 			<hr size="1" noshade width="100%">
 			<div class="wrap-detail">
-			<div class="book-detail">
-				<h4><b>도서정보</b></h4>
-				<c:forEach var="detail" items="${detailList}">
-				<table class="table table-hover align-center">
-					<tr>
-						<td class="table-left"><h5><b>${detail.book_title}</b></h5></td>
-						<td class="table-right"><b>${detail.bk_num}</b></td>
-					</tr>
-					<tr>
-						<td rowspan="3"><img src="${pageContext.request.contextPath}/upload/${detail.thumbnail}" width="25%"></td>
-						<td><h5><b>${detail.book_author}</b></h5></td>
-					</tr>
-					<tr>
-						<td><h5><b>${detail.book_publisher}</b></h5></td>
-					</tr>
-					<tr>
-						<td><h5><b>${order.order_date}</b></h5></td>
-					</tr>
-				</table>
-				</c:forEach>
-				
-				<div class="detail-margin">
-				<h4><b>결제정보</b></h4>
-				<table class="table table-hover align-center">
-					<tr>
-						<th>결제수단</th>
-						<th>주문금액</th>
-						<th>배송상태</th>
-					</tr>
-					<tr>
-						<td>
-							<c:if test="${order.payment == 1}"><b>무통장입금</b></c:if>
-							<c:if test="${order.payment == 2}"><b>카드결제</b></c:if>
-						</td>
-						<td><b>${order.order_total}</b></td>
-						<td>
-							<c:if test="${order.status == 1}"><b>배송대기</b></c:if>
-							<c:if test="${order.status == 2}"><b>배송준비중</b></c:if>
-							<c:if test="${order.status == 3}"><b>배송중</b></c:if>
-							<c:if test="${order.status == 4}"><b>배송완료</b></c:if>
-							<c:if test="${order.status == 5}"><b>주문취소</b></c:if>
-						</td>
-					</tr>
-				</table>
-				</div>
-			</div>
-			
-			<div class="order-detail">
-				<form id="order_modify" action="userModify.do" method="post">
-					<input type="hidden" name="order_num" value="${order.order_num}">
-					<input type="hidden" name="status" value="${order.status}">
-					<div class="delivery-info">
-							<ul>
-								<li>
-									<h4><b>배송정보</b></h4>
-								</li>
-								<li>
-									<div class="input-group mb-3">
-										<span class="input-group-text" id="inputGroup-sizing-default">주문자</span>
-										<input type="text" class="form-control info-check" value="${order.receive_name}" name="receive_name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-									</div>
-								</li>
-								<li>
-									<div class="input-group mb-3">
-										<input type="text" class="form-control info-check" id="zipcode" value="${order.receive_post}" name="receive_post" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-										<button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick="execDaumPostcode()">우편번호</button>
-									</div>
-								</li>
-								<li>
-									<div class="input-group mb-3">
-										<span class="input-group-text" id="inputGroup-sizing-default">주소</span>
-										<input type="text" class="form-control info-check" id="address1" value="${order.receive_address1}" name="receive_address1" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-									</div>
-								</li>
-								<li>
-									<div class="input-group mb-3">
-										<span class="input-group-text" id="inputGroup-sizing-default">상세주소</span>
-										<input type="text" class="form-control info-check" id="address2" value="${order.receive_address2}" name="receive_address2" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-									</div>
-								</li>
-								<li>
-									<div class="input-group mb-3">
-										<span class="input-group-text" id="inputGroup-sizing-default">전화번호</span>
-										<input type="text" class="form-control info-check" id="phone" value="${order.receive_phone}" name="receive_phone" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-									</div>
-								</li>
-								<li>
-									<div class="input-group mb-3">
-										<span class="input-group-text" id="inputGroup-sizing-default">이메일</span>
-										<input type="text" class="form-control info-check" id="email" value="${order.email}" name="email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-									</div>
-								</li>
-								<li>
-									<div class="input-group">
-										<span class="input-group-text">요청사항</span>
-										<textarea class="form-control info-check" name="notice" id="notice" aria-label="With textarea">${order.notice}</textarea>
-									</div>
-								</li>
-								<li id="move_li">
-									<div class="buttons">
-										<c:if test="${order.status < 2}">
-										<input type="submit" value="수정" class="btn btn-outline-secondary btn-sm">
-										<input type="button" value="주문취소" id="order_cancel" class="btn btn-outline-secondary btn-sm">
-										<script type="text/javascript">
-											let order_cancel = document.getElementById('order_cancel');
-											order_cancel.onclick = function() {
-												let choice = confirm('주문을 취소하시겠습니까??');
-												if(choice) { location.replace('orderCancel.do?order_num=${order.order_num}'); }
-											};
-										</script>
-										</c:if>
-										<input type="button" value="주문목록" onclick="${pageContext.request.contextPath}/mypage/myPage.do#admin_order" class="btn btn-outline-secondary btn-sm">
-									</div>
-								</li>
-							</ul>
+				<div class="orderdetail_left">
+					<div class="book-detail">
+						<h4><b>도서정보</b></h4>
+						<c:forEach var="detail" items="${detailList}">
+						<table class="table align-center">
+							<tr>
+								<td class="table-left"><h5><b>${detail.book_title}</b></h5></td>
+								<td class="table-right"><b>${detail.bk_num}</b></td>
+							</tr>
+							<tr>
+								<td rowspan="3"><img src="${pageContext.request.contextPath}/upload/${detail.thumbnail}" width="25%"></td>
+								<td><h5><b>${detail.book_author}</b></h5></td>
+							</tr>
+							<tr>
+								<td><h5><b>${detail.book_publisher}</b></h5></td>
+							</tr>
+							<tr>
+								<td><h5><b>${order.order_date}</b></h5></td>
+							</tr>
+						</table>
+						</c:forEach>
+						
+						<div class="detail-margin">
+						<h4><b>결제정보</b></h4>
+						<table class="table align-center">
+							<tr>
+								<th>결제수단</th>
+								<th>주문금액</th>
+								<th>배송상태</th>
+							</tr>
+							<tr>
+								<td>
+									<c:if test="${order.payment == 1}"><b>무통장입금</b></c:if>
+									<c:if test="${order.payment == 2}"><b>카드결제</b></c:if>
+								</td>
+								<td><b>${order.order_total}</b></td>
+								<td>
+									<c:if test="${order.status == 1}"><b>배송대기</b></c:if>
+									<c:if test="${order.status == 2}"><b>배송준비중</b></c:if>
+									<c:if test="${order.status == 3}"><b>배송중</b></c:if>
+									<c:if test="${order.status == 4}"><b>배송완료</b></c:if>
+									<c:if test="${order.status == 5}"><b>주문취소</b></c:if>
+								</td>
+							</tr>
+						</table>
 						</div>
-				</form>
-			</div>
+					</div>
+				</div>
+			
+				<div class="orderdetail_right">
+					<div class="user-delivery">
+						<form id="order_modify" action="userModify.do" method="post">
+							<input type="hidden" name="order_num" value="${order.order_num}">
+							<input type="hidden" name="status" value="${order.status}">
+							<div class="delivery-modify">
+									<ul>
+										<li>
+											<h4><b>배송정보</b></h4>
+										</li>
+										<li>
+											<div class="input-group mb-3">
+												<span class="input-group-text" id="inputGroup-sizing-default">받을사람</span>
+												<input type="text" class="form-control info-check" value="${order.receive_name}" id="receive_name" name="receive_name" maxlength="30" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+												<span class="error" id="errMsg_01"></span>
+											</div>
+										</li>
+										<li>
+											<div class="input-group mb-3">
+												<input type="text" class="form-control info-check" id="zipcode" value="${order.receive_post}" name="receive_post" maxlength="5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+												<button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick="execDaumPostcode()">우편번호</button>
+												<span class="error" id="errMsg_02"></span>
+											</div>
+										</li>
+										<li>
+											<div class="input-group mb-3">
+												<span class="input-group-text" id="inputGroup-sizing-default">주소</span>
+												<input type="text" class="form-control info-check" id="address1" value="${order.receive_address1}" name="receive_address1" maxlength="90" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+												<span class="error" id="errMsg_03"></span>
+											</div>
+										</li>
+										<li>
+											<div class="input-group mb-3">
+												<span class="input-group-text" id="inputGroup-sizing-default">상세주소</span>
+												<input type="text" class="form-control info-check" id="address2" value="${order.receive_address2}" name="receive_address2" maxlength="90" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+												<span class="error" id="errMsg_04"></span>
+											</div>
+										</li>
+										<li>
+											<div class="input-group mb-3">
+												<span class="input-group-text" id="inputGroup-sizing-default">전화번호</span>
+												<input type="text" class="form-control info-check" id="phone" value="${order.receive_phone}" name="receive_phone" maxlength="15" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+												<span class="error" id="errMsg_05"></span>
+											</div>
+										</li>
+										<li>
+											<div class="input-group mb-3">
+												<span class="input-group-text" id="inputGroup-sizing-default">이메일</span>
+												<input type="email" class="form-control info-check" id="email" value="${order.email}" name="email" maxlength="50" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+												<span class="error" id="errMsg_06"></span>
+											</div>
+										</li>
+										<li>
+											<div class="input-group">
+												<span class="input-group-text">요청사항</span>
+												<textarea class="form-control info-check" name="notice" id="notice" maxlength="4000" aria-label="With textarea"></textarea>
+											</div>
+										</li>
+										<li id="move_li">
+											<div class="buttons">
+												<c:if test="${order.status < 2}">
+												<input type="submit" value="수정" class="btn btn-outline-secondary btn-sm">
+												<input type="button" value="주문취소" id="order_cancel" class="btn btn-outline-secondary btn-sm">
+												<script type="text/javascript">
+													let order_cancel = document.getElementById('order_cancel');
+													order_cancel.onclick = function() {
+														let choice = confirm('주문을 취소하시겠습니까??');
+														if(choice) { location.replace('orderCancel.do?order_num=${order.order_num}'); }
+													};
+												</script>
+												</c:if>
+												<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do#order'" class="btn btn-outline-secondary btn-sm">
+											</div>
+										</li>
+									</ul>
+								</div>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- 내용 E -->
