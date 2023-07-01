@@ -13,6 +13,7 @@ public class PasswdCheckAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+			request.setCharacterEncoding("utf-8");	
 			//로그인 여부 체크
 			HttpSession session = request.getSession();
 			Integer user_num = (Integer)session.getAttribute("user_num");
@@ -22,11 +23,9 @@ public class PasswdCheckAction implements Action{
 
 			//로그인 되어 있는 경우
 			//전송된 데이터 인코딩 처리
-			request.setCharacterEncoding("utf-8");
 			String id = (String)session.getAttribute("user_id");
 			//전송된 데이터 반환
 			String passwd = request.getParameter("passwd");
-			
 			boolean check = false;
 			
 			MemberDAO dao = MemberDAO.getInstance();

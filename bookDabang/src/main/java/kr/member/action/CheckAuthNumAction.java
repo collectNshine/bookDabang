@@ -17,6 +17,10 @@ public class CheckAuthNumAction implements Action { //아이디, 비밀번호 �
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
+		if(request.getMethod()
+				  .toUpperCase().equals("GET")) {
+			return "redirect:/member/loginForm.do";
+		}
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		boolean check = false;

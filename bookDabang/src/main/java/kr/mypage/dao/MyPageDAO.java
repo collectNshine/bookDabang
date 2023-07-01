@@ -11,6 +11,7 @@ import kr.member.vo.MemberVO;
 import kr.mypage.vo.BookMarkVO;
 import kr.post.vo.PostVO;
 import kr.util.DBUtil;
+import kr.util.Encrypt;
 
 
 public class MyPageDAO {
@@ -207,12 +208,19 @@ public class MyPageDAO {
 			//커넥션 풀로부터 커넥션을 할당 받음
 			conn = DBUtil.getConnection();
 			//SQL문 작성
-			sql = "UPDATE member_detail SET passwd=? WHERE mem_num=?";
+			
+			//salt 생성
+			String salt = Encrypt.getSalt();
+			//비밀번호 + salt 해싱 처리한 패스워드 
+			String saltpassword = Encrypt.getEncrypt(passwd, salt);
+			
+			sql = "UPDATE member_detail SET salt=?,passwd=? WHERE mem_num=?";
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
-			pstmt.setString(1, passwd); //새 비밀번호
-			pstmt.setInt(2, mem_num); //회원번호
+			pstmt.setString(1, salt);//솔트
+			pstmt.setString(2, saltpassword); //새 비밀번호
+			pstmt.setInt(3, mem_num); //회원번호
 			//SQL문 실행
 			pstmt.executeUpdate();
 		}catch(Exception e) {

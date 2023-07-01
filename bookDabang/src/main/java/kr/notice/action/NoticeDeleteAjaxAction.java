@@ -13,6 +13,10 @@ public class NoticeDeleteAjaxAction implements Action{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		request.setCharacterEncoding("utf-8");
+		if(request.getMethod()
+				  .toUpperCase().equals("GET")) {
+			return "redirect:/member/loginForm.do";
+		}
 		String[] noti_nums = request.getParameterValues("noti_nums");
 		
 		NoticeDAO dao = NoticeDAO.getInstance();

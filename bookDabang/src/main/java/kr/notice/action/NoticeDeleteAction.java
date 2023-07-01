@@ -14,6 +14,10 @@ public class NoticeDeleteAction implements Action{
 		request.setCharacterEncoding("utf-8");
 		
 		HttpSession session = request.getSession();
+		if(request.getMethod()
+				  .toUpperCase().equals("GET")) {
+			return "redirect:/member/loginForm.do";
+		}
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		Integer user_auth = (Integer)session.getAttribute("user_auth");
 		if(user_num == null) {//로그인을 하지 않은 경우.

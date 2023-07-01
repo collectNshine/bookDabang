@@ -11,7 +11,10 @@ public class LogoutAction implements Action{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
-
+		if(request.getMethod()
+				  .toUpperCase().equals("GET")) {
+			return "redirect:/member/loginForm.do";
+		}
 		session.invalidate(); //세션을 삭제합니다.
 
 		return "redirect:/main/main.do";

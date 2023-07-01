@@ -11,7 +11,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	
-	
+	var rannum = null; //랜덤값 저장
 	$('#email_btn').click(function(){
 		
 		if($('#name').val()==''){
@@ -26,8 +26,7 @@ $(document).ready(function(){
 		}
 		
 		$('#type_num').show();
-		//이름과 이메일이 일치하면 이메일을 보낸다.
-		let rannum = null; //랜덤값 저장
+		//이름과 이메일이 일치하면 이메일을 보낸다
 		$.ajax({
 			url:'checkAuthNum.do',
 			type:'post',
@@ -43,16 +42,22 @@ $(document).ready(function(){
 			});
 		});//end of email_btn
 		
-	//아래 수정할 것.
-		
-	$('#all_submit').submit(function(event){
-		if($('#auth').val()==''){
+	$('#email_form').submit(function(event){
+		if($('#auth').val().trim()==''){
 			event.preventDefault();
 			$('#guide2').text('인증번호를 입력해주세요.').css('color','#F00');
 			$('#auth').focus();
-			return;
+			return false;
 		}
-		
+		if($('#auth').val().trim()!=rannum){
+			return false; //임시 비밀번호 전송 작업을 하지 않는다. 
+		}
+	});
+		//자동 엔터 금지
+	$('input[type="text"]').keydown(function() {
+		  if (event.keyCode === 13) {
+		    event.preventDefault();
+		 };
 	});
 });
 </script>
@@ -88,6 +93,7 @@ $(document).ready(function(){
 					<p>
 					<div id="type_num">
 						<ul>
+							<li><input type="hidden"/></li>
 							<li><input class="form-control" id="auth" type="text" placeholder="인증번호"></li>
 							<li id="guide2"></li>
 							<li><input id="btn-Yes" class="btn btn-lg btn-dark btn-block" type="submit" value="인증하기" ></li>
