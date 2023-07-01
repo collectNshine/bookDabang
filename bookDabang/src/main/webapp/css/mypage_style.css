@@ -74,8 +74,13 @@
 	margin:50px 10px 50px 50px;
 }
 .bm-title{ 
-	font-weight:bold;
-	font-size:12pt;
+   font-weight:bold;
+   font-size:12pt;
+   text-overflow:ellipsis;  
+   overflow:hidden;
+   display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
 }
 .bm-author-publisher{ 
 	color:grey;

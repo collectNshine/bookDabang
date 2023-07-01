@@ -61,6 +61,19 @@ ul.search li {
     padding: 0;
     display: inline;
 }
+.h4, h4 {
+    font-size: calc(1.275rem + .3vw);
+    margin-bottom: 100px;
+}
+.h4, h4 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+}
+.mypage-div {
+    width: 100%;
+    float: left;
+    padding: 5px;
+}
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
@@ -73,7 +86,8 @@ ul.search li {
 	<hr size="1" noshade="noshade" width="100%" style="border: solid 2px #black;">
 		<h2 class="align-center">마이페이지</h2>
 	<hr size="1" noshade="noshade" width="100%" style="border: solid 2px #black;">
-	<div class="mypage-div">
+	
+	<div class="mypage-div" style="width:100%;">
 	<!-- 프로필 사진 시작 --> 
 		<ul>
 			<li style="display:flex;  margin-left: 500px;">
@@ -83,7 +97,7 @@ ul.search li {
 					</div>
 					<div style="margin-left:20px;">
 						<h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_name}</b>님의 책다방</h4>
-						<input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'">
+						<input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'" class="btn btn-outline-secondary" style="margin-bottom:30px;">
 					</div>
 					
 				</c:if>
@@ -213,7 +227,7 @@ ul.search li {
 		<div class="content-main container">
 		<br><h2><a href="myPage.do#post">나의 작성글</a></h2><br>
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form2-1" action="myPagePost.do#post" method="get" class="d-flex" role="search">
+			<form id="search_form2-1" action="myPage.do#post" method="get" class="d-flex" role="search">
 				<select name="mp_keyfield" class="form-select">
 					<option value="1" <c:if test="${param.mp_keyfield==1}">selected</c:if>>제목</option>
 					<option value="2" <c:if test="${param.mp_keyfield==2}">selected</c:if>>내용</option>
@@ -267,9 +281,7 @@ ul.search li {
 		</table>
 		</c:if>
 		<div class="align-center">${mp_page}</div>
-		<%-- 
-		</c:if>
-		--%>
+		
 		</div>
 	</div>
 		<!-- [2. 작성글] 끝 -->
@@ -314,7 +326,7 @@ ul.search li {
 				<c:forEach var="order" items="${orderList}">
 				<tr>
 					<td><a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">${order.order_num}</a></td>
-					<td><a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">${order.book_title}</a></td>
+					<td>${order.book_title}</td>
 					<td>${order.order_total}</td>
 					<td>${order.order_date}</td>
 				</tr>
@@ -422,7 +434,6 @@ ul.search li {
 		</c:if>
 		</div>
 		</div>
-	</div>
 		<script type="text/javascript">
 		//모두 선택 체크박스 클릭 이벤트
 		$("#allCheck").click(function(){
@@ -486,7 +497,7 @@ ul.search li {
 	
 	<!-- [2. 주문 관리] 시작 -->
 		<div id="admin_order" class="tab_contents">
-			<div class="content-main container">
+			<div class="content-main container">>
 				<h2><a href="myPage.do#admin_order">주문 관리</a></h2>
 					<!-- 검색창 시작 : get방식 -->
 					<form id="search_form2" action="myPage.do#admin_order" method="get" class="d-flex">
@@ -528,7 +539,7 @@ ul.search li {
 					<c:forEach var="admin_order" items="${adminOrderlist}"> 
 					<tr>
 						<td><a href="${pageContext.request.contextPath}/order/adminModifyForm.do?order_num=${admin_order.order_num}">${admin_order.order_num}</a></td>
-						<td><a href="${pageContext.request.contextPath}/order/adminModifyForm.do?order_num=${admin_order.order_num}">${admin_order.book_title}</a></td>
+						<td>${admin_order.book_title}</td>
 						<td>${admin_order.id}</td>
 						<td>${admin_order.status}</td>
 						<td>${admin_order.order_total}</td>
@@ -690,6 +701,7 @@ ul.search li {
 		<!-- [4. 신고 내역] 끝 -->
 		
 		
+		<!-- [5. 도서 신청] 시작 -->
 		<div id="admin_request" class="tab_contents">
 			<div class="content-main container">
 			<h2><a href="myPage.do#admin_request">도서신청</a></h2>
@@ -716,15 +728,9 @@ ul.search li {
 			</script> 
 			<!-- 검색창 끝 -->
 		<!-- <form id="request_admin"> -->
-
-		<div class="list-space">
-			<input type="button" value="추가 완료" class="btn btn-outline-secondary" id="reqstate_done" style="float:left;">
-			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'" class="btn btn-outline-secondary" style="float:right;">
-		</div><br>
-			
-			
-	<%-- 		<input type="button" value="추가 완료" id="reqstate_done" class="align-left">
-	 --%>
+		<div class="list-space align-right">
+			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'">
+		</div>
 		
 		<c:if test="${req_Count == 0 }">
 		<div class="result-display">
@@ -735,7 +741,7 @@ ul.search li {
 		<c:if test="${req_Count > 0}">
 			<table class="table table-hover align-center">
 				<tr>
-					<th></th>
+					<th>확인</th>
 					<th>진행상태</th>
 					<th>제목</th>
 					<th>저자</th>
@@ -749,12 +755,12 @@ ul.search li {
 				<td class="align-center">
 				
 					<input type="checkbox" class="reqstate" name="reqstate"
-					<c:if test="${request.req_state == 1}">disabled</c:if>
-					 value="${request.req_num}" data-num="${request.req_state}"> 
+					 <c:if test="${request.req_state == 1}">disabled</c:if>
+					 value="${request.req_num}" data-num="${request.req_state}">
 					
 				</td> 
 				<td>
-				<c:if test="${request.req_state == 0}"><button class="readybtn">준비중</button></c:if>
+				<c:if test="${request.req_state == 0}"><button>준비중</button></c:if>
 				<c:if test="${request.req_state == 1}"><button>추가완료</button></c:if>
 				</td>			               
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>
@@ -774,7 +780,7 @@ ul.search li {
 			</tr>
 			</c:forEach>
 			</table>
-			
+			<input type="button" value="추가 완료" id="reqstate_done" class="align-left">
 			<!-- </form> -->
 			<script type="text/javascript">
 				$('#reqstate_done').click(function(){
@@ -794,7 +800,6 @@ ul.search li {
 						success:function(param){
 							if(param.result == 'success'){
 								alert('추가되었습니다.');
-								history.go(0);
 							}else{
 								alert('오류발생');
 							}
@@ -832,7 +837,6 @@ ul.search li {
 			})
 		</script>
 		</c:if>
-		
 	</div>
 </div>
 </body>

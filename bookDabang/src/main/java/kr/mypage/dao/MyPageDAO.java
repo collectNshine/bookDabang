@@ -138,7 +138,7 @@ public class MyPageDAO {
 		try {
 			conn = DBUtil.getConnection();
 			sql = "UPDATE member_detail "
-					+ "SET name=?,passwd=?,phone=?,email=?,address1=?,zipcode=?,address2=? "
+					+ "SET name=?,phone=?,email=?,address1=?,zipcode=?,address2=? "
 					+ "WHERE mem_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getName());
@@ -149,6 +149,8 @@ public class MyPageDAO {
 			pstmt.setString(6, vo.getAddress2());
 			pstmt.setInt(7, vo.getMem_num());
 			
+			//SQL문 실행
+			pstmt.executeUpdate();
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
