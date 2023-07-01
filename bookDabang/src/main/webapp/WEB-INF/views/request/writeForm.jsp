@@ -39,32 +39,32 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
 		<h2>도서 신청</h2>
-		<form id="write_form" action="write.do" method="post" >
+		<form id="write_form" action="write.do" method="post" style="border:none;">
 			<ul>
 				<li>
 					<label for="req_title">책 제목*</label>
-					<input class="form-control" type="text" name="req_title" id="req_title" >
+					<input class="form-control" type="text" name="req_title" id="req_title" maxlength="40" >
 					
 				</li>
+
 				<li>
 					<label for="req_author">저자*</label>
-					<input class="form-control" type="text" name="req_author" id="req_author">
+					<input class="form-control" type="text" name="req_author" id="req_author" maxlength="20">
 				
 				</li>
 				<li>
 					<label for="req_publisher">출판사*</label>
-					<input class="form-control" type="text" name="req_publisher" id="req_publisher">
+					<input class="form-control" type="text" name="req_publisher" id="req_publisher" maxlength="20">
 					
 				</li>
 				<li>
 					<label for="req_etc">기타</label>
-					<input class="form-control" type="text" name="req_etc" id="req_etc">
+					<input class="form-control" type="text" name="req_etc" id="req_etc" maxlength="50">
 					
 				</li>
 			</ul>
-			</ul>
-			<div class="align-center">
 
+			<div class="reqformbtn">
 				<button type="button" class="btn btn-outline-secondary" onclick="location.href='list.do'">취소</button>
 				<button type="submit" class="btn btn-outline-secondary">등록</button>
 			</div>
