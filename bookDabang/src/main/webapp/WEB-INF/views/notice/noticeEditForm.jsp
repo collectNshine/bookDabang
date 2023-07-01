@@ -6,18 +6,16 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-
 <title>공지사항 수정</title>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
-<!-- include libraries(jQuery, bootstrap) -->
-<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<!-- include summernote css/js -->
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script type="text/javascript">
+
 $(document).ready(function(){
 	$('#summernote').summernote({
         placeholder: '글을 입력해주세요.',
@@ -37,19 +35,19 @@ $(document).ready(function(){
 			$('#guide').text("제목을 입력해주세요.").css("color","#F00");
 			$('#noti_title').focus();
 			event.preventDefault();
-			return;
+			return false;
 		}
 		if(content==""){
 			$('#guide').text("내용을 입력해주세요.").css("color","#F00");
 			$('#summernote').focus();
 			event.preventDefault();
-			return;
+			return false;
 		}
 		if(keyfield==""){
 			$('#guide').text("카테고리를 선택해주세요.").css("color","#F00");
 			$('#noti_category').focus();
 			event.preventDefault();
-			return;
+			return false;
 		}
 	});
 });
@@ -61,14 +59,21 @@ width:200px
 #noti_title{
 width:500px
 }
+#right{
+width:80%;
+float:right;
+}
 </style>
 </head>
 <body>
 <div class="page-main">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <div class="content-main">
-	<c:if test="${user_auth == 9 }">
-			<form id="edit_Form" action="noticeEdit.do" method="post" style="width:1000px; border:none;">
+<hr size="1" noshade width="100%">
+<jsp:include page="/WEB-INF/views/notice/noticeSidebar.jsp"/>
+	<div id="right">
+		<c:if test="${user_auth == 9 }">
+			<form id="edit_Form" action="noticeEdit.do" method="post" style="width:1000px;border:none;">
 				<ul>
 					<li>
 					<input id="noti_num" name="noti_num" type="hidden" value="${noti.noti_num}"  >
@@ -90,6 +95,7 @@ width:500px
 				</ul>
 			</form>
 		</c:if>
+		</div>
 	</div>
 </div>
 </body>

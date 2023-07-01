@@ -48,6 +48,7 @@ public class LoginAction implements Action{
 			session.setAttribute("user_auth", vo.getAuth());
 			session.setAttribute("user_state", vo.getState());
 			session.setAttribute("user_name", vo.getName());
+			session.setAttribute("user_nickname", vo.getNickname());
 			session.setAttribute("user_photo", vo.getPhoto());
 			
 			return "redirect:/main/main.do";
@@ -64,6 +65,7 @@ public class LoginAction implements Action{
 			session.setAttribute("user_auth",db_vo.getAuth());
 			session.setAttribute("user_state",db_vo.getState());
 			session.setAttribute("user_name",db_vo.getName());
+			session.setAttribute("user_nickname", db_vo.getNickname());
 			session.setAttribute("user_photo",db_vo.getPhoto());
 			session.setAttribute("sleep_date",db_vo.getSsleep_date());
 			

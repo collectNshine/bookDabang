@@ -41,6 +41,7 @@ public class MemberDAO {
 				vo.setState(rs.getInt("state"));
 				//세션에 담을 내용이 있다면 아래에 추가한다.
 				vo.setName(rs.getString("name"));
+				vo.setNickname(rs.getString("nickname"));
 				vo.setPhoto(rs.getString("photo"));
 				//주문폼을 위해 추가 
 				vo.setZipcode(rs.getString("zipcode"));
@@ -80,6 +81,7 @@ public class MemberDAO {
 
 					//세션에 담을 내용이 있다면 아래에 추가한다.
 					vo.setName(rs.getString("sname"));
+					vo.setNickname(rs.getString("snickname"));
 					vo.setPhoto(rs.getString("sphoto"));
 					vo.setSsleep_date(rs.getDate("ssleep_date"));
 				}
@@ -120,21 +122,22 @@ public class MemberDAO {
 			pstmt2.executeUpdate();
 
 			//member_테이블에 데이터를 입력한다. 
-			sql = "INSERT INTO member_detail (mem_num,name,salt,passwd,"
+			sql = "INSERT INTO member_detail (mem_num,name,nickname,salt,passwd,"
 					+ "sex,birthday,phone,zipcode,address1,address2,email,reg_date) "
-					+ "VALUES (?,?,?,?,?,TO_DATE(?,'YYYY-MM-DD'),?,?,?,?,?,SYSDATE)";
+					+ "VALUES (?,?,?,?,?,?,TO_DATE(?,'YYYY-MM-DD'),?,?,?,?,?,SYSDATE)";
 			pstmt3 = conn.prepareStatement(sql);
 			pstmt3.setInt(1,mem_seq);
 			pstmt3.setString(2,vo.getName());
-			pstmt3.setString(3, vo.getSalt());
-			pstmt3.setString(4,vo.getPasswd());
-			pstmt3.setInt(5, vo.getSex());
-			pstmt3.setString(6, vo.getBirthday());
-			pstmt3.setString(7, vo.getPhone());
-			pstmt3.setString(8, vo.getZipcode());
-			pstmt3.setString(9, vo.getAddress1());
-			pstmt3.setString(10, vo.getAddress2());
-			pstmt3.setString(11, vo.getEmail());
+			pstmt3.setString(3,vo.getNickname());
+			pstmt3.setString(4, vo.getSalt());
+			pstmt3.setString(5,vo.getPasswd());
+			pstmt3.setInt(6, vo.getSex());
+			pstmt3.setString(7, vo.getBirthday());
+			pstmt3.setString(8, vo.getPhone());
+			pstmt3.setString(9, vo.getZipcode());
+			pstmt3.setString(10, vo.getAddress1());
+			pstmt3.setString(11, vo.getAddress2());
+			pstmt3.setString(12, vo.getEmail());
 			pstmt3.executeUpdate();
 
 			conn.commit();
@@ -235,18 +238,19 @@ public class MemberDAO {
 	}
 	
 	//아이디와 이메일 정보를 가지고 비밀번호를 변경하는 메서드 
-	public void passwdChange(String name, String email,String newPasswd) throws Exception{
+	public void passwdChange(String name, String email,String salt, String newPasswd) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 
 		try {
 			conn = DBUtil.getConnection();
-			sql="UPDATE (SELECT * FROM member m JOIN member_detail d USING(mem_num)) SET passwd = ? WHERE name=? AND email=?";
+			sql="UPDATE (SELECT * FROM member m JOIN member_detail d USING(mem_num)) SET salt =?, passwd = ? WHERE name=? AND email=?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, newPasswd);
-			pstmt.setString(2, name); 
-			pstmt.setString(3, email);
+			pstmt.setString(1,salt);
+			pstmt.setString(2, newPasswd);
+			pstmt.setString(3, name); 
+			pstmt.setString(4, email);
 			
 			pstmt.executeUpdate();
 		}catch(Exception e) {
@@ -256,5 +260,26 @@ public class MemberDAO {
 		}
 		return;
 	}
-	
+	//닉네임 중복검사 
+	public boolean checkNick(String nickname) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		boolean check = false;
+		try {
+			conn = DBUtil.getConnection();
+			sql="SELECT * FROM member_detail WHERE nickname = ?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, nickname);
+			rs = pstmt.executeQuery();
+			check = rs.next(); 
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+		return check;
+	}
 }
