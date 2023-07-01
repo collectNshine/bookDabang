@@ -65,6 +65,10 @@ width:500px
 width:80%;
 float:right;
 }
+#summernote{
+width:76%;
+height:500px;
+}
 </style>
 </head>
 <body>
@@ -91,7 +95,7 @@ float:right;
 					</div>
 				</li>
 				<li id="guide"></li>
-				<li><textarea id="summernote" name="noti_content" placeholder="내용" ></textarea></li>
+				<li><textarea id="summernote" class="form-control" name="noti_content" placeholder="내용" ></textarea></li>
 				<li><input type="submit" class="btn btn-outline-secondary" value="글쓰기"></li>
 			</ul>
 		</form>
