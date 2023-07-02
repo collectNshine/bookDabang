@@ -95,7 +95,7 @@
 					<img src="${pageContext.request.contextPath}/images/chatListImg.png">
 				</div>
 				<%-- 채팅방 div --%>
-				<div class="chatRoom" style="display:none;">
+				<div class="chatRoom" style="display:none;"> 
 					<div class="top-bar">
 						<div id="chatTitle"></div>
 						<div class="chatAlign-right"><input type="button" value="닫기" id="out_chat2" class="btn btn-outline-success btn-sm"></div>
