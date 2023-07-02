@@ -47,7 +47,7 @@
 				</div>
 				<c:if test="${count == 0}">
 				<div class="result-display">
-					표시할 게시물 없음
+					<span>표시할 담소가 없습니다.</span>
 				</div>
 				</c:if>
 				<c:if test="${count > 0}">
