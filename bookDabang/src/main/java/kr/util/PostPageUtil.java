@@ -73,15 +73,15 @@ public class PostPageUtil {
 						break;
 					}
 					if (i == currentPage) {
-						page.append("&nbsp;<b><span style='color:red;'>");
+						page.append("&nbsp;<b><span style='color:#053B44;'>");
 						page.append(i);
 						page.append("</span></b>");
 					} else {
-						page.append("&nbsp;<a href='"+pageUrl+"?mp_pageNum=");
+						page.append("&nbsp;<b><a href='"+pageUrl+"?mp_pageNum=");
 						page.append(i);
-						page.append(sub_url+"'>");
+						page.append(sub_url+"'style='color:#999;'>");
 						page.append(i);
-						page.append("</a>");
+						page.append("</a></b>");
 					}
 					page.append("&nbsp;");
 				}

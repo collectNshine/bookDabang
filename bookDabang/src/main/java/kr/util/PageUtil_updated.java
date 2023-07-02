@@ -85,7 +85,7 @@ public class PageUtil_updated {
 						break;
 					}
 					if (i == currentPage) {
-						page.append("&nbsp;<b><span style='color:red;'>");
+						page.append("&nbsp;<b><span style='color:#053B44;'>");
 						page.append(i);
 						page.append("</span></b>");
 					} else {
@@ -99,9 +99,9 @@ public class PageUtil_updated {
 				}
 				// 다음 block 페이지
 				if (totalPage - startPage >= pageCount) {
-					page.append("<a href="+pageUrl+"?pageNum="+ (endPage + 1) + sub_url +">");
+					page.append("<b><a href="+pageUrl+"?pageNum="+ (endPage + 1) + sub_url +"style='color:#999;'>");
 					page.append("[다음]");
-					page.append("</a>");
+					page.append("</a></b>");
 				}
 			}else {
 				page.append("<b>[warning]</b>pageCount는 1이상 지정해야 페이지수가 표시됩니다.");
