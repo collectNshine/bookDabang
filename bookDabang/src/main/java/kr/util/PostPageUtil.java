@@ -79,7 +79,7 @@ public class PostPageUtil {
 					} else {
 						page.append("&nbsp;<b><a href='"+pageUrl+"?mp_pageNum=");
 						page.append(i);
-						page.append(sub_url+"'style='color:#999;'>");
+						page.append(sub_url+"'style='color:rgba(5, 59, 68, .3);'>");
 						page.append(i);
 						page.append("</a></b>");
 					}
