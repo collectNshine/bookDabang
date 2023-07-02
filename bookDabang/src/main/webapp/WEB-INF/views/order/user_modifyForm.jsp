@@ -8,6 +8,7 @@
 	<meta charset="UTF-8">
 	<title>주문 상세정보</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
@@ -120,8 +121,9 @@
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<!-- 내용 S -->
 		<div class="content-main">
-			<hr size="1" noshade width="100%">
-			<h3><b>주문 상세정보</b></h3>
+			<div class="start">
+				<h2><b>주문 상세정보</b></h2>
+			</div>
 			<hr size="1" noshade width="100%">
 			<div class="wrap-detail">
 				<div class="orderdetail_left">
@@ -193,7 +195,7 @@
 										<li>
 											<div class="input-group mb-3">
 												<input type="text" class="form-control info-check" id="zipcode" value="${order.receive_post}" name="receive_post" maxlength="5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-												<button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick="execDaumPostcode()">우편번호</button>
+												<button class="btn btn-outline-success rounded" type="button" id="button-addon2" onClick="execDaumPostcode()">우편번호</button>
 												<span class="error" id="errMsg_02"></span>
 											</div>
 										</li>
@@ -234,8 +236,9 @@
 										<li id="move_li">
 											<div class="buttons">
 												<c:if test="${order.status < 2}">
-												<input type="submit" value="수정" class="btn btn-outline-secondary btn-sm">
-												<input type="button" value="주문취소" id="order_cancel" class="btn btn-outline-secondary btn-sm">
+												<input type="submit" value="수정" class="btn btn-outline-success btn-sm">
+												<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do#order'" class="btn btn-success btn-sm">
+												<input type="button" value="주문취소" id="order_cancel" class="btn btn-outline-delete btn-sm">
 												<script type="text/javascript">
 													let order_cancel = document.getElementById('order_cancel');
 													order_cancel.onclick = function() {
@@ -244,7 +247,6 @@
 													};
 												</script>
 												</c:if>
-												<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do#order'" class="btn btn-outline-secondary btn-sm">
 											</div>
 										</li>
 									</ul>
@@ -255,6 +257,7 @@
 			</div>
 		</div>
 		<!-- 내용 E -->
+		<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 		<!-- 우편번호 검색 시작 -->
 		<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top, left값 조정 필요 -->
 		<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">

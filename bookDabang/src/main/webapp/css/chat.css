@@ -1,6 +1,8 @@
 @charset "UTF-8";
 
-.content-margin{ margin:1% 0; }
+/* 부트스트랩 */
+.btn-warning{ background:rgba(234, 208, 117, .9); border:rgba(234, 208, 117, .9); }
+.btn-warning:hover{ background:#EAD075; color:white; }
 
 /* 검색창 */
 .start{ text-align:center; margin:50px 0; }

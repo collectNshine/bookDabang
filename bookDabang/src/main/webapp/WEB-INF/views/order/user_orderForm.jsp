@@ -9,6 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>도서구매</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
@@ -157,8 +158,10 @@
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<!-- 내용 S -->
 		<div class="content-main">
+			<div class="start">
+				<h2><b>도서구매</b></h2>
+			</div>
 			<hr size="1" noshade width="100%">
-			<h3><b>도서구매</b></h3>
 			<%-- 구매할 도서 선택 및 삭제 --%>
 			<form id="cart_order" action="order.do" method="post">
 				<input type="hidden" name="total_price" value="${total_price}">
@@ -249,7 +252,7 @@
 								<li>
 									<div class="input-group mb-3">
 										<input type="text" class="form-control info-check" id="zipcode" value="" name="receive_post" maxlength="5" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-										<button class="btn btn-outline-secondary" type="button" id="button-addon2" onClick="execDaumPostcode()">우편번호</button>
+										<button class="btn btn-outline-success rounded" type="button" id="button-addon2" onClick="execDaumPostcode()">우편번호</button>
 										<span class="error" id="errMsg_02"></span>
 									</div>
 								</li>
@@ -327,12 +330,11 @@
 							</table>
 						</div>
 					</div>
-					
 				</div>
-				
 			</form>
 		</div>
 		<!-- 내용 E -->
+		<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 		<!-- 우편번호 검색 시작 -->
 		<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top, left값 조정 필요 -->
 		<div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:1;-webkit-overflow-scrolling:touch;">

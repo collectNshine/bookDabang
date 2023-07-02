@@ -84,11 +84,12 @@
 			<div class="start">
 				<h2><b>장바구니</b></h2>
 			</div>
+			<hr size="1" noshade width="100%">
 			<%-- 구매할 도서 선택 및 삭제 --%>
 			<c:if test="${empty list}">
 			<div class="result-display">
-				<h4>장바구니에 담긴 상품이 없습니다.</h4>
-				<p>원하는 상품을 장바구니에 담아보세요!</p>
+				<h4>장바구니에 담긴 상품이 없습니다.</h4><br>
+				<p>원하는 상품을 장바구니에 담아보세요!</p><br>
 				<input type="button" value="도서목록" onclick="location.href='${pageContext.request.contextPath}/book/list.do'">
 			</div>
 			</c:if>
@@ -164,6 +165,7 @@
 			</c:if>
 		</div>
 		<!-- 내용 E -->
+		<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	</div>
 </body>
 </html>

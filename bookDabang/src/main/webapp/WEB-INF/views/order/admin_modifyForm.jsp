@@ -35,8 +35,9 @@
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<!-- 내용 S -->
 		<div class="content-main">
-			<hr size="1" noshade width="100%">
-			<h3><b>주문 상세정보</b></h3>
+			<div class="start">
+				<h2><b>주문 상세정보</b></h2>
+			</div>
 			<hr size="1" noshade width="100%">
 			<div class="wrap-detail">
 				<form id="order_modify" action="adminModify.do" method="post">
@@ -186,6 +187,7 @@
 			</div>
 		</div>
 		<!-- 내용 E -->
+		<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	</div>
 </body>
 </html>
