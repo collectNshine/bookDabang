@@ -237,6 +237,7 @@
 											<div class="buttons">
 												<c:if test="${order.status < 2}">
 												<input type="submit" value="수정" class="btn btn-outline-success btn-sm">
+												<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do#order'" class="btn btn-success btn-sm">
 												<input type="button" value="주문취소" id="order_cancel" class="btn btn-outline-delete btn-sm">
 												<script type="text/javascript">
 													let order_cancel = document.getElementById('order_cancel');
@@ -246,7 +247,6 @@
 													};
 												</script>
 												</c:if>
-												<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do#order'" class="btn btn-success btn-sm">
 											</div>
 										</li>
 									</ul>
