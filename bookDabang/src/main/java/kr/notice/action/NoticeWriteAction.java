@@ -32,7 +32,7 @@ public class NoticeWriteAction implements Action{
 		NoticeVO vo = new NoticeVO();
 		
 		vo.setNoti_title(StringUtil.useBrNoHtml(request.getParameter("noti_title")));
-		vo.setNoti_content(request.getParameter("noti_content"));
+		vo.setNoti_content(StringUtil.useBrNoHtml(request.getParameter("noti_content")));
 		vo.setNoti_category(Integer.parseInt(request.getParameter("noti_category")));
 		vo.setMem_num(user_num);
 		

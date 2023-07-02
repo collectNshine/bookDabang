@@ -14,8 +14,8 @@
 		<div class="card-body">
 			<img id="logo" src="../images/colorlogo.png" width="150" onclick="location.href='../main/main.do'">
 			<div style="text-align:center;">
-			비밀번호가 변경되었습니다. 
-			이메일 주소로 임시비밀번호를 전송하였습니다. 
+			비밀번호가 변경되었습니다. <br>
+			이메일 주소로 임시비밀번호를 전송하였습니다. <br>
 			로그인 바랍니다
 			<p>
 			</div>
