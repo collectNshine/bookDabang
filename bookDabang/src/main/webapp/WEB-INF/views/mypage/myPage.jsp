@@ -294,7 +294,7 @@ ul.search li {
 		<br><h2><a href="myPage.do#order">주문목록</a></h2><br>
 		<!-- 검색창 시작 : get방식 -->
 			<form id="search_form3_1" action="myPage.do#order" method="get" class="d-flex" role="search">
-						<select name="user_orderkeyfield" class="form-select">
+						<select name="user_orderkeyfield" class="form-select" style="width:55%;">
 							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>주문상태</option>
 							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>주문명</option>
 						</select>
