@@ -82,7 +82,7 @@ import kr.util.StringUtil;
 					post.setPost_num(rs.getInt("post_num"));
 					//서평 제목과 내용에 말줄임표 사용
 					post.setPost_title(StringUtil.shortWords(30, rs.getString("post_title")));
-					post.setPost_content(StringUtil.shortWords(70, rs.getString("post_content")));
+					post.setPost_content(StringUtil.shortWords(85, rs.getString("post_content")));
 					//날짜 -> 1분전, 1시간전, 1일전 형식의 문자열로 변환
 					post.setPost_date(DurationFromNow.getTimeDiffLabel(rs.getString("post_date")));
 					if(rs.getString("post_modifydate") != null) {
@@ -163,7 +163,7 @@ import kr.util.StringUtil;
 					post = new PostVO();
 					post.setPost_num(rs.getInt("post_num"));
 					post.setPost_title(rs.getString("post_title"));
-					post.setPost_content(rs.getString("post_content"));
+					post.setPost_content(StringUtil.useBrHtml(rs.getString("post_content")));
 					post.setPost_date(rs.getString("post_date"));
 					post.setPost_modifydate(rs.getString("post_modifydate"));
 					post.setPost_photo(rs.getString("post_photo"));
@@ -202,7 +202,7 @@ import kr.util.StringUtil;
 				pstmt = conn.prepareStatement(sql);
 				//?에 데이터 바인딩
 				pstmt.setString(++cnt, post.getPost_title());
-				pstmt.setString(++cnt, post.getPost_content());
+				pstmt.setString(++cnt, StringUtil.useBrHtml(post.getPost_content()));
 				if(post.getPost_photo() != null) {
 					pstmt.setString(++cnt, post.getPost_photo());
 				}
