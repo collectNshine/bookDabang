@@ -31,13 +31,13 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-    <header class="header">
+    <header class="header__main">
         <div class="header__logo">
             <a href="${pageContext.request.contextPath}/main/main.do">
-               <img class="img" src="${pageContext.request.contextPath}/images/colorlogo.png"  width="200" > 
+               <img class="img_img" src="${pageContext.request.contextPath}/images/colorlogo.png"  width="200" > 
             </a>
         </div> 
-        <div class="header__login">
+        <div id="header__login">
             <div>
               <c:if test="${empty user_num}"><!-- 로그인을 안 한 사용자 -->
 	               <img src="${pageContext.request.contextPath}/images/face.png" id="user_face">

@@ -25,11 +25,11 @@ a:hover{
 }
 
 /* 부트스트랩 */
-.btn-success{ background:rgba(5, 59, 68, .9); border:rgba(5, 59, 68, .9); }
-.btn-success:hover{ background:#053B44; border:#053B44; }
+.btn-success{ background:rgba(5, 59, 68, .9); }
+.btn-success:hover{ background:#053B44; }
 
-.btn-secondary{ background:rgba(5, 59, 68, .8); border:rgba(5, 59, 68, .9); }
-.btn-secondary:hover{ background:#053B44; border:#053B44; }
+.btn-secondary{ background:rgba(5, 59, 68, .8); }
+.btn-secondary:hover{ background:#053B44; }
 
 .btn-outline-success{ border:1px #053B44 solid; color:#053B44; }
 .btn-outline-success:hover{ background:#053B44; color:white; }
