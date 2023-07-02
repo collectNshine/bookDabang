@@ -276,7 +276,7 @@ public class OrderDAO {
 				// 주문정보에 해당하는 상품정보 구하기
 				List<OrderDetailVO> detailList = getListOrderDetail(order.getOrder_num());
 				
-				sql = "UPDATE book_list SET quantity = quantity + ? WHERE bk_num=?";
+				sql = "UPDATE book_list SET stock = stock + ? WHERE bk_num=?";
 				pstmt2 = conn.prepareStatement(sql);
 				for(int i = 0; i < detailList.size(); i++) {
 					OrderDetailVO detail = detailList.get(i);
