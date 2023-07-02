@@ -65,7 +65,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
 	<div class="content-main">
-		<h2 class="align-center"><a href="updateForm.do?bk_num=${book.bk_num}">도서 수정</a></h2>
+		<div style="margin-top:70px;"><h2 class="align-center"><a href="updateForm.do?bk_num=${book.bk_num}">도서 수정</a></h2></div>
 		<form action="update.do" method="post" encType="multipart/form-data" class="info_form">
 			<input type="hidden" name="bk_num" value="${book.bk_num}">
 			<div class="thumbnail-info">
@@ -156,9 +156,9 @@
 			</ul>
 			</div>
 			<div class="button-info">
-				<input type="button" value="목록" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do'">
-				<input type="submit" value="수정" class="btn btn-primary">
-				<input type="button" value="삭제" id="delete_btn" class="btn btn-danger">
+				<input type="button" value="목록" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do'">
+				<input type="submit" value="수정" class="btn btn-success">
+				<input type="button" value="삭제" id="delete_btn" class="btn btn-outline-delete">
 				<script type="text/javascript">
 				 let delete_btn = document.getElementById('delete_btn');
 				 //이벤트 연결
