@@ -1,32 +1,49 @@
---로그인을 안 한지 1년이 넘어가면 member_sleep 테이블로 이동시키는 sql문
---batch를 실행시키는 bat을 만들어서 자정마다 bat 자동 실행하게 만든다. 
-DELETE FROM
-(SELECT * FROM member_detail WHERE SYSDATE - (INTERVAL '1' YEAR) > latest_login); 
 
--- 위의 배치가 실행되기 전에 member_detail에서 member_sleep으로 데이터 저장.
-CREATE TRIGGER detailToSleep
-BEFORE -- DELETE 이벤트가 발생하기 전.
-DELETE ON member_detail
-FOR EACH ROW
+--로그인을 안 한지 1년이 넘어가면 member_sleep 테이블로 이동시키도록 SQL 실행.
+UPDATE (SELECT * FROM member_detail JOIN member USING(mem_num) 
+WHERE SYSDATE - (INTERVAL '1' YEAR) > latest_login) SET state = 1  ;
+
+-----------------------------------
+--1년동안 서비스를 사용하지 않은 계정을 member_sleep테이블로 이동시키는 sql문
+CREATE OR REPLACE  TRIGGER detailToSleep
+AFTER-- UPDATE작업으로 수정.이벤트가 발생하기 전.
+UPDATE ON member
+FOR EACH ROW 
+WHEN (new.state = 1)
+DECLARE
+v_detail member_detail%Rowtype;
 BEGIN
-	insert into member_sleep values(:old.mem_num,:old.name,:old.passwd,:old.sex,
-	:old.birthday,:old.phone,:old.photo,:old.zipcode,:old.address1,:old.address2,
-	:old.email,:old.reg_date,SYSDATE);
-	update member set state=1 WHERE mem_num = :old.mem_num;
+SELECT * INTO v_detail FROM member_detail WHERE mem_num = :old.mem_num; 
+--한번 더 확인...
+--if SYSDATE - (INTERVAL '1' YEAR) > v_detail.latest_login THEN
+INSERT INTO member_sleep(mem_num, sname, spasswd, ssex, sbirthday, sphone, sphoto, szipcode, saddress1, saddress2
+,semail, sreg_date, ssleep_date, ssalt, snickname) 
+VALUES (v_detail.mem_num, v_detail.name, v_detail.passwd, v_detail.sex, v_detail.birthday, v_detail.phone, v_detail.photo, v_detail.zipcode, v_detail.address1, v_detail.address2
+,v_detail.email, v_detail.reg_date, SYSDATE, v_detail.salt, v_detail.nickname);
+DELETE FROM member_detail WHERE mem_num = :old.mem_num;
+--END IF;
+
 END;
 
--- member_sleep 삭제 전에 member_detail 테이블로 데이터 추가하는 트리거 
-CREATE TRIGGER sleepToDetail
-BEFORE -- UPDATE작업으로 수정.이벤트가 발생하기 전.
-DELETE ON member_sleep
-FOR EACH ROW
+--휴면계정인 상태로 로그인을 하면 활성계정 DB로 값을 옮겨주는 트리거
+CREATE OR REPLACE TRIGGER sleepToDetail
+AFTER-- UPDATE작업으로 수정.이벤트가 발생하기 전.
+UPDATE ON member
+FOR EACH ROW 
+WHEN (new.state = 0)--새로 변경하는 값이 0:활성계정 인 경우에만 실행한다. 
+DECLARE
+v_sleep member_sleep%Rowtype;
 BEGIN
-	insert into member_detail values(:old.mem_num,:old.sname,:old.spasswd,:old.ssex,
-	:old.sbirthday,:old.sphone,:old.sphoto,:old.szipcode,:old.saddress1,:old.saddress2,
-	:old.semail,:old.sreg_date,SYSDATE,0);
-	update member set state=0 WHERE mem_num = :old.mem_num;
+SELECT * INTO v_sleep FROM member_sleep WHERE mem_num = :old.mem_num; 
+INSERT INTO member_detail(mem_num, name, passwd, sex, birthday, phone, photo, zipcode, address1, address2
+,email, reg_date, latest_login, salt, nickname) 
+VALUES (v_sleep.mem_num, v_sleep.sname, v_sleep.spasswd, v_sleep.ssex, v_sleep.sbirthday, v_sleep.sphone, v_sleep.sphoto, v_sleep.szipcode, v_sleep.saddress1, v_sleep.saddress2
+,v_sleep.semail, v_sleep.sreg_date, SYSDATE, v_sleep.ssalt, v_sleep.snickname);
+
+DELETE FROM member_sleep WHERE mem_num = :old.mem_num;
 END;
-----
+
+--------------------------------
 
 create table member(
 mem_num number,

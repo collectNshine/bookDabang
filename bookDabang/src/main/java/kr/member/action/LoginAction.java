@@ -61,8 +61,8 @@ public class LoginAction implements Action{
 		
 		if(check2 && db_vo.getState()==1) {
 			
-			//name을 받아서 DB에서 삭제
-			dao.deleteSleepMember(db_vo.getName());
+			//state값 업데이트
+			dao.updateSleepMember(db_vo.getId());
 			//DB에서 받아온 정보를 세션에 넣는다.
 			HttpSession session = request.getSession();
 			session.setAttribute("user_num", db_vo.getMem_num());
