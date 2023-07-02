@@ -18,10 +18,10 @@
     text-decoration: none;
     color:black;
 }
-.img{
+.img_img{
     position:absolute;
 }
-.header{
+.header__main{
     height:170px;
     text-align: center;
     background-color: white;
@@ -58,12 +58,12 @@
     font-family: 'SUITE-Regular';
     
 }
-.header__login {
+#header__login {
     vertical-align: middle;
     transform: translate(-440px,40px);
    
 }
-.header__login div a,b{
+#header__login div a,b{
 color: #999;
 margin:0px 10px;
 font-size: 14px;
@@ -78,8 +78,8 @@ font-size: 14px;
 #menu1{
 	display:none;
     margin: auto;
-    background-color: white;
-    width: 100px;
+    background-color: #EAD075 !important;;
+    width: 100px; 
     height: 100px;
     transform: translate(-150px,0px);
     border-radius: 0 0 15px 15px;
@@ -99,7 +99,7 @@ font-size: 14px;
 #menu2{
 	display:none;
     margin: auto;
-    background-color: white;
+    background-color: #EAD075 !important;
     width: 100px;
     height: 100px;
     transform: translate(-15px,0px);

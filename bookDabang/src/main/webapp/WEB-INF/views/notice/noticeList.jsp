@@ -8,8 +8,8 @@
 <meta charset="utf-8">
 
 <title>공지사항</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
@@ -71,6 +71,9 @@
 	});
 </script> 
 <style>
+body{
+margin:auto;
+}
 #right{
 width:80%;
 float:right;
@@ -79,7 +82,6 @@ float:right;
 #search{
 padding:2rem;
 }
-
 </style>
 </head>
 <body>
@@ -140,7 +142,7 @@ padding:2rem;
 			</tr>
 			</c:forEach>
 			<div style="text-align:right;">
-				<input type="button" value="글쓰기" onclick="location.href='noticeWriteForm.do'" class="btn btn-outline-secondary">
+				<input type="button" value="글쓰기" onclick="location.href='noticeWriteForm.do'" class="btn btn btn-outline-success">
 			</div>
 		</table>
 		<!-- 테이블 끝 -->
@@ -152,8 +154,8 @@ padding:2rem;
 		</c:if>
 		<!-- 관리자 글쓰기, 삭제 시작 -->
 		<c:if test="${user_auth == 9}">
-			<input id="all_btn" type="button" value="전체 선택" class="btn btn-outline-secondary">
-			<input id="del_btn" type="button" value="선택 삭제" class="btn btn-outline-secondary"> 
+			<input id="all_btn" type="button" value="전체 선택" class="btn btn-outline-success">
+			<input id="del_btn" type="button" value="선택 삭제" class="btn btn-outline-delete"> 
 		</c:if>
 		<!-- 관리자 글쓰기, 삭제 끝 -->
 		<div class="align-center">${page}</div>
