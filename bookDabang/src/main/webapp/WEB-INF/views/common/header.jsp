@@ -13,16 +13,18 @@
 $(document).ready(function(){
 	$('#info').click(function(){
 		$('#menu1').css({ display:'block'});
+		$('#menu2').css({ display:'none'});
 	});
 	$('#menu1').mouseleave(function(){
-		$('#menu1').delay(1000).slideUp(); 
+		$('#menu1').slideUp(); 
 	});
 	
 	$('#review').click(function(){
 		$('#menu2').css({ display:'block'});
+		$('#menu1').css({ display:'none'});
 	});
 	$('#menu2').mouseleave(function(){
-		$('#menu2').delay(1000).slideUp(); 
+		$('#menu2').slideUp(); 
 	});
 
 });
