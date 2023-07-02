@@ -30,7 +30,7 @@
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
-	<div class="content-main">
+	<div class="list-main">
 		<hr size="1" noshade width="100%">
 		<div class="start">
 		<h2><b>차림표</b></h2>
@@ -39,6 +39,7 @@
 		<!-- 검색창 시작 : get방식 -->
 		<form id="list_search_form" action="list.do" method="get" class="d-flex" role="search">
 		<input type="hidden" name="category" value="${param.category}">
+		<input type="hidden" name="bk_num" value="${book.bk_num}">
 			<select name="keyfield" class="form-select">
 				<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>도서명</option>
 				<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자명</option>

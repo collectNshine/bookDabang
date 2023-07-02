@@ -2,7 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Noto+Sans+KR:wght@300&display=swap');
 
 /*-------------[도서목록]-------------*/
-
+.list-main{
+	width:83%;
+	margin:0 auto;
+	padding:10px 20px;
+	clear:both;
+}
 /*--검색창--*/
 .start{
 	text-align:center;
@@ -102,7 +107,8 @@ div.button-info{
 textarea.form-control{
 	margin:10px 10px;
 	width:470px;
-	height:120px;
+	height:90px;
+	resize:none;
 }
 .input-group-text{
 	height:40px;
@@ -120,19 +126,105 @@ textarea.form-control{
 input.form-control{
 	width:310px;
 }
-.form-select
+
 
 /*-------------[도서상세]-------------*/
-.detail{
+
+.detail-main{
+	width:70%;
 	margin:0 auto;
-	width:80%;
-	text-align:center;
+	padding:10px 20px;
+	clear:both;
+}
+.item-image{
+	float:left;
+	margin:20px 20px 60px 20px;
+}
+#item_thumbnail{
+	border:solid 1px rgb(225,225,225);
+	box-shadow: 8px 7px 13px #d1cfcf; /*가로 세로 번짐정도 그림자색상*/	
+}
+.item-detail{
+	width:60%;
+	float:right;
+}
+#item_cart{
+	width:100%;
+}
+#item_cart div{
+	margin:10pt 0;
+}
+.detail-title{
+	font-size:30pt;
+	font-weight:bold;
+}
+.detail-author-publisher{
+	color:grey;
+	font-size:14pt;
 }
 #output_mark{
 	cursor:pointer;
 }
+.detail-content{
+	clear:both;
+	margin-top:40px;
+}
+.detail-price{
+	margin-right:30px;
+}
+#book_price{
+	font-size:20pt;
+	margin-left:50px;
+	color:rgb(56, 76, 255);
+	font-weight:bold;
+}
+#ship_price{
+	font-size:15pt;
+	margin-left:35px;
+}
+#order_quantity{
+	width:150px;
+	height:35px;
+	margin-left:50px;
+	font-size:15pt;
+	text-align:center;
+	border-radius:10px;
+	border:solid 1px grey;
+}
+hr{
+	margin:30px 0;
+}
+.total-price{
+	font-size:20pt;
+	margin-left:50px;
+	font-weight:bold;
+	text-align:right;
+}
+#item_total_txt{
+	font-size:25pt;
+	color:red;
+}
+.btn-primary{
+	width:800px;
+	height:55px;
+	margin:30px auto;
+	font-size:20pt;
+}
+.breadcrumb{
+	font-size:16pt;
+	margin-bottom:20px;
+}
+.custom-tooltip {
+  --bs-tooltip-bg: var(--bs-primary);
+}
+.review-content textarea{
+	width:1150px;
+}
 
 /* 댓글 */
+#review_form{
+	vertical-align:middle;
+}
 div#review_div{
 	padding:5px 10px 40px 10px;
 	margin-top:10px;
@@ -141,7 +233,6 @@ div#review_div{
 form#review_form{
 	width:100%;
 	border:none;
-	margin-bottom:20px;
 }
 span.review-title{
 	font-size:12pt;
@@ -151,14 +242,16 @@ span.review-title{
 .user-photo{
 	float:left;
 	width:60px;
+	margin-top:10px;
 }
 .re-content{
 	float:left;
 }
 .submit-button{
 	float:right;
+	margin-top:8px;
 }
-span.review-letter-count{
+div.review-letter-count{
 	font-size:10pt;
 	color:#999999;
 	clear:both;
@@ -166,4 +259,22 @@ span.review-letter-count{
 }
 .review-button{
 	text-align:right;
+}
+.bi-hand-thumbs-up{
+	color:blue;
+}
+.bi-hand-thumbs-up-fill{
+	color:blue;
+}
+.output-lcount{
+	color:blue;
+}
+.bi-hand-thumbs-down{
+	color:red;
+}
+.bi-hand-thumbs-down-fill{
+	color:red;
+}
+.output-dlcount{
+	color:red;
 }
