@@ -79,7 +79,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		String mp_keyword = request.getParameter("mp_keyword");
 		
 		MyPageDAO postdao = MyPageDAO.getInstance(); 
-		int mp_count = postdao.getMyPostCount(mp_keyfield, mp_keyword);
+		int mp_count = postdao.getMyPostCount(mp_keyfield,mp_keyword, user_num);
 		PostPageUtil mp_page = new PostPageUtil(mp_keyfield,mp_keyword,Integer.parseInt(mp_pageNum),mp_count,10,10,"myPage.do","#post");
 		
 		List<PostVO> mp_list = null;
