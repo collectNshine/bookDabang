@@ -32,7 +32,7 @@ public class NoticeEditAction implements Action{
 		vo.setNoti_num(Integer.parseInt(request.getParameter("noti_num")));
 		vo.setNoti_category(Integer.parseInt(request.getParameter("noti_category")));
 		vo.setNoti_title( StringUtil.useBrNoHtml(request.getParameter("noti_title")));
-		vo.setNoti_content(request.getParameter("noti_content"));
+		vo.setNoti_content(StringUtil.useBrNoHtml(request.getParameter("noti_content")));
 	
 		dao.updateNotice(vo);
 		
