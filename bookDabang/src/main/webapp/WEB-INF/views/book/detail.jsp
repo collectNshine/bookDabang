@@ -202,10 +202,10 @@
 				<div class="review">
 				<div class="user-photo">
 					<c:if test="${!empty user_photo}">
-	           			<img src="${pageContext.request.contextPath}/upload/${user_photo}" width="35" height="35" class="my-photo">
+	           			<img src="${pageContext.request.contextPath}/upload/${user_photo}" width="40" height="40" class="my-photo">
 		      		</c:if>
 					<c:if test="${empty user_photo}">
-		          		<img src="${pageContext.request.contextPath}/images/face.png" width="35" height="35" class="my-photo">
+		          		<img src="${pageContext.request.contextPath}/images/face.png" width="40" height="40" class="my-photo">
 		        	</c:if>
 		        </div>
 	        	
@@ -220,7 +220,7 @@
 				</div>
 				</div>
 				
-				<div class="review-letter-count" id="re_first" style="	width:91%;">50/50</div>
+				<div class="review-letter-count" id="re_first" style="width:91%;">50/50</div>
 				
 			</form>
 			<hr size="1" noshade="noshade" width="100%">
@@ -238,6 +238,7 @@
 		<!-- 댓글 끝 -->
 	</div>
 	<!-- 내용 끝 -->
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </div>
 </body>
 </html>

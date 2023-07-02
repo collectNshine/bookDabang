@@ -117,41 +117,43 @@ $(function(){
 				}
 				
 				$(param.list).each(function(index,item){
-					let output = '<div class="item">';
+					let output = '<div class="item" style="margin-bottom:10px;">';
 					//프로필 사진
-					output += '<span class="user-photo">';
+					output += '<div class="user-photo">';
 					if(item.photo){
-						output += '<img src="../upload/' + item.photo + '" width="35" height="35" class="my-photo">';
+						output += '<img src="../upload/' + item.photo + '" width="40" height="40" class="my-photo">';
 					}else{
-						output += '<img src="../images/face.png" width="35" height="35" class="my-photo">';
+						output += '<img src="../images/face.png" width="40" height="40" class="my-photo">';
 					}
-					output += '</span>';
+					output += '</div>';
 					//닉네임, 날짜
-					output += '<span class="name-date">';
-					output += '<div class="name">' + item.name + '</div>';
+					output += '<div class="name-date">';
+					output += '<div class="name"><b>' + item.name + '</b></div>';
 					if(item.review_modifydate){ //값이 있으면 true, 없으면 false (javascript)
-						output += '<span class="modify-date">' + item.review_modifydate + ' 수정됨</span>';
+						output += '<div class="modify-date">' + item.review_modifydate + ' 수정됨</div>';
 					}else{
-						output += '<span class="modify-date">' + item.review_date + '</span>';
+						output += '<div class="modify-date">' + item.review_date + '</div>';
 					}
-					output += '</span>';
+					output += '</div>';
 					//내용
-					output += '<p class="review-content">' + item.review_content + '</p>';
-					output += '<ul class="like-buttons">'
+					output += '<p class="review-content" style="font-size:14pt;margin-top:15px;float:left;">' + item.review_content + '</p>';
+					//최고에요
+					output += '<ul class="like-buttons" style="float:right;">'
 					output += '<li>'
 					output += '<button type="button" class="btn output_like" data-num="'+item.review_num+'">';
 					if(item.clicked_like != 'clicked'){
 						output += '<i class="bi bi-hand-thumbs-up"></i>';
 					}else{
-						output += '<i class="bi bi-hand-thumbs-up-fill" fill="blue" ></i>';
+						output += '<i class="bi bi-hand-thumbs-up-fill"></i>';
 					}
 					output += '</button>';
 					output += '<span class="output_lcount">'+item.cnt_like+'</span>'
+					//별로에요
 					output += '<button type="button" class="btn output_dislike" data-num="'+item.review_num+'">';
 					if(item.clicked_dislike != 'clicked'){
-						output += '<i class="bi bi-hand-thumbs-down" style="color:red;"></i>';
+						output += '<i class="bi bi-hand-thumbs-down"></i>';
 					}else{
-						output += '<i class="bi bi-hand-thumbs-down-fill" fill="red" style="color:red;"></i>';
+						output += '<i class="bi bi-hand-thumbs-down-fill"></i>';
 					}
 					output += '</button>';
 					output += '<span class="output_dlcount">'+item.cnt_dislike+'</span>'
@@ -162,14 +164,16 @@ $(function(){
 					if(param.user_num == item.mem_num){
 						//이벤트 발생(버튼 클릭) 시 본인에게서 회원번호를 뽑아내어 item.review_num에 넣어짐
 						//이벤트가 반복적으로 발생하므로 id가 아닌 class 속성 부여
-						output += '<div class="review-button">'
+						output += '<div class="review-button" style="clear:both;">'
 						output += ' <input type="button" data-renum="' + item.review_num + '" value="수정" class="modify-btn btn btn-outline-primary">';
 						output += ' <input type="button" data-renum="' + item.review_num + '" value="삭제" class="delete-btn btn btn-outline-danger">';
 						output += '</div>';
+					}else{
+						output += '<div style="clear:both;"> </div>';
 					}
 					
-					output += '<hr size="1" noshade width="100%">';
 					output += '</div>';
+					output += '<hr size="1" noshade width="100%">';
 					
 					//문서 객체에 추가
 					$('#output').append(output);
@@ -263,7 +267,7 @@ $(function(){
 				$('.review-letter-count').text(remain);
 			}else{
 				//수정폼 글자 수
-				$('#mre_first .letter-count').text(remain);
+				$('.letter-count').text(remain);
 			}
 		}
 	});
@@ -307,16 +311,23 @@ $(function(){
 		//replace(/A/,'B') : A를 B로 바꿔줌 (g:지정문자열 모두/i:대소문자 무시)
 		let content = $(this).parent().parent().find('p').html().replace(/<br>/gi,'\n');
 		//댓글 수정폼 UI
-		let modifyUI = '<form id="mreview_form">';
+		let modifyUI = '<form id="mreview_form" style="border:none;margin-right:740px;">';
 		modifyUI += '<input type="hidden" name="review_num" id="mre_num" value="'+review_num+'">';
-		modifyUI += '<textarea rows="2" cols="130" maxlength="50" name="review_content" id="mreview_content" class="rep-content">'+content+'</textarea>';
-		modifyUI += '<div id="mre_first"><span class="letter-count">50/50</span></div>';
-		modifyUI += '<div class="review-button">'
-		modifyUI += '<input type="submit" value="수정" class="btn btn-outline-primary">';
+		modifyUI += '<div class="mreview">';
+		
+		modifyUI += '<div class="mreview-content">';
+		modifyUI += '<textarea rows="2" cols="130" maxlength="50" name="review_content" id="mreview_content" class="rep-content form-control" style="resize:none;width:1080px;">'+content+'</textarea>';
+		modifyUI += '</div>';
+		
+		modifyUI += '<div class="review-button"  style="float:left;margin-left:15px;">'
+		modifyUI += '<input type="submit" value="수정" class="btn btn-outline-primary">&nbsp;';
 		modifyUI += '<input type="button" value="취소" class="re-reset btn btn-outline-secondary">';
 		modifyUI += '</div>';
-		modifyUI += '<hr size="1" noshade width="96%">';
+		modifyUI += '</div>';
 		modifyUI += '</form>';
+		modifyUI += '<div class="letter-count" style="float:right;margin-right:230px;font-size:10pt;color:#999999;">50/50</div><br>';
+		
+
 		
 		//이전에 이미 수정하던 댓글이 있을 경우, 
 		//수정버튼을 클릭하면 숨겨져있는 sub-item을 환원하고 수정폼을 초기화함.
@@ -334,7 +345,7 @@ $(function(){
 		let remain = 50 - inputLength;
 		remain += '/50';
 		//문서객체에 반영
-		$('#mre_first .letter-count').text(remain);
+		$('.letter-count').text(remain);
 	});
 	
 	
@@ -350,6 +361,7 @@ $(function(){
 		$('.review-button').show();
 		$('.review-content').show();
 		$('#mreview_form').remove();
+		$('.letter-count').remove();
 	}
 	
 
