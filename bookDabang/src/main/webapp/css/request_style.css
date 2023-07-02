@@ -225,7 +225,7 @@ form{
 #modify_form > ul >li {
 	
 	display:flex;
-	flex-wrap:wrap; 
+	flex-wrap:wrap;
 }
 
 #modify_form > ul >li >label {
