@@ -61,7 +61,7 @@
 			width="100" height="100" class="align-center lock" >
 		</p>
 		<div style="font-size:17px;">
-			<h3 class="align-center">비밀번호 확인</h3>
+			<h3 class="align-center">비밀번호 변경</h3>
 			<hr size="1" noshade="noshade" width="100%">
 			<p class="align-center">개인정보 변경을 위해 비밀번호를 입력해주세요.</p>
 		</div>
