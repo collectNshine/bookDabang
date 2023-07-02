@@ -143,15 +143,15 @@ $(function(){
 					if(item.clicked_like != 'clicked'){
 						output += '<i class="bi bi-hand-thumbs-up"></i>';
 					}else{
-						output += '<i class="bi bi-hand-thumbs-up-fill"></i>';
+						output += '<i class="bi bi-hand-thumbs-up-fill" fill="blue" ></i>';
 					}
 					output += '</button>';
 					output += '<span class="output_lcount">'+item.cnt_like+'</span>'
 					output += '<button type="button" class="btn output_dislike" data-num="'+item.review_num+'">';
 					if(item.clicked_dislike != 'clicked'){
-						output += '<i class="bi bi-hand-thumbs-down"></i>';
+						output += '<i class="bi bi-hand-thumbs-down" style="color:red;"></i>';
 					}else{
-						output += '<i class="bi bi-hand-thumbs-down-fill"></i>';
+						output += '<i class="bi bi-hand-thumbs-down-fill" fill="red" style="color:red;"></i>';
 					}
 					output += '</button>';
 					output += '<span class="output_dlcount">'+item.cnt_dislike+'</span>'
