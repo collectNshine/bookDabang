@@ -334,13 +334,13 @@ ul.search li {
 							${order.order_num}
 						</a>
 					</td>
-					<td>
+					<td class="status-color">
 						<a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">
-							<c:if test="${order.status == 1}"><b>배송대기</b></c:if>
+							<c:if test="${order.status == 1}"><b class="order-waiting">배송대기</b></c:if>
 							<c:if test="${order.status == 2}"><b>배송준비중</b></c:if>
 							<c:if test="${order.status == 3}"><b>배송중</b></c:if>
-							<c:if test="${order.status == 4}"><b>배송완료</b></c:if>
-							<c:if test="${order.status == 5}"><b>주문취소</b></c:if>
+							<c:if test="${order.status == 4}"><b class="order-success">배송완료</b></c:if>
+							<c:if test="${order.status == 5}"><b class="order-cancel">주문취소</b></c:if>
 						</a>
 					</td>
 					<td><a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">${order.book_title}</a></td>
@@ -559,13 +559,13 @@ ul.search li {
 						<td><a href="${pageContext.request.contextPath}/order/adminModifyForm.do?order_num=${admin_order.order_num}">${admin_order.order_num}</a></td>
 						<td><a href="${pageContext.request.contextPath}/order/adminModifyForm.do?order_num=${admin_order.order_num}">${admin_order.book_title}</a></td>
 						<td>${admin_order.id}</td>
-						<td>
+						<td class="status-color">
 							<a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${admin_order.order_num}">
-								<c:if test="${admin_order.status == 1}"><b>배송대기</b></c:if>
+								<c:if test="${admin_order.status == 1}"><b class="order-waiting">배송대기</b></c:if>
 								<c:if test="${admin_order.status == 2}"><b>배송준비중</b></c:if>
 								<c:if test="${admin_order.status == 3}"><b>배송중</b></c:if>
-								<c:if test="${admin_order.status == 4}"><b>배송완료</b></c:if>
-								<c:if test="${admin_order.status == 5}"><b>주문취소</b></c:if>
+								<c:if test="${admin_order.status == 4}"><b class="order-success">배송완료</b></c:if>
+								<c:if test="${admin_order.status == 5}"><b class="order-cancel">주문취소</b></c:if>
 							</a>
 						</td>
 						<td>${admin_order.order_total}</td>

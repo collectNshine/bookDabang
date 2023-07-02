@@ -136,7 +136,11 @@
 										<input type="button" value="변경" class="cart-modify btn btn-outline-success" data-cartnum="${cart.cart_num}" data-bknum="${cart.bk_num}">
 									</div>
 								</li>
-								<li><div class="cart-deletebtn"><input type="button" value="삭제" class="cart-del btn btn-outline-delete" data-cartnum="${cart.cart_num}"></div></li>
+								<li>
+									<div class="cart-deletebtn">
+										<input type="button" value="삭제" class="cart-del btn btn-outline-delete" data-cartnum="${cart.cart_num}">
+									</div>
+								</li>
 							</ul>
 						</li>
 						</c:forEach>

@@ -73,7 +73,7 @@ public class OrderPageUtil {
 						break;
 					}
 					if (i == currentPage) {
-						page.append("&nbsp;<b><span style='color:red;'>");
+						page.append("&nbsp;<b><span style='color:#EAD075;'>");
 						page.append(i);
 						page.append("</span></b>");
 					} else {
