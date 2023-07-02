@@ -90,7 +90,7 @@ textarea{ resize: none; }
 .order-total{ width:80%; } */
 
 .order-detail{ width:60%; margin:0 auto; }
-.buttons{ width:90%; margin:0 120px; }
+.buttons{ width:90%; margin:0 120px 50px 120px;  }
 .buttons input{ width:100px; }
 #move_li{ margin-top:15px; }
 
