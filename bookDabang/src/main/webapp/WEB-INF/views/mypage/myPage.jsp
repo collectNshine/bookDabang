@@ -761,7 +761,6 @@ ul.search li {
 				<select name="req_Keyfield" class="form-select">
 					<option value="1" <c:if test="${param.req_keyfield==1}">selected</c:if>>제목</option>
 					<option value="2" <c:if test="${param.req_Keyfield==2}">selected</c:if>>저자</option>
-					<option value="3" <c:if test="${param.req_Keyfield==3}">selected</c:if>>출판사</option>
 				</select>
 					<input type="search" size="16" name="req_Keyword" id="req_Keyword" value="${param.req_Keyword}" class="form-control me-2">
 					
