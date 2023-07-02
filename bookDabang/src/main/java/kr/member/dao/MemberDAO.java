@@ -170,16 +170,16 @@ public class MemberDAO {
 		}
 	}
 	
-	//휴면계정 삭제
-	public void deleteSleepMember(String name) throws Exception {
+	//휴면계정을 활성 계정으로 변경
+	public void updateSleepMember(String id) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 			conn=DBUtil.getConnection();
-			sql="DELETE FROM  member_sleep where sname = ?";
+			sql=" UPDATE member SET state = 0 where id = ?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,name);
+			pstmt.setString(1,id);
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			throw new Exception(e);
