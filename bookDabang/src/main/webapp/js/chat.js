@@ -46,8 +46,8 @@ $(function() {
 		make_chat += '</li>';
 		make_chat += '<ul>';
 		make_chat += '<div class="align-center">';
-		make_chat += '<input type="submit" value="생성" class="btn btn-outline-secondary">';
-		make_chat += '<input type="button" value="close" id="out_chat" class="btn btn-outline-secondary">';
+		make_chat += '<input type="submit" value="생성" class="btn btn-outline-success">';
+		make_chat += '<input type="button" value="닫기" id="out_chat" class="btn btn-outline-delete">';
 		make_chat += '</div>';
 		make_chat += '</form>';
 		

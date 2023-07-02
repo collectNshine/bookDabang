@@ -16,29 +16,22 @@ textarea{ resize: none; }
 #cart_order{ width:100%; margin:0 auto; border:none; padding:0; }
 #order_modify{ width:100%; margin:0 auto; border:none; padding:0; }
 
-/* 메뉴 */
-#main_logo{ float:left; text-align:center; }
-#logo{ text-align:center; vertical-align:top; float:left; }
-#main_menu{ overflow:hidden; padding-top:15px; margin-top:75px; padding:10px; }
-.menu-category li{ height:60px; font-size:23px; margin:10px; text-align:center; font-weight:bold; float:left; }
-.menu-detail{ width:120px; height:20px; padding:0 6px 0 6px; text-align: center; display:inline-block; }
-.menu-login li{ float:right; padding-right:10px; }
-.loginbtn{ background-color:rgb( 5, 59, 68); border-style:0.5px solid white; color:white; border-radius:30px; font-size:20px; width:110px; }
-ul{ list-style:none; }
-
 /* 공통 정렬 */
 .align-center{ text-align:center; }
 .align-right{ text-align:right; }
 .my-photo{ object-fit:cover; object-position:top; border-radius:50%; }
+.start{ text-align:center; margin:50px 0; }
 
 /* 장바구니 */
 #cart_order{ font-weight:bold; }
 
+.result-display{ width:80%; margin:0 auto; text-align:center; }
+
 .book-choice{ width:75%; float:left; }
-.member-info{ width:65%; height:50px; background:rgba(108, 117, 125, .1); display:flex; align-items:center; margin:10px 0 10px 100px; }
+.member-info{ width:65%; height:50px; background:rgba(5, 59, 68, .1); display:flex; align-items:center; margin:10px 0 10px 100px; }
 .member-info img{ width:3%; margin:10px; }
 .member-info h5{ margin:10px; }
-.cartlist-empty{ width:65%; margin-left:100px; text-align:center; }
+
 .check-all{ margin:30px 0 0 100px; }
 .delete-all{ margin:30px 0 0 100px; }
 .cart-table{ width:65%; margin:30px 0 0 100px; float:left; }

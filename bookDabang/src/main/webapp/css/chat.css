@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+.content-margin{ margin:1% 0; }
+
 /* 검색창 */
 .start{ text-align:center; margin:50px 0; }
 .form-select{ margin:5px 10px 0; padding:.375rem 2.25rem .375rem 2rem; width:120px; }
@@ -16,7 +18,7 @@
 .searchForm{ width:70%; }
 
 .chatlist{ width:700px; }
-.chatlist-img{ float:left; width:25%; }
+.chatlist-img{ float:left; width:25%; margin:0 auto; }
 .chatlist-img img{ width:100px; height:100px; }
 .chatlist-title{ float:left; width:45%; margin:10px auto; font-weight:1.2em; }
 .chatlist-btn{ float:left; width:45%; margin:0 auto; }
