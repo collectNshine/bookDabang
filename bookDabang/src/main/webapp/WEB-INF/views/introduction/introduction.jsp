@@ -8,10 +8,82 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>다방소개</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/request_style.css">
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+<style>
+.carousel-inner{
+	margin:5rem 5rem 5rem 0 ;
+}
+.page-main{
+text-align:center;
+}
+a{
+ text-decoration: none;
+ color:black;
+}
+.intro_btn_inner > div {
+  width:20%;
+  height: 600px;
+  flex-grow: 1;
+  filter: grayscale(0);
+  transition: .5s ease-in-out;
+}
+.intro_btn{
+	width: 100%;
+	display flex;
+}
+
+.intro_btn{
+	display:flex;
+	justify-content:space-between;
+}
+.intro_btn_inner > div > img{
+	width:500px;
+	height:600px;
+	flex-grow:1;
+	-webkit-filter: grayscale(0);
+	filter: grayscale(0);
+	-webkit-transition: .5s ease-in-out;
+	transition: .5s ease-in-out;
+}
+.intro_btn_inner{
+	border-style:none;
+}
+.intro_btn_inner:hover{
+	-webkit-filter: grayscale(100%);
+	filter: grayscale(100%);
+}
+ .intro_btn_inner > div{
+ 	display:flex;
+ 	flex-direction:column;
+}
+.intro_btn_inner > div > span{
+ 	position:absolute; 
+ 	color:white;	
+
+} 
+.intro_btn_inner > div > span:nth-child(2){
+	margin-top:150px;
+	margin-left:240px;
+	font-size:35px;
+	text-shadow: 4px 2px 2px gray;
+
+	
+}
+.intro_btn_inner > div > span:last-child{
+	margin-top:500px;
+	/* margin-left:220px; */
+	border: 0.5px solid white;
+	border-spacing:10px;
+	border-collapse:separate;
+	font-size:20px;
+	width:100px;
+}
+.page-main{
+top:20px;
+}
+</style>
 </head>
 <body>
 <div class="page-main">
