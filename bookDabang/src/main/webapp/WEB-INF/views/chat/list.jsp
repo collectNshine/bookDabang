@@ -98,7 +98,7 @@
 				<div class="chatRoom" style="display:none;">
 					<div class="top-bar">
 						<div id="chatTitle"></div>
-						<div class="chatAlign-right"><input type="button" value="close" id="out_chat2" class="btn btn-outline-success btn-sm"></div>
+						<div class="chatAlign-right"><input type="button" value="닫기" id="out_chat2" class="btn btn-outline-success btn-sm"></div>
 					</div>
 					<div class="bottom">
 						<div class="chat-list scrollBar" style="overflow-y:scroll; height:500px;"></div>
@@ -108,7 +108,7 @@
 						<div class="chat-input">
 							<form class="write-chat">
 								<textarea rows="2" cols="75" name="chat_content" class="chat-content form-control" placeholder="내용을 입력하세요" style="width:80%"></textarea>
-								<input type="submit" value="send" class="chat-submit btn btn-success" style="width:15%">
+								<input type="submit" value="보내기" class="chat-submit btn btn-success" style="width:15%">
 							</form>
 						</div>
 					</div>
