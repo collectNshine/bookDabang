@@ -230,14 +230,13 @@
 										<li>
 											<div class="input-group">
 												<span class="input-group-text">요청사항</span>
-												<textarea class="form-control info-check" name="notice" id="notice" maxlength="4000" aria-label="With textarea">${order.notice }</textarea>
+												<textarea class="form-control info-check" name="notice" id="notice" maxlength="4000" aria-label="With textarea">${order.notice}</textarea>
 											</div>
 										</li>
 										<li id="move_li">
 											<div class="buttons">
 												<c:if test="${order.status < 2}">
 												<input type="submit" value="수정" class="btn btn-outline-success btn-sm">
-												<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do#order'" class="btn btn-success btn-sm">
 												<input type="button" value="주문취소" id="order_cancel" class="btn btn-outline-delete btn-sm">
 												<script type="text/javascript">
 													let order_cancel = document.getElementById('order_cancel');
@@ -247,6 +246,7 @@
 													};
 												</script>
 												</c:if>
+												<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do#order'" class="btn btn-success btn-sm">
 											</div>
 										</li>
 									</ul>
