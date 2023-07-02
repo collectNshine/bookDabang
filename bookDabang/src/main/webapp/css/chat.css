@@ -4,6 +4,8 @@
 .btn-warning{ background:rgba(234, 208, 117, .9); border:rgba(234, 208, 117, .9); }
 .btn-warning:hover{ background:#EAD075; color:white; }
 
+.content-margin{ margin:50px 0; }
+
 /* 검색창 */
 .start{ text-align:center; margin:50px 0; }
 .form-select{ margin:5px 10px 0; padding:.375rem 2.25rem .375rem 2rem; width:120px; }
@@ -12,6 +14,8 @@
 /* 담소마당(chat) */
 .chat-left{ width:35%; float:left;}
 .left-content{ width:90%; margin:0 5%; }
+
+#font_web{ font-family: 'NanumGarMaesGeur'; }
 
 .chat-right{ width:65%; float:right; padding:10px; justify-content:center; }
 .right-content{ width:90%; margin:0 5%; }

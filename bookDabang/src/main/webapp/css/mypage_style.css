@@ -53,7 +53,7 @@
 	margin-bottom:30px;
 	border:none;
 }
-#search_form3-1{
+#search_form3_1{
 	margin-bottom:30px;
 	border:none;
 }
@@ -104,6 +104,10 @@
 
 /*-------------[사용자]책갈피 끝-------------*/
 
+/* 주문목록&관리 */
+.order-waiting{ color:rgba(5, 59, 68, .3); }
+.order-success{ color:#053B44; }
+.order-cancel{ color:#B9543C; }
 
 /*
 .profile{

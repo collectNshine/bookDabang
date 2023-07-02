@@ -8,6 +8,7 @@
 	<meta charset="UTF-8">
 	<title>주문 상세정보</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
@@ -176,9 +177,9 @@
 								<c:if test="${order.status != 5}">
 								<input type="submit" value="수정" class="btn btn-success btn-sm">
 								</c:if>
-								<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do#admin_order'" class="btn btn-outline-secondary btn-sm">
+								<input type="button" value="주문목록" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do#admin_order'" class="btn btn-outline-success btn-sm">
 								<c:if test="${order.status == 4 || order.status == 5}">
-								<input type="button" value="삭제" onclick="location.href='deleteOrder.do?order_num=${order.order_num}'" id="order_cancel" class="btn btn-outline-secondary btn-sm">
+								<input type="button" value="삭제" onclick="location.href='deleteOrder.do?order_num=${order.order_num}'" id="order_cancel" class="btn btn-outline-delete btn-sm">
 								</c:if>
 							</div>
 						</div>
