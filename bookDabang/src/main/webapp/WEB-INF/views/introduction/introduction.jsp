@@ -106,11 +106,12 @@ margin-top:5%;
 }
 .intro2{
 display:flex;
-margin-left:8%;
+margin-left:15%;
 margin-bottom:10%;
 }
 .introimage{
 	margin-top:10%;
+	margin-left:10%;
 }
 .introimage2{
 	margin-left:8%;
@@ -122,7 +123,7 @@ margin-bottom:10%;
 	opacity: 85%;
 }
 .introtext > *{
-	color:white;
+	color:#053B44 ;
 	text-align:center;
 	font-size:30px;
 }

@@ -11,21 +11,9 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
- 
- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#summernote').summernote({
-        placeholder: '글을 입력해주세요.',
-        tabsize: 2,
-        height: 300,
-        width:700,
-        codeviewFilter: false,
-        codeviewIframeFilter: true
-      });
-	 
+
 	//submit할 때 이벤트
 	$('#write_Form').submit(function(event){
 		let title = $('#noti_title').val().trim();
@@ -96,7 +84,7 @@ height:500px;
 				</li>
 				<li id="guide"></li>
 				<li><textarea id="summernote" class="form-control" name="noti_content" placeholder="내용" ></textarea></li>
-				<li><input type="submit" class="btn btn-outline-secondary" value="글쓰기"></li>
+				<li><input type="submit" class="btn btn-outline-success" value="글쓰기"></li>
 			</ul>
 		</form>
 	</c:if>
