@@ -244,7 +244,7 @@
 													order_cancel.onclick = function() {
 														let choice = confirm('주문을 취소하시겠습니까??');
 														if(choice) { location.replace('orderCancel.do?order_num=${order.order_num}'); }
-													};
+													}; 
 												</script>
 												</c:if>
 											</div>
