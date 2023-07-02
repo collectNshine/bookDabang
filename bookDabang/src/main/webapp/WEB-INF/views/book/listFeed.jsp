@@ -21,7 +21,7 @@
 	<div id="reviewfeed" class="tab_contents on">
 		<div class="content-main container">
 		<br>
-		<h2><a href="listReview.do"><b>한 줄 기록 모음집</b></a></h2>
+		<h2 style="margin-left: -310px;"><a href="listFeed.do"><b>한 줄 기록 모음집</b></a></h2>
 		<br>
 		<br>
 		<c:if test="${count == 0}">
@@ -31,7 +31,7 @@
 		</c:if>
 		
 		<c:if test="${count > 0}">
-		<div class="row row-cols-1 row-cols-md-3 g-4">
+		<div class="row row-cols-1 row-cols-lg-4 g-4" style="width: 2000px; margin-left: -320px;">
 		<c:forEach var="review" items="${list}">
   			<div id="review-list" class="col">
     			<div class="card h-100">
@@ -45,11 +45,11 @@
 	        			<div id="profile2" style="float:left; margin-left:10px;"><b>${review.name}</b><p>한 줄 기록&nbsp;&nbsp;·&nbsp;${review.review_date}</div>
 	         		</c:if>
 	         		<c:if test="${empty review.photo}">
-	        		 	<div id="profile">
+	        		 	<div id="profile" style="float:left;"> 
 	            			&nbsp;&nbsp;<img src="${pageContext.request.contextPath}/images/face.png" width="50" height="50" class="my-photo">
 	         				<br>
 	         			</div>
-	         			<div id="profile2"><b>${review.name}</b><p>한 줄 기록&nbsp;&nbsp;·&nbsp;${review.review_date}</div>
+	         			<div id="profile2" style="float:left; margin-left:10px;"><b>${review.name}</b><p>한 줄 기록&nbsp;&nbsp;·&nbsp;${review.review_date}</div>
 	         		</c:if>
 	         		</div>
   				<div class="card-body">
@@ -64,13 +64,14 @@
 			</div>
 		</c:forEach>	
 		</div>		
-		<div class="align-center">${rePage}</div>
+		<div class="align-center">${page}</div>
 		</c:if>
 		</div>
 	</div>
 	<!-- [2. 한줄기록 모음집] 끝 -->
 	</div>
 	<!-- 내용 끝 -->
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </div>
 </body>
 </html>

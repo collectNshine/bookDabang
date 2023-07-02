@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>신고 상세</title>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
@@ -14,7 +15,10 @@
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
-	<h2>신고 상세</h2>
+	<hr size="1" noshade width="100%">
+	<br>
+	<h2 style="margin-left:30px;">신고 상세</h2>
+	<br>
 	<div class="content-main">
 	<input type="hidden" name="post_num" value="${repo.post_num}">
 	<div>
@@ -53,6 +57,7 @@
 		</div>
 	</div>
 	</div>
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </div>
 </body>
 </html>

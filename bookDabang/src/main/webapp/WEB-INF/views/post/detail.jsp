@@ -24,7 +24,7 @@
 	<div class="align-right">
 	<%-- 신고 --%>
 	<!-- 신고 버튼 -->
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" id="modal">신고하기</button>
+	<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target=".bd-example-modal-lg" id="modal">신고하기</button>
 	<!-- 모달창 시작 -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   	<div class="modal-dialog modal-lg" role="document">
@@ -99,7 +99,7 @@
 					 width="40" height="40" class="my-photo">
 				</c:if> 
 			</li>
-			<li>
+			<li style="margin-left:5px;">
 				${post.name} | ${post.post_date}<br>
 			</li>
 		</ul>
@@ -114,14 +114,14 @@
 		</p>
 		<hr size="1" noshade="noshade" width="100%">
 		<ul class="detail-sub">
-			<li style="margin-left: 470px;">
+			<li style="margin-left: 1050px;">
 				<%-- 좋아요 --%>
 				<%-- html은 속성태그 추가X (예외)'data-' 형태로만 추가 가능--%>
 				<img id="output_fav" data-num="${post.post_num}" src="${pageContext.request.contextPath}/images/fav01.png" width="50">
 				좋아요
 				<span id="output_fcount"></span>
 			</li>
-			<li style="margin-left: 550px;">
+			<li style="margin-left: 1050px;">
 				<br>
 				<%-- 로그인한 회원번호와 작성자 회원번호가 일치해야 수정/삭제 가능 --%>
 				<c:if test="${user_num == post.mem_num}">
@@ -177,7 +177,7 @@
 				<textarea rows="3" cols="50" name="re_content" id="re_content" class="chat-content form-control" style="resize: none;" maxlength="300" 
 				<c:if test="${empty user_num}">disabled="disabled"</c:if>
 				><c:if test="${empty user_num}">로그인해야 작성할 수 있습니다.</c:if></textarea>
-				<input type="submit" class="btn btn-dark" value="등록" style="float: right">
+				<input type="submit" class="btn btn-success" value="등록" style="float: right">
 				<c:if test="${!empty user_num}"> <!-- 로그인 여부 체크 -->
 				<div id="re_first">
 					<span class="letter-count">300/300</span>

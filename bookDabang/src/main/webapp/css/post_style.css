@@ -6,8 +6,8 @@
 .tabWrap li{padding: 5px 10px; }
 .tabWrap li.on{background : #aaa}
 div#post-list{
-	width:360px;
-	height:480px;
+	width:420px;
+	height:540px;
 	/*border:1px solid red;*/
 	float:left;
 }
@@ -31,33 +31,30 @@ div#profile2{
 	float:left;
 	margin-top:-5px; 
 }
-.profile3{
-	margin-left: 8px;
-}
 .card-footer{
 	height: 63px;
-    width: 335px;
+    width: 396px;
     margin-left: -16px;
-    margin-top: 3px;
+    margin-top: 30px;
 }
 .card-detail{
 	height:133px;
-	width:286px;
+	width:360px;
 	overflow:hidden;
 	text-overflow:ellipsis;
 	margin-top: 10px;
 }
 .card-title{
 	height:40px;
-	width:300px;
+	width:350px;
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
 	font-size: 20px;
+	margin-top: 10px;
 }
 .card-text{
 	word-wrap: break-word;
-	margin-left: 9px;
 }
 .post-thumbnail{
 	text-align:center;
