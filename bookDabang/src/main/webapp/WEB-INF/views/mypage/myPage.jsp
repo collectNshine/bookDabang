@@ -134,7 +134,7 @@ ul.search li {
 					<option value="2" <c:if test="${param.bm_keyfield==2}">selected</c:if>>저자명</option>
 				</select>
 				<input type="search" size="16" name="bm_keyword" id="bm_keyword" value="${param.bm_keyword}" class="form-control me-2">
-				<input type="submit" value="검색"  class="btn btn-outline-success">
+				<input type="submit" value="조회"  class="btn btn-outline-success">
 			</form>
 			<script type="text/javascript">
 				$(function(){
@@ -300,7 +300,7 @@ ul.search li {
 						</select>
 						<input type="search" size="16" name="user_orderkeyword" id="user_orderkeyword" value="${param.keyword}" class="form-control me-2">
 					
-						<input type="submit" value="검색" class="btn btn-outline-success">
+						<input type="submit" value="조회" class="btn btn-outline-success">
 					
 				
 			</form>
@@ -400,7 +400,7 @@ ul.search li {
 					<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자명</option>
 				</select>
 				<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}"  class="form-control me-2">
-				<input type="submit" value="검색" class="btn btn-outline-success">
+				<input type="submit" value="조회" class="btn btn-outline-success">
 			</form>
 			<script type="text/javascript">
 				$(function(){
@@ -524,7 +524,7 @@ ul.search li {
 							<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>도서명</option>
 						</select>
 							<input type="search" size="16" name="adminOrderkeyword" id="adminOrderkeyword" value="${param.keyword}" class="form-control me-2">
-							<input type="submit" value="검색" class="btn btn-outline-success">	
+							<input type="submit" value="조회" class="btn btn-outline-success">	
 					</form>
 					<script type="text/javascript">
 						$(function(){
@@ -593,7 +593,7 @@ ul.search li {
 					</select>
 						<input type="search" size="16" name="adminMemberKeyword" id="adminMemberKeyword" value="${param.adminMemberKeyword}" class="form-control me-2">
 						
-						<input type="submit" value="검색" class="btn btn-outline-success">
+						<input type="submit" value="조회" class="btn btn-outline-success">
 				</form>
 				<script type="text/javascript">
 					$(function(){

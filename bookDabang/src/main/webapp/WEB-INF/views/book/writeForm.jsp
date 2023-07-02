@@ -58,7 +58,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
 	<div class="content-main">
-		<h2 class="align-center"><a href="writeForm.do">도서 등록</a></h2>
+		<div style="margin-top:70px;"><h2 class="align-center"><a href="writeForm.do">도서 등록</a></h2></div>
 		<form action="write.do" method="post" encType="multipart/form-data" class="info_form">
 			<div class="thumbnail-info">
 				<img src="${pageContext.request.contextPath}/images/bk_no_image.png" width="300" class="db-thumbnail">
@@ -141,8 +141,8 @@
 			</ul>
 			</div>
 			<div class="button-info">
-				<input type="button" value="목록" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do'">
-				<input type="submit" value="등록" class="btn btn-primary">
+				<input type="button" value="목록" class="btn btn-outline-secondary" onclick="location.href='${pageContext.request.contextPath}/mypage/myPage.do'">
+				<input type="submit" value="등록" class="btn btn-success">
 			</div>
 		</form>
 	</div>
