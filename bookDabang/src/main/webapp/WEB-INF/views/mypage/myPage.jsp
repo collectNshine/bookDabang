@@ -74,23 +74,7 @@ ul.search li {
     float: left;
     padding: 5px;
 }
-.readybtn{
-	background-color:white;
-	border:1px solid gray;
-	width:80px;
-	height:30px;
-	margin-left:25%;
-	margin-bottom:0;
-}
-.donebtn{
-	background-color:gray;
-	border:1px solid black;
-	width:80px;
-	height:30px;
-	margin-left:25%;
-	margin-bottom:0;
-	color:white;
-}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.6.0.min.js"></script>
@@ -310,7 +294,7 @@ ul.search li {
 		<br><h2><a href="myPage.do#order">주문목록</a></h2><br>
 		<!-- 검색창 시작 : get방식 -->
 			<form id="search_form3_1" action="myPage.do#order" method="get" class="d-flex" role="search">
-						<select name="user_orderkeyfield" class="form-select">
+						<select name="user_orderkeyfield" class="form-select" style="width:55%;">
 							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>주문상태</option>
 							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>주문명</option>
 						</select>
@@ -352,11 +336,11 @@ ul.search li {
 					</td>
 					<td>
 						<a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">
-							<c:if test="${order.status == 1}"><b>배송대기</b></c:if>
+							<c:if test="${order.status == 1}"><b class="order-waiting">배송대기</b></c:if>
 							<c:if test="${order.status == 2}"><b>배송준비중</b></c:if>
 							<c:if test="${order.status == 3}"><b>배송중</b></c:if>
-							<c:if test="${order.status == 4}"><b>배송완료</b></c:if>
-							<c:if test="${order.status == 5}"><b>주문취소</b></c:if>
+							<c:if test="${order.status == 4}"><b class="order-success">배송완료</b></c:if>
+							<c:if test="${order.status == 5}"><b class="order-cancel">주문취소</b></c:if>
 						</a>
 					</td>
 					<td><a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">${order.book_title}</a></td>
@@ -577,11 +561,11 @@ ul.search li {
 						<td>${admin_order.id}</td>
 						<td>
 							<a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${admin_order.order_num}">
-								<c:if test="${admin_order.status == 1}"><b>배송대기</b></c:if>
+								<c:if test="${admin_order.status == 1}"><b class="order-waiting">배송대기</b></c:if>
 								<c:if test="${admin_order.status == 2}"><b>배송준비중</b></c:if>
 								<c:if test="${admin_order.status == 3}"><b>배송중</b></c:if>
-								<c:if test="${admin_order.status == 4}"><b>배송완료</b></c:if>
-								<c:if test="${admin_order.status == 5}"><b>주문취소</b></c:if>
+								<c:if test="${admin_order.status == 4}"><b class="order-success">배송완료</b></c:if>
+								<c:if test="${admin_order.status == 5}"><b class="order-cancel">주문취소</b></c:if>
 							</a>
 						</td>
 						<td>${admin_order.order_total}</td>
@@ -860,7 +844,6 @@ ul.search li {
 					let reqstate = new Array();
 					$('input[type="checkbox"]:checked').each(function(index,item){
 						reqstate.push($(this).val());
-						history.go(0);
 					});
 					$.ajax({
 						url:'requestStateUpdate.do',

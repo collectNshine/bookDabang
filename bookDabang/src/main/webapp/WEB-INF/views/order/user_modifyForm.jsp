@@ -230,7 +230,7 @@
 										<li>
 											<div class="input-group">
 												<span class="input-group-text">요청사항</span>
-												<textarea class="form-control info-check" name="notice" id="notice" maxlength="4000" aria-label="With textarea"></textarea>
+												<textarea class="form-control info-check" name="notice" id="notice" maxlength="4000" aria-label="With textarea">${order.notice }</textarea>
 											</div>
 										</li>
 										<li id="move_li">
