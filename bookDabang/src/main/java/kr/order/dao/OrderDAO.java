@@ -389,6 +389,7 @@ public class OrderDAO {
 				order.setEmail(rs.getString("email"));
 				order.setNotice(StringUtil.useNoHtml(rs.getString("notice")));
 				order.setOrder_date(rs.getDate("order_date"));
+				order.setModify_date(rs.getDate("modify_date"));
 				order.setMem_num(rs.getInt("mem_num"));
 				order.setId(rs.getString("id"));
 				
@@ -490,6 +491,7 @@ public class OrderDAO {
 				order.setEmail(rs.getString("email"));
 				order.setNotice(StringUtil.useNoHtml(rs.getString("notice")));
 				order.setOrder_date(rs.getDate("order_date"));
+				order.setModify_date(rs.getDate("modify_date"));
 				order.setMem_num(rs.getInt("mem_num"));
 				
 				list.add(order);
