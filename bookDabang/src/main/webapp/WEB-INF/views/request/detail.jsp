@@ -20,43 +20,44 @@
 <div class="page-main">
 	
 
-			<h2>도서 신청</h2>
+		<h2 class="detailtitle">도서 신청</h2>
 		
-		<header>
-			<div class="detail_head">
-				<span class="detail_head1">${request.req_title} / ${request.req_author}</span>
+		<div class="detailmain">
+			<div class="detail_head1">
+				<span>${request.req_title} / ${request.req_author}</span>
 			</div>
-			<div class="detail_head">
-				<c:choose>
+			<div class="detail_head2">
+					<c:choose>
 						<c:when test="${request.req_modifydate!=null}">
-							<span class="detail_head2">${request.req_modifydate}</span>
+							<span>${request.req_modifydate}</span>
 						</c:when>
 						<c:otherwise>
-							<span class="detail_head2">${request.req_date}</span>
+							<span>${request.req_date}</span>
 						</c:otherwise>
-					</c:choose>
+					</c:choose> 
 			</div>
-		</header>
-		<article>
+		</div>
+		<div>
 		<ul>
 			<li><input type="hidden" value="${request.req_num}"> </li>
 			<li><input type="hidden" value="${request.mem_num}"></li>
 			<li><input type="hidden" value="${request.clicked}"></li>
 			<li><input type="hidden" value="${request.cnt}"></li>
+			<li><input type="hidden" value="${request.nickname}"></li>
 
 			
 		</ul>
 		<div class="detail_main">
 			<ul>
 				<li>작성자</li>
-				<li>${request.id}</li>
+				<li>${request.nickname}</li>
 			</ul>
 			<ul>
-				<li>책 제목</li>
+				<li>책제목</li>
 				<li>${request.req_title}</li>
 			</ul>
 			<ul>
-				<li>저자</li>
+				<li>저&nbsp;&nbsp;자</li>
 				<li>${request.req_author}</li>
 			</ul>
 			<ul>
@@ -64,22 +65,22 @@
 				<li>${request.req_publisher}</li>
 			</ul>
 			<ul>
-				<li>기타</li>
+				<li>기&nbsp;&nbsp;타</li>
 				<li>${request.req_etc}</li>
 			</ul>
 		</div>
-	 	</article>
-		<footer>
+	 	</div>
+		<div>
 	 	<div class="detail_button">
 	 		 	<!-- 좋아요 버튼-->
 		 	<div class="detail_fav">
 			 	<c:forEach var="request" items="${list}">
 			 	<c:choose>
 				 	<c:when test="${request.clicked == 'clicked'}">
-						 <img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav02.png" width="50"> 	
+						 <img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/upload/fav02.png" width="50"> 	
 					</c:when>
 					<c:when test = "${empty request.clicked}"> 
-						<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav01.png" width="50"> 
+						<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/uppload/fav01.png" width="50"> 
 					</c:when>
 				</c:choose>
 				<br><span class="output-fcount">${request.cnt}</span>
@@ -105,6 +106,7 @@
 			 	
 		 	</div>
 		 </div>
-		</footer>
+		</div>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </div>
 </html>

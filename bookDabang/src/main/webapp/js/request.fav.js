@@ -41,9 +41,9 @@ $(function(){
 	function showmeFav(param,click_btn){
 		let output;
 		if(param.status=='noFav'){
-			output = '../images/fav01.gif';
+			output = '../upload/fav01.png';
 		}else if(param.status=='yesFav'){
-			output = '../images/fav02.gif';
+			output = '../upload/fav02.png';
 		}
 		click_btn.attr('src',output);
 		click_btn.parent().find('.output-fcount').text(param.count);
