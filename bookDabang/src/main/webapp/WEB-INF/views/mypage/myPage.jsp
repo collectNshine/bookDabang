@@ -332,6 +332,7 @@ ul.search li {
 				</tr>
 				</c:forEach>
 			</table>
+			<div class="align-center">${userOrderpage}</div>
 			</div>
 		</div>
 		<!-- [3. 주문목록] 끝 -->
@@ -547,6 +548,7 @@ ul.search li {
 					</tr>
 					</c:forEach>
 				</table>
+				<div class="align-center">${adminOrderpage}</div>
 				</c:if>
 			</div>
 		</div>

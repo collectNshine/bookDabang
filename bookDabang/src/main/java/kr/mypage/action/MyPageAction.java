@@ -19,7 +19,11 @@ import kr.post.vo.PostReportVO;
 import kr.post.vo.PostVO;
 import kr.request.dao.RequestDAO;
 import kr.request.vo.RequestVO;
+import kr.util.BookmarkPageUtil;
+import kr.util.OrderAdminPageUtil;
+import kr.util.OrderPageUtil;
 import kr.util.PageUtil;
+import kr.util.PostPageUtil;
  
 public class MyPageAction implements Action{ //[관리자]도서관리
 
@@ -54,7 +58,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		BookDAO bm_dao = BookDAO.getInstance();
 		int bm_count = bm_dao.selectUserMarkCount(bm_keyfield, bm_keyword, user_num);
 		
-		PageUtil bm_page = new PageUtil(bm_keyfield,bm_keyword,Integer.parseInt(bm_pageNum),bm_count,10,10,"myPage.do","#book_mark");
+		BookmarkPageUtil bm_page = new BookmarkPageUtil(bm_keyfield,bm_keyword,Integer.parseInt(bm_pageNum),bm_count,10,10,"myPage.do","#book_mark");
 		
 		List<BookMarkVO> bm_list = null;
 		if(bm_count > 0) {
@@ -76,7 +80,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		
 		MyPageDAO postdao = MyPageDAO.getInstance();
 		int mp_count = postdao.getMyPostCount(mp_keyfield, mp_keyword);
-		PageUtil mp_page = new PageUtil(mp_keyfield,mp_keyword,Integer.parseInt(mp_pageNum),mp_count,10,10,"myPage.do","#post");
+		PostPageUtil mp_page = new PostPageUtil(mp_keyfield,mp_keyword,Integer.parseInt(mp_pageNum),mp_count,10,10,"myPage.do","#post");
 		
 		List<PostVO> mp_list = null;
 		if(mp_count > 0) {
@@ -98,14 +102,14 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		int userOrder_count = order_dao.getOrderCountByMem_num(user_orderkeyfield, user_orderkeyword, user_num);
 		
 		// page 처리
-		PageUtil userOrder_page = new PageUtil(user_orderkeyfield, user_orderkeyword, Integer.parseInt(user_orderpageNum), userOrder_count, 10, 10, "myPage.do","#order");
+		OrderPageUtil userOrderpage = new OrderPageUtil(user_orderkeyfield, user_orderkeyword, Integer.parseInt(user_orderpageNum), userOrder_count, 10, 10, "myPage.do", "#order");
 		
 		List<OrderVO> orderList = null;
-		if(userOrder_count > 0) { orderList = order_dao.getListOrderByMem_num(userOrder_page.getStartRow(), userOrder_page.getEndRow(), user_orderkeyfield, user_orderkeyword, user_num); }
+		if(userOrder_count > 0) { orderList = order_dao.getListOrderByMem_num(userOrderpage.getStartRow(), userOrderpage.getEndRow(), user_orderkeyfield, user_orderkeyword, user_num); }
 		
 		request.setAttribute("userOrder_count", userOrder_count);
 		request.setAttribute("orderList", orderList);
-		request.setAttribute("userOrder_page", userOrder_page);
+		request.setAttribute("userOrderpage", userOrderpage.getPage());
 		/*-- [사용자] 주문목록 끝 --*/
 		
 		/*---[관리자]도서 관리 시작---*/ 
@@ -142,7 +146,7 @@ public class MyPageAction implements Action{ //[관리자]도서관리
 		int adminOrdercount = adminOrderdao.getOrderCount(adminOrderkeyfield, adminOrderkeyword);
 		
 		// page 처리
-		PageUtil adminOrderpage = new PageUtil(adminOrderkeyfield, adminOrderkeyword, Integer.parseInt(adminOrderpageNum), adminOrdercount, 10, 10, "myPage.do","#admin_order");
+		OrderAdminPageUtil adminOrderpage = new OrderAdminPageUtil(adminOrderkeyfield, adminOrderkeyword, Integer.parseInt(adminOrderpageNum), adminOrdercount, 10, 10, "myPage.do", "#admin_order");
 		
 		List<OrderVO> adminOrderlist = null;
 		if(count > 0) { adminOrderlist = adminOrderdao.getListOrder(adminOrderpage.getStartRow(), adminOrderpage.getEndRow(), adminOrderkeyfield, adminOrderkeyword); }

@@ -1,6 +1,6 @@
 package kr.util;
 
-public class bookmarkPageUtil {
+public class PostPageUtil {
 	private int startRow;	 // 한 페이지에서 보여줄 게시글의 시작 번호
 	private int endRow;	 // 한 페이지에서 보여줄 게시글의 끝 번호
 	private StringBuffer page;// 페이지 표시 문자열
@@ -13,24 +13,24 @@ public class bookmarkPageUtil {
 	 * pageUrl : 호출 페이지 url
 	 * addKey : 부가적인 key 없을 때는 null 처리 (&num=23형식으로 전달할 것)
 	 * */
-	public bookmarkPageUtil(int currentPage,int count, int rowCount) {
+	public PostPageUtil(int currentPage,int count, int rowCount) {
 		//ajax 작업을 할 때 페이지 번호가 보여지는 것이 아니라 다음글 보기 버튼을 누르면 다음 페이지가 보여지는 형식의 작업을
 		//할 때 목록 데이터를 호출하기 위해 사용(startRow,endRow 를 구하기 위한 용도로만 사용)
 		this(null,null,currentPage,count,rowCount,0,null,null);
 	}
-	public bookmarkPageUtil(int currentPage, int count, int rowCount,
+	public PostPageUtil(int currentPage, int count, int rowCount,
 			int pageCount, String pageUrl) {
 		this(null,null,currentPage,count,rowCount,pageCount,pageUrl,null);
 	}
-	public bookmarkPageUtil(int currentPage, int count, int rowCount,
+	public PostPageUtil(int currentPage, int count, int rowCount,
 			int pageCount, String pageUrl, String addKey) {
 		this(null,null,currentPage,count,rowCount,pageCount,pageUrl,addKey);
 	}
-	public bookmarkPageUtil(String keyfield, String keyword, int currentPage, int count, int rowCount,
+	public PostPageUtil(String keyfield, String keyword, int currentPage, int count, int rowCount,
 			int pageCount,String pageUrl) {
 		this(keyfield,keyword,currentPage,count,rowCount,pageCount,pageUrl,null);
 	}
-	public bookmarkPageUtil(String keyfield, String keyword, int currentPage, int count, int rowCount,
+	public PostPageUtil(String keyfield, String keyword, int currentPage, int count, int rowCount,
 			int pageCount,String pageUrl,String addKey) {
 
 		if(count >= 0) {
@@ -63,7 +63,7 @@ public class bookmarkPageUtil {
 				}
 				
 				if (currentPage > pageCount) {
-					page.append("<a href="+pageUrl+"?bm_pageNum="+ (startPage - 1) + sub_url +">");
+					page.append("<a href="+pageUrl+"?mp_pageNum="+ (startPage - 1) + sub_url +">");
 					page.append("[이전]");
 					page.append("</a>");
 				}
@@ -77,7 +77,7 @@ public class bookmarkPageUtil {
 						page.append(i);
 						page.append("</span></b>");
 					} else {
-						page.append("&nbsp;<a href='"+pageUrl+"?bm_pageNum=");
+						page.append("&nbsp;<a href='"+pageUrl+"?mp_pageNum=");
 						page.append(i);
 						page.append(sub_url+"'>");
 						page.append(i);
@@ -87,7 +87,7 @@ public class bookmarkPageUtil {
 				}
 				// 다음 block 페이지
 				if (totalPage - startPage >= pageCount) {
-					page.append("<a href="+pageUrl+"?bm_pageNum="+ (endPage + 1) + sub_url +">");
+					page.append("<a href="+pageUrl+"?mp_pageNum="+ (endPage + 1) + sub_url +">");
 					page.append("[다음]");
 					page.append("</a>");
 				}
