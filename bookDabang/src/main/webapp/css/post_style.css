@@ -6,8 +6,8 @@
 .tabWrap li{padding: 5px 10px; }
 .tabWrap li.on{background : #aaa}
 div#post-list{
-	width:400px;
-	height:550px;
+	width:360px;
+	height:480px;
 	/*border:1px solid red;*/
 	float:left;
 }
@@ -26,21 +26,23 @@ div#profile{
 	margin-top:-30px;
 }
 div#profile2{
-	width:120px; 
+	width:140px; 
 	height:80px; 
 	float:left;
 	margin-top:-5px; 
 }
+.profile3{
+	margin-left: 8px;
+}
 .card-footer{
 	height: 63px;
-    width: 376px;
+    width: 335px;
     margin-left: -16px;
-    margin-top: 43px;
+    margin-top: 3px;
 }
 .card-detail{
 	height:133px;
-	width:326px;
-	white-space:nowrap;
+	width:286px;
 	overflow:hidden;
 	text-overflow:ellipsis;
 	margin-top: 10px;
@@ -51,9 +53,11 @@ div#profile2{
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;
+	font-size: 20px;
 }
 .card-text{
 	word-wrap: break-word;
+	margin-left: 9px;
 }
 .post-thumbnail{
 	text-align:center;
@@ -67,4 +71,7 @@ div#profile2{
 }
 .footer1{
 	float: right;
+}
+.card-text{
+	word-break:break-all;
 }

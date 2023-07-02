@@ -9,7 +9,7 @@ public class PostReplyVO {
 	private int post_num; //부모글 번호
 	private int mem_num; //작성자 회원번호
 	private String id; //아이디 - 테이블엔 없으나 필요한 경우가 많아 추가 정의
-	private String name; //이름(닉네임)
+	private String nickname; //이름(닉네임)
 	
 	public int getRe_num() {
 		return re_num;
@@ -60,10 +60,10 @@ public class PostReplyVO {
 		this.id = id;
 	}
 	public String getName() {
-		return name;
+		return nickname;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String nickname) {
+		this.nickname = nickname;
 	}
 	
 }
