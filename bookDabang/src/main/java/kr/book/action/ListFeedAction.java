@@ -35,7 +35,7 @@ public class ListFeedAction implements Action{
 		
 		BookDAO dao = BookDAO.getInstance();
 		int count = dao.getReCount(keyfield, keyword);
-		PageUtil page = new PageUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 10, 10, "listFeed.do");
+		PageUtil page = new PageUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 16, 10, "listFeed.do");
 		
 		List<ReviewVO> list = null;
 		if(count > 0) {

@@ -22,7 +22,7 @@
 	<div id="postfeed" class="tab_contents on">
 		<div class="content-main container">
 		<br>
-		<h2><a href="list.do"><b>서평 모음집</b></a></h2>
+		<h2 style="margin-left: -310px;"><a href="list.do"><b>서평 모음집</b></a></h2>
 		<br>
 		<br>
 		<c:if test="${count == 0}">
@@ -32,7 +32,7 @@
 		</c:if>
 		
 		<c:if test="${count > 0}">
-		<div class="row row-cols-1 row-cols-md-3 g-4">
+		<div class="row row-cols-1 row-cols-lg-4 g-4" style="width: 2000px; margin-left: -220px;">
 		<c:forEach var="post" items="${list}">
   			<div id="post-list" class="col">
     			<div class="card h-100">
@@ -58,14 +58,14 @@
   				<ul class="post-thumbnail">
 				<li>
 					<a href="detail.do?post_num=${post.post_num}">
-					<img src="${pageContext.request.contextPath}/upload/${post.thumbnail}" width="120" height="170" class="list-thumbnail">
+					<img src="${pageContext.request.contextPath}/upload/${post.thumbnail}" width="150" height="200" class="list-thumbnail">
 					</a>
 				</li>
 				</ul>
 				</div>
 				<div class="card-detail">
     				<h5 class="card-title"><b><a href="detail.do?post_num=${post.post_num}">${post.post_title}</a></b></h5>
-    				<div class="card-text" style="height: 85px; width: 280px;">
+    				<div class="card-text" style="height: 85px; width: 350px;">
     				<p><a href="detail.do?post_num=${post.post_num}">${post.post_content}</a></p>
     				</div>
     			</div>
