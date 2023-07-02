@@ -440,21 +440,28 @@ public class MyPageDAO {
 			}
 			
 			//내가 쓴 서평 수
-			public int getMyPostCount(String keyfield, String keyword) throws Exception{
+			public int getMyPostCount(String keyfield, String keyword, int mem_num) throws Exception{
 				Connection conn = null;
 				PreparedStatement pstmt = null;
 				ResultSet rs = null;
 				String sql = null;
+				String sub_sql = "";
 				int count = 0;
 				try {
 					//커넥션 풀로부터 커넥션을 할당
 					conn = DBUtil.getConnection();
+					//sub_sql문 작성
+					if(keyword!=null && !"".equals(keyword)) {
+						if(keyfield.equals("1")) sub_sql += " AND p.post_title LIKE ?";
+						if(keyfield.equals("2")) sub_sql += " AND p.post_content LIKE ?";
+					}
 					//SQL문 작성
-					sql = "SELECT COUNT(*) FROM post p JOIN member_detail m ON p.mem_num=m.mem_num";
+					sql = "SELECT COUNT(*) FROM post p LEFT OUTER JOIN member_detail m USING(mem_num) WHERE mem_num=?" + sub_sql;
 					//PreparedStatement 객체 생성
 					pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, mem_num);
 					if(keyword!=null && !"".equals(keyword)) {
-						pstmt.setString(1, "%" + keyword + "%");
+						pstmt.setString(2, "%" + keyword + "%");
 					}
 					//SQL문 실행
 					rs = pstmt.executeQuery();
