@@ -96,7 +96,7 @@ ul.search li {
 						<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
 					</div>
 					<div style="margin-left:20px;">
-						<h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_name}</b>님의 책다방</h4>
+						<h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_nickname}</b>님의 책다방</h4>
 						<input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'" class="btn btn-outline-secondary" style="margin-bottom:30px;">
 					</div>
 					
@@ -105,7 +105,7 @@ ul.search li {
 					<img src="${pageContext.request.contextPath}/upload/${user_photo}" 
 						 width="200" height="200" class="my-photo">
 					<div style="display:flex;justify-content: space-around;flex-direction: column; margin-left:25px;">	 
-						 <h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_name}</b>님의 책다방</h4>
+						 <h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_nickname}</b>님의 책다방</h4>
 						 <input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'" class="btn btn-outline-secondary">
 					 </div>
 				</c:if>
