@@ -49,6 +49,7 @@ public class MyPageDAO {
 						vo.setAddress1(rs.getString("address1"));
 						vo.setAddress2(rs.getString("address2"));
 						vo.setEmail(rs.getString("email"));
+						vo.setNickname(rs.getString("nickname"));
 					}
 				}catch(Exception e) {
 					throw new Exception(e);
@@ -115,6 +116,7 @@ public class MyPageDAO {
 					vo.setPhoto(rs.getString("photo"));
 					vo.setReg_date(rs.getDate("reg_date"));
 					vo.setLatest_login(rs.getDate("latest_login"));
+					vo.setNickname(rs.getString("nickname"));
 					
 					adminMemberList.add(vo);
 				}
@@ -139,7 +141,7 @@ public class MyPageDAO {
 		try {
 			conn = DBUtil.getConnection();
 			sql = "UPDATE member_detail "
-					+ "SET name=?,phone=?,email=?,address1=?,zipcode=?,address2=? "
+					+ "SET name=?,phone=?,email=?,address1=?,zipcode=?,address2=?,nickname=? "
 					+ "WHERE mem_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getName());
@@ -148,7 +150,9 @@ public class MyPageDAO {
 			pstmt.setString(4, vo.getAddress1());
 			pstmt.setString(5, vo.getZipcode());
 			pstmt.setString(6, vo.getAddress2());
-			pstmt.setInt(7, vo.getMem_num());
+			pstmt.setString(7, vo.getNickname());
+			pstmt.setInt(8, vo.getMem_num());
+			
 			
 			//SQL문 실행
 			pstmt.executeUpdate();
@@ -184,6 +188,7 @@ public class MyPageDAO {
 					vo = new MemberVO();
 					vo.setMem_num(rs.getInt("mem_num"));
 					vo.setId(rs.getString("id"));
+					vo.setSalt(rs.getString("salt"));
 					vo.setAuth(rs.getInt("auth"));
 					vo.setPasswd(rs.getString("passwd"));
 					vo.setPhoto(rs.getString("photo"));

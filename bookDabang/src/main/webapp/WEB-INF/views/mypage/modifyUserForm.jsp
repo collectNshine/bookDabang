@@ -325,13 +325,18 @@ element.style {
 						   maxlength="10" value="${member.name}" class="form-control" style="width:400px;">
 				</li>
 				
-				<%--
+				
+				
+				
 				<li>
 					<label for="nickname"><b>닉네임</b></label>
 					<input type="text" name="nickname" id="nickname" 
 						   maxlength="10" value="${member.nickname}" class="form-control" style="width:400px;">
 				</li>
-				 --%>
+				
+				
+				
+				
 				
 				<li>
 					<label for="phone"><b>휴대폰번호</b></label>

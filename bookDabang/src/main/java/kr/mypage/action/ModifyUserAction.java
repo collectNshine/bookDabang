@@ -35,6 +35,7 @@ public class ModifyUserAction implements Action {
 		vo.setZipcode(request.getParameter("zipcode"));
 		vo.setAddress1(request.getParameter("address1"));
 		vo.setAddress2(request.getParameter("address2"));
+		vo.setNickname(request.getParameter("nickname"));
 		
 		MyPageDAO dao = MyPageDAO.getInstance();
 		dao.updateMember(vo);

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpSession;
 import kr.controller.Action;
 import kr.member.dao.MemberDAO;
 import kr.member.vo.MemberVO;
-import kr.util.Encrypt;
 
 public class PasswdCheckAction implements Action{
 
