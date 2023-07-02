@@ -55,11 +55,12 @@ header, nav, main, aside {
 	margin-left:10;
 }
 nav{
-	width:30%;
-	margin-left:10%;
+	width:25%;
+	margin-left:0;
+	left:0 !important;
 }
 main{
-	width:25%;
+	width:30%;
 	margin-left:10%;
 }
 aside{
@@ -165,7 +166,7 @@ aside{
 }
 .fightingimg{
 	width:70%;
-	height:20% !important;
+	height:1% !important;
 	vertical-align:middle;
 }
 .fightingwrap{

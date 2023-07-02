@@ -23,7 +23,7 @@
 	<div class="content-main">
 		<!-- Carousel 시작 -->
 	  
-	    <header>
+	    <div style="margin-top:7%;">
 	  	<div class="container">
 	  		<div id="carsouselExample" class="carousel slide" data-bs-ride="carousel">
 	  			<!-- indicator -->
@@ -57,7 +57,7 @@
 	  			</button>
 	  		</div>	
 	  	</div>	
-	</header>
+	</div>
 	<!-- Carousel 끝 -->
 	<section id="section">
 		<div class="mainmain">
@@ -169,7 +169,7 @@
 	        	<ul class="list-photo">
 	        		<li style="text-align:left">
 	        			<c:set var="i" value="${i+1}"/>
-	        			<span class="ranking">&nbsp;&nbsp;${i}</span>
+	        			<span class="ranking">${i}</span>
 	        		</li>
 	        		<li>
 	        			<a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${book.bk_num}">
@@ -215,16 +215,16 @@
 <%
 String[] strArr = new String[10];
 
-strArr[0] = "실수는 충만한삶을 위해 반드시 치러야 할 비용이다. -소피아 로렌";
-strArr[1] = "용기는 스스로가 죽을만큼 두려워 떨고 있다는 것을 자신만이 아는 것이다. -해럴드 윌슨";
-strArr[2] = "인생이란 누구나 한 번쯤 시도해 볼 만한 것이다. -헨리 J.틸만";
+strArr[0] = "실수는 충만한삶을 위해 반드시 치러야 할 비용이다.<br> -소피아 로렌";
+strArr[1] = "용기는 스스로가 죽을만큼 두려워 떨고 있다는 것을 자신만이 아는 것이다. <br>-해럴드 윌슨";
+strArr[2] = "인생이란 누구나 한 번쯤 시도해 볼 만한 것이다.<br> -헨리 J.틸만";
 strArr[3] = "불의가 없다면 인간은 정의를 알지 못할 것이다. -헤라클레이토스";
-strArr[4] = "우리 모두 살면서 몇 번의 실패를 겪는다. 이것이 바로 우리를 성공할 수 있도록 준비시킨다. -랜디 K.멀홀랜드";
-strArr[5] = "명심하라. 성공한 자들은 어떤일이 잘못되면 그 책임과 원인을 자기 자신에서 찾는다. 절대 세상 속에서 핑계를 찾지 않는다는 말이다. -세이노의 가르침 中";
-strArr[6] = "인생에는 서두르는 것 말고도 더 많은 것이 있다. -마하트마 간디";
-strArr[7] = "사랑하는 것은 천국을 살짝 엿보는 것이다. -카렌 선드";
-strArr[8] = "유한한 실망을 받아들임과 동시에 무한한 희망을 잃지 마라. -마틴 루터 킹";
-strArr[9] = "인내와 지혜는 떼려야 뗄 수 없다. -성 아우구스티누스";
+strArr[4] = "우리 모두 살면서 몇 번의 실패를 겪는다. 이것이 바로 우리를 성공할 수 있도록 준비시킨다.<br> -랜디 K.멀홀랜드";
+strArr[5] = "명심하라. 성공한 자들은 어떤일이 잘못되면 그 책임과 원인을 자기 자신에서 찾는다. 절대 세상 속에서 핑계를 찾지 않는다는 말이다.<br> -세이노의 가르침 中";
+strArr[6] = "인생에는 서두르는 것 말고도 더 많은 것이 있다.<br> -마하트마 간디";
+strArr[7] = "사랑하는 것은 천국을 살짝 엿보는 것이다.<br> -카렌 선드";
+strArr[8] = "유한한 실망을 받아들임과 동시에 무한한 희망을 잃지 마라.<br> -마틴 루터 킹";
+strArr[9] = "인내와 지혜는 떼려야 뗄 수 없다.<br> -성 아우구스티누스";
 			double randomValue  = Math.random();
 			int intVal = (int)(randomValue *10)+1;
 %>   
@@ -237,6 +237,7 @@ strArr[9] = "인내와 지혜는 떼려야 뗄 수 없다. -성 아우구스티�
 	 	</div>
  	</div>
  </section>
+ <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>
 
