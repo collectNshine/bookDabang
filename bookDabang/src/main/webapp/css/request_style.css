@@ -16,6 +16,8 @@
 	margin-bottom:30px;
 	border:none;
 	text-align:center;
+	width:40% !important;
+	margin-left:30%;
 	
 }
 
@@ -23,8 +25,8 @@
 	display:flex;
 }
 
-.form-control me-2{
-	margin-left:0;
+.me-2{
+	margin-left:0 !important;
 }
 
 
