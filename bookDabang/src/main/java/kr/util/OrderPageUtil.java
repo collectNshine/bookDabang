@@ -87,7 +87,7 @@ public class OrderPageUtil {
 				}
 				// 다음 block 페이지
 				if (totalPage - startPage >= pageCount) {
-					page.append("<b><a href="+pageUrl+"?user_orderpageNum="+ (endPage + 1) + sub_url +"style='color:#999;'>");
+					page.append("<b><a href="+pageUrl+"?user_orderpageNum="+ (endPage + 1) + sub_url +"style='color:rgba(5, 59, 68, .3);'>");
 					page.append("[다음]");
 					page.append("</a></b>");
 				}
