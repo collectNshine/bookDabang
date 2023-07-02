@@ -22,6 +22,8 @@ textarea{ resize: none; }
 .my-photo{ object-fit:cover; object-position:top; border-radius:50%; }
 .start{ text-align:center; margin:50px 0; }
 
+.rounded{ border-radius:5px; }
+
 /* 장바구니 */
 #cart_order{ font-weight:bold; }
 
