@@ -6,11 +6,6 @@
     font-weight: 400;
     font-style: normal;
 }
-
-/* body{
-	width:100%;
-	background-color:gray;
-}  */  
 * {
     margin: 0px;
     padding:0px;
@@ -63,7 +58,7 @@
     transform: translate(-440px,40px);
    
 }
-#header__login div a,b{
+.log{
 color: #999;
 margin:0px 10px;
 font-size: 14px;
