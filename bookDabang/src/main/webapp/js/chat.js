@@ -1,6 +1,6 @@
 $(function() {
 	let chat_num;
-	let message_socket = new WebSocket("ws://192.168.10.79/bookDabang/webSocket");
+	let message_socket = new WebSocket("ws://localhost:8080/bookDabang/webSocket");
 	
 	message_socket.onopen = function(evt) {
 		console.log('open');
@@ -132,7 +132,7 @@ $(function() {
 						if(!item.memberVo.photo) { chatList += '<div class="chat-thumb"><img src="../images/face.png" class="chat-photo" width="35" height="35"></div>'; }
 						else { chatList += '<div class="chat-thumb"><img src="../upload/' + item.memberVo.photo + '" class="chat-photo" width="35" height="35"></div>'; }
 						chatList += '<div class="chat-messages">';
-						chatList += '<div class="from">' + item.memberVo.name + '</div>';
+						chatList += '<div class="from">' + item.memberVo.nickname + '</div>';
 						chatList += '<div class="message">' + item.chat_content + '</div>';
 						chatList += '<div class="from">' + item.chat_date + '</div>';
 						chatList += '</div>';
@@ -243,21 +243,24 @@ $(function() {
 	
 	// 채팅 삭제
 	$(document).on('click', '.delete-chat', function() {
-		$.ajax({
-			url:'deleteChat.do',
-			type:'post',
-			data:{chat_num:$(this).attr('data-chatNum')},
-			dataType:'json',
-			success:function(param) {
-				if(param.result == 'logout') { alert('Login 후 삭제 가능!!'); }
-				else if(param.result == 'success') {
-					alert('삭제 완료!!');
-					location.reload();
-				}
-				else if(param.result == 'wrongAccess') { alert('타인의 글 삭제 불가!!'); }
-				else { alert('댓글 삭제 오류 발생!!'); }
-			},
-			error:function() { alert('Network 오류 발생'); }
-		});
+		let choice = confirm('삭제하시겠습니까??');
+		if(choice) {
+			$.ajax({
+				url:'deleteChat.do',
+				type:'post',
+				data:{chat_num:$(this).attr('data-chatNum')},
+				dataType:'json',
+				success:function(param) {
+					if(param.result == 'logout') { alert('Login 후 삭제 가능!!'); }
+					else if(param.result == 'success') {
+						alert('삭제 완료!!');
+						location.reload();
+					}
+					else if(param.result == 'wrongAccess') { alert('타인의 글 삭제 불가!!'); }
+					else { alert('댓글 삭제 오류 발생!!'); }
+				},
+				error:function() { alert('Network 오류 발생'); }
+			});
+		}
 	});
 });

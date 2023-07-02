@@ -299,6 +299,7 @@ public class ChatDAO {
 				// 회원 정보를 담기위해 MemberVO 객체 생성
 				MemberVO member = new MemberVO();
 				member.setName(rs.getString("name"));
+				member.setNickname(rs.getString("nickname"));
 				member.setPhoto(rs.getString("photo"));
 				
 				// MemberCO를 ChatMessageVO에 저장
