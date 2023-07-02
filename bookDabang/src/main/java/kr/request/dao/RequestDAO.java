@@ -116,7 +116,7 @@ public class RequestDAO {
 			 * "WHERE rnum>=? AND rnum<=?  ORDER BY cnt DESC NULLS LAST, clicked DESC";
 			 */
 			 
-			sql= "SELECT * FROM ( SELECT aa.*,rownum as rnum1 FROM ( SELECT x.* FROM (SELECT a.* FROM (SELECT * FROM book_request r JOIN member m USING(mem_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num) f USING(req_num) LEFT OUTER JOIN (SELECT 'clicked' clicked, req_num from book_request_fav WHERE mem_num=?) USING(req_num) ORDER BY req_num DESC) a) x ORDER BY cnt DESC NULLS LAST, clicked DESC  ) aa ) WHERE rnum1>=? AND rnum1<=? ";
+			sql= "SELECT * FROM ( SELECT aa.*,rownum as rnum FROM ( SELECT x.* FROM (SELECT a.* FROM (SELECT * FROM book_request r JOIN member m USING(mem_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, req_num FROM book_request_fav group by req_num) f USING(req_num) LEFT OUTER JOIN (SELECT 'clicked' clicked, req_num from book_request_fav WHERE mem_num=?) USING(req_num) "+ sub_sql +" ORDER BY req_num DESC) a) x ORDER BY cnt DESC NULLS LAST, clicked DESC  ) aa ) WHERE rnum>=? AND rnum<=? ";
 			 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(++cnt, mem_num);
