@@ -117,7 +117,7 @@
 				// 결제 방식
 				if($(':radio[name=payment]:checked').length < 1){
 					$("#errMsg_07").show();
-					$("#errMsg_07").text("결제방식을 입력하세요.");
+					$("#errMsg_07").text("결제방식을 선택하세요.");
 					return false;
 				} else { $("#errMsg_07").hide(); }
 			});
@@ -139,6 +139,13 @@
 				$('input[name="receive_phone"]').val('');
 				$('input[name="email"]').val('');
 			});
+			
+			$('.booktitle-short').each(function() {
+		        let length = 20; //표시할 글자수 정하기
+		        $('.booktitle-short').each(function() {
+		            if( $('.booktitle-short').text().length >= length ){ $('.booktitle-short').text( $('.booktitle-short').text().substr(0,length)+'...')  }
+		        });
+		    });
 			
 			numbers();
 		});
@@ -170,7 +177,7 @@
 					<div class="orderinfo-left">
 						<div class="book-info">
 							<h4><b>주문도서</b></h4>
-								<table class="table table-borderless">
+								<table class="table table-borderless align-center">
 									<tr>
 										<th>도서사진</th>
 										<th>도서명</th>
@@ -186,7 +193,7 @@
 												<img src="${pageContext.request.contextPath}/upload/${cart.bookVO.thumbnail}" width="100" height="100">
 											</a>
 										</td>
-										<td>${cart.bookVO.title}</td>
+										<td class="booktitle-short">${cart.bookVO.title}</td>
 										<td><fmt:formatNumber value="${cart.bookVO.price}"/>원</td>
 										<td>${cart.order_quantity}</td>
 										<td><fmt:formatNumber value="${cart.sub_total}"/>원</td>
