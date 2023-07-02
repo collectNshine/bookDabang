@@ -29,8 +29,7 @@
 	<div class="page-main">
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<!-- 내용 s -->
-		<hr size="1" noshade width="100%">
-		<div class="content-main">
+		<div class="content-main content-margin">
 			<div class="chat-left">
 				<div class="left-content">
 				<!-- 검색창 S -->
@@ -39,11 +38,11 @@
 						<option value="1" <c:if test="${param.keyfield == 1}">SELECTED</c:if>>제목</option>
 					</select>
 					<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" class="form-control me-2">
-					<input type="submit" value="검색" class="btn btn-outline-success">
+					<input type="submit" value="조회" class="btn btn-outline-success">
 				</form>
 				<!-- 검색창 E -->
 				<div class="list-space align-right">
-					<input type="button" value="생성" class="btn btn-outline-secondary" id="make_chat">
+					<input type="button" value="생성" class="btn btn-outline-success" id="make_chat">
 				</div>
 				<c:if test="${count == 0}">
 				<div class="result-display">
@@ -70,9 +69,9 @@
 								<span><b>${chat.chat_title}</b></span>
 							</div>
 							<div class="chatlist-btn align-center">
-								<input type="button" value="open" class="btn btn-outline-secondary into-chat" data-chatnum="${chat.chat_num}" data-title="${chat.chat_title}" data-img="${chat.chat_img}">
+								<input type="button" value="입장" class="btn btn-outline-success into-chat" data-chatnum="${chat.chat_num}" data-title="${chat.chat_title}" data-img="${chat.chat_img}">
 								<c:if test="${user_num == chat.mem_num}">
-								<input type="button" value="삭제" class="btn btn-outline-secondary delete-chat" data-chatNum="${chat.chat_num}">
+								<input type="button" value="삭제" class="btn btn-outline-delete delete-chat" data-chatNum="${chat.chat_num}">
 								</c:if>
 							</div>
 						</div>
@@ -117,6 +116,7 @@
 			</div>
 		</div>
 		<!-- 내용 e -->
+		<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	</div>
 </body>
 </html>
