@@ -41,26 +41,26 @@ $(document).ready(function(){
             <div>
               <c:if test="${empty user_num}"><!-- 로그인을 안 한 사용자 -->
 	               <img src="${pageContext.request.contextPath}/images/face.png" id="user_face">
-	               <a href="${pageContext.request.contextPath}/member/loginForm.do">로그인</a>
+	               <a href="${pageContext.request.contextPath}/member/loginForm.do" class="log">로그인</a>
 	               <b>|</b>
-	               <a href="${pageContext.request.contextPath}/member/joinForm.do">회원가입하기</a> 
+	               <a href="${pageContext.request.contextPath}/member/joinForm.do" class="log">회원가입하기</a> 
               </c:if>
               <c:if test="${!empty user_num}"><!-- 로그인을 한 사용자 -->
 	               <c:if test="${!empty user_photo}"><!-- 프로필 사진 있음 -->
 	               		<a href="${pageContext.request.contextPath}/mypage/myPage.do">
 	               		<img src="${pageContext.request.contextPath}/upload/${user_photo}" id="user_face">
 	               		</a>
-	               		<a href="${pageContext.request.contextPath}/mypage/myPage.do">${user_nickname}님</a>
+	               		<a href="${pageContext.request.contextPath}/mypage/myPage.do" class="log">${user_nickname}님</a>
 	               		<b>|</b>
-	               		<a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a> 
+	               		<a href="${pageContext.request.contextPath}/member/logout.do" class="log">로그아웃</a> 
 	               	</c:if>
 	               	<c:if test="${empty user_photo}"><!-- 프로필 사진 없음 -->
 	               		 <a href="${pageContext.request.contextPath}/mypage/myPage.do">
 	               		 <img src="${pageContext.request.contextPath}/images/face.png" id="user_face">
 	               		 </a>
-	               		 <a href="${pageContext.request.contextPath}/mypage/myPage.do">${user_nickname}님</a>
+	               		 <a href="${pageContext.request.contextPath}/mypage/myPage.do" class="log">${user_nickname}님</a>
 	               		<b>|</b>
-	               		<a href="${pageContext.request.contextPath}/member/logout.do">로그아웃</a> 
+	               		<a href="${pageContext.request.contextPath}/member/logout.do" class="log">로그아웃</a> 
 	               	</c:if>
 	              </c:if>
             	</div>

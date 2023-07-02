@@ -87,10 +87,10 @@
 			<hr size="1" noshade width="100%">
 			<%-- 구매할 도서 선택 및 삭제 --%>
 			<c:if test="${empty list}">
-			<div class="result-display">
+			<div class="empty-cart">
 				<h4>장바구니에 담긴 상품이 없습니다.</h4><br>
 				<p>원하는 상품을 장바구니에 담아보세요!</p><br>
-				<input type="button" value="도서목록" onclick="location.href='${pageContext.request.contextPath}/book/list.do'">
+				<input type="button" class="btn btn-outline-success" value="도서목록" onclick="location.href='${pageContext.request.contextPath}/book/list.do'">
 			</div>
 			</c:if>
 				
