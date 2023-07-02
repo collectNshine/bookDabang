@@ -359,8 +359,6 @@ ul.search li {
 		</c:if>
 		
 		
-		
-		
 		<!-- 관리자 마이페이지 메뉴 시작 -->
 		<c:if test="${!empty user_num && user_auth == 9}">
 		<ul class="tabWrap" style="border-color:#b3b3b3">
