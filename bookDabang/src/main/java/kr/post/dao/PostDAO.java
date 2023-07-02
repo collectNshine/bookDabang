@@ -202,7 +202,7 @@ import kr.util.StringUtil;
 				pstmt = conn.prepareStatement(sql);
 				//?에 데이터 바인딩
 				pstmt.setString(++cnt, post.getPost_title());
-				pstmt.setString(++cnt, StringUtil.useBrHtml(post.getPost_content()));
+				pstmt.setString(++cnt, post.getPost_content());
 				if(post.getPost_photo() != null) {
 					pstmt.setString(++cnt, post.getPost_photo());
 				}
