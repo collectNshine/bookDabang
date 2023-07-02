@@ -31,12 +31,20 @@
 				}
 			}//end of for
 			
+			if(!/^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,16}$/.test($("#passwd").val())){
+				alert("비밀번호는 8~16자 영문 대소문자, 숫자와 특수문자로 구성되어야 합니다."); 
+				$('#passwd').val('').focus();
+				$('#passwd').val('');
+				return false;
+			
 			//새 비밀번호 = 새 비밀번호 확인 일치 여부 체크
-			if($('#passwd').val()!=$('#cpasswd').val()){
+			} else if($('#passwd').val()!=$('#cpasswd').val()){
 				alert('새 비밀번호와 새 비밀번호 확인이 불일치합니다.');
 				$('#passwd').val('').focus();
 				$('#cpasswd').val('');
 				return false;
+			}else{
+				return true;
 			}
 			
 		});//end of submit
