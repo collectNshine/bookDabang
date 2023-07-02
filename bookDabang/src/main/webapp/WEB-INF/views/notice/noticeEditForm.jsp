@@ -61,7 +61,6 @@ height:500px;
 <div class="page-main">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <div class="content-main">
-<hr size="1" noshade width="100%">
 <jsp:include page="/WEB-INF/views/notice/noticeSidebar.jsp"/>
 	<div id="right">
 		<c:if test="${user_auth == 9 }">
@@ -92,5 +91,6 @@ height:500px;
 		</div>
 	</div>
 </div>
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </body>
 </html>

@@ -28,7 +28,7 @@ $(document).ready(function() {
 
     $("#id").blur(function(){
         if (!/^(?=.*[a-zA-z])(?=.*[0-9])[a-zA-z0-9]{5,20}$/.test($('#id').val())) {
-            $('#guide').text("아이디는 5~20자의 영어대소문자와 숫자로 구성되어야 합니다.").css('color','#F00');
+            $('#guide1').text("아이디는 5~20자의 영어대소문자와 숫자로 구성되어야 합니다.").css('color','#F00');
             $('#id').val('');
             return false;
         }
@@ -41,7 +41,7 @@ $(document).ready(function() {
     		dataType:'json',
     		success:function(param){
     			if(param.result == 'isDuplicated'){
-    				$('#guide').text("이미 사용중인 아이디입니다.").css('color','#F00');
+    				$('#guide1').text("이미 사용중인 아이디입니다.").css('color','#F00');
     				$('#id').val('');
     				return false;
     			}
@@ -67,7 +67,7 @@ $(document).ready(function() {
  	 //전화번호 입력값 검증
 	$("#phone").blur(function(){
 		if(!/^[0-9]{9,11}$/.test($("#phone").val())){
-			 $('#guide').text("전화번호는 숫자만 입력해주세요.").css('color','#F00');
+			 $('#guide1').text("전화번호는 숫자만 입력해주세요.").css('color','#F00');
 	            $("#phone").val('');
 	            return false;
 		}
@@ -75,7 +75,7 @@ $(document).ready(function() {
 	 //이름 입력값 검증
 	$("#name").blur(function(){
 		if(!/^[ㄱ-힇a-zA-Z0-9]{1,10}$/.test($("#name").val())){
-			 $('#guide').text("이름을 다시 입력해주세요.").css('color','#F00');
+			 $('#guide1').text("이름을 다시 입력해주세요.").css('color','#F00');
 	            $("#name").val('');
 	            return false;
 		}
@@ -83,7 +83,7 @@ $(document).ready(function() {
 	 //닉네임 입력값 검증
 	$("#nickname").blur(function(){
 		if(!/^[ㄱ-힇a-zA-Z0-9]{1,10}$/.test($("#nickname").val())){
-			 $('#guide').text("닉네임을 다시 입력해주세요.").css('color','#F00');
+			 $('#guide1').text("닉네임을 다시 입력해주세요.").css('color','#F00');
 	            $("#nickname").val('');
 	            return false;
 		}
@@ -96,7 +96,7 @@ $(document).ready(function() {
     		dataType:'json',
     		success:function(param){
     			if(param.result == 'isDuplicated'){
-    				$('#guide').text("이미 사용중인 닉네임입니다.").css('color','#F00');
+    				$('#guide1').text("이미 사용중인 닉네임입니다.").css('color','#F00');
     				$('#nickname').val('');
     				return false;
     			}
@@ -112,7 +112,7 @@ $(document).ready(function() {
 	 //생일 입력값 검증
 	$("#birthday").blur(function(){
 		if(!/^\d{4}-\d{2}-\d{2}$/.test($("#birthday").val())){
-			 $('#guide').text("생일을 다시 입력해주세요.").css('color','#F00');
+			 $('#guide1').text("생일을 다시 입력해주세요.").css('color','#F00');
 	            $("#birthday").val('');
 	            return false;
 		}
@@ -120,7 +120,7 @@ $(document).ready(function() {
 	 //우편번호 입력값 검증
 	$("#zipcode").blur(function(){
 		if(!/^[0-9]{4,5}$/.test($("#zipcode").val())){
-			 $('#guide').text("우편번호를 다시 입력해주세요.").css('color','#F00');
+			 $('#guide1').text("우편번호를 다시 입력해주세요.").css('color','#F00');
 	            $("#zipcode").val('');
 	            return false;
 		}
@@ -128,7 +128,7 @@ $(document).ready(function() {
 	 //주소 입력값 검증
 	$("#address1").blur(function(){
 		if(!/^[ㄱ-힇a-zA-Z0-9\,\~\@\#\&\*\(\)\-\_\=\+\s]{1,30}$/.test($("#address1").val())){
-			 $('#guide').text("주소를 다시 입력해주세요.").css('color','#F00');
+			 $('#guide1').text("주소를 다시 입력해주세요.").css('color','#F00');
 	            $("#address1").val('');
 	            return false;
 		}
@@ -136,7 +136,7 @@ $(document).ready(function() {
 	 //상세주소 입력값 검증
 	$("#address2").blur(function(){
 		if(!/^[ㄱ-힇a-zA-Z0-9\,\~\@\#\&\*\(\)\-\_\=\+\s]{1,30}$/.test($("#address2").val())){
-			 $('#guide').text("상세주소를 다시 입력해주세요.").css('color','#F00');
+			 $('#guide1').text("상세주소를 다시 입력해주세요.").css('color','#F00');
 	            $("#address2").val('');
 	            return false;
 		}
@@ -144,12 +144,12 @@ $(document).ready(function() {
 	 //이메일 입력값 검증
 	$("#email").blur(function(){
 		if(!/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i.test($("#email").val())){
-			 $('#guide').text("이메일을 다시 입력해주세요.").css('color','#F00');
+			 $('#guide1').text("이메일을 다시 입력해주세요.").css('color','#F00');
 	            $("#email").val('');
 	            return false;
 		}
 		if($('#email').val().length > 30){
-			 $('#guide').text("이메일을 다시 입력해주세요.").css('color','#F00');
+			 $('#guide1').text("이메일을 다시 입력해주세요.").css('color','#F00');
 	            $("#email").val('');
 	            return false;
 		}
@@ -183,7 +183,6 @@ $(document).ready(function() {
 	});
 	//입력하면 가이드 다 지우기 
 	$('input').keydown(function(){
-		$('#guide').text('');
 		$('#guide1').text('');
 		$('#guide2').text('');
 	});
@@ -201,10 +200,10 @@ $(document).ready(function() {
 		}
 		// 비밀번호 확인버튼 눌렀는지 확인
 		if(click_check == false){
-			$('#guide').text("비밀번호 확인 버튼을 눌러주세요.").css("color","#F00");
+			$('#guide1').text("비밀번호 확인 버튼을 눌러주세요.").css("color","#F00");
 			return false;
 		}else{
-			$('#guide').text('');
+			$('#guide1').text('');
 		}
 		
 		$('#type_num').show();
@@ -223,7 +222,7 @@ $(document).ready(function() {
 				alert('에러가 발생했습니다.');
 			}
 		});
-		$('#guide').text('');
+		$('#guide1').text('');
 		$('#guide2').text('');
 	});//end of email_btn
 	
@@ -257,13 +256,11 @@ $(document).ready(function() {
 		<form id="join_Form" action="join.do" method="post">
 			<div>
 				<ul>
-					<li id="guide"></li>
 					<li>
 						<div class="padding">
 							<input class="check form-control" id="id" name="id" type="text" placeholder="아이디">
 						</div>
 					</li>
-					<li id="guide1"></li>
 					<li>
 						<div class="padding">
 							<input class="check form-control" id="passwd" name="passwd" type="password" placeholder="비밀번호">
@@ -277,6 +274,7 @@ $(document).ready(function() {
 							<input id="passwd_btn" class="btn btn-lg btn-light btn-block" type="button" value="비밀번호 확인">
 						</div>
 					</li>
+					<li id="guide1"></li>
 					<li>
 						<div class="padding">
 							<input class="check form-control" id="phone" name="phone" type="text" placeholder="전화번호">
