@@ -40,7 +40,7 @@
 				<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
 				<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>저자</option>
 			</select>
-			<input class="form-control me-2" type="search"  size="16" name="keyword" id="keyword" value="${param.keyword}" style="width:20%!important ;">
+			<input class="form-control me-2" type="search"  size="16" name="keyword" id="keyword" value="${param.keyword}">  <!-- style="width:20%!important  -->
 			<input class="btn btn-outline-success" type="submit" value="검색">
 	</form>
 	<!-- 검색창 끝 -->
