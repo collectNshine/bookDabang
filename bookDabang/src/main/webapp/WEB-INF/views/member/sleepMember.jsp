@@ -10,7 +10,7 @@
 <script type="text/javascript">
 window.onload = function() {
 	let today = new Date();
-	let date = today.getFullYear() + "-"+ (("00"+(today.getMonth()+1).toString()).slice(-2)) +"-"+ today.getDate();
+	let date = today.getFullYear() + "-"+ (("00"+(today.getMonth()+1).toString()).slice(-2)) +"-"+(("00"+(today.getDate()).toString()).slice(-2));
 	document.getElementById('day').innerHTML = date;	
 };
 

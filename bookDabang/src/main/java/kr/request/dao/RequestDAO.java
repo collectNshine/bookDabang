@@ -165,14 +165,14 @@ public class RequestDAO {
 		
 		try {
 			conn = DBUtil.getConnection();
-			sql = "SELECT * FROM book_request r JOIN member m USING(mem_num) WHERE r.req_num=?";
+			sql = "SELECT r.* , m.nickname FROM book_request r JOIN member_detail m ON r.mem_num = m.mem_num WHERE r.req_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, req_num);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				request = new RequestVO();
 				request.setReq_num(rs.getInt("req_num"));
-				request.setId(rs.getString("id"));
+				request.setNickname(rs.getString("nickname"));
 				request.setReq_title(rs.getString("req_title"));
 				request.setReq_author(rs.getString("Req_author"));
 				request.setReq_publisher(rs.getString("req_publisher"));

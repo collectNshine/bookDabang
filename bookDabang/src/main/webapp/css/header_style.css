@@ -71,6 +71,8 @@ font-size: 14px;
 }
 
 #menu1{
+	position:relative !important;
+	z-index:1 !important;
 	display:none;
     margin: auto;
     background-color: #EAD075 !important;;
@@ -92,6 +94,8 @@ font-size: 14px;
     line-height: 30px;
 }
 #menu2{
+	position:relative !important;
+	z-index:1 !important;
 	display:none;
     margin: auto;
     background-color: #EAD075 !important;
