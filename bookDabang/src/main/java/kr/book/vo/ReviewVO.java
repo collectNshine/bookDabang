@@ -8,7 +8,7 @@ public class ReviewVO {
 	private String review_modifydate; //수정일
 	private int mem_num; //작성자 회원번호
 	private int bk_num; //도서 번호
-	private String name; //닉네임(이름)
+	private String nickname; //닉네임(이름)
 	private String photo; //프로필 사진
 	private String title; //도서명
 	private String author; //저자명
@@ -63,10 +63,10 @@ public class ReviewVO {
 		this.bk_num = bk_num;
 	}
 	public String getName() {
-		return name;
+		return nickname;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.nickname = name;
 	}
 	public String getPhoto() {
 		return photo;
