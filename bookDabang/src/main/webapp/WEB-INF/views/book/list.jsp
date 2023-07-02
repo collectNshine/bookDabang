@@ -31,7 +31,6 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
 	<div class="list-main">
-		<hr size="1" noshade width="100%">
 		<div class="start">
 		<h2><b>차림표</b></h2>
 		<h6 style="color:grey">책다방에서 마음의 양식을 채워보세요</h6>
@@ -51,7 +50,7 @@
 
 		<!-- 카테고리 시작 -->
 		<div class="list-group">
-		  <a href="list.do" class="list-group-item list-group-item-action <c:if test="${empty param.category}">active</c:if>" aria-current="true"><b>전체</b></a>
+		  <a href="list.do" class="list-group-item list-group-item-action <c:if test="${empty param.category}">active</c:if>"><b>전체</b></a>
 		  <a href="list.do?category=문학" class="list-group-item list-group-item-action <c:if test="${param.category == '문학'}">active</c:if>">문학</a>
 		  <a href="list.do?category=경제/경영" class="list-group-item list-group-item-action <c:if test="${param.category == '경제/경영'}">active</c:if>">경제/경영</a>
 		  <a href="list.do?category=인문" class="list-group-item list-group-item-action <c:if test="${param.category == '인문'}">active</c:if>">인문</a>
@@ -68,7 +67,7 @@
 		<!-- 목록 시작 -->
 		<c:if test="${count == 0}">
 		<div class="result-display">
-			표시할 상품이 없습니다.
+			표시할 도서가 없습니다.
 		</div>
 		</c:if>
 		
@@ -112,6 +111,7 @@
 		<!-- 목록 끝 -->
 	</div>
 	<!-- 내용 끝 -->
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </div>
 </body>
 </html>
