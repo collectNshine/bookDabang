@@ -36,15 +36,15 @@ $(function(){
 					}
 					output += '</span>';
 					//닉네임, 날짜
-					output += '<span class="name-date" style="float:left; margin-left:5px;">';
+					output += '<span class="name-date" style="float:left; margin-left:-10px;">';
 					output += '<div class="name">' + item.name + '</div>';
 					if(item.re_modifydate){ //값이 있으면 true, 없으면 false (javascript)
 						output += '<span class="modify-date">' + item.re_modifydate + ' 수정됨</span>';
 					}else{
-						output += '<span class="modify-date">' + item.re_date + '</span>';
+						output += '<span class="modify-date" style="margin-left:-15px;">' + item.re_date + '</span>';
 					}
 					output += '</span>';
-					output += '<div class="sub-item" style="clear:both;">';
+					output += '<div class="sub-item" style="clear:both; margin-left: 23px;">';
 					output += '<p class="re-content">' + item.re_content + '</p>';
 					
 					//수정,삭제 버튼

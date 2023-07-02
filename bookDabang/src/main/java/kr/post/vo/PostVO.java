@@ -13,7 +13,7 @@ public class PostVO {
 	private int mem_num; //회원번호
 	private int bk_num; //도서번호
 	
-	private String name; //회원 이름(닉네임)
+	private String nickname; //회원 이름(닉네임)
 	private String photo; //회원 프로필 사진 파일명
 	private String thumbnail; //책 표지
 	private int cnt; //좋아요 개수
@@ -74,10 +74,10 @@ public class PostVO {
 		this.bk_num = bk_num;
 	}
 	public String getName() {
-		return name;
+		return nickname;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String nickname) {
+		this.nickname = nickname;
 	}
 	public String getPhoto() {
 		return photo;

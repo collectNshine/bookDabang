@@ -65,7 +65,7 @@ import kr.util.StringUtil;
 				//커넥션 풀로부터 커넥션을 할당
 				conn = DBUtil.getConnection();
 				//SQL문 작성
-				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post p JOIN member m USING(mem_num) LEFT OUTER JOIN member_detail d USING(mem_num) LEFT OUTER JOIN book_list b USING(bk_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, post_num FROM post_fav group by post_num) f USING(post_num) LEFT OUTER JOIN (SELECT COUNT(*) rcnt, post_num FROM post_reply GROUP BY post_num) re USING(post_num) ORDER BY post_num DESC)a) WHERE rnum>=? AND rnum<=?";
+				sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post p JOIN member m USING(mem_num) LEFT OUTER JOIN member_detail d USING(mem_num) LEFT OUTER JOIN book_list b USING(bk_num) LEFT OUTER JOIN (SELECT COUNT(*) cnt, post_num FROM post_fav group by post_num) f USING(post_num) LEFT OUTER JOIN (SELECT COUNT(*) rcnt, post_num FROM post_reply GROUP BY post_num) re USING(post_num) ORDER BY post_date DESC)a) WHERE rnum>=? AND rnum<=?";
 				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
 				//?에 데이터 바인딩
@@ -82,7 +82,7 @@ import kr.util.StringUtil;
 					post.setPost_num(rs.getInt("post_num"));
 					//서평 제목과 내용에 말줄임표 사용
 					post.setPost_title(StringUtil.shortWords(30, rs.getString("post_title")));
-					post.setPost_content(StringUtil.shortWords(45, rs.getString("post_content")));
+					post.setPost_content(StringUtil.shortWords(70, rs.getString("post_content")));
 					//날짜 -> 1분전, 1시간전, 1일전 형식의 문자열로 변환
 					post.setPost_date(DurationFromNow.getTimeDiffLabel(rs.getString("post_date")));
 					if(rs.getString("post_modifydate") != null) {
@@ -92,7 +92,7 @@ import kr.util.StringUtil;
 					post.setPost_ip(rs.getString("post_ip"));
 					post.setMem_num(rs.getInt("mem_num"));
 					post.setBk_num(rs.getInt("bk_num"));
-					post.setName(rs.getString("name"));
+					post.setName(rs.getString("nickname"));
 					post.setPhoto(rs.getString("photo"));
 					post.setThumbnail(rs.getString("thumbnail"));
 					post.setCnt(rs.getInt("cnt"));
@@ -169,7 +169,7 @@ import kr.util.StringUtil;
 					post.setPost_photo(rs.getString("post_photo"));
 					post.setMem_num(rs.getInt("mem_num"));
 					post.setBk_num(rs.getInt("bk_num"));
-					post.setName(rs.getString("name"));
+					post.setName(rs.getString("nickname"));
 					post.setPhoto(rs.getString("photo"));
 				}
 			}catch(Exception e) {
@@ -494,7 +494,7 @@ import kr.util.StringUtil;
 					reply.setPost_num(rs.getInt("post_num"));
 					reply.setMem_num(rs.getInt("mem_num"));
 					reply.setId(rs.getString("id"));
-					reply.setName(rs.getString("name"));
+					reply.setName(rs.getString("nickname"));
 					
 					list.add(reply);
 				}

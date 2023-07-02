@@ -19,7 +19,7 @@
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
-	<div class="content-main">
+	<div class="content-main" style="margin-top: 30px;">
 	<h2>${post.post_title}</h2>
 	<div class="align-right">
 	<%-- 신고 --%>
@@ -88,7 +88,7 @@
 	</div>
 	<!-- 모달창 끝 -->
 	</div>
-		<ul class="detail-info">
+		<ul class="detail-info" style="margin-left: -30px;">
 			<li>
 				<c:if test="${!empty post.photo}">
 				<img src="${pageContext.request.contextPath}/upload/${post.photo}" 
@@ -114,7 +114,7 @@
 		</p>
 		<hr size="1" noshade="noshade" width="100%">
 		<ul class="detail-sub">
-			<li style="margin-left: 480px;">
+			<li style="margin-left: 470px;">
 				<%-- 좋아요 --%>
 				<%-- html은 속성태그 추가X (예외)'data-' 형태로만 추가 가능--%>
 				<img id="output_fav" data-num="${post.post_num}" src="${pageContext.request.contextPath}/images/fav01.png" width="50">
@@ -141,7 +141,7 @@
 				</c:if>
 				<%-- 로그인한 회원번호와 작성자 회원번호가 일치하지 않지만 관리자일 경우 삭제 가능--%>
 				<c:if test="${user_num != post.mem_num && user_auth == 9}">
-				<input type="button" value="삭제" id="delete_btn">
+				<input class="delete-btn btn btn-outline-danger" type="button" value="삭제" id="delete_btn">
 				<script type="text/javascript">
 				 let delete_btn = document.getElementById('delete_btn');
 				 //이벤트 연결
@@ -159,6 +159,7 @@
 		<br>
 		<hr>
 		<span>댓글</span>
+		<p>
 		<!-- 댓글 시작 -->
 		<!-- 댓글 목록 출력 시작 -->
 		<div id="output"></div>
@@ -188,6 +189,7 @@
 		</div>		
 		<!-- 댓글 끝 -->
 	<!-- 내용 끝 -->
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </div>
 </body>
 </html>

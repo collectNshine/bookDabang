@@ -32,7 +32,7 @@
 		</c:if>
 		
 		<c:if test="${count > 0}">
-		<div class="row row-cols-1 row-cols-md-3 g-4" style="margin-left: 25px;">
+		<div class="row row-cols-1 row-cols-md-3 g-4">
 		<c:forEach var="post" items="${list}">
   			<div id="post-list" class="col">
     			<div class="card h-100">
@@ -43,14 +43,14 @@
            					&nbsp;&nbsp;<img src="${pageContext.request.contextPath}/upload/${post.photo}" width="50" height="50" class="my-photo">
            					<br>
 	        			</div>
-	        			<div id="profile2"><b>${post.name}</b><p>서평&nbsp;&nbsp;·&nbsp;${post.post_date}</div>
+	        			<div id="profile2"><b>${post.name}</b><p class="profile3">서평&nbsp;&nbsp;·&nbsp;${post.post_date}</p></div>
 	         		</c:if>
 	         		<c:if test="${empty post.photo}">
 	        		 	<div id="profile">
 	            			&nbsp;&nbsp;<img src="${pageContext.request.contextPath}/images/face.png" width="50" height="50" class="my-photo">
 	         				<br>
 	         			</div>
-	         			<div id="profile2"><b>${post.name}</b><p>서평&nbsp;&nbsp;·&nbsp;${post.post_date}</div>
+	         			<div id="profile2"><b>${post.name}</b><p class="profile3">서평&nbsp;&nbsp;·&nbsp;${post.post_date}</p></div>
 	         		</c:if>
 	         		</div>
   				<div class="card-body">
@@ -58,14 +58,16 @@
   				<ul class="post-thumbnail">
 				<li>
 					<a href="detail.do?post_num=${post.post_num}">
-					<img src="${pageContext.request.contextPath}/upload/${post.thumbnail}" width="140" height="200" class="list-thumbnail">
+					<img src="${pageContext.request.contextPath}/upload/${post.thumbnail}" width="120" height="170" class="list-thumbnail">
 					</a>
 				</li>
 				</ul>
 				</div>
 				<div class="card-detail">
     				<h5 class="card-title"><b><a href="detail.do?post_num=${post.post_num}">${post.post_title}</a></b></h5>
-    				<p class="card-text" style="height: 85px; width: 326px;"><a href="detail.do?post_num=${post.post_num}">${post.post_content}</a></p>
+    				<div class="card-text" style="height: 85px; width: 280px;">
+    				<p><a href="detail.do?post_num=${post.post_num}">${post.post_content}</a></p>
+    				</div>
     			</div>
     			<div class="card-footer">
     				<a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${post.bk_num}" class="btn btn-primary" style="color:white; margin-top: 6px;width: 137px; height: 33px; font-size: 12px; ba">도서 상세 보러가기</a>
@@ -144,6 +146,7 @@
 		</script>
 	</div>
 	<!-- 내용 끝 -->
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </div>
 </body>
 </html>
