@@ -50,8 +50,8 @@ float:right;
 				<!-- 관리자만 수정,삭제 가능 -->
 				<c:if test="${user_auth == 9}">
 				<li>
-					<input type="button" class="btn btn-outline-secondary" value="수정" onclick="location.href='${pageContext.request.contextPath}/notice/noticeEditForm.do?noti_num=${noti.noti_num}'">
-					<input id="delete_btn" class="btn btn-outline-secondary" type="button" value="삭제" >
+					<input type="button" class="btn btn-outline-success" value="수정" onclick="location.href='${pageContext.request.contextPath}/notice/noticeEditForm.do?noti_num=${noti.noti_num}'">
+					<input id="delete_btn" class="btn btn-outline-delete" type="button" value="삭제" >
 				</li>
 				</c:if>
 				<!-- 관리자만 수정,삭제 가능 -->

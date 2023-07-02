@@ -334,13 +334,13 @@ ul.search li {
 							${order.order_num}
 						</a>
 					</td>
-					<td class="status-color">
+					<td>
 						<a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">
-							<c:if test="${order.status == 1}"><b class="order-waiting">배송대기</b></c:if>
+							<c:if test="${order.status == 1}"><b>배송대기</b></c:if>
 							<c:if test="${order.status == 2}"><b>배송준비중</b></c:if>
 							<c:if test="${order.status == 3}"><b>배송중</b></c:if>
-							<c:if test="${order.status == 4}"><b class="order-success">배송완료</b></c:if>
-							<c:if test="${order.status == 5}"><b class="order-cancel">주문취소</b></c:if>
+							<c:if test="${order.status == 4}"><b>배송완료</b></c:if>
+							<c:if test="${order.status == 5}"><b>주문취소</b></c:if>
 						</a>
 					</td>
 					<td><a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">${order.book_title}</a></td>
@@ -559,13 +559,13 @@ ul.search li {
 						<td><a href="${pageContext.request.contextPath}/order/adminModifyForm.do?order_num=${admin_order.order_num}">${admin_order.order_num}</a></td>
 						<td><a href="${pageContext.request.contextPath}/order/adminModifyForm.do?order_num=${admin_order.order_num}">${admin_order.book_title}</a></td>
 						<td>${admin_order.id}</td>
-						<td class="status-color">
+						<td>
 							<a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${admin_order.order_num}">
-								<c:if test="${admin_order.status == 1}"><b class="order-waiting">배송대기</b></c:if>
+								<c:if test="${admin_order.status == 1}"><b>배송대기</b></c:if>
 								<c:if test="${admin_order.status == 2}"><b>배송준비중</b></c:if>
 								<c:if test="${admin_order.status == 3}"><b>배송중</b></c:if>
-								<c:if test="${admin_order.status == 4}"><b class="order-success">배송완료</b></c:if>
-								<c:if test="${admin_order.status == 5}"><b class="order-cancel">주문취소</b></c:if>
+								<c:if test="${admin_order.status == 4}"><b>배송완료</b></c:if>
+								<c:if test="${admin_order.status == 5}"><b>주문취소</b></c:if>
 							</a>
 						</td>
 						<td>${admin_order.order_total}</td>
@@ -780,7 +780,9 @@ ul.search li {
 			<!-- 검색창 끝 -->
 		<!-- <form id="request_admin"> -->
 		<div class="list-space align-right">
-			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'">
+		
+		<input type="button" value="추가완료" id="reqstate_done" class="btn btn-outline-secondary" id="selectDelete_btn" style="float:left;">
+			<input type="button" value="도서 등록" onclick="location.href='${pageContext.request.contextPath}/book/writeForm.do'" class="btn btn-outline-secondary" style="float:right;">
 		</div>
 		
 		<c:if test="${req_Count == 0 }">
@@ -792,7 +794,7 @@ ul.search li {
 		<c:if test="${req_Count > 0}">
 			<table class="table table-hover align-center">
 				<tr>
-					<th>확인</th>
+					<th></th>
 					<th>진행상태</th>
 					<th>제목</th>
 					<th>저자</th>
@@ -811,8 +813,8 @@ ul.search li {
 					
 				</td> 
 				<td>
-				<c:if test="${request.req_state == 0}"><button>준비중</button></c:if>
-				<c:if test="${request.req_state == 1}"><button>추가완료</button></c:if>
+				<c:if test="${request.req_state == 0}"><button class="reqbtn readybtn">준비중</button></c:if>
+				<c:if test="${request.req_state == 1}"><button class="reqbtn donebtn">추가완료</button></c:if>
 				</td>			               
 				<td><a href="${pageContext.request.contextPath}/request/detail.do?req_num=${request.req_num}">${request.req_title}</a></td>
 				<td>${request.req_author}</td>
@@ -831,7 +833,7 @@ ul.search li {
 			</tr>
 			</c:forEach>
 			</table>
-			<input type="button" value="추가 완료" id="reqstate_done" class="align-left">
+			
 			<!-- </form> -->
 			<script type="text/javascript">
 				$('#reqstate_done').click(function(){
