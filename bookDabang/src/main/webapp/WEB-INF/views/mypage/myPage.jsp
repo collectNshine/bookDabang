@@ -293,12 +293,12 @@ ul.search li {
 		<div class="content-main container">
 		<br><h2><a href="myPage.do#order">주문목록</a></h2><br>
 		<!-- 검색창 시작 : get방식 -->
-			<form id="search_form3-1" action="myPage.do#order" method="get" class="d-flex" role="search">
-						<select name="keyfield" class="form-select">
-							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>주문번호</option>
+			<form id="search_form3_1" action="myPage.do#order" method="get" class="d-flex" role="search">
+						<select name="user_orderkeyfield" class="form-select">
+							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>주문상태</option>
 							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>주문명</option>
 						</select>
-						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" class="form-control me-2">
+						<input type="search" size="16" name="user_orderkeyword" id="user_orderkeyword" value="${param.keyword}" class="form-control me-2">
 					
 						<input type="submit" value="검색" class="btn btn-outline-success">
 					
@@ -306,29 +306,47 @@ ul.search li {
 			</form>
 			<script type="text/javascript">
 				$(function(){
-					$('#search_form').submit(function(){
-						if($('#keyword').val().trim() == ''){
+					$('#search_form3_1').submit(function(){
+						if($('#user_orderkeyword').val().trim() == ''){
 							alert('검색어를 입력하세요');
-							$('#keyword').val('').focus();
+							$('#user_orderkeyword').val('').focus();
 							return false;
 						}
+						
+						if()
 					});
 				});
 			</script> 
 			<!-- 검색창 끝 -->
 			<table class="table table-hover align-center">
 				<tr>
-					<th>NO.</th>
+					<th>주문번호</th>
+					<th>주문상태</th>
 					<th>주문명</th>
 					<th>가격</th>
 					<th>주문일</th>
+					<th>주문수정일</th>
 				</tr>
 				<c:forEach var="order" items="${orderList}">
 				<tr>
-					<td><a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">${order.order_num}</a></td>
-					<td>${order.book_title}</td>
-					<td>${order.order_total}</td>
+					<td>
+						<a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">
+							${order.order_num}
+						</a>
+					</td>
+					<td>
+						<a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">
+							<c:if test="${order.status == 1}"><b>배송대기</b></c:if>
+							<c:if test="${order.status == 2}"><b>배송준비중</b></c:if>
+							<c:if test="${order.status == 3}"><b>배송중</b></c:if>
+							<c:if test="${order.status == 4}"><b>배송완료</b></c:if>
+							<c:if test="${order.status == 5}"><b>주문취소</b></c:if>
+						</a>
+					</td>
+					<td><a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">${order.book_title}</a></td>
+					<td><fmt:formatNumber value="${order.order_total}"/>원</td>
 					<td>${order.order_date}</td>
+					<td>${order.modify_date}</td>
 				</tr>
 				</c:forEach>
 			</table>
@@ -496,23 +514,24 @@ ul.search li {
 	
 	<!-- [2. 주문 관리] 시작 -->
 		<div id="admin_order" class="tab_contents">
-			<div class="content-main container">>
+			<div class="content-main container">
 				<h2><a href="myPage.do#admin_order">주문 관리</a></h2>
 					<!-- 검색창 시작 : get방식 -->
 					<form id="search_form2" action="myPage.do#admin_order" method="get" class="d-flex">
-						<select name="keyfield" class="form-select">
-							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>주문번호</option>
-							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>도서명</option>
+						<select name="adminOrderkeyfield" class="form-select">
+							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>주문상태</option>
+							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>회원ID</option>
+							<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>도서명</option>
 						</select>
-							<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}" class="form-control me-2">
+							<input type="search" size="16" name="adminOrderkeyword" id="adminOrderkeyword" value="${param.keyword}" class="form-control me-2">
 							<input type="submit" value="검색" class="btn btn-outline-success">	
 					</form>
 					<script type="text/javascript">
 						$(function(){
 							$('#search_form2').submit(function(){
-								if($('#keyword').val().trim() == ''){
+								if($('#adminOrderkeyword').val().trim() == ''){
 									alert('검색어를 입력하세요');
-									$('#keyword').val('').focus();
+									$('#adminOrderkeyword').val('').focus();
 									return false;
 								}
 							});
@@ -538,9 +557,17 @@ ul.search li {
 					<c:forEach var="admin_order" items="${adminOrderlist}"> 
 					<tr>
 						<td><a href="${pageContext.request.contextPath}/order/adminModifyForm.do?order_num=${admin_order.order_num}">${admin_order.order_num}</a></td>
-						<td>${admin_order.book_title}</td>
+						<td><a href="${pageContext.request.contextPath}/order/adminModifyForm.do?order_num=${admin_order.order_num}">${admin_order.book_title}</a></td>
 						<td>${admin_order.id}</td>
-						<td>${admin_order.status}</td>
+						<td>
+							<a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${admin_order.order_num}">
+								<c:if test="${admin_order.status == 1}"><b>배송대기</b></c:if>
+								<c:if test="${admin_order.status == 2}"><b>배송준비중</b></c:if>
+								<c:if test="${admin_order.status == 3}"><b>배송중</b></c:if>
+								<c:if test="${admin_order.status == 4}"><b>배송완료</b></c:if>
+								<c:if test="${admin_order.status == 5}"><b>주문취소</b></c:if>
+							</a>
+						</td>
 						<td>${admin_order.order_total}</td>
 						<td>${admin_order.order_date}</td>
 					</tr>
