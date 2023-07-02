@@ -21,7 +21,7 @@ input[type="text"], input[type="password"], input[type="email"] {
 form {
     width: 750px;
     margin: 0 auto;
-    border: 1px solid #000;
+    border: none;
     padding: 10px 10px 10px 30px;
 }
 .profile li img {
@@ -248,7 +248,7 @@ element.style {
 				</c:if>
 			</li>
 			<li>
-				<div class="align-center">
+				<div class="align-center" style="margin-top:15px;">
 					<input type="button" value="사진 수정" id="photo_btn" class="btn btn-outline-secondary">
 					<input type="button" value="비밀번호 변경" id="passwd_btn" class="btn btn-outline-secondary"
 					onclick="location.href='${pageContext.request.contextPath}/mypage/modifyPasswordForm.do'">
@@ -365,7 +365,7 @@ element.style {
 						   maxlength="30" value="${member.address2}"  class="form-control" style="width:400px;">
 				</li>				
 			</ul>
-			<div class="align-center"  style="margin-top: 50px;">
+			<div class="align-center"  style="margin-top: 15%;">
 				<input type="submit" value="확인" class="btn btn-outline-secondary">
 				<input type="button" value="홈으로" 
 					   onclick="location.href='${pageContext.request.contextPath}/main/main.do'" class="btn btn-outline-secondary">

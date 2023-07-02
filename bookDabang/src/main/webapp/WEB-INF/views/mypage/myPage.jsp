@@ -96,7 +96,7 @@ ul.search li {
 						<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
 					</div>
 					<div style="margin-left:20px;">
-						<h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_name}</b>님의 책다방</h4>
+						<h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_nickname}</b>님의 책다방</h4>
 						<input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'" class="btn btn-outline-secondary" style="margin-bottom:30px;">
 					</div>
 					
@@ -105,7 +105,7 @@ ul.search li {
 					<img src="${pageContext.request.contextPath}/upload/${user_photo}" 
 						 width="200" height="200" class="my-photo">
 					<div style="display:flex;justify-content: space-around;flex-direction: column; margin-left:25px;">	 
-						 <h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_name}</b>님의 책다방</h4>
+						 <h4 style="font-size:15px;"><b style="font-size:28px; margin-right:10px;">${user_nickname}</b>님의 책다방</h4>
 						 <input type="button" value="정보 수정" onclick="location.href='PasswdCheckForm.do'" class="btn btn-outline-secondary">
 					 </div>
 				</c:if>
@@ -294,7 +294,7 @@ ul.search li {
 		<br><h2><a href="myPage.do#order">주문목록</a></h2><br>
 		<!-- 검색창 시작 : get방식 -->
 			<form id="search_form3_1" action="myPage.do#order" method="get" class="d-flex" role="search">
-						<select name="user_orderkeyfield" class="form-select">
+						<select name="user_orderkeyfield" class="form-select" style="width:55%;">
 							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>주문상태</option>
 							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>주문명</option>
 						</select>
@@ -336,11 +336,11 @@ ul.search li {
 					</td>
 					<td>
 						<a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">
-							<c:if test="${order.status == 1}"><b>배송대기</b></c:if>
+							<c:if test="${order.status == 1}"><b class="order-waiting">배송대기</b></c:if>
 							<c:if test="${order.status == 2}"><b>배송준비중</b></c:if>
 							<c:if test="${order.status == 3}"><b>배송중</b></c:if>
-							<c:if test="${order.status == 4}"><b>배송완료</b></c:if>
-							<c:if test="${order.status == 5}"><b>주문취소</b></c:if>
+							<c:if test="${order.status == 4}"><b class="order-success">배송완료</b></c:if>
+							<c:if test="${order.status == 5}"><b class="order-cancel">주문취소</b></c:if>
 						</a>
 					</td>
 					<td><a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${order.order_num}">${order.book_title}</a></td>
@@ -561,11 +561,11 @@ ul.search li {
 						<td>${admin_order.id}</td>
 						<td>
 							<a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${admin_order.order_num}">
-								<c:if test="${admin_order.status == 1}"><b>배송대기</b></c:if>
+								<c:if test="${admin_order.status == 1}"><b class="order-waiting">배송대기</b></c:if>
 								<c:if test="${admin_order.status == 2}"><b>배송준비중</b></c:if>
 								<c:if test="${admin_order.status == 3}"><b>배송중</b></c:if>
-								<c:if test="${admin_order.status == 4}"><b>배송완료</b></c:if>
-								<c:if test="${admin_order.status == 5}"><b>주문취소</b></c:if>
+								<c:if test="${admin_order.status == 4}"><b class="order-success">배송완료</b></c:if>
+								<c:if test="${admin_order.status == 5}"><b class="order-cancel">주문취소</b></c:if>
 							</a>
 						</td>
 						<td>${admin_order.order_total}</td>

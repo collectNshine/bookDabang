@@ -276,7 +276,7 @@ public class OrderDAO {
 				// 주문정보에 해당하는 상품정보 구하기
 				List<OrderDetailVO> detailList = getListOrderDetail(order.getOrder_num());
 				
-				sql = "UPDATE book_list SET quantity = quantity + ? WHERE bk_num=?";
+				sql = "UPDATE book_list SET stock = stock + ? WHERE bk_num=?";
 				pstmt2 = conn.prepareStatement(sql);
 				for(int i = 0; i < detailList.size(); i++) {
 					OrderDetailVO detail = detailList.get(i);
@@ -389,6 +389,7 @@ public class OrderDAO {
 				order.setEmail(rs.getString("email"));
 				order.setNotice(StringUtil.useNoHtml(rs.getString("notice")));
 				order.setOrder_date(rs.getDate("order_date"));
+				order.setModify_date(rs.getDate("modify_date"));
 				order.setMem_num(rs.getInt("mem_num"));
 				order.setId(rs.getString("id"));
 				
@@ -490,6 +491,7 @@ public class OrderDAO {
 				order.setEmail(rs.getString("email"));
 				order.setNotice(StringUtil.useNoHtml(rs.getString("notice")));
 				order.setOrder_date(rs.getDate("order_date"));
+				order.setModify_date(rs.getDate("modify_date"));
 				order.setMem_num(rs.getInt("mem_num"));
 				
 				list.add(order);

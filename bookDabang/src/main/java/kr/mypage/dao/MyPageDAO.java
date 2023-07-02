@@ -12,6 +12,7 @@ import kr.mypage.vo.BookMarkVO;
 import kr.post.vo.PostVO;
 import kr.util.DBUtil;
 import kr.util.Encrypt;
+import kr.util.StringUtil;
 
 
 public class MyPageDAO {
@@ -398,11 +399,16 @@ public class MyPageDAO {
 				List<PostVO> postlist = null;
 				String sql = null;
 				String sub_sql = "";
+				int cnt = 0;
 				
 				try {
 					//커넥션풀로부터 커넥션 할당
 					conn = DBUtil.getConnection();
 					//SQL문 작성
+					if(keyword!=null && !"".equals(keyword)) {
+						if(keyfield.equals("1")) sub_sql += " AND post_title LIKE ?";
+						if(keyfield.equals("2")) sub_sql += " AND post_content LIKE ?";
+					}
 					sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM post WHERE mem_num=?" + sub_sql + " ORDER BY post_date DESC)a) WHERE rnum >= ? AND rnum <= ?";
 					
 					/*
@@ -414,17 +420,20 @@ public class MyPageDAO {
 					//PreparedStatement 객체 생성
 					pstmt = conn.prepareStatement(sql);
 					//?에 데이터 바인딩
-					pstmt.setInt(1, mem_num);
-					pstmt.setInt(2, start);
-					pstmt.setInt(3, end);
+					pstmt.setInt(++cnt, mem_num);
+					if(keyword!=null && !"".equals(keyword)) {
+						pstmt.setString(++cnt, "%"+keyword+"%");
+					}
+					pstmt.setInt(++cnt, start);
+					pstmt.setInt(++cnt, end);
 					//SQL문 실행
 					rs = pstmt.executeQuery();
 					postlist = new ArrayList<PostVO>();
 					while(rs.next()) {
 						PostVO post = new PostVO();
 						post.setPost_num(rs.getInt("Post_num")); 
-						post.setPost_title(rs.getString("post_title"));
-						post.setPost_content(rs.getString("post_content"));
+						post.setPost_title(StringUtil.shortWords(30, rs.getString("post_title")));
+						post.setPost_content(StringUtil.shortWords(30, rs.getString("post_content")));
 						post.setPost_date(rs.getString("post_date"));
 						
 						postlist.add(post);

@@ -39,10 +39,10 @@
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
-		<h2>도서 신청 수정</h2>
+		<h2>도서 신청 수정</h2><br>
 		
-		<form id="modify_form" action="modify.do" method="post" style="border:none;">
-			<input type="hidden" name="req_num" value="${request.req_num}">
+		<form id="modify_form" action="modify.do" method="post" style="border:none;"><br>
+			<input type="hidden" name="req_num" value="${request.req_num}"><br>
 			<%-- <input type="hidden" name="id" value="${request.id}"> --%>
 			<ul>
 			 <%-- 	<li>
@@ -80,7 +80,7 @@
 		</form>
 		
 	</div>
-	
+<jsp:include page="/WEB-INF/views/common/footer.jsp"/>	
 </div>
 </body>
 </html> 

@@ -14,6 +14,7 @@ public class RequestVO {
 	private int mem_num; //회원번호
 	private String id; //회원이름
 	private int req_state; //신청 상태 0:준비중 1:추가완료
+	private String nickname;
 	
 	
 	private int cnt;//좋아요 개수
@@ -97,6 +98,12 @@ public class RequestVO {
 	}
 	public void setReq_state(int req_state) {
 		this.req_state = req_state;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	

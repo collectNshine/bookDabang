@@ -230,7 +230,7 @@
 										<li>
 											<div class="input-group">
 												<span class="input-group-text">요청사항</span>
-												<textarea class="form-control info-check" name="notice" id="notice" maxlength="4000" aria-label="With textarea"></textarea>
+												<textarea class="form-control info-check" name="notice" id="notice" maxlength="4000" aria-label="With textarea">${order.notice}</textarea>
 											</div>
 										</li>
 										<li id="move_li">
@@ -244,7 +244,7 @@
 													order_cancel.onclick = function() {
 														let choice = confirm('주문을 취소하시겠습니까??');
 														if(choice) { location.replace('orderCancel.do?order_num=${order.order_num}'); }
-													};
+													}; 
 												</script>
 												</c:if>
 											</div>

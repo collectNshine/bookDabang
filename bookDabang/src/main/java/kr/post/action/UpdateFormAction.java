@@ -36,6 +36,8 @@ public class UpdateFormAction implements Action{
 		
 		//큰 따옴표 처리(수정폼의 input태그에서 오동작)
 		post.setPost_title(StringUtil.parseQuot(post.getPost_title()));
+		//내용 - <br>태그 처리
+		post.setPost_content(StringUtil.changeBr(post.getPost_content()));
 		
 		//로그인이 되어 있고, 로그인한 회원번호와 작성자 회원번호 일치
 		request.setAttribute("post", post);
