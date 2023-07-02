@@ -31,7 +31,7 @@ public class PostPageUtil {
 		this(keyfield,keyword,currentPage,count,rowCount,pageCount,pageUrl,null);
 	}
 	public PostPageUtil(String keyfield, String keyword, int currentPage, int count, int rowCount,
-			int pageCount,String pageUrl,String addKey) {
+			int pageCount,String pageUrl,String addKey) { 
 
 		if(count >= 0) {
 			String sub_url = "";
