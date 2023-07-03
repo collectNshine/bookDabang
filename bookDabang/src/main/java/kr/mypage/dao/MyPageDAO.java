@@ -51,6 +51,7 @@ public class MyPageDAO {
 						vo.setAddress2(rs.getString("address2"));
 						vo.setEmail(rs.getString("email"));
 						vo.setNickname(rs.getString("nickname"));
+						vo.setState(rs.getInt("auth"));
 					}
 				}catch(Exception e) {
 					throw new Exception(e);
