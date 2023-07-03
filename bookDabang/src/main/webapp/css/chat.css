@@ -48,6 +48,8 @@
 }
 .chatAlign-right{ clear:both; text-align:right; width:20%; margin:0 10px; }
 
+#chatTitle{ font-size:16pt; }
+
 .chatList-img{ width:700px; text-align:center; margin:100px auto; }
 .chatList-img img{ width:60%; height:60%; }
 
