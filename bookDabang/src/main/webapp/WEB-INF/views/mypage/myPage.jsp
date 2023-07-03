@@ -599,7 +599,7 @@ ul.search li {
 		<!-- [3. 회원 관리] 시작 -->
 		<div id="admin_member" class="tab_contents">
 			<div class="content-main container">
-				<br><h2><a href="myPage.do#admin_member">회원 관리</a></h2><br>
+				<br><h2><a href="myPage.do#admin_member">회원 목록</a></h2><br>
 				
 				<!-- 검색창 시작 : get방식 -->
 				<form id="search_form3" action="myPage.do#admin_member" method="get" class="d-flex">
@@ -637,6 +637,8 @@ ul.search li {
 							<th>이메일</th>
 							<th>계정 생성일</th>
 							<th>최근 로그인 날짜</th>
+							<th>회원 상태</th>
+							
 						</tr>
 						<c:forEach var="admin_member" items="${adminMemberList}"> 
 							<tr>
@@ -648,6 +650,11 @@ ul.search li {
 								<td>${admin_member.email}</td>
 								<td>${admin_member.reg_date}</td>
 								<td>${admin_member.latest_login}</td>
+								<td>
+								<c:if test="${admin_member.auth=='1'}"><p>일반회원</p></c:if>
+								<c:if test="${admin_member.auth=='9'}"><p>관리자</p></c:if>
+								<c:if test="${admin_member.auth=='0'}"><p>탈퇴회원</p></c:if>
+								</td>
 							</tr>
 						</c:forEach>
 					</table>
