@@ -50,7 +50,7 @@ width:100%px !important;
 }
 section {
  text-align:center;
-   	margin-left:10%;
+
 }
 
 header, nav, main, aside {
@@ -61,7 +61,7 @@ header, nav, main, aside {
 	margin:auto;
 	text-align:left;
 
-	margin-left:10;
+	margin-left:10px;
 }
 nav{
 	width:25%;
@@ -124,7 +124,7 @@ aside{
         width:100%;
         margin:0;
         text-align:center;
-        margin-left:5%;
+        margin-left:60px;
         margin-bottom:10%;
    
 }
