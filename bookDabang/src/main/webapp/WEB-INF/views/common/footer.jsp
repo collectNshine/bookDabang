@@ -25,8 +25,11 @@
      color:gray !important;
         width:200px;
     padding : 2rem;
-}
-#footer_footer div span{
+	}
+	#cscenter_box address span{
+ 	color:gray !important;
+	}
+	#footer_footer div span{
      color:gray !important;
     padding:0rem  5px 0rem 5px;
     font-style:normal !important;
@@ -55,7 +58,7 @@
                     <div style="color:grey !important;">ⓒ Bookdabang Communication. All Rights Reserved.</div>
                 </address>
             </div>
-            <div id="cscenter_box">
+            <div id="cscenter_box" style="color:grey !important;">
                 <h5>고객센터 1544-1544 (발신자 부담)</h5>
                 <address>
                     <span>서울시 강남구 역삼동 테헤란로</span>

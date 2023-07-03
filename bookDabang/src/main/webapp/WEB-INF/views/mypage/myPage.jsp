@@ -363,7 +363,7 @@ ul.search li {
 					<td><fmt:formatNumber value="${order.order_total}"/>원</td>
 					<td>${order.order_date}</td>
 					<td>${order.modify_date}</td>
-				</tr>
+				</tr>  
 				</c:forEach>
 			</table>
 			<div class="align-center">${userOrderpage}</div>
@@ -576,7 +576,7 @@ ul.search li {
 						<td><a href="${pageContext.request.contextPath}/order/adminModifyForm.do?order_num=${admin_order.order_num}">${admin_order.book_title}</a></td>
 						<td>${admin_order.id}</td>
 						<td>
-							<a href="${pageContext.request.contextPath}/order/userModifyForm.do?order_num=${admin_order.order_num}">
+							<a href="${pageContext.request.contextPath}/order/adminModifyForm.do?order_num=${admin_order.order_num}">
 								<c:if test="${admin_order.status == 1}"><b class="order-waiting">배송대기</b></c:if>
 								<c:if test="${admin_order.status == 2}"><b>배송준비중</b></c:if>
 								<c:if test="${admin_order.status == 3}"><b>배송중</b></c:if>
