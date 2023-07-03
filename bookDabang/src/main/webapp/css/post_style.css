@@ -6,8 +6,8 @@
 .tabWrap li{padding: 5px 10px; }
 .tabWrap li.on{background : #aaa}
 div#post-list{
-	width:420px;
-	height:540px;
+	width:370px;
+	height:538px;
 	/*border:1px solid red;*/
 	float:left;
 }
@@ -33,20 +33,20 @@ div#profile2{
 }
 .card-footer{
 	height: 63px;
-    width: 396px;
+    width: 345px;
     margin-left: -16px;
     margin-top: 30px;
 }
 .card-detail{
 	height:133px;
-	width:360px;
+	width:310px;
 	overflow:hidden;
 	text-overflow:ellipsis;
 	margin-top: 10px;
 }
 .card-title{
 	height:40px;
-	width:350px;
+	width:310px;
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis;

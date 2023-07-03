@@ -114,14 +114,14 @@
 		</p>
 		<hr size="1" noshade="noshade" width="100%">
 		<ul class="detail-sub">
-			<li style="margin-left: 1050px;">
+			<li style="margin-left: 650px;">
 				<%-- 좋아요 --%>
 				<%-- html은 속성태그 추가X (예외)'data-' 형태로만 추가 가능--%>
 				<img id="output_fav" data-num="${post.post_num}" src="${pageContext.request.contextPath}/images/fav01.png" width="50">
 				좋아요
 				<span id="output_fcount"></span>
 			</li>
-			<li style="margin-left: 1050px;">
+			<li style="margin-left: 750px;">
 				<br>
 				<%-- 로그인한 회원번호와 작성자 회원번호가 일치해야 수정/삭제 가능 --%>
 				<c:if test="${user_num == post.mem_num}">
