@@ -27,7 +27,10 @@
 
 .page-main{
 text-align:center;
+width:80% !important;
+margin:auto !important;
 }
+
 a{
  text-decoration: none;
  color:black;
@@ -49,6 +52,10 @@ a{
 .intro_btn{
 	display:flex;
 	justify-content:space-between;
+	width:10%;
+	margin-right:20%;
+	text-align:left;
+	margin-left:0;
 }
 .intro_btn_inner > div > img{
 	width:500px;
@@ -103,6 +110,8 @@ top:20px;
 .intro{
 display:flex;
 margin-top:5%;
+padding:0;
+margin-right:5%;
 }
 .intro2{
 display:flex;
@@ -110,11 +119,11 @@ margin-left:15%;
 margin-bottom:10%;
 }
 .introimage{
-	margin-top:10%;
-	margin-left:10%;
+	margin-top:10%;	
+	text-align:left;
 }
 .introimage2{
-	margin-left:8%;
+	margin-left:20%;
 	margin-top:5%;
 }
 .introimage > img{
@@ -136,6 +145,7 @@ margin-bottom:10%;
 }
 .introtext_2{
 	font-size:25px;
+
 }
 .logomessage{
 font-family: 'InkLipquid';
@@ -152,6 +162,9 @@ margin-bottom:8%;
 .bite1 .bite2 .bite3{
 display: flex;
 writing-mode: horizontal-tb;
+/* margin-right:50%;
+padding-right:10%; */
+
 }
 
 </style>
@@ -159,6 +172,7 @@ writing-mode: horizontal-tb;
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+
 	<!-- 내용 시작 -->
 	<div class="content-main">	
 	  			<!-- 이미지 표시 영역 -->
@@ -242,6 +256,7 @@ writing-mode: horizontal-tb;
 	
 	
 	<!-- 내용 끝 -->
+</div>
 </div>
 </body>
 </html>

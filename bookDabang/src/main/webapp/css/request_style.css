@@ -5,6 +5,8 @@
 /*----------공통*/
 .page-main{
 	clear:both!important;
+	width:100%;
+	margin:auto;
 }
 /*검색창*/
 .form-select{
