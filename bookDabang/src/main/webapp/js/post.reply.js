@@ -62,8 +62,8 @@ $(function(){
 					//문서 객체에 추가
 					$('#output').append(output);
 					
-					let re_num = '<input type="hidden" name="re_num" value="' + item.re_num +'">'
-					$('#delete_renum').text(re_num);
+					//let re_num = '<input type="hidden" name="re_num" value="' + item.re_num +'">'
+					//$('#delete_renum').text(re_num);
 				});
 				
 				//page button 처리
