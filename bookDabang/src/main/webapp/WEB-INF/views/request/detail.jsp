@@ -19,8 +19,8 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>	
 <div class="page-main">
 	
-
-		<h2 class="detailtitle">도서 신청</h2>
+<div class="detail">
+		<h2 class="detailtitle"><b>도서 신청</b></h2>
 		
 		<div class="detailmain">
 			<div class="detail_head1">
@@ -70,6 +70,7 @@
 			</ul>
 		</div>
 	 	</div>
+	 		 </div>
 		<div>
 	 	<div class="detail_button">
 	 		 	<!-- 좋아요 버튼-->
@@ -105,7 +106,8 @@
 			 	</script>
 			 	
 		 	</div>
-		 </div>
+	
+		</div>
 		</div>
 <jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 </div>
