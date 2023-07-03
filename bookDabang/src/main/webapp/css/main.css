@@ -61,7 +61,7 @@ header, nav, main, aside {
 	margin:auto;
 	text-align:left;
 
-	margin-left:10px;
+	margin-left:10%!important;
 }
 nav{
 	width:25%;
