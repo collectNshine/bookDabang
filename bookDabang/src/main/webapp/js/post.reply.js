@@ -36,7 +36,7 @@ $(function(){
 					}
 					output += '</span>';
 					//닉네임, 날짜
-					output += '<span class="name-date" style="float:left; margin-left:-10px;">';
+					output += '<span class="name-date" style="float:left; margin-left:15px;">';
 					output += '<div class="name">' + item.name + '</div>';
 					if(item.re_modifydate){ //값이 있으면 true, 없으면 false (javascript)
 						output += '<span class="modify-date">' + item.re_modifydate + ' 수정됨</span>';
