@@ -74,6 +74,23 @@ ul.search li {
     float: left;
     padding: 5px;
 }
+.readybtn{
+	background-color:white;
+	border:1px solid gray;
+	width:80px;
+	height:30px;
+	margin-left:25%;
+	margin-bottom:0;
+}
+.donebtn{
+	background-color:gray;
+	border:1px solid black;
+	width:80px;
+	height:30px;
+	margin-left:25%;
+	margin-bottom:0;
+	color:white;
+}
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
