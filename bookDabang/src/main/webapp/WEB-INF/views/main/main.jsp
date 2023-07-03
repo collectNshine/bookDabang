@@ -169,7 +169,7 @@
 	        	<ul class="list-photo">
 	        		<li style="text-align:left">
 	        			<c:set var="i" value="${i+1}"/>
-	        			<span class="ranking">${i}</span>
+	        			<span class="ranking">&nbsp;&nbsp;${i}</span>
 	        		</li>
 	        		<li>
 	        			<a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${book.bk_num}">
