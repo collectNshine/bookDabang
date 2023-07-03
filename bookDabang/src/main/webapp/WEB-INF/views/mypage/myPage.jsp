@@ -346,7 +346,7 @@ ul.search li {
 					<td><fmt:formatNumber value="${order.order_total}"/>원</td>
 					<td>${order.order_date}</td>
 					<td>${order.modify_date}</td>
-				</tr>
+				</tr>  
 				</c:forEach>
 			</table>
 			<div class="align-center">${userOrderpage}</div>
