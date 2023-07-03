@@ -1,6 +1,6 @@
 @charset "UTF-8";
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&family=Noto+Sans+KR:wght@300&display=swap');
-
+@import url('https://hangeul.pstatic.net/hangeul_static/css/NanumGarMaesGeur.css');
 
 /* 전체 레이아웃
 ------------------*/
@@ -56,13 +56,7 @@ a:hover{
 /* 공통 메시지
 ------------------*/
 .result-display{
-	width:400px;
-	height:200px;
-	margin:50px auto;
-	border:1px solid #000;
-	display:flex;
-	align-items:center;/*세로 정렬*/
-	justify-content:center;/*가로 정렬*/
+	border:none; width:80%; margin:2% 10%; text-align:center; font-family:'NanumGarMaesGeur'; font-size:16pt;
 }
 
 /* 공통 정렬
