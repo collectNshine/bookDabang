@@ -128,7 +128,7 @@ $(function(){
 					output += '</div>';
 					//닉네임, 날짜
 					output += '<div class="name-date">';
-					output += '<div class="name"><b>' + item.name + '</b></div>';
+					output += '<div class="name"><b>' + item.nickname + '</b></div>';
 					if(item.review_modifydate){ //값이 있으면 true, 없으면 false (javascript)
 						output += '<div class="modify-date">' + item.review_modifydate + ' 수정됨</div>';
 					}else{

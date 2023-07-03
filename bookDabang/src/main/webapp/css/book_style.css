@@ -3,9 +3,9 @@
 
 /*-------------[도서목록]-------------*/
 .list-main{
-	width:83%;
+	width:90%;
 	margin:0 auto;
-	padding:10px 20px;
+	padding:10px 0 10px 40px;
 	clear:both;
 }
 /*--검색창--*/
@@ -41,7 +41,7 @@
 	vertical-align:middle;
 	list-style:none;
 	float:right;
-	width:83%;
+	width:85%;
 }
 .list-photo{ /*썸네일 사진*/
 	float:left;
@@ -131,36 +131,36 @@ input.form-control{
 /*-------------[도서상세]-------------*/
 
 .detail-main{
-	width:70%;
+	width:80%;
 	margin:0 auto;
 	padding:10px 20px;
 	clear:both;
 }
 .item-image{
 	float:left;
-	margin:20px 20px 60px 20px;
+	margin:30px 20px 60px 20px;
 }
 #item_thumbnail{
 	border:solid 1px rgb(225,225,225);
 	box-shadow: 8px 7px 13px #d1cfcf; /*가로 세로 번짐정도 그림자색상*/	
 }
 .item-detail{
-	width:60%;
+	width:55%;
 	float:right;
 }
 #item_cart{
 	width:100%;
 }
 #item_cart div{
-	margin:10pt 0;
+	margin:6pt 0;
 }
 .detail-title{
-	font-size:30pt;
+	font-size:23pt;
 	font-weight:bold;
 }
 .detail-author-publisher{
 	color:grey;
-	font-size:14pt;
+	font-size:12pt;
 }
 #output_mark{
 	cursor:pointer;
@@ -173,13 +173,13 @@ input.form-control{
 	margin-right:30px;
 }
 #book_price{
-	font-size:20pt;
+	font-size:16pt;
 	margin-left:50px;
 	color:rgb(56, 76, 255);
 	font-weight:bold;
 }
 #ship_price{
-	font-size:15pt;
+	font-size:14pt;
 	margin-left:35px;
 }
 #order_quantity{
@@ -205,10 +205,10 @@ hr{
 	color:red;
 }
 .btn-primary{
-	width:800px;
-	height:55px;
+	width:600px;
+	height:45px;
 	margin:30px auto;
-	font-size:20pt;
+	font-size:16pt;
 }
 .breadcrumb{
 	font-size:16pt;
@@ -218,7 +218,7 @@ hr{
   --bs-tooltip-bg: var(--bs-primary);
 }
 .review-content textarea{
-	width:1150px;
+	width:940px;
 }
 
 /* 댓글 */
