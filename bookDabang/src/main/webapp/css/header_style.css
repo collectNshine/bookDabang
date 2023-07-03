@@ -22,6 +22,7 @@
     background-color: white;
     border-bottom: 1px solid #999;
     position :relative;
+    margin-top:30px;
 }
 .header__logo{
     font: bold 40px 'arial';
@@ -44,6 +45,8 @@
     color:white;
      font-size: 20px ;
     font-family: 'SUITE-Regular';
+    cursor:pointer;
+    margin:0 30px;
 }
 .header__gnb ul li a {
     display : block;
@@ -78,7 +81,7 @@ font-size: 14px;
     background-color: #EAD075 !important;;
     width: 100px; 
     height: 100px;
-    transform: translate(-150px,0px);
+    transform: translate(-278px,0px);
     border-radius: 0 0 15px 15px;
 }
 #menu1 ul li{
