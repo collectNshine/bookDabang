@@ -40,7 +40,7 @@ a:hover{
 /* 페이지 레이아웃
 ------------------*/
 .page-main{
-	margin:0 auto;
+	margin:0 auto;  
 	min-height:650px;
 }
 .content-main{
