@@ -32,7 +32,6 @@
 <div class="page-main">
 <jsp:include page="/WEB-INF/views/common/header.jsp"/>
 <div class="content-main">
-	<hr size="1" noshade width="100%">
 	<h2><a href="list.do">도서 신청</a></h2>
 	<!-- 검색창 시작 -->
 	<form id="search_form" action="list.do" method="get" class="d-flex" role="search">

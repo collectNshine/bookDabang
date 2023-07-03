@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MY페이지</title>
+<title>MY페이지 | 책다방</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage_style.css">
@@ -83,8 +83,7 @@ ul.search li {
 <body> 
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<hr size="1" noshade="noshade" width="100%" style="border: solid 2px #black;">
-		<h2 class="align-center">마이페이지</h2>
+		<h2 class="align-center" style="margin-top:40px;">마이페이지</h2>
 	<hr size="1" noshade="noshade" width="100%" style="border: solid 2px #black;">
 	
 	<div class="mypage-div" style="width:100%;">
@@ -515,7 +514,7 @@ ul.search li {
 	<!-- [2. 주문 관리] 시작 -->
 		<div id="admin_order" class="tab_contents">
 			<div class="content-main container">
-				<h2><a href="myPage.do#admin_order">주문 관리</a></h2>
+				<br><h2><a href="myPage.do#admin_order">주문 관리</a></h2><br>
 					<!-- 검색창 시작 : get방식 -->
 					<form id="search_form2" action="myPage.do#admin_order" method="get" class="d-flex">
 						<select name="adminOrderkeyfield" class="form-select">
@@ -583,7 +582,7 @@ ul.search li {
 		<!-- [3. 회원 관리] 시작 -->
 		<div id="admin_member" class="tab_contents">
 			<div class="content-main container">
-				<h2><a href="myPage.do#admin_member">회원 관리</a></h2>
+				<br><h2><a href="myPage.do#admin_member">회원 관리</a></h2><br>
 				
 				<!-- 검색창 시작 : get방식 -->
 				<form id="search_form3" action="myPage.do#admin_member" method="get" class="d-flex">
@@ -757,7 +756,7 @@ ul.search li {
 		<!-- [5. 도서 신청] 시작 -->
 		<div id="admin_request" class="tab_contents">
 			<div class="content-main container">
-			<h2><a href="myPage.do#admin_request">도서신청</a></h2>
+			<br><h2><a href="myPage.do#admin_request">도서신청</a></h2><br>
 			<form id="search_form5" action="myPage.do#admin_request" method="get" class="d-flex">
 				<select name="req_Keyfield" class="form-select">
 					<option value="1" <c:if test="${param.req_keyfield==1}">selected</c:if>>제목</option>

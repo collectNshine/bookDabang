@@ -116,6 +116,12 @@ public class ReviewVO {
 	public void setClicked_dislike(String clicked_dislike) {
 		this.clicked_dislike = clicked_dislike;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	
 	
 }

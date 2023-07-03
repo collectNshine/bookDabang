@@ -847,6 +847,7 @@ public class BookDAO {
 					ReviewVO review = new ReviewVO();
 					review.setMem_num(rs.getInt("mem_num"));
 					review.setName(rs.getString("name"));
+					review.setNickname(rs.getString("nickname"));
 					review.setPhoto(rs.getString("photo"));
 					
 					review.setReview_num(rs.getInt("review_num"));

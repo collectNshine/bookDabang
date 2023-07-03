@@ -111,7 +111,7 @@
 	</nav>
 
 		<div class="item-image">
-			<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" width="500" id="item_thumbnail">
+			<img src="${pageContext.request.contextPath}/upload/${book.thumbnail}" width="420" id="item_thumbnail">
 		</div>
 		<div class="item-detail">
 			<form id="item_cart">
@@ -147,19 +147,19 @@
 				<hr size="3" width="100%">
 				
 				<div class="detail-price">
-				<span style="font-size:20pt;"><b>가격</b></span>
+				<span style="font-size:14pt;"><b>가격</b></span>
 				<span id="book_price"><fmt:formatNumber value="${book.price}"/>원</span>
 				</div>
 				
 				<div class="detail-ship-price">
-				<span style="font-size:20pt;"><b>배송비</b></span> <span id="ship_price">3,000원</span> <span style="color:grey;">(30,000원 이상 구매 시 무료 배송)</span>
+				<span style="font-size:14pt;"><b>배송비</b></span> <span id="ship_price">3,000원</span> <span style="color:grey;">(30,000원 이상 구매 시 무료 배송)</span>
 				</div>
 				
 				<hr size="1" width="100%">
 				
 				<div class="detail-stock">
 				<c:if test="${book.stock > 0}">
-				<span style="font-size:20pt;"><b>수량</b></span>
+				<span style="font-size:14pt;"><b>수량</b></span>
 				<input type="number" name="order_quantity" min="1" max="${book.stock}" 
 					   autocomplete="off" id="order_quantity" value="1">
 				</c:if>
@@ -184,7 +184,7 @@
 		<hr size="1" noshade="noshade" width="100%">
 		
 		<div class="detail-content">
-			<h2><b>책 소개</b></h2><br>
+			<h3><b>책 소개</b></h3><br>
 			${book.content}
 		</div>
 		
@@ -194,7 +194,7 @@
 		<!-- 댓글 시작 -->
 		<div id="review_div">
 			<div class="detail-content">
-				<h2><b>한 줄 기록</b></h2><br>
+				<h3><b>한 줄 기록 </b>(${review_count})</h3><br>
 			</div>
 			<form id="review_form">
 				<input type="hidden" name="bk_num" value="${book.bk_num}" id="bk_num">
@@ -220,7 +220,7 @@
 				</div>
 				</div>
 				
-				<div class="review-letter-count" id="re_first" style="width:91%;">50/50</div>
+				<div class="review-letter-count" id="re_first" style="width:90%;">50/50</div>
 				
 			</form>
 			<hr size="1" noshade="noshade" width="100%">
