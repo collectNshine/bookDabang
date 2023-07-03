@@ -34,6 +34,7 @@
 
 h2{
 	font-weight:bold;
+	margin-top:40px;
 
 }
 
@@ -151,7 +152,9 @@ td{
 	margin-right:10%;
 	
 }
-
+.detail{
+		margin-left:10%;
+}
 .detailmain{
 	
 /* 	background-color:#26454a; */
@@ -164,6 +167,7 @@ td{
 	border-bottom:1px black solid;
 	margin-top:30px;	
 	margin-botttom:10%;
+
 	
 }
 
