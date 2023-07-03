@@ -832,8 +832,8 @@ public class BookDAO {
 						  					+ "LEFT OUTER JOIN (SELECT 'clicked' clicked_like, review_num FROM review_like WHERE mem_num=?) c USING(review_num) "
 						  					+ "LEFT OUTER JOIN (SELECT COUNT(*) cnt_dislike, review_num FROM review_dislike GROUP BY review_num) l USING(review_num) "
 						  					+ "LEFT OUTER JOIN (SELECT 'clicked' clicked_dislike, review_num FROM review_dislike WHERE mem_num=?) c USING(review_num) "
-						  		+ "ORDER BY review_num DESC)a) "
-					+ "WHERE bk_num=? AND rnum>=? AND rnum<=?";
+						  		+ "WHERE bk_num=? ORDER BY review_num DESC)a) "
+					+ "WHERE rnum>=? AND rnum<=?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, mem_num);
 				pstmt.setInt(2, mem_num);
