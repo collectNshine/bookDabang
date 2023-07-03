@@ -46,7 +46,7 @@
 					<input type="button" value="생성" class="btn btn-outline-success" id="make_chat">
 				</div>
 				<c:if test="${count == 0}">
-				<div class="result-display">
+				<div class="chat-empty">
 					<span>표시할 담소가 없습니다.</span>
 				</div>
 				</c:if>
