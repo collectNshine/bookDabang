@@ -63,7 +63,7 @@
 		<div class="mainmain">
 		<nav>
 			<div class="recommendpost" >
-        	<div class="title">으뜸서평</div>
+        	<div class="title1">으뜸서평</div>
         	<div id="post_list">
         	<c:forEach var="post" items="${postlist}">
         		<div class="card mb-3" style="max-width: 540px;">
@@ -85,7 +85,7 @@
         </nav>
 
         <main>
-        	<div class="container2" style="margin-bottom=10;">
+        	<div class="container2" style="margin-top:100px;">
 	  		<div id="carsouselExample2" class="carousel slide" data-bs-ride="carousel">
 	  			<!-- indicator -->
 	  			<div class="carousel-indicators">
@@ -119,8 +119,8 @@
 		  		
 		  	</div>	
 	        </div>
-	        
-	        <div class="container2">
+	       <%--  
+	       <div class="container2">
 	  		<div id="carsouselExample2" class="carousel slide" data-bs-ride="carousel">
 	  			<!-- indicator -->
 	  			<div class="carousel-indicators">
@@ -132,13 +132,13 @@
 	  			<!-- 이미지 표시 영역 -->
 	  			<div class="carousel-inner">
 					<div class="carousel-item active">
+						<img src="${pageContext.request.contextPath}/upload/main3.png" class="d-block w-100">
+					</div>
+					<div class="carousel-item">
 						<img src="${pageContext.request.contextPath}/upload/main.png" class="d-block w-100">
 					</div>
 					<div class="carousel-item">
 						<img src="${pageContext.request.contextPath}/upload/main2.png" class="d-block w-100">
-					</div>
-					<div class="carousel-item">
-						<img src="${pageContext.request.contextPath}/upload/main3.png" class="d-block w-100">
 					</div> 
 	  			</div>
 	  			
@@ -153,15 +153,15 @@
 	  			</button>
 		  		
 		  	</div>	
-	        </div>
+	        </div>  --%>
 	       </main>	
         
         <aside>
         <div class="recommendbook">
         	<!-- <p><b>추천도서</b></p> -->
-        	<div class="title">
+        	<div class="title2">
         		<%-- <img src="${pageContext.request.contextPath}/upload/green.png" width="100%" height="100"> --%>
-        		<div class="title">으뜸도서</div>
+        		<div class="title2">으뜸도서</div>
         	</div>
         	<div id="book_list">
         	<c:forEach var="book" items="${booklist}">
@@ -177,10 +177,10 @@
 	        			</a>
 	        		</li>
 	        	</ul>
-	        	<ul  class="list-text" style="text-align:center;">
+	        	<ul  class="list-text">
 	        		<li >
-	        			<div class="list-author-publisher">
-	        				<b>${book.author}</b>/${book.publisher}
+	        			<div class="list-author-publisher" style="vertical-align:center">
+	        				<b>${book.author}</b><br>${book.publisher}
 	        			</div>
 	        		</li>
 	        	</ul>
@@ -196,7 +196,7 @@
        
        
         	<div class="bestseller">
-        	<div class="title"  style="margin-right:5%;">주인장<br> 추천</div>
+        	<div class="title2"  style="margin-right:5%;">주인장<br> 추천</div>
         	<c:forEach var="book" items="${book_list}">
         			<div id="seller_list" class="card" style="width: 18rem; margin-right:5%;"> 
 				        <a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${book.bk_num}">
