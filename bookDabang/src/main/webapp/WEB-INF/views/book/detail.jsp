@@ -137,7 +137,7 @@
 				</div>
 				
 				<div style="float:left;">
-				<a href="#review_div"><img src="${pageContext.request.contextPath}/images/review.png" width="27">&nbsp;&nbsp;(${review_count})</a>
+				<a href="#review_div"><img src="${pageContext.request.contextPath}/images/reply.png" width="27">&nbsp;&nbsp;(${review_count})</a>
 				</div>
 				
 				<div style="clear:both;">
