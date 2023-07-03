@@ -34,8 +34,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
 	<div class="content-main">
-	<hr size="1" noshade width="100%">
-		<h2>서평 쓰기</h2>
+		<h2 style="margin-top:20px;">서평 쓰기</h2>
 		<br><hr><br>
 		<form id="update_form" action="update.do" method="post" enctype="multipart/form-data" style="width:1024px; height:1500px;">
 		<input type="hidden" name="post_num" value="${post.post_num}">
