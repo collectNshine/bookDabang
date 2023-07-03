@@ -533,7 +533,7 @@ ul.search li {
 			<div class="content-main container">
 				<br><h2><a href="myPage.do#admin_order">주문 관리</a></h2><br>
 					<!-- 검색창 시작 : get방식 -->
-					<form id="search_form2" action="myPage.do#admin_order" method="get" class="d-flex">
+					<form id="search_form2" action="myPage.do#admin_order" method="get" class="d-flex"> 
 						<select name="adminOrderkeyfield" class="form-select" style="width:60%;">
 							<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>주문상태</option>
 							<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>회원ID</option>
