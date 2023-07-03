@@ -20,7 +20,7 @@
 <div class="page-main">
 	
 <div class="detail">
-		<h2 class="detailtitle"><b>도서 신청</b></h2>
+		<h2 class="detailtitle"><b>도서 신청</h2>
 		
 		<div class="detailmain">
 			<div class="detail_head1">
@@ -78,10 +78,10 @@
 			 	<c:forEach var="request" items="${list}">
 			 	<c:choose>
 				 	<c:when test="${request.clicked == 'clicked'}">
-						 <img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/upload/fav02.png" width="50"> 	
+						 <img class="output-fav" data-num="${request.req_num}" src="../upload/fav02.png" width="50"> 	
 					</c:when>
 					<c:when test = "${empty request.clicked}"> 
-						<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/uppload/fav01.png" width="50"> 
+						<img class="output-fav" data-num="${request.req_num}" src="../upload/fav01.png" width="50"> 
 					</c:when>
 				</c:choose>
 				<br><span class="output-fcount">${request.cnt}</span>
