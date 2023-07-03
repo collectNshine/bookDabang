@@ -16,7 +16,6 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
 	<div class="content-main">
-	<hr size="1" noshade width="100%">
 	<!-- [2. 한줄기록] 시작 -->
 	<div id="reviewfeed" class="tab_contents on">
 		<div class="content-main container">
