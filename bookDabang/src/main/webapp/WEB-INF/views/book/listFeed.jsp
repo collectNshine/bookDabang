@@ -21,7 +21,7 @@
 	<div id="reviewfeed" class="tab_contents on">
 		<div class="content-main container">
 		<br>
-		<h2 style="margin-left: -310px;"><a href="listFeed.do"><b>한 줄 기록 모음집</b></a></h2>
+		<h2 style="margin-left: -100px;"><a href="listFeed.do"><b>한 줄 기록 모음집</b></a></h2>
 		<br>
 		<br>
 		<c:if test="${count == 0}">
@@ -31,7 +31,7 @@
 		</c:if>
 		
 		<c:if test="${count > 0}">
-		<div class="row row-cols-1 row-cols-lg-4 g-4" style="width: 2000px; margin-left: -320px;">
+		<div class="row row-cols-1 row-cols-md-3 g-4" style="width: 1500px; margin-left: -100px;">
 		<c:forEach var="review" items="${list}">
   			<div id="review-list" class="col">
     			<div class="card h-100">

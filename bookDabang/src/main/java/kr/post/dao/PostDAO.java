@@ -81,8 +81,8 @@ import kr.util.StringUtil;
 					PostVO post = new PostVO();
 					post.setPost_num(rs.getInt("post_num"));
 					//서평 제목과 내용에 말줄임표 사용
-					post.setPost_title(StringUtil.shortWords(30, rs.getString("post_title")));
-					post.setPost_content(StringUtil.shortWords(85, rs.getString("post_content")));
+					post.setPost_title(StringUtil.shortWords(25, rs.getString("post_title")));
+					post.setPost_content(StringUtil.shortWords(75, rs.getString("post_content")));
 					//날짜 -> 1분전, 1시간전, 1일전 형식의 문자열로 변환
 					post.setPost_date(DurationFromNow.getTimeDiffLabel(rs.getString("post_date")));
 					if(rs.getString("post_modifydate") != null) {
