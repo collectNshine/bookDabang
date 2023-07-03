@@ -8,15 +8,23 @@
 }
 
 .page-main{
-	width:80%;
-	margin-left:10%;
+	width:100% !important;
+	margin:auto !important;
+	/* margin-left:10%; */
 }
-.title{
+.title2{
 	font-size:20px;
 	font-weight:800;
 	font-family:sans-serif;
-	text-align:left;
+	text-align:center;
 	margin-bottom:5%;
+}
+.title1{
+	font-size:20px;
+	font-weight:800;
+	font-family:sans-serif;
+	text-align:center;
+	margin-bottom:75px;
 }
 
 .content-main{
@@ -78,10 +86,12 @@ aside{
 }
 .list-text{
 	padding-left:0;
+	padding-top:80px;
 	margin-right:5%;
 	margin-bottom:0;
 	margin-top:0;
-		
+	vertical-align: center;
+	text-align:center;	
 }
 .ranking{
       		border: 1px solid #e3e3e3;
@@ -91,6 +101,7 @@ aside{
       		display:inline-block;
       		width:30px;
       		height:30px;
+      		margin-bottom:10px;
       	}
       	
 .container2{
