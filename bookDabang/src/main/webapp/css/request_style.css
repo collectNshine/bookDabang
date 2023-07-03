@@ -248,7 +248,7 @@ form{
 }
 #modify_form{
 	margin-left:0;
-	margin-top:50px; 
+	margin-top:0; 
 	text-align:center;
 }
 
@@ -265,7 +265,7 @@ form{
 }
 #write_form{
 	margin-left:0;
-	margin-top:50px; 
+	margin-top:80px; 
 	text-align:center;
 }
 .form-control{
