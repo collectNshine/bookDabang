@@ -127,6 +127,7 @@
 				<c:if test="${user_num == post.mem_num}">
 				<input class="modify-btn btn btn-outline-primary" type="button" value="수정" onclick="location.href='updateForm.do?post_num=${post.post_num}'">
 				<input class="delete-btn btn btn-outline-danger" type="button" value="삭제" id="delete_btn">
+				<div id="delete_renum"></div>
 				<script type="text/javascript">
 				 let delete_btn = document.getElementById('delete_btn');
 				 //이벤트 연결

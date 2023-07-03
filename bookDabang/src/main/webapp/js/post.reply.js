@@ -61,6 +61,9 @@ $(function(){
 					
 					//문서 객체에 추가
 					$('#output').append(output);
+					
+					let re_num = '<input type="hidden" name="re_num" value="' + item.re_num +'">'
+					$('#delete_renum').text(re_num);
 				});
 				
 				//page button 처리
@@ -261,7 +264,7 @@ $(function(){
 				}
 			},
 			error:function(){
-				alert('네트워크 오류 발생'); //해당 alert창 뜰 시 이클립스의 콘솔 확인
+				//alert('네트워크 오류 발생'); //해당 alert창 뜰 시 이클립스의 콘솔 확인
 			}
 		});
 	});
