@@ -196,7 +196,7 @@
        
        
         	<div class="bestseller">
-        	<div class="title2"  style="margin-right:5%;">주인장<br> 추천</div>
+        	<div class="title2" style="margin-right:5%;" >주인장<br> 추천</div>
         	<c:forEach var="book" items="${book_list}">
         			<div id="seller_list" class="card" style="width: 18rem; margin-right:5%;"> 
 				        <a href="${pageContext.request.contextPath}/book/detail.do?bk_num=${book.bk_num}">
