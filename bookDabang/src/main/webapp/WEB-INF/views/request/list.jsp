@@ -99,10 +99,10 @@
 						</c:if>
 					<td>
 						<c:if test="${request.clicked != 'clicked'}">
-							<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav01.png" width="50"> 
+							<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/upload/fav01.png" width="50"> 
 						</c:if>
 						<c:if test="${request.clicked == 'clicked'}">
-							<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/images/fav02.png" width="50">
+							<img class="output-fav" data-num="${request.req_num}" src="${pageContext.request.contextPath}/upload/fav02.png" width="50">
 						</c:if>
 						<span class="output-fcount">${request.cnt}</span>	
 					</td>							
