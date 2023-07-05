@@ -495,6 +495,7 @@ import kr.util.StringUtil;
 					reply.setMem_num(rs.getInt("mem_num"));
 					reply.setId(rs.getString("id"));
 					reply.setName(rs.getString("nickname"));
+					reply.setPhoto(rs.getString("photo"));
 					
 					list.add(reply);
 				}
