@@ -496,6 +496,8 @@ import kr.util.StringUtil;
 					reply.setId(rs.getString("id"));
 					reply.setName(rs.getString("nickname"));
 					reply.setPhoto(rs.getString("photo"));
+					reply.setRe_ip(rs.getString("re_ip"));
+					reply.setRe_modifydate(rs.getString("re_modifydate"));
 					
 					list.add(reply);
 				}
