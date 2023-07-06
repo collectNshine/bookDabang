@@ -125,8 +125,8 @@
 				<br>
 				<%-- 로그인한 회원번호와 작성자 회원번호가 일치해야 수정/삭제 가능 --%>
 				<c:if test="${user_num == post.mem_num}">
-				<input class="modify-btn btn btn-outline-primary" type="button" value="수정" onclick="location.href='updateForm.do?post_num=${post.post_num}'">
-				<input class="delete-btn btn btn-outline-danger" type="button" value="삭제" id="delete_btn">
+				<input class="btn btn-outline-primary" type="button" value="수정" onclick="location.href='updateForm.do?post_num=${post.post_num}'">
+				<input class="btn btn-outline-danger" type="button" value="삭제" id="delete_btn">
 				<div id="delete_renum"></div>
 				<script type="text/javascript">
 				 let delete_btn = document.getElementById('delete_btn');
