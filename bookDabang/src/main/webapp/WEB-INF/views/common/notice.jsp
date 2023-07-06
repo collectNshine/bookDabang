@@ -13,7 +13,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<!-- 내용 시작 -->
 	<div class="content-main">
-		<h2>안내</h2>
+		<h2 style="margin-top:20px;">안내</h2>
 		<div class="result-display">
 			<div class="align-center">
 				<c:if test="${!empty accessMsg}">
